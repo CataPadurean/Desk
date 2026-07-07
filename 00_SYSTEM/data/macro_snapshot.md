@@ -1,38 +1,54 @@
-# MACRO SNAPSHOT — 2026-07-05 (teza W28)
+# MACRO SNAPSHOT — 2026-07-07
 
-*Sursă: web sweep (sandbox fără rețea, 403 la CFTC/FRED). COT = raportul CFTC as-of 30.06 (publicat luni 6.07, întârziat de 4 Iulie), sintetizat de Saxo/Ole Hansen. Randamente: TradingEconomics / BoC / ECB. Pentru precizie completă rulează local `python3 00_SYSTEM/scripts/update_data.py`.*
+## COT (as of 2026-06-30) — Leveraged Funds (TFF) / Managed Money (GOLD)
 
-## COT — Leveraged Funds / speculatori (as-of 2026-06-30)
+| Activ | Net | Δ 1w | % din OI | Percentilă 52w | Extremă |
+|---|---|---|---|---|---|
+| EUR | -32,644 | -17,234 | -4.1% | 2 | SHORT |
+| GBP | +16,273 | +8,706 | 5.5% | 19 | — |
+| CAD | -88,101 | -4,724 | -25.4% | 2 | SHORT |
+| JPY | -115,400 | -18,308 | -26.3% | 2 | SHORT |
+| CHF | -9,666 | +4,150 | -9.1% | 10 | SHORT |
+| AUD | +31,777 | -7,334 | 14.7% | 50 | — |
+| NZD | -25,285 | -2,463 | -22.9% | 4 | SHORT |
+| DXY | -5,580 | -228 | -10.3% | 48 | — |
+| GOLD | +120,091 | +4,696 | 32.5% | 58 | — |
 
-| Activ | Poziție netă | Δ vs. săpt. anterioară | Extremă |
-|---|---|---|---|
-| USD (agregat) | +$39.8 mld | ↑ a 8-a săpt. la rând | **LONG — maxim de ≥10 ani** |
-| EUR | ~neutru | vânzări agresive EUR (din ușor short → flat) | — |
-| JPY | −155k contracte (~$12 mld) | ↑ short | **SHORT — maxim de 2 ani** |
-| NZD | −63k contracte (~$3.6 mld) | ↑ short | **SHORT — RECORD (squeeze)** |
-| CAD | ~−$10.7 mld | short menținut | extremă short (pctl ~2) |
-| GBP | ~−$8.5 mld | short menținut | pctl ~8 (aproape minim 52w) |
-| CHF | ~−$6.1 mld | short menținut | extremă short |
-| SOFR (rate) | −3.12 mln contracte (~$750 mld) | ↑ | **RECORD — pariu „higher-for-longer”, vulnerabil la short-covering** |
-| GOLD (MM) | +181k (as-of 23.06, pctl 42) | bottom-fishing în metale prețioase | — |
+## Randamente 2Y/10Y (Δ = ~5 ședințe)
 
-**Citire de desk:** fast money e la extrem dublu — USD long de deceniu + SOFR short record. E momentum, dar și muniție de reversal: dacă narativa post-NFP (date slabe) ține și minutele FOMC nu surprind hawkish, poziționarea aglomerată amplifică o mișcare ANTI-USD. NZD short record + JPY short 2 ani = profil clasic de squeeze pe surpriză hawkish la banca lor centrală (RBNZ 8.07). Extremele ≤10 se semnalează, nu se confirmă (regula 2).
+| | 2Y | Δ2Y | 10Y | Δ10Y |
+|---|---|---|---|---|
+| US | 4.19 | +0.09 | 4.55 | +0.17 |
+| EUR | 2.485 | +0.008 | 3.016 | +0.093 |
+| GBP | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']) |
+| CAD | 2.72 | -0.03 | 3.42 | +0.03 |
+| JPY | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']) |
+| CHF | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']) |
+| AUD | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']) |
+| NZD | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']) |
 
-## Randamente & spread-uri 2Y (principal)
+## Spread-uri 2Y/10Y vs USD (criteriul 4)
 
-| | 2Y | 10Y | Data |
-|---|---|---|---|
-| US | ~4.14 | 4.50 (↑ maxim 2 săpt., pe revenirea petrolului) | 2Y=2.07 · 10Y=6.07 |
-| EUR (Bund) | ~2.55 | ~2.95 | est. |
-| CAD | 2.76 | ~3.38 | 3.07 |
+| Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
+|---|---|---|---|---|
+| EURUSD | -1.705 | -0.082 | -1.534 | -0.077 |
+| GBPUSD | — | — | — | — |
+| AUDUSD | — | — | — | — |
+| NZDUSD | — | — | — | — |
+| USDJPY | — | — | — | — |
+| USDCHF | — | — | — | — |
+| USDCAD | 1.47 | +0.12 | 1.13 | +0.14 |
 
-| Pereche | Spread 2Y | Direcție | Susține? |
-|---|---|---|---|
-| EURUSD | ~−1.60 | încă contra EUR, ușoară restrângere | mixt |
-| USDCAD | ~+1.38 (Δ ușor sub +1.43) | încă PRO-USD | **CONTRA short USDCAD** (onest) |
+*Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
 
-*10Y US a urcat la 4.50% pe 6.07 (revenire petrol → temeri de inflație) — primul semn că repricing-ul dovish post-NFP nu e liniar.*
+## Sezonalitate — luna curentă (Jul, medie 10 ani)
 
-## Regim de piață (overnight 6.07)
-
-Dow **record 53.056**, S&P +0.7%, Nasdaq +1.1% (rally semiconductoare), VIX **16.06**. Petrol: WTI ~$68.6 / Brent ~$72.4 (revenire de la minimul de 4 luni, dar OPEC+ a ridicat cotele în weekend → ofertă mai mare). DXY sub 101, Gold peste $4.100. Verdict: **RISK-ON**, dar randamentele urcă și poziționarea USD e la extrem — nu un risk-on „curat”.
+| Instrument | Medie % | Hit rate |
+|---|---|---|
+| EURUSD | +0.47% | 73% |
+| GBPUSD | +0.4% | 73% |
+| AUDUSD | +0.47% | 64% |
+| NZDUSD | +0.24% | 73% |
+| USDJPY | -0.91% | 27% |
+| USDCHF | -0.8% | 27% |
+| USDCAD | -0.36% | 45% |

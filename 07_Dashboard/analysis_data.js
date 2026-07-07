@@ -120,19 +120,18 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-03",
-  "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD) — via publicreporting.cftc.gov",
+  "updated": "2026-07-07",
+  "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -15410,
-    "delta_1w": -6484,
-    "pct_oi": -2.0,
-    "percentile_52w": 4,
+    "as_of": "2026-06-30",
+    "net": -32644,
+    "delta_1w": -17234,
+    "pct_oi": -4.1,
+    "percentile_52w": 2,
     "extreme": "SHORT",
     "history_13w": [
-     3947,
      882,
      25382,
      20317,
@@ -144,19 +143,19 @@ window.ANALYSIS_DATA = {
      12027,
      -17388,
      -8926,
-     -15410
+     -15410,
+     -32644
     ]
    },
    "GBP": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": 7567,
-    "delta_1w": -9269,
-    "pct_oi": 2.5,
-    "percentile_52w": 8,
-    "extreme": "SHORT",
+    "as_of": "2026-06-30",
+    "net": 16273,
+    "delta_1w": 8706,
+    "pct_oi": 5.5,
+    "percentile_52w": 19,
+    "extreme": null,
     "history_13w": [
-     29932,
      26533,
      22331,
      29137,
@@ -168,19 +167,19 @@ window.ANALYSIS_DATA = {
      27353,
      22312,
      16836,
-     7567
+     7567,
+     16273
     ]
    },
    "CAD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -83377,
-    "delta_1w": -18324,
-    "pct_oi": -24.3,
+    "as_of": "2026-06-30",
+    "net": -88101,
+    "delta_1w": -4724,
+    "pct_oi": -25.4,
     "percentile_52w": 2,
     "extreme": "SHORT",
     "history_13w": [
-     -42910,
      -44144,
      -61404,
      -64215,
@@ -192,19 +191,19 @@ window.ANALYSIS_DATA = {
      -44601,
      -58623,
      -65053,
-     -83377
+     -83377,
+     -88101
     ]
    },
    "JPY": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -97092,
-    "delta_1w": -320,
-    "pct_oi": -22.5,
-    "percentile_52w": 6,
+    "as_of": "2026-06-30",
+    "net": -115400,
+    "delta_1w": -18308,
+    "pct_oi": -26.3,
+    "percentile_52w": 2,
     "extreme": "SHORT",
     "history_13w": [
-     -46182,
      -51110,
      -54445,
      -68497,
@@ -216,19 +215,19 @@ window.ANALYSIS_DATA = {
      -88063,
      -99844,
      -96772,
-     -97092
+     -97092,
+     -115400
     ]
    },
    "CHF": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -13816,
-    "delta_1w": -1450,
-    "pct_oi": -12.7,
-    "percentile_52w": 2,
+    "as_of": "2026-06-30",
+    "net": -9666,
+    "delta_1w": 4150,
+    "pct_oi": -9.1,
+    "percentile_52w": 10,
     "extreme": "SHORT",
     "history_13w": [
-     1490,
      -97,
      -3421,
      -3766,
@@ -240,19 +239,19 @@ window.ANALYSIS_DATA = {
      -9949,
      -10785,
      -12366,
-     -13816
+     -13816,
+     -9666
     ]
    },
    "AUD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": 39111,
-    "delta_1w": -2427,
-    "pct_oi": 18.2,
-    "percentile_52w": 56,
+    "as_of": "2026-06-30",
+    "net": 31777,
+    "delta_1w": -7334,
+    "pct_oi": 14.7,
+    "percentile_52w": 50,
     "extreme": null,
     "history_13w": [
-     52569,
      45901,
      43642,
      48325,
@@ -264,19 +263,19 @@ window.ANALYSIS_DATA = {
      58800,
      42292,
      41538,
-     39111
+     39111,
+     31777
     ]
    },
    "NZD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -22822,
-    "delta_1w": -635,
-    "pct_oi": -22.1,
+    "as_of": "2026-06-30",
+    "net": -25285,
+    "delta_1w": -2463,
+    "pct_oi": -22.9,
     "percentile_52w": 4,
     "extreme": "SHORT",
     "history_13w": [
-     -17798,
      -15825,
      -17091,
      -18062,
@@ -288,19 +287,19 @@ window.ANALYSIS_DATA = {
      -27725,
      -22254,
      -22187,
-     -22822
+     -22822,
+     -25285
     ]
    },
    "DXY": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-06-23",
-    "net": -5352,
-    "delta_1w": -3482,
-    "pct_oi": -9.7,
+    "as_of": "2026-06-30",
+    "net": -5580,
+    "delta_1w": -228,
+    "pct_oi": -10.3,
     "percentile_52w": 48,
     "extreme": null,
     "history_13w": [
-     -8832,
      -8641,
      -3095,
      -2409,
@@ -312,19 +311,19 @@ window.ANALYSIS_DATA = {
      -11112,
      -13656,
      -1870,
-     -5352
+     -5352,
+     -5580
     ]
    },
    "GOLD": {
     "category": "Managed Money (Disagg)",
-    "as_of": "2026-06-23",
-    "net": 115395,
-    "delta_1w": 1674,
-    "pct_oi": 32.8,
-    "percentile_52w": 54,
+    "as_of": "2026-06-30",
+    "net": 120091,
+    "delta_1w": 4696,
+    "pct_oi": 32.5,
+    "percentile_52w": 58,
     "extreme": null,
     "history_13w": [
-     92814,
      90032,
      95141,
      92976,
@@ -336,82 +335,87 @@ window.ANALYSIS_DATA = {
      112179,
      105863,
      113721,
-     115395
+     115395,
+     120091
     ]
    }
   }
  },
  "yields": {
-  "updated": "2026-07-02",
+  "updated": "2026-07-07",
   "status": {
    "US": "ok",
    "EUR": "ok",
    "CAD": "ok",
-   "GBP": "INDISPONIBIL: Stooq 2ygb.b: răspuns gol"
+   "GBP": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']",
+   "JPY": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']",
+   "CHF": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']",
+   "AUD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']",
+   "NZD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']"
   },
   "levels": {
    "US": {
     "2Y": {
-     "date": "2026-07-01",
-     "value": 4.17,
-     "delta_1w": 0.06
+     "date": "2026-07-07",
+     "value": 4.19,
+     "delta_1w": 0.09
     },
     "10Y": {
-     "date": "2026-07-01",
-     "value": 4.48,
-     "delta_1w": 0.07
+     "date": "2026-07-07",
+     "value": 4.55,
+     "delta_1w": 0.17
     }
    },
    "EUR": {
     "2Y": {
-     "date": "2026-07-01",
-     "value": 2.474,
-     "delta_1w": -0.012
+     "date": "2026-07-06",
+     "value": 2.485,
+     "delta_1w": 0.008
     },
     "10Y": {
-     "date": "2026-07-01",
-     "value": 2.963,
-     "delta_1w": 0.025
+     "date": "2026-07-06",
+     "value": 3.016,
+     "delta_1w": 0.093
     }
    },
    "CAD": {
     "2Y": {
-     "date": "2026-06-30",
-     "value": 2.74,
-     "delta_1w": -0.04
+     "date": "2026-07-06",
+     "value": 2.72,
+     "delta_1w": -0.03
     },
     "10Y": {
-     "date": "2026-06-30",
-     "value": 3.38,
-     "delta_1w": -0.06
+     "date": "2026-07-06",
+     "value": 3.42,
+     "delta_1w": 0.03
     }
    }
   },
   "spreads": {
    "EURUSD": {
     "2Y": {
-     "value": -1.696,
-     "delta_1w": -0.072
+     "value": -1.705,
+     "delta_1w": -0.082
     },
     "10Y": {
-     "value": -1.517,
-     "delta_1w": -0.045
+     "value": -1.534,
+     "delta_1w": -0.077
     }
    },
    "USDCAD": {
     "2Y": {
-     "value": 1.43,
-     "delta_1w": 0.1
+     "value": 1.47,
+     "delta_1w": 0.12
     },
     "10Y": {
-     "value": 1.1,
-     "delta_1w": 0.13
+     "value": 1.13,
+     "delta_1w": 0.14
     }
    }
   }
  },
  "seasonality": {
-  "updated": "2026-07-04",
+  "updated": "2026-07-07",
   "years": 10,
   "instruments": {
    "EURUSD": {
@@ -441,14 +445,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": 0.11,
+     "avg": 0.12,
      "hit": 55,
      "n": 11
     },
     "7": {
-     "avg": 0.48,
-     "hit": 70,
-     "n": 10
+     "avg": 0.47,
+     "hit": 73,
+     "n": 11
     },
     "8": {
      "avg": 0.02,
@@ -503,14 +507,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": -1.13,
+     "avg": -1.1,
      "hit": 45,
      "n": 11
     },
     "7": {
-     "avg": 0.36,
-     "hit": 70,
-     "n": 10
+     "avg": 0.4,
+     "hit": 73,
+     "n": 11
     },
     "8": {
      "avg": -0.58,
@@ -565,14 +569,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": 0.32,
+     "avg": 0.33,
      "hit": 64,
      "n": 11
     },
     "7": {
-     "avg": 0.49,
-     "hit": 60,
-     "n": 10
+     "avg": 0.47,
+     "hit": 64,
+     "n": 11
     },
     "8": {
      "avg": -0.5,
@@ -627,14 +631,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": 0.18,
+     "avg": 0.22,
      "hit": 55,
      "n": 11
     },
     "7": {
-     "avg": 0.21,
-     "hit": 70,
-     "n": 10
+     "avg": 0.24,
+     "hit": 73,
+     "n": 11
     },
     "8": {
      "avg": -1.04,
@@ -689,14 +693,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": 0.85,
+     "avg": 0.9,
      "hit": 64,
      "n": 11
     },
     "7": {
-     "avg": -0.9,
-     "hit": 30,
-     "n": 10
+     "avg": -0.91,
+     "hit": 27,
+     "n": 11
     },
     "8": {
      "avg": -0.06,
@@ -756,9 +760,9 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "7": {
-     "avg": -0.81,
-     "hit": 30,
-     "n": 10
+     "avg": -0.8,
+     "hit": 27,
+     "n": 11
     },
     "8": {
      "avg": -0.18,
@@ -813,14 +817,14 @@ window.ANALYSIS_DATA = {
      "n": 11
     },
     "6": {
-     "avg": -0.34,
+     "avg": -0.32,
      "hit": 45,
      "n": 11
     },
     "7": {
-     "avg": -0.38,
-     "hit": 50,
-     "n": 10
+     "avg": -0.36,
+     "hit": 45,
+     "n": 11
     },
     "8": {
      "avg": 0.31,
@@ -863,39 +867,39 @@ window.ANALYSIS_DATA = {
    "name": "Jul",
    "instruments": {
     "EURUSD": {
-     "avg": 0.48,
-     "hit": 70,
-     "n": 10
+     "avg": 0.47,
+     "hit": 73,
+     "n": 11
     },
     "GBPUSD": {
-     "avg": 0.36,
-     "hit": 70,
-     "n": 10
+     "avg": 0.4,
+     "hit": 73,
+     "n": 11
     },
     "AUDUSD": {
-     "avg": 0.49,
-     "hit": 60,
-     "n": 10
+     "avg": 0.47,
+     "hit": 64,
+     "n": 11
     },
     "NZDUSD": {
-     "avg": 0.21,
-     "hit": 70,
-     "n": 10
+     "avg": 0.24,
+     "hit": 73,
+     "n": 11
     },
     "USDJPY": {
-     "avg": -0.9,
-     "hit": 30,
-     "n": 10
+     "avg": -0.91,
+     "hit": 27,
+     "n": 11
     },
     "USDCHF": {
-     "avg": -0.81,
-     "hit": 30,
-     "n": 10
+     "avg": -0.8,
+     "hit": 27,
+     "n": 11
     },
     "USDCAD": {
-     "avg": -0.38,
-     "hit": 50,
-     "n": 10
+     "avg": -0.36,
+     "hit": 45,
+     "n": 11
     }
    }
   }

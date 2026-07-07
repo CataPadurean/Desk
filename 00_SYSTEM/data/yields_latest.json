@@ -1,68 +1,72 @@
 {
- "updated": "2026-07-02",
+ "updated": "2026-07-07",
  "status": {
   "US": "ok",
   "EUR": "ok",
   "CAD": "ok",
-  "GBP": "INDISPONIBIL: Stooq 2ygb.b: r\u0103spuns gol"
+  "GBP": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']",
+  "JPY": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']",
+  "CHF": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']",
+  "AUD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']",
+  "NZD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']"
  },
  "levels": {
   "US": {
    "2Y": {
-    "date": "2026-07-01",
-    "value": 4.17,
-    "delta_1w": 0.06
+    "date": "2026-07-07",
+    "value": 4.19,
+    "delta_1w": 0.09
    },
    "10Y": {
-    "date": "2026-07-01",
-    "value": 4.48,
-    "delta_1w": 0.07
+    "date": "2026-07-07",
+    "value": 4.55,
+    "delta_1w": 0.17
    }
   },
   "EUR": {
    "2Y": {
-    "date": "2026-07-01",
-    "value": 2.474,
-    "delta_1w": -0.012
+    "date": "2026-07-06",
+    "value": 2.485,
+    "delta_1w": 0.008
    },
    "10Y": {
-    "date": "2026-07-01",
-    "value": 2.963,
-    "delta_1w": 0.025
+    "date": "2026-07-06",
+    "value": 3.016,
+    "delta_1w": 0.093
    }
   },
   "CAD": {
    "2Y": {
-    "date": "2026-06-30",
-    "value": 2.74,
-    "delta_1w": -0.04
+    "date": "2026-07-06",
+    "value": 2.72,
+    "delta_1w": -0.03
    },
    "10Y": {
-    "date": "2026-06-30",
-    "value": 3.38,
-    "delta_1w": -0.06
+    "date": "2026-07-06",
+    "value": 3.42,
+    "delta_1w": 0.03
    }
   }
  },
  "spreads": {
   "EURUSD": {
    "2Y": {
-    "value": -1.696,
-    "delta_1w": -0.072
+    "value": -1.705,
+    "delta_1w": -0.082
    },
    "10Y": {
-    "value": -1.517,
-    "delta_1w": -0.045
+    "value": -1.534,
+    "delta_1w": -0.077
    }
   },
   "USDCAD": {
    "2Y": {
-    "value": 1.43,
-    "delta_1w": 0.1
+    "value": 1.47,
+    "delta_1w": 0.12
    },
    "10Y": {
-    "value": 1.1,
-    "delta_1w": 0.13
+    "value": 1.13,
+    "delta_1w": 0.14
    }
   }
  }
