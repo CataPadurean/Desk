@@ -347,11 +347,11 @@ window.ANALYSIS_DATA = {
    "US": "ok",
    "EUR": "ok",
    "CAD": "ok",
-   "GBP": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']",
-   "JPY": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']",
-   "CHF": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']",
-   "AUD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']",
-   "NZD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']"
+   "GBP": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
+   "JPY": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
+   "CHF": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
+   "AUD": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
+   "NZD": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y"
   },
   "levels": {
    "US": {

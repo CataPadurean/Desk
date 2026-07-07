@@ -20,12 +20,12 @@
 |---|---|---|---|---|
 | US | 4.19 | +0.09 | 4.55 | +0.17 |
 | EUR | 2.485 | +0.008 | 3.016 | +0.093 |
-| GBP | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']) |
+| GBP | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
 | CAD | 2.72 | -0.03 | 3.42 | +0.03 |
-| JPY | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']) |
-| CHF | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']) |
-| AUD | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']) |
-| NZD | — | — | — | — (INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']) |
+| JPY | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
+| CHF | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
+| AUD | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
+| NZD | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
 
 ## Spread-uri 2Y/10Y vs USD (criteriul 4)
 

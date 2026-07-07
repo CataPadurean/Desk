@@ -4,11 +4,11 @@
   "US": "ok",
   "EUR": "ok",
   "CAD": "ok",
-  "GBP": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yuky.b', '2ygby.b', '2ygb.b']",
-  "JPY": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yjpy.b', '2yjp.b']",
-  "CHF": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ychy.b', '2ych.b']",
-  "AUD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2yauy.b', '2yau.b']",
-  "NZD": "INDISPONIBIL: Stooq: niciun simbol valid din ['2ynzy.b', '2ynz.b']"
+  "GBP": "INDISPONIBIL: Stooq: f\u0103r\u0103 2Y \u0219i f\u0103r\u0103 10Y",
+  "JPY": "INDISPONIBIL: Stooq: f\u0103r\u0103 2Y \u0219i f\u0103r\u0103 10Y",
+  "CHF": "INDISPONIBIL: Stooq: f\u0103r\u0103 2Y \u0219i f\u0103r\u0103 10Y",
+  "AUD": "INDISPONIBIL: Stooq: f\u0103r\u0103 2Y \u0219i f\u0103r\u0103 10Y",
+  "NZD": "INDISPONIBIL: Stooq: f\u0103r\u0103 2Y \u0219i f\u0103r\u0103 10Y"
  },
  "levels": {
   "US": {
