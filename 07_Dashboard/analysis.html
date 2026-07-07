@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DESK — Analysis</title>
+<style>
+  :root {
+    --bg: #0d1421; --card: #141e30; --card2: #18243a; --line: #223350;
+    --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
+    --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
+    font-size: 15px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
+  .top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+  .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
+  .top .upd { color: var(--dim); font-size: .8rem; }
+  .nav { margin-left: auto; display: flex; gap: 8px; }
+  .nav a { color: var(--acc); font-size: .82rem; text-decoration: none; border: 1px solid var(--line); padding: 6px 14px; border-radius: 8px; }
+  .regime { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--acc); border-radius: 10px; padding: 12px 16px; font-size: .86rem; line-height: 1.5; margin-bottom: 14px; }
+  .regime .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .regime b { color: var(--acc); letter-spacing: 1px; font-size: .72rem; }
+  .regime .scomment { color: var(--dim); font-size: .8rem; margin-top: 8px; border-top: 1px dashed var(--line); padding-top: 8px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th { text-align: left; color: var(--dim); font-weight: 600; font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
+  .badge { font-size: .7rem; padding: 2px 9px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+  .b-long { background: rgba(46,204,113,.15); color: var(--pos); }
+  .b-short { background: rgba(227,93,93,.15); color: var(--neg); }
+  .b-flat { background: rgba(125,140,163,.15); color: var(--dim); }
+  .b-watch { background: rgba(232,179,57,.15); color: var(--warn); }
+  .b-ext { background: rgba(232,179,57,.2); color: var(--warn); }
+  .ptrack { background: #0d1626; border: 1px solid var(--line); border-radius: 4px; height: 10px; width: 100px; position: relative; }
+  .pfill { height: 100%; border-radius: 3px; background: var(--acc); }
+  .small { font-size: .72rem; color: var(--dim); }
+  .comment { font-size: .8rem; line-height: 1.55; color: var(--txt); background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+  .comment b { color: var(--acc); font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 980px) { .grid2 { grid-template-columns: 1fr; } }
+  .seas { border-collapse: collapse; width: 100%; font-size: .7rem; table-layout: fixed; }
+  .seas th, .seas td { border: 1px solid var(--line); text-align: center; padding: 5px 2px; }
+  .seas th:first-child, .seas td:first-child { width: 64px; font-weight: 700; }
+  .seas .cur { outline: 2px solid var(--acc); outline-offset: -2px; }
+  .seas .hit { display: block; font-size: .6rem; color: var(--dim); }
+  .curmon { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .cm { background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: .78rem; }
+  .cm b { display: block; font-size: .7rem; color: var(--dim); font-weight: 600; }
+  .ccy { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .ccy .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .ccy .hd h3 { font-size: 1.05rem; letter-spacing: 1px; color: #fff; }
+  .ccy .tag { font-size: .62rem; letter-spacing: 1px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--line); color: var(--dim); }
+  .ccy .blk { margin-bottom: 9px; }
+  .ccy .blk b { color: var(--acc); font-size: .66rem; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .ccy .blk p { font-size: .78rem; line-height: 1.55; }
+  .empty { color: var(--dim); font-size: .85rem; padding: 14px 0; text-align: center; }
+  .foot { color: var(--dim); font-size: .72rem; margin-top: 14px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>DESK · ANALYSIS</h1>
+    <span class="upd" id="upd"></span>
+    <div class="nav"><a href="dashboard.html">← Desk</a><a href="journal.html">Journal →</a></div>
+  </div>
+
+  <div class="regime">
+    <div class="hd"><b>MARKET REGIME &amp; SENTIMENT (criteriul 6)</b><span id="sentbadge"></span></div>
+    <span id="regime"></span>
+    <div class="scomment" id="sentcomment"></div>
+  </div>
+
+  <div class="card">
+    <h2>COT — Leveraged Funds (TFF) · Managed Money pe Gold (criteriul 5)</h2>
+    <div id="cot"></div>
+    <div class="comment" id="cotcomment" style="display:none"><b>Comentariu de desk</b><span></span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card" style="margin-bottom:0"><h2>Yields 2Y (principal) / 10Y (secundar)</h2><div id="ylev"></div></div>
+    <div class="card" style="margin-bottom:0"><h2>2Y Spreads vs USD (criteriul 4)</h2><div id="yspr"></div></div>
+  </div>
+  <div class="comment" id="ycomment" style="display:none; margin-bottom:14px"><b>Comentariu de desk</b><span></span></div>
+
+  <div class="card">
+    <h2>Seasonality — 10y Monthly Average (criteriul 7)</h2>
+    <div class="curmon" id="curmon"></div>
+    <div id="seas"></div>
+  </div>
+
+  <h2 style="font-size:.78rem;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase;margin:4px 0 12px">Currency Deep-Dive — Central Banks · Bănci comerciale · Indicatori (criteriile 1-3)</h2>
+  <div class="grid2" id="ccys" style="margin-bottom:14px"></div>
+
+  <div class="foot">
+    Surse: TMV Weekly Central Banks Outlook + rapoartele procesate (01→02) · CFTC TFF/Disaggregated via publicreporting.cftc.gov (marți→vineri 22:30 RO) · FRED/ECB/BoC/Stooq (randamente & sezonalitate).<br>
+    Refresh date: <code>python3 00_SYSTEM/scripts/update_data.py</code> sau comenzile sistemului. Direcțiile sunt ipoteze condiționate — execuția doar prin filtrul tehnic + checklist (playbook). Sezonalitatea = vânt din spate/față, NU criteriu principal.
+  </div>
+
+<script src="analysis_data.js"></script>
+<script>
+(function () {
+  const D = window.ANALYSIS_DATA || {};
+  document.getElementById('upd').textContent = D.generated ? 'data generated: ' + D.generated + (D.regime_date ? ' · analiza: ' + D.regime_date : '') : '';
+
+  const cls = x => x > 0 ? 'pos' : (x < 0 ? 'neg' : '');
+  const fmtn = x => (x === null || x === undefined || isNaN(x)) ? '—' : x.toLocaleString('en-US');
+  const sign = x => (x > 0 ? '+' : '') + fmtn(x);
+
+  // ——— Regime + Sentiment ———
+  document.getElementById('regime').textContent = D.regime || 'Se populează la „procesează inbox".';
+  const s = D.sentiment || {};
+  const scls = /ON/i.test(s.label || '') ? 'b-long' : (/OFF/i.test(s.label || '') ? 'b-short' : 'b-flat');
+  document.getElementById('sentbadge').innerHTML = s.label ? `<span class="badge ${scls}">${s.label}</span>` : '';
+  document.getElementById('sentcomment').textContent = s.comment || '';
+
+  // ——— COT ———
+  const spark = h => {
+    if (!h || h.length < 2) return '';
+    const W = 90, H = 24, min = Math.min(...h), max = Math.max(...h), span = (max - min) || 1;
+    const pts = h.map((v, i) => `${(i * W / (h.length - 1)).toFixed(1)},${(H - 2 - (v - min) * (H - 4) / span).toFixed(1)}`).join(' ');
+    const up = h[h.length - 1] >= h[0];
+    return `<svg width="${W}" height="${H}"><polyline points="${pts}" fill="none" stroke="${up ? '#2ecc71' : '#e35d5d'}" stroke-width="1.5"/></svg>`;
+  };
+  const cm = (D.cot || {}).markets || {};
+  const order = ['EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'DXY', 'GOLD'];
+  document.getElementById('cot').innerHTML = Object.keys(cm).length
+    ? `<div class="small" style="margin-bottom:8px">as of ${(cm[order.find(k => cm[k])] || {}).as_of || ''} · net, contracte · sursa: ${(D.cot || {}).source || 'CFTC'}</div>
+       <table><tr><th>Asset</th><th>Categorie</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extremă</th><th>13 wk</th></tr>` +
+      order.filter(k => cm[k]).map(k => { const m = cm[k]; return `<tr>
+        <td><b>${k}</b></td>
+        <td class="small">${m.category || ''}</td>
+        <td class="${cls(m.net)}">${sign(m.net)}</td>
+        <td class="${cls(m.delta_1w)}">${sign(m.delta_1w)}</td>
+        <td>${m.pct_oi === null ? '—' : m.pct_oi + '%'}</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="ptrack"><div class="pfill" style="width:${m.percentile_52w}%;background:${m.percentile_52w >= 90 || m.percentile_52w <= 10 ? 'var(--warn)' : 'var(--acc)'}"></div></div><span>${m.percentile_52w}</span></div></td>
+        <td>${m.extreme ? `<span class="badge b-ext">${m.extreme}</span>` : '<span class="dim">—</span>'}</td>
+        <td>${spark(m.history_13w)}</td>
+      </tr>`; }).join('') + '</table>'
+    : '<div class="empty">Rulează update_data.py pentru date COT.</div>';
+  const cc = (D.comments || {}).cot;
+  if (cc) { const el = document.getElementById('cotcomment'); el.style.display = 'block'; el.querySelector('span').textContent = cc; }
+
+  // ——— Yields ———
+  const yl = (D.yields || {}).levels || {};
+  const yst = (D.yields || {}).status || {};
+  const YORD = ['US', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  document.getElementById('ylev').innerHTML = Object.keys(yl).length
+    ? `<table><tr><th></th><th>2Y</th><th>Δ 2Y</th><th class="dim">10Y</th><th class="dim">Δ 10Y</th></tr>` +
+      YORD.map(k => { const v = yl[k];
+        if (!v || !v['2Y']) return `<tr><td><b>${k}</b></td><td class="dim" colspan="4">n/a — la prima rulare locală</td></tr>`;
+        const t = v['10Y'] || null;
+        return `<tr><td><b>${k}</b></td>
+          <td><b>${v['2Y'].value}</b></td><td class="${cls(v['2Y'].delta_1w)}">${sign(v['2Y'].delta_1w)}</td>
+          <td class="dim">${t ? t.value : '—'}</td><td class="dim">${t ? sign(t.delta_1w) : '—'}</td></tr>`; }).join('') + '</table>'
+    : '<div class="empty">Rulează update_data.py.</div>';
+
+  const sp = (D.yields || {}).spreads || {};
+  const PORD = ['EURUSD', 'GBPUSD', 'AUDUSD', 'NZDUSD', 'USDJPY', 'USDCHF', 'USDCAD'];
+  document.getElementById('yspr').innerHTML = Object.keys(sp).length
+    ? `<table><tr><th>Pair</th><th>2Y Spread</th><th>Δ</th><th class="dim">10Y</th><th class="dim">Δ</th></tr>` +
+      PORD.map(p => { const v = sp[p];
+        if (!v || !v['2Y']) return `<tr><td><b>${p}</b></td><td class="dim" colspan="4">n/a — la prima rulare locală</td></tr>`;
+        const t = v['10Y'] || null;
+        return `<tr><td><b>${p}</b></td>
+        <td><b>${v['2Y'].value}</b></td><td class="${cls(v['2Y'].delta_1w)}">${sign(v['2Y'].delta_1w)}</td>
+        <td class="dim">${t ? t.value : '—'}</td><td class="dim">${t ? sign(t.delta_1w) : '—'}</td></tr>`; }).join('') +
+      '</table><div class="small" style="margin-top:8px">Spread = prima valută − a doua; în creștere = suport pentru prima valută din pereche.</div>'
+    : '<div class="empty">Rulează update_data.py.</div>';
+  const yc = (D.comments || {}).yields;
+  if (yc) { const el = document.getElementById('ycomment'); el.style.display = 'block'; el.querySelector('span').textContent = yc; }
+
+  // ——— Seasonality ———
+  const se = (D.seasonality || {}).instruments || {};
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const cur = new Date().getMonth() + 1;
+  const SORD = ['EURUSD', 'GBPUSD', 'AUDUSD', 'NZDUSD', 'USDJPY', 'USDCHF', 'USDCAD'];
+  const skeys = SORD.filter(k => se[k]).concat(Object.keys(se).filter(k => !SORD.includes(k)));
+  // luna curentă — media de change % per instrument
+  const cmon = (D.seasonality || {}).current_month;
+  const cd = cmon && cmon.instruments ? cmon.instruments : (Object.keys(se).length ? Object.fromEntries(skeys.map(k => [k, se[k][String(cur)]]).filter(x => x[1])) : {});
+  document.getElementById('curmon').innerHTML = Object.keys(cd).length
+    ? `<div class="cm" style="border-color:var(--acc)"><b>Luna curentă</b>${MON[cur - 1]} — medie 10 ani</div>` +
+      skeys.filter(k => cd[k]).map(k => { const v = cd[k];
+        return `<div class="cm"><b>${k}</b><span class="${cls(v.avg)}">${v.avg > 0 ? '+' : ''}${v.avg}%</span> <span class="small">hit ${v.hit}%</span></div>`; }).join('')
+    : '';
+  const cell = m => {
+    if (!m) return '<td class="dim">—</td>';
+    const a = m.avg, alpha = Math.min(Math.abs(a) / 1.5, 1) * 0.55 + 0.08;
+    const bg = a >= 0 ? `rgba(46,204,113,${alpha})` : `rgba(227,93,93,${alpha})`;
+    return `<td style="background:${bg}" title="medie ${a}% · hit ${m.hit}% · n=${m.n}">${a > 0 ? '+' : ''}${a}<span class="hit">${m.hit}%</span></td>`;
+  };
+  document.getElementById('seas').innerHTML = Object.keys(se).length
+    ? `<table class="seas"><tr><th></th>${MON.map((n, i) => `<th class="${i + 1 === cur ? 'cur' : ''}">${n}</th>`).join('')}</tr>` +
+      skeys.map(k => `<tr><td>${k}</td>${MON.map((_, i) => {
+        const c = cell(se[k][String(i + 1)]);
+        return i + 1 === cur ? c.replace('<td', '<td class="cur"') : c;
+      }).join('')}</tr>`).join('') +
+      `</table><div class="small" style="margin-top:8px">Celulă: randament mediu % (jos: % luni pozitive). Luna curentă conturată. Vânt din spate/față, NU criteriu principal (playbook §3.1.5).</div>`
+    : '<div class="empty">Rulează <code>python3 00_SYSTEM/scripts/update_data.py</code> pe Mac — sezonalitatea (7 perechi FX, FRED) se scrie în seasonality.json la prima rulare.</div>';
+
+  // ——— Currency Deep-Dive ———
+  const cy = D.currencies || {};
+  const CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  const bbadge = b => {
+    if (!b) return '';
+    const su = String(b).toUpperCase();
+    const c = su.startsWith('BULLISH') ? 'b-long' : su.startsWith('BEARISH') ? 'b-short'
+      : (su.includes('BULLISH') || su.includes('BEARISH')) ? 'b-watch' : 'b-flat';
+    return `<span class="badge ${c}">${b}</span>`;
+  };
+  document.getElementById('ccys').innerHTML = Object.keys(cy).length
+    ? CORD.filter(k => cy[k]).map(k => { const c = cy[k]; return `<div class="ccy">
+        <div class="hd"><h3>${k}</h3><span class="tag">${c.core ? 'CORE' : 'SECUNDAR'}</span>${bbadge(c.bias)}</div>
+        <div class="blk"><b>Central Bank Outlook (criteriul 1)</b><p>${c.cb || '—'}</p></div>
+        <div class="blk" style="margin-bottom:0"><b>Bănci comerciale &amp; indicatori (criteriile 2-3)</b><p>${c.banks || '—'}</p></div>
+      </div>`; }).join('')
+    : '<div class="empty" style="grid-column:1/-1">Secțiunile per monedă se populează la „procesează inbox" / „generează teza".</div>';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{
+ "updated": "2026-07-02",
+ "status": {
+  "US": "ok",
+  "EUR": "ok",
+  "CAD": "ok",
+  "GBP": "INDISPONIBIL: Stooq 2ygb.b: r\u0103spuns gol"
+ },
+ "levels": {
+  "US": {
+   "2Y": {
+    "date": "2026-07-01",
+    "value": 4.17,
+    "delta_1w": 0.06
+   },
+   "10Y": {
+    "date": "2026-07-01",
+    "value": 4.48,
+    "delta_1w": 0.07
+   }
+  },
+  "EUR": {
+   "2Y": {
+    "date": "2026-07-01",
+    "value": 2.474,
+    "delta_1w": -0.012
+   },
+   "10Y": {
+    "date": "2026-07-01",
+    "value": 2.963,
+    "delta_1w": 0.025
+   }
+  },
+  "CAD": {
+   "2Y": {
+    "date": "2026-06-30",
+    "value": 2.74,
+    "delta_1w": -0.04
+   },
+   "10Y": {
+    "date": "2026-06-30",
+    "value": 3.38,
+    "delta_1w": -0.06
+   }
+  }
+ },
+ "spreads": {
+  "EURUSD": {
+   "2Y": {
+    "value": -1.696,
+    "delta_1w": -0.072
+   },
+   "10Y": {
+    "value": -1.517,
+    "delta_1w": -0.045
+   }
+  },
+  "USDCAD": {
+   "2Y": {
+    "value": 1.43,
+    "delta_1w": 0.1
+   },
+   "10Y": {
+    "value": 1.1,
+    "delta_1w": 0.13
+   }
+  }
+ }
+}

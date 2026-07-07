@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DESK — Cătălin</title>
+<style>
+  :root {
+    --bg: #0d1421; --card: #141e30; --card2: #18243a; --line: #223350;
+    --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
+    --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
+    font-size: 15px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
+  .top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
+  .top .wk { color: var(--acc); font-weight: 600; }
+  .top .upd { color: var(--dim); font-size: .8rem; }
+  .nav { margin-left: auto; display: flex; gap: 8px; }
+  .nav a { color: var(--acc); font-size: .82rem; text-decoration: none; border: 1px solid var(--line); padding: 6px 14px; border-radius: 8px; }
+  .chips { display: flex; gap: 8px; margin: 10px 0 14px; flex-wrap: wrap; }
+  .chip { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .78rem; color: var(--dim); }
+  .chip b { color: var(--txt); font-weight: 600; }
+  .regime { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--acc); border-radius: 10px; padding: 12px 16px; font-size: .86rem; line-height: 1.5; margin-bottom: 14px; }
+  .regime .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .regime b { color: var(--acc); letter-spacing: 1px; font-size: .72rem; }
+  .badge { font-size: .7rem; padding: 2px 9px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+  .b-long { background: rgba(46,204,113,.15); color: var(--pos); }
+  .b-short { background: rgba(227,93,93,.15); color: var(--neg); }
+  .b-flat { background: rgba(125,140,163,.15); color: var(--dim); }
+  .b-watch { background: rgba(232,179,57,.15); color: var(--warn); }
+  .regime .snote { color: var(--dim); font-size: .78rem; }
+  .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .sum { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; }
+  .sum .k { font-size: .68rem; letter-spacing: 1px; color: var(--acc); text-transform: uppercase; font-weight: 700; margin-bottom: 5px; }
+  .sum .v { font-size: .78rem; line-height: 1.5; color: var(--txt); }
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 14px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+  .empty { color: var(--dim); font-size: .85rem; padding: 14px 0; text-align: center; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th { text-align: left; color: var(--dim); font-weight: 600; font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .dim { color: var(--dim); } .small { font-size: .74rem; color: var(--dim); }
+  .thesis { background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .thesis .h { display: flex; gap: 10px; align-items: center; font-weight: 700; }
+  .thesis .score { margin-left: auto; color: var(--acc); font-size: .8rem; font-weight: 600; }
+  .thesis .inv { color: var(--dim); font-size: .78rem; margin-top: 5px; }
+  .foot { color: var(--dim); font-size: .72rem; margin-top: 16px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>DESK · CĂTĂLIN</h1>
+    <span class="wk" id="wk"></span>
+    <span class="upd" id="upd"></span>
+    <div class="nav"><a href="analysis.html">Analysis →</a><a href="journal.html">Journal →</a></div>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="regime">
+    <div class="hd"><b>MARKET REGIME</b><span id="sentbadge"></span></div>
+    <span id="regime"></span>
+    <div class="snote" id="sentnote"></div>
+  </div>
+
+  <div class="sumgrid" id="sums"></div>
+
+  <div class="card"><h2>Teze active (Weekly Macro Note — scor min. 5/7)</h2><div id="theses"></div></div>
+
+  <div class="card"><h2>Posibile trade-uri — FX · Strategia A (multi-day, 1-5 zile)</h2><div id="tfx"></div></div>
+  <div class="card"><h2>Posibile trade-uri — Intraday · Strategia B (Gold + US30, sesiunea NY)</h2><div id="tin"></div></div>
+
+  <div class="foot">
+    Ipoteze condiționate, NU ordine de execuție — intrarea doar prin filtrul tehnic propriu + checklist (playbook). „STAI" e o poziție validă.<br>
+    Limite (playbook §2.1): risc 0,5% standard / 1% max · zi −2% stop · săptămână −4% stop · 2 SL consecutive = kill-switch · max 3 trade-uri/zi intraday.<br>
+    Datele se regenerează la fiecare comandă a sistemului. Nu edita data.js manual.
+  </div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  const D = window.DESK_DATA || {};
+  document.getElementById('wk').textContent = D.week || '';
+  document.getElementById('upd').textContent = D.updated ? 'actualizat: ' + D.updated : '';
+  document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
+    `<span class="chip"><b>${a.name}</b> · ${a.phase}</span>`).join('') || '<span class="chip">niciun cont configurat</span>';
+
+  // regim + sentiment
+  document.getElementById('regime').textContent = D.regime || 'Se populează la „procesează inbox".';
+  const s = D.sentiment || {};
+  const scls = /ON/i.test(s.label || '') ? 'b-long' : (/OFF/i.test(s.label || '') ? 'b-short' : 'b-flat');
+  document.getElementById('sentbadge').innerHTML = s.label ? `<span class="badge ${scls}">${s.label}</span>` : '';
+  document.getElementById('sentnote').textContent = s.note || '';
+
+  // rezumate pe criterii
+  document.getElementById('sums').innerHTML = (D.summaries || []).map(x =>
+    `<div class="sum"><div class="k">${x.k}</div><div class="v">${x.v}</div></div>`).join('') ||
+    '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
+
+  // teze
+  document.getElementById('theses').innerHTML = (D.theses || []).length
+    ? D.theses.map(t => `<div class="thesis">
+        <div class="h">${t.pair}
+          <span class="badge ${String(t.dir).toLowerCase() === 'long' ? 'b-long' : 'b-short'}">${t.dir}</span>
+          <span class="dim" style="font-size:.75rem">${t.horizon || ''}</span>
+          <span class="score">${t.score}/7</span>
+        </div>
+        <div class="inv">Invalidare: ${t.invalidation}</div>
+      </div>`).join('')
+    : '<div class="empty">Nicio teză activă. Se populează duminica („generează teza săptămânală").</div>';
+
+  // trade-uri posibile
+  const dbadge = d => {
+    const su = String(d).toUpperCase();
+    const c = su.startsWith('LONG') ? 'b-long' : su.startsWith('SHORT') ? 'b-short' : su.startsWith('WATCH') ? 'b-watch' : 'b-flat';
+    return `<span class="badge ${c}">${d}</span>`;
+  };
+  const ttable = list => list && list.length
+    ? `<table><tr><th>Instr.</th><th>Direcție</th><th>Conf.</th><th>Raționament</th><th>Condiție de activare</th><th>Invalidare</th></tr>` +
+      list.map(t => `<tr>
+        <td><b>${t.instrument}</b></td><td>${dbadge(t.dir)}</td><td>${t.conf}</td>
+        <td class="small">${t.rationale}</td><td class="small">${t.activation}</td><td class="small">${t.invalidation}</td>
+      </tr>`).join('') + '</table>'
+    : '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
+  document.getElementById('tfx').innerHTML = ttable(D.trades_fx);
+  document.getElementById('tin').innerHTML = ttable(D.trades_intraday);
+})();
+</script>
+</body>
+</html>

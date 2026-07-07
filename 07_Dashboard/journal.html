@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DESK — Journal</title>
+<style>
+  :root {
+    --bg: #0d1421; --card: #141e30; --card2: #18243a; --line: #223350;
+    --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
+    --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
+    font-size: 15px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
+  .top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
+  .top .wk { color: var(--acc); font-weight: 600; }
+  .top .upd { color: var(--dim); font-size: .8rem; }
+  .nav { margin-left: auto; display: flex; gap: 8px; }
+  .nav a { color: var(--acc); font-size: .82rem; text-decoration: none; border: 1px solid var(--line); padding: 6px 14px; border-radius: 8px; }
+  .chips { display: flex; gap: 8px; margin: 10px 0 18px; flex-wrap: wrap; }
+  .chip { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .78rem; color: var(--dim); }
+  .chip b { color: var(--txt); font-weight: 600; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+  .tab { background: var(--card); border: 1px solid var(--line); color: var(--dim); padding: 7px 18px; border-radius: 8px; cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .5px; }
+  .tab.on { background: var(--acc); color: #08101d; border-color: var(--acc); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .kpi .l { font-size: .7rem; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; }
+  .kpi .v { font-size: 1.45rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 14px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+  .empty { color: var(--dim); font-size: .85rem; padding: 18px 0; text-align: center; }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { text-align: left; color: var(--dim); font-weight: 600; font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .bar { height: 6px; border-radius: 3px; background: var(--acc); min-width: 2px; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
+  .foot { color: var(--dim); font-size: .72rem; margin-top: 16px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
+  svg text { font-family: inherit; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>DESK · JOURNAL</h1>
+    <span class="wk" id="wk"></span>
+    <span class="upd" id="upd"></span>
+    <div class="nav"><a href="dashboard.html">← Desk</a><a href="analysis.html">Analysis →</a></div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="tabs">
+    <div class="tab on" data-f="TOT">TOTAL</div>
+    <div class="tab" data-f="A">STRATEGIA A · FX</div>
+    <div class="tab" data-f="B">STRATEGIA B · INTRADAY</div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid">
+    <div class="card"><h2>Curba de performanță (R cumulat)</h2><div id="curve"></div></div>
+    <div class="card"><h2>Per setup — expectancy</h2><div id="setups"></div></div>
+  </div>
+  <div class="foot">
+    Limite (playbook §2.1): risc 0,5% standard / 1% max · zi −2% stop · săptămână −4% stop · 2 SL consecutive = kill-switch · DD 8% = risc înjumătățit.<br>
+    R = P&amp;L / risc în bani. Sub 50 trade-uri per setup = zgomot statistic (playbook §6.2). Blotter-ul complet: 05_Trade_Blotter/Trade_Blotter.xlsx.
+  </div>
+
+<script src="data.js"></script>
+<script src="journal_data.js"></script>
+<script>
+(function () {
+  const D = window.DESK_DATA || { accounts: [] };
+  const TR = (window.JOURNAL_DATA || {}).trades || [];  // P&L local (journal_data.js, în .gitignore)
+  document.getElementById('wk').textContent = D.week || '';
+  document.getElementById('upd').textContent = D.updated ? 'actualizat: ' + D.updated : '';
+  document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
+    `<span class="chip"><b>${a.name}</b> · ${a.phase}</span>`).join('') ||
+    '<span class="chip">niciun cont configurat</span>';
+
+  const SETUPS = ['Breakout', 'Retest', 'Retragere', 'News T1', 'Breaking news', 'Alt'];
+  const fmt = (x, d) => (x === null || isNaN(x)) ? '—' : x.toFixed(d === undefined ? 2 : d);
+  const pct = x => (x === null || isNaN(x)) ? '—' : (100 * x).toFixed(0) + '%';
+
+  function closed(f) {
+    return TR.filter(t => t.r !== null && t.r !== undefined &&
+      (f === 'TOT' || t.strategy === f));
+  }
+  function stats(ts) {
+    const n = ts.length;
+    if (!n) return { n: 0, wr: null, aw: null, al: null, tot: 0, exp: null, comp: null };
+    const w = ts.filter(t => t.r > 0), l = ts.filter(t => t.r < 0);
+    const tot = ts.reduce((s, t) => s + t.r, 0);
+    const withRule = ts.filter(t => t.rulesOk === 'DA' || t.rulesOk === 'NU');
+    return {
+      n, wr: w.length / n,
+      aw: w.length ? w.reduce((s, t) => s + t.r, 0) / w.length : null,
+      al: l.length ? l.reduce((s, t) => s + t.r, 0) / l.length : null,
+      tot, exp: tot / n,
+      comp: withRule.length ? withRule.filter(t => t.rulesOk === 'DA').length / withRule.length : null
+    };
+  }
+  const cls = x => (x === null || isNaN(x)) ? '' : (x > 0 ? 'pos' : (x < 0 ? 'neg' : ''));
+
+  function render(f) {
+    const ts = closed(f), s = stats(ts);
+    document.getElementById('kpis').innerHTML = [
+      ['Trades închise', s.n, ''],
+      ['Win rate', pct(s.wr), ''],
+      ['Expectancy (R)', fmt(s.exp), cls(s.exp)],
+      ['Total R', fmt(s.tot), cls(s.tot)],
+      ['Câștig mediu (R)', fmt(s.aw), 'pos'],
+      ['Pierdere medie (R)', fmt(s.al), 'neg'],
+      ['Compliance', pct(s.comp), (s.comp !== null && s.comp < 0.9) ? 'neg' : '']
+    ].map(k => `<div class="kpi"><div class="l">${k[0]}</div><div class="v ${k[2]}">${k[1]}</div></div>`).join('');
+
+    const el = document.getElementById('curve');
+    if (ts.length < 2) {
+      el.innerHTML = '<div class="empty">Se desenează după primele trade-uri logate.</div>';
+    } else {
+      const cum = []; let c = 0;
+      ts.forEach(t => { c += t.r; cum.push(c); });
+      const W = 560, H = 170, P = 24;
+      const min = Math.min(0, ...cum), max = Math.max(0, ...cum), span = (max - min) || 1;
+      const X = i => P + i * (W - 2 * P) / (cum.length - 1);
+      const Y = v => H - P - (v - min) * (H - 2 * P) / span;
+      const pts = cum.map((v, i) => X(i).toFixed(1) + ',' + Y(v).toFixed(1)).join(' ');
+      const zero = Y(0).toFixed(1);
+      const last = cum[cum.length - 1];
+      el.innerHTML =
+        `<svg viewBox="0 0 ${W} ${H}" style="width:100%">
+          <line x1="${P}" y1="${zero}" x2="${W - P}" y2="${zero}" stroke="#223350" stroke-dasharray="4 4"/>
+          <polyline points="${pts}" fill="none" stroke="${last >= 0 ? '#2ecc71' : '#e35d5d'}" stroke-width="2"/>
+          <text x="${W - P}" y="${Y(last) - 8}" text-anchor="end" fill="${last >= 0 ? '#2ecc71' : '#e35d5d'}" font-size="12" font-weight="700">${last.toFixed(2)} R</text>
+          <text x="${P}" y="${zero - 6}" fill="#7d8ca3" font-size="10">0 R</text>
+        </svg>`;
+    }
+
+    const rows = SETUPS.map(name => {
+      const g = ts.filter(t => t.setup === name), gs = stats(g);
+      return { name, ...gs };
+    });
+    const maxAbs = Math.max(0.1, ...rows.map(r => Math.abs(r.exp || 0)));
+    document.getElementById('setups').innerHTML = s.n === 0
+      ? '<div class="empty">Fără trade-uri încă — statisticile pornesc odată cu blotter-ul.</div>'
+      : `<table><tr><th>Setup</th><th>N</th><th>WR</th><th>Exp (R)</th><th></th></tr>` +
+        rows.map(r => `<tr>
+          <td>${r.name}</td><td class="dim">${r.n}</td><td>${pct(r.wr)}</td>
+          <td class="${cls(r.exp)}">${fmt(r.exp)}</td>
+          <td style="width:30%"><div class="bar" style="width:${Math.abs(r.exp || 0) / maxAbs * 100}%;background:${(r.exp || 0) >= 0 ? 'var(--pos)' : 'var(--neg)'}"></div></td>
+        </tr>`).join('') + '</table>' +
+        (s.n < 50 ? '<div class="dim" style="font-size:.72rem;margin-top:8px">Sub 50 trade-uri per setup = zgomot statistic (playbook §6.2).</div>' : '');
+  }
+
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    render(t.dataset.f);
+  }));
+  render('TOT');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+name: Update desk data + deploy dashboard
+
+on:
+  schedule:
+    - cron: '0 5 * * 1-5'    # L–V 05:00 UTC (~08:00 RO vara) — randamente 2Y/10Y
+    - cron: '0 21 * * 5'     # Vineri 21:00 UTC (~00:00 RO) — COT proaspăt (CFTC)
+  push:
+    branches: [ main ]        # push-ul lui Claude/tău reîmprospătează site-ul
+  workflow_dispatch: {}        # buton „Run workflow" (rulare manuală)
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Datele de piață se reîmprospătează DOAR pe program / manual, nu la fiecare push
+      - name: Refresh market data (COT + randamente + seasonality)
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: python3 00_SYSTEM/scripts/update_data.py
+
+      - name: Commit datele proaspete
+        if: github.event_name != 'push'
+        run: |
+          git config user.name  "desk-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add 00_SYSTEM/data 07_Dashboard/analysis_data.js
+          git commit -m "auto: refresh date piață $(date -u +%F) [skip ci]" || echo "nimic de comis"
+          git push || echo "push omis"
+
+      # Site public = doar research (fără journal_data.js). index.html = dashboard.
+      - name: Build site
+        run: |
+          mkdir -p _site
+          cp 07_Dashboard/*.html 07_Dashboard/*.js _site/ 2>/dev/null || true
+          rm -f _site/journal_data.js
+          cp 07_Dashboard/dashboard.html _site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

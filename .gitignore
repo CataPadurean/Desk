@@ -1,0 +1,25 @@
+# ─── Date personale / sensibile — rămân DOAR pe Mac ───
+01_Inbox_Rapoarte/
+02_Rapoarte_Procesate/
+03_Weekly_Macro_Note/
+04_Morning_Brief/
+05_Trade_Blotter/
+06_Risk_Reports/
+00_SYSTEM/Playbook_Trading_Catalin.docx
+
+# P&L / trade-uri (journal-ul rămâne local, gol online)
+07_Dashboard/journal_data.js
+
+# Config/metodologie + profil — rămân local (repo e public)
+CLAUDE.md
+SETUP_GITHUB.md
+
+# Fișierele utilizatorului
+Learn/
+Weeks/
+*.pages
+
+# Junk
+.DS_Store
+**/__pycache__/
+*.pyc
