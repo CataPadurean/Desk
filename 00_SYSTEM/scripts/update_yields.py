@@ -83,20 +83,63 @@ def boc():
 
 def stooq_series(sym):
     txt = get(f'https://stooq.com/q/d/l/?s={sym}&i=d')
+    first = txt.split('\n', 1)[0].strip()
+    # Stooq returnează uneori text (ex. „Exceeded the daily hits limit") în loc de CSV
+    if not first.lower().startswith('date'):
+        raise RuntimeError(f'raspuns non-CSV: {first[:70]!r}')
     rows = list(csv.DictReader(io.StringIO(txt)))
     return [(r['Date'], float(r['Close'])) for r in rows if r.get('Close') not in (None, '', 'N/D')]
 
 def stooq(candidates_2y, candidates_10y):
-    """Încearcă simboluri candidate pe rând (Stooq își mai schimbă codurile)."""
+    """2Y și 10Y independent — dacă unul lipsește, îl întoarcem tot pe celălalt (nu all-or-nothing)."""
     def first_ok(cands):
         for sym in cands:
             try:
                 s = stooq_series(sym)
                 if s: return s
-            except Exception:
+            except Exception as e:
+                print(f'[YLD]   stooq {sym}: {e}', file=sys.stderr)
+        return None
+    s2, s10 = first_ok(candidates_2y), first_ok(candidates_10y)
+    if s2 is None and s10 is None:
+        raise RuntimeError('Stooq: fără 2Y și fără 10Y')
+    return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+
+def mof_jpy():
+    """Japonia — sursă oficială (Ministerul de Finanțe), curba JGB. 2Y = coloana „2", 10Y = „10"."""
+    for url in ('https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/data/jgbcme_all.csv',
+                'https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcme.csv'):
+        try:
+            rows = list(csv.reader(io.StringIO(get(url))))
+            hdr = rows[0]
+            def col(name):
+                for i, h in enumerate(hdr):
+                    if h.strip() == name: return i
+                return None
+            i2, i10 = col('2'), col('10')
+            if i2 is None or i10 is None:
                 continue
-        raise RuntimeError(f'Stooq: niciun simbol valid din {cands}')
-    return {'2Y': tail(first_ok(candidates_2y)), '10Y': tail(first_ok(candidates_10y))}
+            s2, s10 = [], []
+            for row in rows[1:]:
+                if len(row) <= max(i2, i10) or not row[0].strip():
+                    continue
+                d = row[0].strip().replace('/', '-')
+                try: s2.append((d, float(row[i2])))
+                except ValueError: pass
+                try: s10.append((d, float(row[i10])))
+                except ValueError: pass
+            if s2 or s10:
+                return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+        except Exception as e:
+            print(f'[YLD]   MOF {url.split("/data/")[-1]}: {e}', file=sys.stderr)
+    raise RuntimeError('MOF indisponibil')
+
+def jpy():
+    try:
+        return mof_jpy()
+    except Exception as e:
+        print(f'[YLD]   JPY fallback Stooq ({e})', file=sys.stderr)
+        return stooq(['2yjpy.b', '2yjp.b'], ['10yjpy.b', '10yjp.b'])
 
 def snap(series):
     """latest + valoarea de acum ~5 ședințe → Δ."""
@@ -111,7 +154,7 @@ def main():
         'EUR': ecb,
         'CAD': boc,
         'GBP': lambda: stooq(['2yuky.b', '2ygby.b', '2ygb.b'], ['10yuky.b', '10ygby.b', '10ygb.b']),
-        'JPY': lambda: stooq(['2yjpy.b', '2yjp.b'],   ['10yjpy.b', '10yjp.b']),
+        'JPY': jpy,
         'CHF': lambda: stooq(['2ychy.b', '2ych.b'],   ['10ychy.b', '10ych.b']),
         'AUD': lambda: stooq(['2yauy.b', '2yau.b'],   ['10yauy.b', '10yau.b']),
         'NZD': lambda: stooq(['2ynzy.b', '2ynz.b'],   ['10ynzy.b', '10ynz.b']),
