@@ -2,8 +2,7 @@ name: Update desk data + deploy dashboard
 
 on:
   schedule:
-    - cron: '0 5 * * 1-5'    # L–V 05:00 UTC (~08:00 RO vara) — randamente 2Y/10Y
-    - cron: '0 21 * * 5'     # Vineri 21:00 UTC (~00:00 RO) — COT proaspăt (CFTC)
+    - cron: '0 11 * * *'     # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna) — înainte de sesiunea NY; sâmbăta prinde COT-ul de vineri
   push:
     branches: [ main ]        # push-ul lui Claude/tău reîmprospătează site-ul
   workflow_dispatch: {}        # buton „Run workflow" (rulare manuală)
