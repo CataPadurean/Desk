@@ -106,33 +106,39 @@ def stooq(candidates_2y, candidates_10y):
     return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
 
 def mof_jpy():
-    """Japonia — sursă oficială (Ministerul de Finanțe), curba JGB. 2Y = coloana „2", 10Y = „10"."""
-    for url in ('https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/data/jgbcme_all.csv',
-                'https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcme.csv'):
+    """Japonia — Ministerul de Finanțe, curba JGB. Scanez antetul după coloanele „2" și „10"."""
+    urls = ('https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcme.csv',
+            'https://www.mof.go.jp/jgbs/reference/interest_rate/data/jgbcme_all.csv',
+            'https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/data/jgbcme_all.csv')
+    for url in urls:
         try:
-            rows = list(csv.reader(io.StringIO(get(url))))
-            hdr = rows[0]
-            def col(name):
-                for i, h in enumerate(hdr):
-                    if h.strip() == name: return i
-                return None
-            i2, i10 = col('2'), col('10')
-            if i2 is None or i10 is None:
+            raw = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=45).read()
+            txt = None
+            for enc in ('utf-8', 'shift_jis', 'cp932'):
+                try: txt = raw.decode(enc); break
+                except Exception: pass
+            if txt is None: txt = raw.decode('utf-8', 'replace')
+            rows = list(csv.reader(io.StringIO(txt)))
+            hdr_i = i2 = i10 = None
+            for ri, r in enumerate(rows[:6]):
+                cells = [c.strip() for c in r]
+                if '2' in cells and '10' in cells:
+                    hdr_i, i2, i10 = ri, cells.index('2'), cells.index('10'); break
+            if hdr_i is None:
                 continue
             s2, s10 = [], []
-            for row in rows[1:]:
-                if len(row) <= max(i2, i10) or not row[0].strip():
-                    continue
-                d = row[0].strip().replace('/', '-')
-                try: s2.append((d, float(row[i2])))
+            for r in rows[hdr_i+1:]:
+                if len(r) <= max(i2, i10) or not r[0].strip(): continue
+                d = _iso(r[0])
+                try: s2.append((d, float(r[i2])))
                 except ValueError: pass
-                try: s10.append((d, float(row[i10])))
+                try: s10.append((d, float(r[i10])))
                 except ValueError: pass
             if s2 or s10:
                 return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
         except Exception as e:
-            print(f'[YLD]   MOF {url.split("/data/")[-1]}: {e}', file=sys.stderr)
-    raise RuntimeError('MOF indisponibil')
+            print(f'[YLD]   MOF {url[-28:]}: {e}', file=sys.stderr)
+    raise RuntimeError('MOF indisponibil (toate URL-urile)')
 
 def jpy():
     try:
@@ -179,25 +185,32 @@ def rba():
     return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
 
 def snb():
-    """Elvetia — SNB, rate spot pe obligatiuni Confederatie, maturitati selectate (zilnic)."""
-    txt = get('https://data.snb.ch/api/cube/rendeidglf/data/csv/en')
-    lines = [l for l in txt.splitlines() if l.strip()]
-    sep = ';' if ';' in (lines[0] if lines else '') or any(l.lower().startswith('date;') for l in lines) else ','
-    hdr_i = next((i for i, l in enumerate(lines) if l.lower().replace('"', '').startswith('date')), None)
-    if hdr_i is None:
-        raise RuntimeError(f'SNB: format neasteptat: {lines[0][:70]!r}' if lines else 'SNB: gol')
-    s2, s10 = [], []
-    for l in lines[hdr_i+1:]:
-        p = [x.strip().strip('"') for x in l.split(sep)]
-        if len(p) < 3: continue
-        d, mat, val = p[0], p[1].lower(), p[-1]
-        try: v = float(val)
-        except ValueError: continue
-        if mat in ('2', '2y', '2 years', '2-year', '2.0'): s2.append((_iso(d), v))
-        elif mat in ('10', '10y', '10 years', '10-year', '10.0'): s10.append((_iso(d), v))
-    if not s2 and not s10:
-        raise RuntimeError(f'SNB: fara 2Y/10Y (header: {lines[hdr_i][:60]!r})')
-    return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+    """Elvetia — SNB, randamente obligatiuni Confederatie (zilnic). Incerc mai multe cuburi."""
+    last = ''
+    for cube in ('rendeidglf', 'rendoblid', 'rendeidglfzch'):
+        try:
+            txt = get(f'https://data.snb.ch/api/cube/{cube}/data/csv/en')
+            lines = [l for l in txt.splitlines() if l.strip()]
+            hdr_i = next((i for i, l in enumerate(lines) if l.lower().replace('"', '').startswith('date')), None)
+            if hdr_i is None:
+                last = f'{cube}: fara antet Date ({lines[0][:40] if lines else "gol"!r})'; continue
+            sep = ';' if ';' in lines[hdr_i] else ','
+            s2, s10 = [], []
+            for l in lines[hdr_i+1:]:
+                p = [x.strip().strip('"') for x in l.split(sep)]
+                if len(p) < 3: continue
+                d, mat, val = p[0], p[1].lower(), p[-1]
+                try: v = float(val)
+                except ValueError: continue
+                if mat in ('2', '2y', '2 years', '2-year', '2.0'): s2.append((_iso(d), v))
+                elif mat in ('10', '10y', '10 years', '10-year', '10.0'): s10.append((_iso(d), v))
+            if s2 or s10:
+                return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+            last = f'{cube}: fara 2Y/10Y'
+        except Exception as e:
+            last = f'{cube}: {e}'
+            print(f'[YLD]   SNB {last}', file=sys.stderr)
+    raise RuntimeError(f'SNB indisponibil ({last})')
 
 def snap(series):
     """latest + valoarea de acum ~5 ședințe → Δ."""
