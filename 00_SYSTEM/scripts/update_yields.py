@@ -141,6 +141,64 @@ def jpy():
         print(f'[YLD]   JPY fallback Stooq ({e})', file=sys.stderr)
         return stooq(['2yjpy.b', '2yjp.b'], ['10yjpy.b', '10yjp.b'])
 
+def _iso(s):
+    """normalizează data la ISO (YYYY-MM-DD) pentru sortare corectă."""
+    import datetime as dt
+    s = (s or '').strip()
+    for fmt in ('%Y-%m-%d', '%d-%b-%Y', '%d/%m/%Y', '%d.%m.%Y', '%Y/%m/%d'):
+        try: return dt.datetime.strptime(s, fmt).date().isoformat()
+        except ValueError: pass
+    return s
+
+def rba():
+    """Australia — RBA F2.1 (Capital Market Yields, gov bonds): FCMYGBAG2 / FCMYGBAG10. Lunar."""
+    rows = list(csv.reader(io.StringIO(get('https://www.rba.gov.au/statistics/tables/csv/f2.1-data.csv'))))
+    idrow = next((r for r in rows if r and r[0].strip().lower() == 'series id'), None)
+    if not idrow:
+        raise RuntimeError('RBA: rand Series ID negasit')
+    def cidx(code):
+        for i, c in enumerate(idrow):
+            if c.strip() == code: return i
+        return None
+    i2, i10 = cidx('FCMYGBAG2'), cidx('FCMYGBAG10')
+    if i2 is None and i10 is None:
+        raise RuntimeError('RBA: coloane 2Y/10Y negasite')
+    s2, s10 = [], []
+    for r in rows:
+        if not r or not r[0].strip(): continue
+        d = _iso(r[0])
+        if not (len(d) >= 4 and d[:4].isdigit()): continue
+        if i2 is not None and i2 < len(r):
+            try: s2.append((d, float(r[i2])))
+            except ValueError: pass
+        if i10 is not None and i10 < len(r):
+            try: s10.append((d, float(r[i10])))
+            except ValueError: pass
+    if not s2 and not s10:
+        raise RuntimeError('RBA: fara valori numerice')
+    return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+
+def snb():
+    """Elvetia — SNB, rate spot pe obligatiuni Confederatie, maturitati selectate (zilnic)."""
+    txt = get('https://data.snb.ch/api/cube/rendeidglf/data/csv/en')
+    lines = [l for l in txt.splitlines() if l.strip()]
+    sep = ';' if ';' in (lines[0] if lines else '') or any(l.lower().startswith('date;') for l in lines) else ','
+    hdr_i = next((i for i, l in enumerate(lines) if l.lower().replace('"', '').startswith('date')), None)
+    if hdr_i is None:
+        raise RuntimeError(f'SNB: format neasteptat: {lines[0][:70]!r}' if lines else 'SNB: gol')
+    s2, s10 = [], []
+    for l in lines[hdr_i+1:]:
+        p = [x.strip().strip('"') for x in l.split(sep)]
+        if len(p) < 3: continue
+        d, mat, val = p[0], p[1].lower(), p[-1]
+        try: v = float(val)
+        except ValueError: continue
+        if mat in ('2', '2y', '2 years', '2-year', '2.0'): s2.append((_iso(d), v))
+        elif mat in ('10', '10y', '10 years', '10-year', '10.0'): s10.append((_iso(d), v))
+    if not s2 and not s10:
+        raise RuntimeError(f'SNB: fara 2Y/10Y (header: {lines[hdr_i][:60]!r})')
+    return {'2Y': tail(s2) if s2 else None, '10Y': tail(s10) if s10 else None}
+
 def snap(series):
     """latest + valoarea de acum ~5 ședințe → Δ."""
     if not series: return None
@@ -154,9 +212,9 @@ def main():
         'EUR': ecb,
         'CAD': boc,
         'GBP': lambda: stooq(['2yuky.b', '2ygby.b', '2ygb.b'], ['10yuky.b', '10ygby.b', '10ygb.b']),
-        'JPY': jpy,
-        'CHF': lambda: stooq(['2ychy.b', '2ych.b'],   ['10ychy.b', '10ych.b']),
-        'AUD': lambda: stooq(['2yauy.b', '2yau.b'],   ['10yauy.b', '10yau.b']),
+        'JPY': mof_jpy,   # sursa oficiala directa (sonda) — vad in rezultat daca MOF merge din Actions
+        'CHF': snb,       # SNB direct
+        'AUD': rba,       # RBA direct
         'NZD': lambda: stooq(['2ynzy.b', '2ynz.b'],   ['10ynzy.b', '10ynz.b']),
     }
     data, status = {}, {}
