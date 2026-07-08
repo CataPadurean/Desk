@@ -22,8 +22,8 @@
 | EUR | 2.529 | +0.053 | 3.057 | +0.132 |
 | GBP | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
 | CAD | 2.8 | +0.07 | 3.49 | +0.12 |
-| JPY | — | — | — | — (INDISPONIBIL: MOF indisponibil) |
-| CHF | — | — | — | — (INDISPONIBIL: HTTP Error 404: Not Found) |
+| JPY | — | — | — | — (INDISPONIBIL: MOF indisponibil (toate URL-urile)) |
+| CHF | — | — | — | — (INDISPONIBIL: SNB indisponibil (rendeidglfzch: HTTP Error 404: Not Found)) |
 | AUD | 4.497 | +0.417 | 4.831 | +0.081 |
 | NZD | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
 

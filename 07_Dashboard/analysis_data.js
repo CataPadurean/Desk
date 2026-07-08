@@ -348,8 +348,8 @@ window.ANALYSIS_DATA = {
    "EUR": "ok",
    "CAD": "ok",
    "GBP": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
-   "JPY": "INDISPONIBIL: MOF indisponibil",
-   "CHF": "INDISPONIBIL: HTTP Error 404: Not Found",
+   "JPY": "INDISPONIBIL: MOF indisponibil (toate URL-urile)",
+   "CHF": "INDISPONIBIL: SNB indisponibil (rendeidglfzch: HTTP Error 404: Not Found)",
    "AUD": "ok",
    "NZD": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y"
   },
