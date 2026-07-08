@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-07-07",
+ "generated": "2026-07-08",
  "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săpt., pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 mld, a 8-a săpt.) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
@@ -120,7 +120,7 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-07",
+  "updated": "2026-07-08",
   "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
@@ -342,15 +342,15 @@ window.ANALYSIS_DATA = {
   }
  },
  "yields": {
-  "updated": "2026-07-07",
+  "updated": "2026-07-08",
   "status": {
    "US": "ok",
    "EUR": "ok",
    "CAD": "ok",
    "GBP": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
-   "JPY": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
-   "CHF": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
-   "AUD": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y",
+   "JPY": "INDISPONIBIL: MOF indisponibil",
+   "CHF": "INDISPONIBIL: HTTP Error 404: Not Found",
+   "AUD": "ok",
    "NZD": "INDISPONIBIL: Stooq: fără 2Y și fără 10Y"
   },
   "levels": {
@@ -368,54 +368,76 @@ window.ANALYSIS_DATA = {
    },
    "EUR": {
     "2Y": {
-     "date": "2026-07-06",
-     "value": 2.485,
-     "delta_1w": 0.008
+     "date": "2026-07-07",
+     "value": 2.529,
+     "delta_1w": 0.053
     },
     "10Y": {
-     "date": "2026-07-06",
-     "value": 3.016,
-     "delta_1w": 0.093
+     "date": "2026-07-07",
+     "value": 3.057,
+     "delta_1w": 0.132
     }
    },
    "CAD": {
     "2Y": {
-     "date": "2026-07-06",
-     "value": 2.72,
-     "delta_1w": -0.03
+     "date": "2026-07-07",
+     "value": 2.8,
+     "delta_1w": 0.07
     },
     "10Y": {
-     "date": "2026-07-06",
-     "value": 3.42,
-     "delta_1w": 0.03
+     "date": "2026-07-07",
+     "value": 3.49,
+     "delta_1w": 0.12
+    }
+   },
+   "AUD": {
+    "2Y": {
+     "date": "2026-06-30",
+     "value": 4.497,
+     "delta_1w": 0.417
+    },
+    "10Y": {
+     "date": "2026-06-30",
+     "value": 4.831,
+     "delta_1w": 0.081
     }
    }
   },
   "spreads": {
    "EURUSD": {
     "2Y": {
-     "value": -1.705,
-     "delta_1w": -0.082
+     "value": -1.661,
+     "delta_1w": -0.037
     },
     "10Y": {
-     "value": -1.534,
-     "delta_1w": -0.077
+     "value": -1.493,
+     "delta_1w": -0.038
+    }
+   },
+   "AUDUSD": {
+    "2Y": {
+     "value": 0.307,
+     "delta_1w": 0.327
+    },
+    "10Y": {
+     "value": 0.281,
+     "delta_1w": -0.089
     }
    },
    "USDCAD": {
     "2Y": {
-     "value": 1.47,
-     "delta_1w": 0.12
+     "value": 1.39,
+     "delta_1w": 0.02
     },
     "10Y": {
-     "value": 1.13,
-     "delta_1w": 0.14
+     "value": 1.06,
+     "delta_1w": 0.05
     }
    }
   }
  },
  "seasonality": {
-  "updated": "2026-07-07",
+  "updated": "2026-07-08",
   "years": 10,
   "instruments": {
    "EURUSD": {
