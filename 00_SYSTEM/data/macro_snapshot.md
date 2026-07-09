@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-07-08
+# MACRO SNAPSHOT — 2026-07-09
 
 ## COT (as of 2026-06-30) — Leveraged Funds (TFF) / Managed Money (GOLD)
 
@@ -18,10 +18,10 @@
 
 | | 2Y | Δ2Y | 10Y | Δ10Y |
 |---|---|---|---|---|
-| US | 4.19 | +0.09 | 4.55 | +0.17 |
-| EUR | 2.529 | +0.053 | 3.057 | +0.132 |
+| US | 4.21 | +0.07 | 4.56 | +0.12 |
+| EUR | 2.619 | +0.145 | 3.137 | +0.174 |
 | GBP | — | — | — | — (INDISPONIBIL: Stooq: fără 2Y și fără 10Y) |
-| CAD | 2.8 | +0.07 | 3.49 | +0.12 |
+| CAD | 2.85 | +0.11 | 3.56 | +0.18 |
 | JPY | — | — | — | — (INDISPONIBIL: MOF indisponibil (toate URL-urile)) |
 | CHF | — | — | — | — (INDISPONIBIL: SNB indisponibil (rendeidglfzch: HTTP Error 404: Not Found)) |
 | AUD | 4.497 | +0.417 | 4.831 | +0.081 |
@@ -31,13 +31,13 @@
 
 | Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
 |---|---|---|---|---|
-| EURUSD | -1.661 | -0.037 | -1.493 | -0.038 |
+| EURUSD | -1.591 | +0.075 | -1.423 | +0.054 |
 | GBPUSD | — | — | — | — |
-| AUDUSD | 0.307 | +0.327 | 0.281 | -0.089 |
+| AUDUSD | 0.287 | +0.347 | 0.271 | -0.039 |
 | NZDUSD | — | — | — | — |
 | USDJPY | — | — | — | — |
 | USDCHF | — | — | — | — |
-| USDCAD | 1.39 | +0.02 | 1.06 | +0.05 |
+| USDCAD | 1.36 | -0.04 | 1.0 | -0.06 |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
 

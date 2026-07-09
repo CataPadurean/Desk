@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-07-08",
+ "generated": "2026-07-09",
  "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săpt., pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 mld, a 8-a săpt.) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
@@ -120,7 +120,7 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-08",
+  "updated": "2026-07-09",
   "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
@@ -342,7 +342,7 @@ window.ANALYSIS_DATA = {
   }
  },
  "yields": {
-  "updated": "2026-07-08",
+  "updated": "2026-07-09",
   "status": {
    "US": "ok",
    "EUR": "ok",
@@ -356,38 +356,38 @@ window.ANALYSIS_DATA = {
   "levels": {
    "US": {
     "2Y": {
-     "date": "2026-07-07",
-     "value": 4.19,
-     "delta_1w": 0.09
+     "date": "2026-07-08",
+     "value": 4.21,
+     "delta_1w": 0.07
     },
     "10Y": {
-     "date": "2026-07-07",
-     "value": 4.55,
-     "delta_1w": 0.17
+     "date": "2026-07-08",
+     "value": 4.56,
+     "delta_1w": 0.12
     }
    },
    "EUR": {
     "2Y": {
-     "date": "2026-07-07",
-     "value": 2.529,
-     "delta_1w": 0.053
+     "date": "2026-07-08",
+     "value": 2.619,
+     "delta_1w": 0.145
     },
     "10Y": {
-     "date": "2026-07-07",
-     "value": 3.057,
-     "delta_1w": 0.132
+     "date": "2026-07-08",
+     "value": 3.137,
+     "delta_1w": 0.174
     }
    },
    "CAD": {
     "2Y": {
-     "date": "2026-07-07",
-     "value": 2.8,
-     "delta_1w": 0.07
+     "date": "2026-07-08",
+     "value": 2.85,
+     "delta_1w": 0.11
     },
     "10Y": {
-     "date": "2026-07-07",
-     "value": 3.49,
-     "delta_1w": 0.12
+     "date": "2026-07-08",
+     "value": 3.56,
+     "delta_1w": 0.18
     }
    },
    "AUD": {
@@ -406,38 +406,38 @@ window.ANALYSIS_DATA = {
   "spreads": {
    "EURUSD": {
     "2Y": {
-     "value": -1.661,
-     "delta_1w": -0.037
+     "value": -1.591,
+     "delta_1w": 0.075
     },
     "10Y": {
-     "value": -1.493,
-     "delta_1w": -0.038
+     "value": -1.423,
+     "delta_1w": 0.054
     }
    },
    "AUDUSD": {
     "2Y": {
-     "value": 0.307,
-     "delta_1w": 0.327
+     "value": 0.287,
+     "delta_1w": 0.347
     },
     "10Y": {
-     "value": 0.281,
-     "delta_1w": -0.089
+     "value": 0.271,
+     "delta_1w": -0.039
     }
    },
    "USDCAD": {
     "2Y": {
-     "value": 1.39,
-     "delta_1w": 0.02
+     "value": 1.36,
+     "delta_1w": -0.04
     },
     "10Y": {
-     "value": 1.06,
-     "delta_1w": 0.05
+     "value": 1.0,
+     "delta_1w": -0.06
     }
    }
   }
  },
  "seasonality": {
-  "updated": "2026-07-08",
+  "updated": "2026-07-09",
   "years": 10,
   "instruments": {
    "EURUSD": {
