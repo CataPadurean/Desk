@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-10",
+ "updated": "2026-07-11",
  "status": {
   "US": "ok",
   "EUR": "ok",
@@ -13,14 +13,14 @@
  "levels": {
   "US": {
    "2Y": {
-    "date": "2026-07-09",
-    "value": 4.16,
-    "delta_1w": -0.01
+    "date": "2026-07-10",
+    "value": 4.21,
+    "delta_1w": 0.07
    },
    "10Y": {
-    "date": "2026-07-09",
-    "value": 4.54,
-    "delta_1w": 0.06
+    "date": "2026-07-10",
+    "value": 4.56,
+    "delta_1w": 0.07
    }
   },
   "EUR": {
@@ -63,32 +63,32 @@
  "spreads": {
   "EURUSD": {
    "2Y": {
-    "value": -1.545,
-    "delta_1w": 0.17
+    "value": -1.595,
+    "delta_1w": 0.09
    },
    "10Y": {
-    "value": -1.411,
-    "delta_1w": 0.081
+    "value": -1.431,
+    "delta_1w": 0.071
    }
   },
   "AUDUSD": {
    "2Y": {
-    "value": 0.337,
-    "delta_1w": 0.427
+    "value": 0.287,
+    "delta_1w": 0.347
    },
    "10Y": {
-    "value": 0.291,
-    "delta_1w": 0.021
+    "value": 0.271,
+    "delta_1w": 0.011
    }
   },
   "USDCAD": {
    "2Y": {
-    "value": 1.36,
-    "delta_1w": -0.05
+    "value": 1.41,
+    "delta_1w": 0.03
    },
    "10Y": {
-    "value": 1.02,
-    "delta_1w": -0.01
+    "value": 1.04,
+    "delta_1w": 0.0
    }
   }
  }
