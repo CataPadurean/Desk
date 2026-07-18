@@ -41,7 +41,7 @@ Sistem de research & trading semi-automatizat. Stack: Trading Economics (macro),
 
 `python3 00_SYSTEM/scripts/update_data.py` (din folderul Trading, ~30 sec) → scrie `00_SYSTEM/data/macro_snapshot.md` + regenerează `analysis_data.js`:
 - **COT** (CFTC, gratuit): **Leveraged Funds din TFF** pe EUR/GBP/CAD/JPY/CHF/AUD/NZD/DXY + **Managed Money (Disaggregated)** pe Gold — net, Δ săptămânal, percentilă 52w, semnal de extremă (≥90 / ≤10).
-- **Randamente** (FRED/ECB/BoC/Stooq, gratuite): 2Y (principal) & 10Y (secundar) pentru toate 8 monedele + spread-urile 2Y vs USD pe cele 7 perechi, cu Δ pe ~5 ședințe.
+- **Randamente** (gratuite, fără cheie API — reparate 08.07.2026): 2Y (principal) & 10Y (secundar) pentru toate 8 monedele + spread-urile vs USD pe cele 7 perechi, cu Δ pe ~5 ședințe. Surse oficiale per monedă, cu fallback: US=FRED→Treasury, EUR=ECB (curba AAA), GBP=BoE (ZIP curba GLC), CAD=BoC Valet, JPY=MOF, CHF=SNB (10Y; 2Y doar din piață — SNB a discontinuat curba zilnică în 2025), AUD=RBA F2 zilnic, NZD=RBNZ B2 (xlsx); Stooq = fallback de piață. **Cache last-known-good**: dacă o sursă pică, rămâne ultima valoare bună cu status «stale» — tabelul nu mai rămâne niciodată gol. Refresh zilnic automat din GitHub Actions (11:00 UTC ≈ 14:00 RO). Test offline: `python3 00_SYSTEM/scripts/test_update_yields.py`. Recompunere fără rețea: `update_data.py --no-fetch`.
 - **Sezonalitate 10 ani** (FRED/Stooq): 7 perechi FX + Gold + US30, cu blocul lunii curente (medie % + hit rate).
 
 Rulează-l duminica înainte de „generează teza" (sau lasă-l pe Claude să încerce; dacă rețeaua lui e restricționată, îl rulezi tu — e o singură comandă). Fără dependențe: doar Python 3 standard, deja instalat pe Mac.

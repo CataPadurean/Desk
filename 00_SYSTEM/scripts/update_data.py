@@ -50,9 +50,12 @@ def build_analysis_js():
     print('[RUNNER] analysis_data.js regenerat.')
 
 def main():
-    ok_cot = run('update_cot.py')
-    ok_yld = run('update_yields.py')
-    run('update_seasonality.py')
+    no_fetch = '--no-fetch' in sys.argv   # doar recompune snapshot + analysis_data.js
+    ok_cot = ok_yld = True
+    if not no_fetch:
+        ok_cot = run('update_cot.py')
+        ok_yld = run('update_yields.py')
+        run('update_seasonality.py')
 
     lines = [f'# MACRO SNAPSHOT — {date.today().isoformat()}', '']
     cot = json.loads((DATA / 'cot_latest.json').read_text()) if (DATA / 'cot_latest.json').exists() else None
@@ -75,20 +78,19 @@ def main():
     if yld:
         lines += ['## Randamente 2Y/10Y (Δ = ~5 ședințe)', '',
                   '| | 2Y | Δ2Y | 10Y | Δ10Y |', '|---|---|---|---|---|']
+        def cell(x, key):
+            return (f"{x[key]['value']}", f"{x[key]['delta_1w']:+}") if x and x.get(key) else ('—', '—')
         for k in YLD_ORDER:
             lv = yld['levels'].get(k)
-            if lv and lv.get('2Y') and lv.get('10Y'):
-                lines.append(f"| {k} | {lv['2Y']['value']} | {lv['2Y']['delta_1w']:+} | "
-                             f"{lv['10Y']['value']} | {lv['10Y']['delta_1w']:+} |")
-            else:
-                lines.append(f"| {k} | — | — | — | — ({yld['status'].get(k, '?')}) |")
+            v2, d2 = cell(lv, '2Y'); v10, d10 = cell(lv, '10Y')
+            note = '' if yld['status'].get(k) == 'ok' else f" *({yld['status'].get(k, '?').split('(')[0].strip()})*"
+            lines.append(f'| {k}{note} | {v2} | {d2} | {v10} | {d10} |')
         lines += ['', '## Spread-uri 2Y/10Y vs USD (criteriul 4)', '',
                   '| Pereche | Spread 2Y | Δ | Spread 10Y | Δ |', '|---|---|---|---|---|']
         for p in PAIR_ORDER:
             s = yld['spreads'].get(p, {})
-            s2, s10 = s.get('2Y'), s.get('10Y')
-            lines.append(f"| {p} | {s2['value'] if s2 else '—'} | {s2['delta_1w']:+} | {s10['value'] if s10 else '—'} | {s10['delta_1w']:+} |"
-                         if s2 and s10 else f'| {p} | — | — | — | — |')
+            v2, d2 = cell(s, '2Y'); v10, d10 = cell(s, '10Y')
+            lines.append(f'| {p} | {v2} | {d2} | {v10} | {d10} |')
         lines.append('')
         lines.append('*Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*')
         lines.append('')
