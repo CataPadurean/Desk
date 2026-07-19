@@ -1,7 +1,7 @@
 // GENERAT DE SISTEM — nu edita manual. Se regenerează la: „procesează inbox", „generează teza", „loghează", „raport lunar".
 window.DESK_DATA = {
-  updated: "2026-07-07 (teza săptămânală W28, generată pt. duminică 5.07)",
-  week: "2026-W28",
+  updated: "19.07.2026 (teza săptămânii 06.07–10.07.2026, generată 05.07)",
+  week: "06.07–10.07.2026",
   accounts: [
     { name: "Demo-A", strategy: "A", phase: "Faza 0 — validare" },
     { name: "Demo-B", strategy: "B", phase: "Faza 0 — validare" }

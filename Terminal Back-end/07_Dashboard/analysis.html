@@ -111,7 +111,8 @@
 (function () {
   const D = window.ANALYSIS_DATA || {};
   document.getElementById('wk').textContent = (window.DESK_DATA || {}).week || '';
-  document.getElementById('upd').textContent = D.generated ? 'data generated: ' + D.generated + (D.regime_date ? ' · analiza: ' + D.regime_date : '') : '';
+  var fmtD = function (s) { return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? s.split('-').reverse().join('.') : (s || ''); };
+  document.getElementById('upd').textContent = D.generated ? 'data generated: ' + fmtD(D.generated) + (D.regime_date ? ' · analiza: ' + fmtD(D.regime_date) : '') : '';
 
   const cls = x => x > 0 ? 'pos' : (x < 0 ? 'neg' : '');
   const fmtn = x => (x === null || x === undefined || isNaN(x)) ? '—' : x.toLocaleString('en-US');

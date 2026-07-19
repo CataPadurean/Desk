@@ -1,4 +1,4 @@
-# DAILY NOTE — {DATA}
+# DAILY NOTE — {DD.MM.YYYY}
 
 *Punctul de plecare al zilei, nu analiza. O pagină, citită în 2 minute. Detaliul (criterii, cifre, raționament) e în terminal; analiza tehnică e a ta.*
 

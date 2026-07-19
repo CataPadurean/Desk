@@ -1,4 +1,4 @@
-# WEEKLY MACRO NOTE — săptămâna {DATA}
+# WEEKLY MACRO NOTE — săptămâna {DD.MM–DD.MM.YYYY}
 
 *Rezumatul săptămânii trecute + perspectiva pe cea care vine. Scris, nu tabelar. Cifrele, criteriile și scorurile detaliate sunt în terminal (analysis).*
 
