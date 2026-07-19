@@ -105,10 +105,12 @@
     Refresh date: <code>python3 00_SYSTEM/scripts/update_data.py</code> sau comenzile sistemului. Direcțiile sunt ipoteze condiționate — execuția doar prin filtrul tehnic + checklist (playbook). Sezonalitatea = vânt din spate/față, NU criteriu principal.
   </div>
 
+<script src="data.js"></script>
 <script src="analysis_data.js"></script>
 <script>
 (function () {
   const D = window.ANALYSIS_DATA || {};
+  document.getElementById('wk').textContent = (window.DESK_DATA || {}).week || '';
   document.getElementById('upd').textContent = D.generated ? 'data generated: ' + D.generated + (D.regime_date ? ' · analiza: ' + D.regime_date : '') : '';
 
   const cls = x => x > 0 ? 'pos' : (x < 0 ? 'neg' : '');
