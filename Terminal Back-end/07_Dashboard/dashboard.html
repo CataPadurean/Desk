@@ -84,11 +84,13 @@
   </div>
 
 <script src="data.js"></script>
+<script src="analysis_data.js"></script>
 <script>
 (function () {
   const D = window.DESK_DATA || {};
   document.getElementById('wk').textContent = D.week || '';
-  document.getElementById('upd').textContent = D.updated ? 'data generated: ' + D.updated : '';
+  var A = window.ANALYSIS_DATA || {};
+  document.getElementById('upd').textContent = A.generated ? 'data generated: ' + A.generated + (A.regime_date ? ' · analiza: ' + A.regime_date : '') : (D.updated ? 'data generated: ' + D.updated : '');
   document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
     `<span class="chip"><b>${a.name}</b> · ${a.phase}</span>`).join('') || '<span class="chip">niciun cont configurat</span>';
 
@@ -132,6 +134,16 @@
   document.getElementById('tfx').innerHTML = ttable(D.trades_fx);
   document.getElementById('tin').innerHTML = ttable(D.trades_intraday);
 })();
+</script>
+<script>
+if (location.protocol.indexOf('http') === 0) {
+  document.querySelectorAll('.nav a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      location.href = a.getAttribute('href') + '?t=' + Date.now();
+    });
+  });
+}
 </script>
 </body>
 </html>
