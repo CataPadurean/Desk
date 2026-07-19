@@ -13,10 +13,10 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
-  .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 2px; }
+  .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 16px; }
   .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
   .top .page { font-size: .95rem; letter-spacing: 3px; font-weight: 600; color: var(--acc); text-align: center; }
-  .meta { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .meta { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
   .meta .wk { color: var(--acc); font-weight: 600; font-size: .8rem; }
   .meta .upd { color: var(--dim); font-size: .8rem; }
   .nav { justify-self: end; display: flex; gap: 8px; }
@@ -49,10 +49,10 @@
 <body>
   <div class="top">
     <h1>PADU TERMINAL</h1>
-    <div class="page">JOURNAL</div>
+    <div><div class="page">JOURNAL</div>
+    <div class="meta"><span class="wk" id="wk"></span><span class="upd" id="upd"></span></div></div>
     <div class="nav"><a href="dashboard.html">← Home</a><a href="analysis.html">Analysis →</a></div>
   </div>
-  <div class="meta"><span class="wk" id="wk"></span><span class="upd" id="upd"></span></div>
   <div class="chips" id="chips"></div>
   <div class="tabs">
     <div class="tab on" data-f="TOT">TOTAL</div>
@@ -76,7 +76,7 @@
   const D = window.DESK_DATA || { accounts: [] };
   const TR = (window.JOURNAL_DATA || {}).trades || [];  // P&L local (journal_data.js, în .gitignore)
   document.getElementById('wk').textContent = D.week || '';
-  document.getElementById('upd').textContent = D.updated ? 'actualizat: ' + D.updated : '';
+  document.getElementById('upd').textContent = D.updated ? 'data generated: ' + D.updated : '';
   document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
     `<span class="chip"><b>${a.name}</b> · ${a.phase}</span>`).join('') ||
     '<span class="chip">niciun cont configurat</span>';
