@@ -134,7 +134,7 @@
     return `<svg width="${W}" height="${H}"><polyline points="${pts}" fill="none" stroke="${up ? '#2ecc71' : '#e35d5d'}" stroke-width="1.5"/></svg>`;
   };
   const cm = (D.cot || {}).markets || {};
-  const order = ['EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'DXY', 'GOLD'];
+  const order = ['DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'GOLD'];
   document.getElementById('cot').innerHTML = Object.keys(cm).length
     ? `<div class="small" style="margin-bottom:8px">as of ${(cm[order.find(k => cm[k])] || {}).as_of || ''} · net, contracte · sursa: ${(D.cot || {}).source || 'CFTC'}</div>
        <table><tr><th>Asset</th><th>Categorie</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extremă</th><th>13 wk</th></tr>` +
@@ -167,7 +167,7 @@
     : '<div class="empty">Rulează update_data.py.</div>';
 
   const sp = (D.yields || {}).spreads || {};
-  const PORD = ['EURUSD', 'GBPUSD', 'AUDUSD', 'NZDUSD', 'USDJPY', 'USDCHF', 'USDCAD'];
+  const PORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'];
   document.getElementById('yspr').innerHTML = Object.keys(sp).length
     ? `<table><tr><th>Pair</th><th>2Y Spread</th><th>Δ</th><th class="dim">10Y</th><th class="dim">Δ</th></tr>` +
       PORD.map(p => { const v = sp[p];
@@ -185,7 +185,7 @@
   const se = (D.seasonality || {}).instruments || {};
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const cur = new Date().getMonth() + 1;
-  const SORD = ['EURUSD', 'GBPUSD', 'AUDUSD', 'NZDUSD', 'USDJPY', 'USDCHF', 'USDCAD'];
+  const SORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'];
   const skeys = SORD.filter(k => se[k]).concat(Object.keys(se).filter(k => !SORD.includes(k)));
   // luna curentă — media de change % per instrument
   const cmon = (D.seasonality || {}).current_month;

@@ -62,22 +62,13 @@
  },
  "trades_fx": [
   {
-   "instrument": "NZDUSD",
-   "dir": "LONG (tactic, event 8.07)",
+   "instrument": "EURUSD",
+   "dir": "STAI",
    "strat": "A",
-   "conf": "3/5",
-   "rationale": "Hike la 2,50% devenit consens (22/28) + CPI ↑ spre 4,3% + short leveraged funds la RECORD + risk-on cu NZD pro-ciclic = profil clasic de squeeze. Scor confluență 5/7 (criteriile 1+2 prezente).",
-   "activation": "Hike SAU ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel (confirmarea ta)",
-   "invalidation": "Hold dovish pe 8.07 → setup mort; SAU minute FOMC hawkish care relansează USD global. Onest: câștig limitat (hike deja prețuit), spread 2Y indisponibil = criteriul 4 necunoscut"
-  },
-  {
-   "instrument": "USDCAD",
-   "dir": "SHORT (bias, build spre 15.07)",
-   "strat": "A",
-   "conf": "3/5",
-   "rationale": "Cel mai aliniat bloc de rapoarte (CACIB 1,35-1,40; Scotia+CIBC rebound) + GDP beat + short CAD extremă (squeeze) + CAD pro-risk. Scor 5/7. Catalizatorul (BoC+MPR) e abia 15.07 → acumulare, nu urmărire.",
-   "activation": "USD rămâne moale post-minute FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
-   "invalidation": "Minute FOMC hawkish / 10Y US continuă sus / date CA slabe. Contra explicit: spread 2Y (+1,38) încă PRO-USD (criteriul 4) + USD long de deceniu poate întâi să-l împingă mai sus"
+   "conf": "—",
+   "rationale": "Ambele bănci centrale au pierdut hike-uri din pricing; spread 2Y încă contra EUR; poziționare neutră; criteriul 1 neutru → sub prag 5/7",
+   "activation": "—",
+   "invalidation": "Teză neclară = nu există trade (playbook §3.2)"
   },
   {
    "instrument": "GBPUSD",
@@ -89,13 +80,22 @@
    "invalidation": "—"
   },
   {
-   "instrument": "EURUSD",
-   "dir": "STAI",
+   "instrument": "USDCAD",
+   "dir": "SHORT (bias, build spre 15.07)",
    "strat": "A",
-   "conf": "—",
-   "rationale": "Ambele bănci centrale au pierdut hike-uri din pricing; spread 2Y încă contra EUR; poziționare neutră; criteriul 1 neutru → sub prag 5/7",
-   "activation": "—",
-   "invalidation": "Teză neclară = nu există trade (playbook §3.2)"
+   "conf": "3/5",
+   "rationale": "Cel mai aliniat bloc de rapoarte (CACIB 1,35-1,40; Scotia+CIBC rebound) + GDP beat + short CAD extremă (squeeze) + CAD pro-risk. Scor 5/7. Catalizatorul (BoC+MPR) e abia 15.07 → acumulare, nu urmărire.",
+   "activation": "USD rămâne moale post-minute FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
+   "invalidation": "Minute FOMC hawkish / 10Y US continuă sus / date CA slabe. Contra explicit: spread 2Y (+1,38) încă PRO-USD (criteriul 4) + USD long de deceniu poate întâi să-l împingă mai sus"
+  },
+  {
+   "instrument": "NZDUSD",
+   "dir": "LONG (tactic, event 8.07)",
+   "strat": "A",
+   "conf": "3/5",
+   "rationale": "Hike la 2,50% devenit consens (22/28) + CPI ↑ spre 4,3% + short leveraged funds la RECORD + risk-on cu NZD pro-ciclic = profil clasic de squeeze. Scor confluență 5/7 (criteriile 1+2 prezente).",
+   "activation": "Hike SAU ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel (confirmarea ta)",
+   "invalidation": "Hold dovish pe 8.07 → setup mort; SAU minute FOMC hawkish care relansează USD global. Onest: câștig limitat (hike deja prețuit), spread 2Y indisponibil = criteriul 4 necunoscut"
   }
  ],
  "trades_intraday": [
