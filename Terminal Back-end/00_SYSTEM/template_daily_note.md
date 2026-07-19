@@ -1,46 +1,24 @@
 # DAILY NOTE — {DATA}
 
-*Newsletter de desk, nu raport de date. Cifrele brute și detaliul celor 7 criterii stau în terminal (dashboard + analysis). Aici intră doar ce e NOU, ce s-a schimbat și ce urmăresc azi.*
+*Punctul de plecare al zilei, nu analiza. O pagină, citită în 2 minute. Detaliul (criterii, cifre, raționament) e în terminal; analiza tehnică e a ta.*
 
-## Rezumatul zilei
-3-5 bullet-uri: ce contează azi și de ce. Dacă citește doar atât, trebuie să știe ce are de făcut.
+## Pe scurt
+3-4 bullet-uri. Ce contează azi și de ce, în cuvinte simple.
 
-## Piața — ce s-a mișcat și de ce
-Narativ scurt, nu tabel: overnight US/Asia/Europa, DXY, randamente, VIX, Gold — **explicate**, nu listate. O frază de verdict pe regim (risk-on/off) și ce implică pentru instrumentele lui.
+## Piața
+Un paragraf scurt: cum a închis / cum a deschis, ce s-a mișcat și de ce (DXY, randamente, VIX, Gold, indici) și în ce regim intrăm — risk-on sau risk-off.
 
-## Central banks & rapoarte bancare — ce e nou
-Doar noutățile de la ultima notă: discursuri, schimbări de pricing, decizii, rapoarte noi în inbox. Per bancă/monedă: cine a intrat, cine și-a schimbat poziția, unde apar contradicții (mai valoroase decât consensul). Dacă nu s-a schimbat nimic: „nemodificat vs. weekly".
+## Știri & bănci centrale
+Un paragraf: titlurile care contează azi, ce e nou la bănci centrale sau în rapoartele bancare. Doar ce s-a schimbat, spus în mare. Fără citate lungi, fără tabele.
 
-## News flow
-Titlurile care mișcă piața acum + impactul concret per instrument (Dow, Gold, cele 8 monede). Surse citate.
+## De urmărit
+Evenimentele zilei (ore România, tier), blackout pe Tier 1, plus ce anume poate rupe tezele active. Maxim 4-5 rânduri.
 
-## De urmărit azi
-Calendarul zilei (ore România, tier-uri), ferestre de blackout ±15-30 min pe Tier 1, sărbători/lichiditate redusă, riscuri de eveniment. Explicit: ce anume poate rupe tezele active.
+## Bias-ul zilei
+O linie per instrument relevant — direcție (long / short / stai / watch) + trigger și invalidare în câteva cuvinte. Ipoteze condiționate, nu ordine; „stai" e o poziție validă.
 
-## Setup-uri — vedere condensată
-*Detaliul complet (raționament, condiție, invalidare) e în terminal. Aici o linie per instrument.*
+- **US30:** …
+- **GOLD:** …
+- **FX (doar perechile cu teză activă):** …
 
-**FX · Strategia A (multi-day):**
-| Instrument | Direcție | Trigger pe scurt | Invalidare pe scurt | Încredere |
-|---|---|---|---|---|
-
-**Intraday · Strategia B (Gold + US30, sesiunea NY):**
-| Instrument | Direcție | Trigger pe scurt | Invalidare pe scurt | Încredere |
-|---|---|---|---|---|
-
-*Ipoteze condiționate, NU ordine. „STAI" e o poziție validă. Nivelurile tehnice: ale tale.*
-
-## Cele 7 criterii — status
-O linie per criteriu, doar dacă s-a schimbat ceva vs. weekly; altfel „nemodificat".
-
-| # | Criteriu | Status azi |
-|---|---|---|
-| 1 | Central Banks | |
-| 2 | Rapoarte bancare | |
-| 3 | Indicatori economici | |
-| 4 | Yield spreads 2Y | |
-| 5 | COT | |
-| 6 | Sentiment | |
-| 7 | Seasonality | |
-
-*După generare: actualizează directions.json (regim, sentiment, comentarii, monede, trade-uri split) → regenerează data.js + analysis_data.js.*
+*După generare: actualizează directions.json → regenerează data.js + analysis_data.js.*
