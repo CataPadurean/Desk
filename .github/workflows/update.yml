@@ -49,6 +49,8 @@ jobs:
           cp "Terminal Back-end/07_Dashboard"/*.html "Terminal Back-end/07_Dashboard"/*.js _site/ 2>/dev/null || true
           rm -f _site/journal_data.js
           cp "Terminal Back-end/07_Dashboard/dashboard.html" _site/index.html
+          # cache-busting: fiecare deploy schimbă versiunea fișierelor .js
+          sed -i "s/src=\"data.js\"/src=\"data.js?v=${GITHUB_RUN_ID}\"/g; s/src=\"analysis_data.js\"/src=\"analysis_data.js?v=${GITHUB_RUN_ID}\"/g; s/src=\"journal_data.js\"/src=\"journal_data.js?v=${GITHUB_RUN_ID}\"/g" _site/*.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
