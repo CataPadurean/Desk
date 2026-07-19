@@ -4,24 +4,26 @@ Sistem de research & trading semi-automatizat. Stack: Trading Economics (macro),
 
 ## Structura
 
+La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi tu (`1_Upload Reports`, `2_Morning_Note`, `3_Weekly_Note`) + `CLAUDE.md`. Restul (motorul) e sub `Terminal Back-end/`.
+
 | Folder | Rol |
 |---|---|
-| `00_SYSTEM` | Reguli, playbook, scheme, template-uri |
-| `01_Inbox_Rapoarte` | **Aici pui PDF-urile** (zilnic comerciale, săptămânal bănci centrale) |
-| `02_Rapoarte_Procesate` | Arhivă după procesare, pe săptămâni |
-| `03_Weekly_Macro_Note` | Teza săptămânală (duminică) |
-| `04_Morning_Brief` | Brief-ul zilnic pre-market |
-| `05_Trade_Blotter` | Jurnalul de trade-uri (Excel, statistici automate) |
-| `06_Risk_Reports` | Raport lunar de risc & performanță |
-| `07_Dashboard` | **Dashboard live** (offline, 3 pagini): `dashboard.html` = overview + posibile trade-uri (FX / intraday) · `analysis.html` = cele 7 criterii + secțiuni per monedă · `journal.html` = statistici blotter |
+| `Terminal Back-end/00_SYSTEM` | Reguli, playbook, scheme, template-uri |
+| `1_Upload Reports` | **Aici pui PDF-urile** (zilnic comerciale, săptămânal bănci centrale) |
+| `Terminal Back-end/02_Rapoarte_Procesate` | Arhivă după procesare, pe săptămâni |
+| `3_Weekly_Note` | Teza săptămânală (duminică) |
+| `2_Morning_Note` | Brief-ul zilnic pre-market |
+| `Terminal Back-end/05_Trade_Blotter` | Jurnalul de trade-uri (Excel, statistici automate) |
+| `Terminal Back-end/06_Risk_Reports` | Raport lunar de risc & performanță |
+| `Terminal Back-end/07_Dashboard` | **Dashboard live** (offline, 3 pagini): `dashboard.html` = overview + posibile trade-uri (FX / intraday) · `analysis.html` = cele 7 criterii + secțiuni per monedă · `journal.html` = statistici blotter |
 
 ## Cadența (comenzile către Claude)
 
-**Zilnic, dimineața** — pui rapoartele în `01_Inbox_Rapoarte` și spui: **„procesează inbox"**
-→ Claude: extrage tezele fiecărei bănci pe schema fixă, marchează consens/contradicții/schimbări de poziție, generează Morning Brief în `04` (sinteza rapoartelor + direcții), arhivează PDF-urile în `02`.
+**Zilnic, dimineața** — pui rapoartele în `1_Upload Reports` și spui: **„procesează inbox"**
+→ Claude: extrage tezele fiecărei bănci pe schema fixă, marchează consens/contradicții/schimbări de poziție, generează Morning Brief în `2_Morning_Note` (sinteza rapoartelor + direcții), arhivează PDF-urile în `Terminal Back-end/02_Rapoarte_Procesate`.
 
 **Duminică seara** — spui: **„generează teza săptămânală"**
-→ Claude: cele 7 criterii în ordinea importanței — (1) Central Banks Outlook (TMV + sweep), (2) rapoartele săptămânii, (3) indicatori economici, (4) yield spreads 2Y, (5) COT leveraged funds, (6) sentiment, (7) sezonalitate cu media lunii curente → Weekly Macro Note în `03`, cu scor de confluență **minim 5/7 (criteriile 1+2 obligatorii)** per pereche, pe universul de 8 monede (core: USD/EUR/GBP/CAD; secundare: JPY/CHF/AUD/NZD — semnalate la divergențe mari). Aceeași notă = schița newsletter-ului.
+→ Claude: cele 7 criterii în ordinea importanței — (1) Central Banks Outlook (TMV + sweep), (2) rapoartele săptămânii, (3) indicatori economici, (4) yield spreads 2Y, (5) COT leveraged funds, (6) sentiment, (7) sezonalitate cu media lunii curente → Weekly Macro Note în `3_Weekly_Note`, cu scor de confluență **minim 5/7 (criteriile 1+2 obligatorii)** per pereche, pe universul de 8 monede (core: USD/EUR/GBP/CAD; secundare: JPY/CHF/AUD/NZD — semnalate la divergențe mari). Aceeași notă = schița newsletter-ului.
 
 **După fiecare sesiune** — spui: **„loghează:"** + detaliile trade-urilor (sau dai statement-ul MT5)
 → Claude completează Blotter-ul; statisticile (expectancy per setup / strategie / cont) se calculează singure.
