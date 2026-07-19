@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
-"""Sezonalitate 10 ani: randament mediu lunar + hit rate per instrument,
-plus blocul „current_month" (media % și hit rate pentru luna calendaristică curentă).
-Instrumente: cele 7 perechi FX + US30 + GOLD (readăugate 2026-07-19).
+"""Sezonalitate 10 ani: randament mediu lunar + hit rate per instrument, pe toate cele 12 luni.
+Instrumente: cele 7 perechi FX + US30 + GOLD.
 Surse: FRED (FX zilnic + DJIA, fără cheie; DJIA are istoric rolling de fix ~10 ani = fereastra noastră)
 și LBMA (Gold PM fix USD, JSON public prices.lbma.org.uk). Stooq/Yahoo rămân blocate anti-bot.
-Rulare: python3 update_seasonality.py  →  ../data/seasonality.json
-Se rulează rar (o dată pe lună e suficient — sezonalitatea se mișcă lent)."""
+
+RULARE: O SINGURĂ DATĂ PE AN, la început de an (ex. prima săptămână din ianuarie), manual:
+    python3 update_seasonality.py
+Tabelul rămâne FIX tot anul — asta e intenționat: Cătălin vrea să compare performanța
+reală a anului curent față de un reper de sezonalitate care nu se mișcă sub el (nu o
+fereastră rulantă recalculată zilnic). NU se apelează din update_data.py și NU rulează
+în GitHub Actions zilnic — doar din workflow-ul anual dedicat sau manual pe Mac.
+
+Chenarul „luna curentă" din analysis.html NU mai vine din date scrise aici — se
+calculează live în browser (JS: new Date().getMonth()) și citește luna corespunzătoare
+din acest tabel fix. Deci chenarul se actualizează singur pe 1 ale fiecărei luni,
+fără nicio rulare de script."""
 import csv, io, json, subprocess, sys
 from datetime import date
 from pathlib import Path
@@ -94,14 +103,6 @@ def main():
         except Exception as e:
             out['status'][k] = f'INDISPONIBIL: {e}'
             print(f'[SEZON] {k} a picat: {e}', file=sys.stderr)
-
-    # blocul lunii curente — media de change % + hit rate, per instrument
-    cur = date.today().month
-    MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    out['current_month'] = {
-        'month': cur, 'name': MON[cur - 1],
-        'instruments': {k: v[str(cur)] for k, v in out['instruments'].items() if v.get(str(cur))}
-    }
 
     dst = Path(__file__).resolve().parents[1] / 'data'
     dst.mkdir(exist_ok=True)

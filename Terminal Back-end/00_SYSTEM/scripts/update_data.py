@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-"""Runner: rulează update_cot.py + update_yields.py + update_seasonality.py,
-compune ../data/macro_snapshot.md și regenerează 07_Dashboard/analysis_data.js.
+"""Runner: rulează update_cot.py + update_yields.py, compune ../data/macro_snapshot.md
+și regenerează 07_Dashboard/analysis_data.js.
+Seasonality NU se rulează aici — se calculează O SINGURĂ DATĂ PE AN (început de an,
+manual: `python3 update_seasonality.py`), ca să rămână fix tot anul (comparabil, nu
+recalculat zilnic pe fereastra rulantă). Chenarul „luna curentă" din analysis.html
+citește automat luna corectă din tabelul fix, fără să retrimită date.
 Rulare (duminica, înainte de teză): python3 update_data.py"""
 import json, subprocess, sys
 from datetime import date
@@ -55,7 +59,7 @@ def main():
     if not no_fetch:
         ok_cot = run('update_cot.py')
         ok_yld = run('update_yields.py')
-        run('update_seasonality.py')
+        # seasonality: NU se rulează aici, e anuală (vezi update_seasonality.py)
 
     lines = [f'# MACRO SNAPSHOT — {date.today().isoformat()}', '']
     cot = json.loads((DATA / 'cot_latest.json').read_text()) if (DATA / 'cot_latest.json').exists() else None

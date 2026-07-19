@@ -3,6 +3,7 @@ name: Update desk data + deploy dashboard
 on:
   schedule:
     - cron: '0 11 * * *'     # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna) — înainte de sesiunea NY; sâmbăta prinde COT-ul de vineri
+    - cron: '0 5 3 1 *'      # o dată pe an, 3 ianuarie 05:00 UTC — recalculează seasonality.json (fix tot anul)
   push:
     branches: [ main ]        # push-ul lui Claude/tău reîmprospătează site-ul
   workflow_dispatch: {}        # buton „Run workflow" (rulare manuală)
@@ -27,13 +28,25 @@ jobs:
           python-version: '3.12'
 
       # Datele de piață se reîmprospătează DOAR pe program / manual, nu la fiecare push
-      - name: Refresh market data (COT + randamente + seasonality)
+      # (seasonality NU e inclus aici — vezi jobul anual mai jos)
+      - name: Refresh market data (COT + randamente)
         if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]')
         continue-on-error: true
         run: python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py"
 
+      # Seasonality: O SINGURĂ DATĂ PE AN (cron 3 ianuarie) — tabelul rămâne fix restul anului.
+      # Poate fi forțat oricând cu [refresh-seasonality] în mesajul de commit.
+      - name: Refresh seasonality (anual)
+        if: (github.event.schedule == '0 5 3 1 *') || contains(github.event.head_commit.message, '[refresh-seasonality]')
+        continue-on-error: true
+        run: python3 "Terminal Back-end/00_SYSTEM/scripts/update_seasonality.py"
+
+      - name: Recompune analysis_data.js
+        if: github.event.schedule == '0 5 3 1 *' && github.event_name != 'push'
+        run: python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py" --no-fetch
+
       - name: Commit datele proaspete
-        if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]')
+        if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]') || contains(github.event.head_commit.message, '[refresh-seasonality]')
         run: |
           git config user.name  "desk-bot"
           git config user.email "actions@users.noreply.github.com"
