@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Sezonalitate 10 ani: randament mediu lunar + hit rate per instrument,
 plus blocul „current_month" (media % și hit rate pentru luna calendaristică curentă).
-Instrumente: DOAR cele 7 perechi FX (universul de 8 monede vs USD).
-GOLD + US30 au fost scoase din seasonality (2026-07-04) — sursele gratuite fără cheie
-(Stooq, Yahoo) sunt acum blocate anti-bot, iar FRED nu are Dow și nici gold la zi.
-Sursă: FRED (FX zilnic, fără cheie).
+Instrumente: cele 7 perechi FX + US30 + GOLD (readăugate 2026-07-19).
+Surse: FRED (FX zilnic + DJIA, fără cheie; DJIA are istoric rolling de fix ~10 ani = fereastra noastră)
+și LBMA (Gold PM fix USD, JSON public prices.lbma.org.uk). Stooq/Yahoo rămân blocate anti-bot.
 Rulare: python3 update_seasonality.py  →  ../data/seasonality.json
 Se rulează rar (o dată pe lună e suficient — sezonalitatea se mișcă lent)."""
 import csv, io, json, subprocess, sys
@@ -48,6 +47,16 @@ def monthly_from_fred(series_id):
             m[row[0][:7]] = float(row[iv])  # cheia YYYY-MM, suprascrie → rămâne ultima zi
     return sorted(m.items())
 
+def monthly_from_lbma(url='https://prices.lbma.org.uk/json/gold_pm.json'):
+    """LBMA JSON [{'d':'YYYY-MM-DD','v':[USD,GBP,EUR]}, ...] → [(YYYY-MM, close USD)]."""
+    data = json.loads(get(url))
+    m = {}
+    for row in data:
+        v = row.get('v') or []
+        if v and v[0]:
+            m[row['d'][:7]] = float(v[0])  # suprascrie → rămâne ultima zi din lună
+    return sorted(m.items())
+
 def seasonality(series):
     """[(YYYY-MM, close)] → per lună calendaristică: medie %, hit rate, n (ultimii YEARS ani)."""
     rets = []
@@ -66,14 +75,16 @@ def seasonality(series):
 
 def main():
     src = {
-        # 7 perechi FX — universul de 8 monede vs USD (FRED, zilnic)
+        # ordinea canonică (CLAUDE.md, regula 0): perechi FX, apoi US30, apoi GOLD
         'EURUSD': lambda: monthly_from_fred('DEXUSEU'),
         'GBPUSD': lambda: monthly_from_fred('DEXUSUK'),
-        'AUDUSD': lambda: monthly_from_fred('DEXUSAL'),
-        'NZDUSD': lambda: monthly_from_fred('DEXUSNZ'),
+        'USDCAD': lambda: monthly_from_fred('DEXCAUS'),
         'USDJPY': lambda: monthly_from_fred('DEXJPUS'),
         'USDCHF': lambda: monthly_from_fred('DEXSZUS'),
-        'USDCAD': lambda: monthly_from_fred('DEXCAUS'),
+        'AUDUSD': lambda: monthly_from_fred('DEXUSAL'),
+        'NZDUSD': lambda: monthly_from_fred('DEXUSNZ'),
+        'US30':   lambda: monthly_from_fred('DJIA'),
+        'GOLD':   monthly_from_lbma,
     }
     out = {'updated': date.today().isoformat(), 'years': YEARS, 'instruments': {}, 'status': {}}
     for k, fn in src.items():

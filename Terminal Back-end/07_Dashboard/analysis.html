@@ -185,7 +185,7 @@
   const se = (D.seasonality || {}).instruments || {};
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const cur = new Date().getMonth() + 1;
-  const SORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'];
+  const SORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD', 'US30', 'GOLD'];
   const skeys = SORD.filter(k => se[k]).concat(Object.keys(se).filter(k => !SORD.includes(k)));
   // luna curentă — media de change % per instrument
   const cmon = (D.seasonality || {}).current_month;
