@@ -28,12 +28,12 @@ jobs:
 
       # Datele de piață se reîmprospătează DOAR pe program / manual, nu la fiecare push
       - name: Refresh market data (COT + randamente + seasonality)
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]')
         continue-on-error: true
         run: python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py"
 
       - name: Commit datele proaspete
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]')
         run: |
           git config user.name  "desk-bot"
           git config user.email "actions@users.noreply.github.com"
