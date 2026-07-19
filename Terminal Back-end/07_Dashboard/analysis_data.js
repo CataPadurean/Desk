@@ -33,7 +33,7 @@ window.ANALYSIS_DATA = {
   "CAD": {
    "core": true,
    "bias": "Bullish (în construcție spre BoC 15.07)",
-   "cb": "BoC hold, CPI 3,2%; decizie + MPR miercuri 15.07 (16:45 RO) — Tier 1, catalizatorul tezei (W29). CIBC: BoC nu mișcă dobânda anul acesta = hold cu date în ameliorare.",
+   "cb": "BoC hold, CPI 3,2%; decizie + MPR miercuri 15.07 (16:45 RO) — Tier 1, catalizatorul tezei (săpt. 13.07–17.07). CIBC: BoC nu mișcă dobânda anul acesta = hold cu date în ameliorare.",
    "banks": "CACIB (FX Focus 1.07, REVIZUIT): „decuplarea regională exagerată” — USDCAD spre 1,35-1,40 de la 1,418. Scotia + CIBC: GDP aprilie +0,55% beat, Q2 2,3-2,5% SAAR, „R is for Rebound”. COT: short CAD extremă (pctl ~2) = squeeze CAD-pozitiv. Contra onest: spread 2Y (+1,38) încă PRO-USD."
   },
   "JPY": {
