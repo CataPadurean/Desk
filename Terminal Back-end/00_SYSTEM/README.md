@@ -4,7 +4,7 @@ Sistem de research & trading semi-automatizat. Stack: Trading Economics (macro),
 
 ## Structura
 
-La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi tu (`1_Upload Reports`, `2_Morning_Note`, `3_Weekly_Note`) + `CLAUDE.md`. Restul (motorul) e sub `Terminal Back-end/`.
+La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi tu (`1_Upload Reports`, `2_Daily_Note`, `3_Weekly_Note`) + `CLAUDE.md`. Restul (motorul) e sub `Terminal Back-end/`.
 
 | Folder | Rol |
 |---|---|
@@ -12,7 +12,7 @@ La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi t
 | `1_Upload Reports` | **Aici pui PDF-urile** (zilnic comerciale, săptămânal bănci centrale) |
 | `Terminal Back-end/02_Rapoarte_Procesate` | Arhivă după procesare, pe săptămâni |
 | `3_Weekly_Note` | Teza săptămânală (duminică) |
-| `2_Morning_Note` | Brief-ul zilnic pre-market |
+| `2_Daily_Note` | Daily Note — newsletter-ul zilnic pre-market |
 | `Terminal Back-end/05_Trade_Blotter` | Jurnalul de trade-uri (Excel, statistici automate) |
 | `Terminal Back-end/06_Risk_Reports` | Raport lunar de risc & performanță |
 | `Terminal Back-end/07_Dashboard` | **Dashboard live** (offline, 3 pagini): `dashboard.html` = overview + posibile trade-uri (FX / intraday) · `analysis.html` = cele 7 criterii + secțiuni per monedă · `journal.html` = statistici blotter |
@@ -20,7 +20,9 @@ La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi t
 ## Cadența (comenzile către Claude)
 
 **Zilnic, dimineața** — pui rapoartele în `1_Upload Reports` și spui: **„procesează inbox"**
-→ Claude: extrage tezele fiecărei bănci pe schema fixă, marchează consens/contradicții/schimbări de poziție, generează Morning Brief în `2_Morning_Note` (sinteza rapoartelor + direcții), arhivează PDF-urile în `Terminal Back-end/02_Rapoarte_Procesate`.
+→ Claude: extrage tezele fiecărei bănci pe schema fixă, marchează consens/contradicții/schimbări de poziție, generează **Daily Note** în `2_Daily_Note`, arhivează PDF-urile în `Terminal Back-end/02_Rapoarte_Procesate`.
+
+**Stilul notelor (daily + weekly): newsletter, nu raport de date.** Ce e deja în terminal (cifre COT, yield spreads, seasonality, detaliul criteriilor, raționamentul complet al setup-urilor) NU se repetă în PDF. În note intră: rezumat, ce s-a mișcat în piață și de ce, noutăți de la bănci centrale + rapoarte, news flow cu impact per instrument, ce e de urmărit, plus setup-urile condensate (o linie per instrument) și statusul celor 7 criterii (o linie per criteriu, doar ce s-a schimbat).
 
 **Duminică seara** — spui: **„generează teza săptămânală"**
 → Claude: cele 7 criterii în ordinea importanței — (1) Central Banks Outlook (TMV + sweep), (2) rapoartele săptămânii, (3) indicatori economici, (4) yield spreads 2Y, (5) COT leveraged funds, (6) sentiment, (7) sezonalitate cu media lunii curente → Weekly Macro Note în `3_Weekly_Note`, cu scor de confluență **minim 5/7 (criteriile 1+2 obligatorii)** per pereche, pe universul de 8 monede (core: USD/EUR/GBP/CAD; secundare: JPY/CHF/AUD/NZD — semnalate la divergențe mari). Aceeași notă = schița newsletter-ului.

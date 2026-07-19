@@ -1,7 +1,7 @@
 # ─── Date personale / sensibile — rămân DOAR pe Mac ───
 1_Upload Reports/
 3_Weekly_Note/
-2_Morning_Note/
+2_Daily_Note/
 Terminal Back-end/02_Rapoarte_Procesate/
 Terminal Back-end/05_Trade_Blotter/
 Terminal Back-end/06_Risk_Reports/
@@ -13,7 +13,7 @@ Terminal Back-end/07_Dashboard/journal_data.js
 # Config/metodologie + profil — rămân local (repo e public)
 CLAUDE.md
 Terminal Back-end/SETUP_GITHUB.md
-Terminal Back-end/push.command
+push.command
 
 # Fișierele utilizatorului
 Learn/
