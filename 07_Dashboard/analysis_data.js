@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-07-18",
+ "generated": "2026-07-19",
  "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săpt., pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 mld, a 8-a săpt.) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
@@ -120,7 +120,7 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-18",
+  "updated": "2026-07-19",
   "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
@@ -342,7 +342,7 @@ window.ANALYSIS_DATA = {
   }
  },
  "yields": {
-  "updated": "2026-07-18",
+  "updated": "2026-07-19",
   "status": {
    "US": "ok",
    "EUR": "ok",
@@ -437,7 +437,7 @@ window.ANALYSIS_DATA = {
   }
  },
  "seasonality": {
-  "updated": "2026-07-18",
+  "updated": "2026-07-19",
   "years": 10,
   "instruments": {
    "EURUSD": {
