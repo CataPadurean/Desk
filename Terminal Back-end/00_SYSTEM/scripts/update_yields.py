@@ -259,26 +259,30 @@ def src_snb():
 def src_snb_xlsx():
     """CHF: «Current interest rates» xlsx (snb.ch/public/rates/interestRates.xlsx).
     SNB a oprit curba spot completă în 2025 — publică zilnic DOAR 10Y Confederație.
-    Caut rândul cu Confederation/Eidgenoss → valoarea + data; istoricul crește în cache."""
+    Structura (verificată 20.07.2026, foaia «Interest_Rates»): un rând-antet mapează
+    coloanele pe coduri (… «R10» = Rendite Bundesobligationen), apoi rânduri de date
+    cu A = dată serial Excel și R10 = randamentul 10Y. Iau istoricul complet."""
     raw = get('https://www.snb.ch/public/rates/interestRates.xlsx', binary=True)
     for sheet, rows in xlsx_sheets(raw).items():
+        col_r10 = None
         for r in rows:
-            joined = ' '.join(str(v) for v in r.values() if isinstance(v, str)).lower()
-            if 'confederation' not in joined and 'eidgenoss' not in joined: continue
-            val = None; d = None
-            for v in r.values():
-                if isinstance(v, (int, float)) and not isinstance(v, bool):
-                    fv = float(v)
-                    if -5 < fv < 20 and val is None: val = fv
-                    elif fv > 40000 and d is None: d = xl_date(v)
-                elif isinstance(v, str):
-                    if d is None:
-                        d = _iso(v) if re.search(r'\d{4}', v) else None
-                    m = re.search(r'(-?\d+[.,]\d+)\s*%', v)
-                    if m and val is None: val = float(m.group(1).replace(',', '.'))
-            if val is not None:
-                return {'2Y': [], '10Y': series_clean([(d or date.today().isoformat(), val)])}, 'SNB xlsx (doar 10Y)'
-    raise RuntimeError('SNB xlsx: rândul Confederation negăsit')
+            if col_r10 is None:
+                for c, v in r.items():
+                    if isinstance(v, str) and v.strip().upper() == 'R10' and c != 'A':
+                        col_r10 = c
+                if col_r10: continue
+            if col_r10 is None: continue
+        if not col_r10: continue
+        s10 = []
+        for r in rows:
+            d = xl_date(r.get('A'))
+            v = r.get(col_r10)
+            if d and v is not None:
+                try: s10.append((d, float(v)))
+                except (TypeError, ValueError): pass
+        if s10:
+            return {'2Y': [], '10Y': series_clean(s10)}, 'SNB xlsx (doar 10Y)'
+    raise RuntimeError('SNB xlsx: coloana R10 negăsită')
 
 def src_snb_rss():
     """CHF fallback oficial: RSS «Current interest rates» — DOAR 10Y (ultima valoare).
@@ -287,8 +291,10 @@ def src_snb_rss():
     best = None
     for item in re.split(r'<(?:item|entry)[\s>]', xml)[1:]:
         text = re.sub(r'<[^>]+>', ' ', item)
-        if not re.search(r'confederation', text, re.I): continue
-        mv = re.search(r'(-?\d+(?:[.,]\d+))\s*%', text)
+        if not re.search(r'confederation|eidgenoss', text, re.I): continue
+        mv = (re.search(r'CH:\s*(-?\d+(?:[.,]\d+))\s*R10', text)
+              or re.search(r'(-?\d+(?:[.,]\d+))\s*%', text)
+              or re.search(r'(-?\d+[.,]\d+)', text))
         md = (re.search(r'(\d{4}-\d{2}-\d{2})', item)
               or re.search(r'(\d{2}\.\d{2}\.\d{4})', text))
         if mv:
