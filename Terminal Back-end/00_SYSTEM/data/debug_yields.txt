@@ -1,10 +1,12 @@
-== RBNZ combos ==
-curl-default: 403 text/html; charset=UTF-8 
-mozilla: 403 text/html; charset=UTF-8 
-mozilla+ref+acc: 403 text/html; charset=UTF-8 
-mozilla+cookiejar: 403 text/html; charset=UTF-8 
+== RBNZ combos v2 (http2) ==
+h2-mozilla: 403 text/html; charset=UTF-8 
+h2-full-browser: 403 text/html; charset=UTF-8 
+h2-full+ref: 403 text/html; charset=UTF-8 
+h2-page-first: pagina=403 text/html; charset=UTF-8 fisier=403 text/html; charset=UTF-8 
+h1-full-browser: 403 text/html; charset=UTF-8 
+legacy-path: 403 text/html; charset=UTF-8 
 == SNB xlsx sheets/rows ==
-download: 200 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+download: 200 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=ISO-8859-1
 --- sheet: Interest_Rates (262 rows)
 {'A': "Aktuelle Zinssätze: Übersicht\nTaux d'intérêt actuels: aperçu", 'I': '46223.0'}
 {'A': 'SNBLZ', 'B': 'SNB-Leitzins\nTaux directeur de la BNS\nSNB policy rate\nTasso '}
