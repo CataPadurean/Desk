@@ -11,9 +11,9 @@ Arhitectură „merge întotdeauna":
        GBP : BoE — ZIP curba GLC (xlsx)      → Stooq
        CAD : Bank of Canada Valet (JSON)
        JPY : MOF Japonia (jgbcme CSV)        → Stooq
-       CHF : SNB cub «rendoblid» (2J/10J0)   → Stooq
+       CHF : SNB — DOAR 10Y din 2025 (xlsx/RSS «Current interest rates»; cuburile spot moarte) → Stooq
        AUD : RBA F2 zilnic (FCMYGBAG2D/10D)  → RBA F2.1 lunar → Stooq
-       NZD : RBNZ B2 zilnic (xlsx)           → Stooq
+       NZD : RBNZ B2 Daily close (xlsx nou, 25.08.2025) → Stooq
   2. Cache «last-known-good»: dacă o sursă pică azi, păstrăm ultima valoare
      bună din yields_latest.json (status = stale), NU dispare din dashboard.
   3. history per monedă/tenor (ultimele ~30 obs.) pentru Δ stabil.
@@ -256,12 +256,36 @@ def src_snb():
             last_err = f'{cube}: fără 2J/10J0'
     raise RuntimeError(f'SNB cuburi: {last_err}')
 
+def src_snb_xlsx():
+    """CHF: «Current interest rates» xlsx (snb.ch/public/rates/interestRates.xlsx).
+    SNB a oprit curba spot completă în 2025 — publică zilnic DOAR 10Y Confederație.
+    Caut rândul cu Confederation/Eidgenoss → valoarea + data; istoricul crește în cache."""
+    raw = get('https://www.snb.ch/public/rates/interestRates.xlsx', binary=True)
+    for sheet, rows in xlsx_sheets(raw).items():
+        for r in rows:
+            joined = ' '.join(str(v) for v in r.values() if isinstance(v, str)).lower()
+            if 'confederation' not in joined and 'eidgenoss' not in joined: continue
+            val = None; d = None
+            for v in r.values():
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    fv = float(v)
+                    if -5 < fv < 20 and val is None: val = fv
+                    elif fv > 40000 and d is None: d = xl_date(v)
+                elif isinstance(v, str):
+                    if d is None:
+                        d = _iso(v) if re.search(r'\d{4}', v) else None
+                    m = re.search(r'(-?\d+[.,]\d+)\s*%', v)
+                    if m and val is None: val = float(m.group(1).replace(',', '.'))
+            if val is not None:
+                return {'2Y': [], '10Y': series_clean([(d or date.today().isoformat(), val)])}, 'SNB xlsx (doar 10Y)'
+    raise RuntimeError('SNB xlsx: rândul Confederation negăsit')
+
 def src_snb_rss():
     """CHF fallback oficial: RSS «Current interest rates» — DOAR 10Y (ultima valoare).
     Istoricul se acumulează în cache de la o rulare zilnică la alta."""
     xml = get('https://www.snb.ch/public/rss/en/interestRates')
     best = None
-    for item in re.split(r'<item[\s>]', xml)[1:]:
+    for item in re.split(r'<(?:item|entry)[\s>]', xml)[1:]:
         text = re.sub(r'<[^>]+>', ' ', item)
         if not re.search(r'confederation', text, re.I): continue
         mv = re.search(r'(-?\d+(?:[.,]\d+))\s*%', text)
@@ -308,9 +332,18 @@ def src_rba():
     return out, 'RBA F2.1 lunar'
 
 def src_rbnz():
-    """NZD oficial: RBNZ B2 zilnic (xlsx). Caut coloanele «Govt bond yields … 2/10 year(s)»."""
-    raw = get('https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/hb2-daily.xlsx',
-              binary=True, referer='https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates')
+    """NZD oficial: RBNZ B2 Daily close (xlsx, din 25.08.2025; închideri NZFMA, lag 1 zi).\n    Caut coloanele «Govt bond yields … 2/10 year(s)»."""
+    # din 25.08.2025 RBNZ publică «B2 Daily close» (hb2-daily-close.xlsx); cel vechi e mort
+    last = None
+    for fn in ('hb2-daily-close.xlsx', 'hb2-daily.xlsx'):
+        try:
+            raw = get(f'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/{fn}',
+                      binary=True, referer='https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates')
+            break
+        except Exception as e:
+            last = e
+    else:
+        raise RuntimeError(f'RBNZ B2: {last}')
     for sheet, rows in xlsx_sheets(raw).items():
         if sheet.lower().startswith('read') or not rows: continue     # sar peste foaia README
         # titlul coloanei = concatenarea celulelor de antet (primele ~8 rânduri) pe coloană,
@@ -374,7 +407,7 @@ CHAINS = {
     'GBP': [src_boe_glc, lambda: src_stooq('2yuky.b', '10yuky.b')],
     'CAD': [src_boc],
     'JPY': [src_mof,  lambda: src_stooq('2yjpy.b', '10yjpy.b')],
-    'CHF': [src_snb,  lambda: src_stooq('2ychy.b', '10ychy.b'), src_snb_rss],
+    'CHF': [src_snb, src_snb_xlsx, src_snb_rss, lambda: src_stooq('2ychy.b', '10ychy.b')],
     'AUD': [src_rba,  lambda: src_stooq('2yauy.b', '10yauy.b')],
     'NZD': [src_rbnz, lambda: src_stooq('2ynzy.b', '10ynzy.b')],
 }
