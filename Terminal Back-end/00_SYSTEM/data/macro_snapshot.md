@@ -23,7 +23,7 @@
 | GBP | 4.239 | +0.119 | 5.014 | +0.063 |
 | CAD | 2.86 | +0.04 | 3.56 | +0.05 |
 | JPY | 1.44 | -0.004 | 2.719 | -0.147 |
-| CHF *(INDISPONIBIL: SNB)* | — | — | — | — |
+| CHF | — | — | 0.49 | +0.023 |
 | AUD | 4.5 | +0.013 | 4.913 | +0.02 |
 | NZD *(INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
 
@@ -35,7 +35,7 @@
 | GBPUSD | 0.059 | +0.149 | 0.464 | +0.073 |
 | USDCAD | 1.32 | -0.07 | 0.99 | -0.06 |
 | USDJPY | 2.74 | -0.026 | 1.831 | +0.137 |
-| USDCHF | — | — | — | — |
+| USDCHF | — | — | 4.06 | -0.033 |
 | AUDUSD | 0.32 | +0.043 | 0.363 | +0.03 |
 | NZDUSD | — | — | — | — |
 
