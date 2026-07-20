@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-07-19
+# MACRO SNAPSHOT — 2026-07-20
 
 ## COT (as of 2026-07-14) — Leveraged Funds (TFF) / Managed Money (GOLD)
 
@@ -19,11 +19,11 @@
 | | 2Y | Δ2Y | 10Y | Δ10Y |
 |---|---|---|---|---|
 | US | 4.18 | -0.03 | 4.55 | -0.01 |
-| EUR | 2.699 | +0.084 | 3.177 | +0.048 |
-| GBP | 4.24 | +0.103 | 5.038 | +0.063 |
-| CAD | 2.83 | +0.03 | 3.53 | +0.01 |
+| EUR | 2.698 | +0.098 | 3.152 | +0.044 |
+| GBP | 4.239 | +0.119 | 5.014 | +0.063 |
+| CAD | 2.86 | +0.04 | 3.56 | +0.05 |
 | JPY | 1.44 | -0.004 | 2.719 | -0.147 |
-| CHF *(INDISPONIBIL: RuntimeError: SNB RSS: randamentul Confederației negăsit)* | — | — | — | — |
+| CHF *(INDISPONIBIL: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV)* | — | — | — | — |
 | AUD | 4.5 | +0.013 | 4.913 | +0.02 |
 | NZD *(INDISPONIBIL: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
 
@@ -31,26 +31,12 @@
 
 | Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
 |---|---|---|---|---|
-| EURUSD | -1.481 | +0.114 | -1.373 | +0.058 |
-| GBPUSD | 0.06 | +0.133 | 0.488 | +0.073 |
-| USDCAD | 1.35 | -0.06 | 1.02 | -0.02 |
+| EURUSD | -1.482 | +0.128 | -1.398 | +0.054 |
+| GBPUSD | 0.059 | +0.149 | 0.464 | +0.073 |
+| USDCAD | 1.32 | -0.07 | 0.99 | -0.06 |
 | USDJPY | 2.74 | -0.026 | 1.831 | +0.137 |
 | USDCHF | — | — | — | — |
 | AUDUSD | 0.32 | +0.043 | 0.363 | +0.03 |
 | NZDUSD | — | — | — | — |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
-
-## Sezonalitate — luna curentă (Jul, medie 10 ani)
-
-| Instrument | Medie % | Hit rate |
-|---|---|---|
-| EURUSD | +0.46% | 73% |
-| GBPUSD | +0.44% | 73% |
-| USDCAD | -0.4% | 45% |
-| USDJPY | -0.89% | 27% |
-| USDCHF | -0.76% | 27% |
-| AUDUSD | +0.5% | 64% |
-| NZDUSD | +0.35% | 73% |
-| US30 | +2.61% | 90% |
-| GOLD | +1.86% | 73% |
