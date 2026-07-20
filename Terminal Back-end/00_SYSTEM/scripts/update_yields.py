@@ -441,7 +441,7 @@ def main():
 
     history, status, sources = {}, {}, {}
     for ccy, chain in CHAINS.items():
-        fetched, src_name, err = None, None, None
+        fetched, src_name, errs = None, None, []
         fresh_lim = (date.today() - timedelta(days=28)).isoformat()
         for fn in chain:
             try:
@@ -453,11 +453,12 @@ def main():
                             print(f'[YLD]   {ccy} {src_name} {t}: date vechi ({s[-1][0]}) — resping', file=sys.stderr)
                             fetched[t] = []
                 if fetched and (fetched.get('2Y') or fetched.get('10Y')): break
-                err = err or f'{src_name}: fără date recente'
+                errs.append(f'{src_name}: fără date recente')
                 fetched = None
             except Exception as e:
-                err = f'{type(e).__name__}: {e}'
-                print(f'[YLD]   {ccy} {getattr(fn, "__name__", "fallback")}: {err}', file=sys.stderr)
+                errs.append(f'{getattr(fn, "__name__", "fallback")}: {type(e).__name__}: {e}')
+                print(f'[YLD]   {ccy} {errs[-1]}', file=sys.stderr)
+        err = ' || '.join(str(x)[:160] for x in errs) if errs else None
         # merge cu istoricul anterior (last-known-good) — nu pierdem nimic
         history[ccy] = {}
         for tenor in ('2Y', '10Y'):
