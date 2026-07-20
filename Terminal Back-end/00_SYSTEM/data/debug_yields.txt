@@ -1,0 +1,108 @@
+== RBNZ combos ==
+curl-default: 403 text/html; charset=UTF-8 
+mozilla: 403 text/html; charset=UTF-8 
+mozilla+ref+acc: 403 text/html; charset=UTF-8 
+mozilla+cookiejar: 403 text/html; charset=UTF-8 
+== SNB xlsx sheets/rows ==
+download: 200 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+--- sheet: Interest_Rates (262 rows)
+{'A': "Aktuelle Zinssätze: Übersicht\nTaux d'intérêt actuels: aperçu", 'I': '46223.0'}
+{'A': 'SNBLZ', 'B': 'SNB-Leitzins\nTaux directeur de la BNS\nSNB policy rate\nTasso '}
+{'A': 'Sondersatz', 'B': 'Sondersatz  (Engpassfinanzierungsfazilität)\nTaux spécial (fa'}
+{'A': 'SNBGIRO1', 'B': 'Zinssatz auf Sichtguthaben bis zur Limite\nTaux d’intérêt sur'}
+{'A': 'SNBGIRO2', 'B': 'Zinssatz auf Sichtguthaben über der Limite\nTaux d’intérêt su'}
+{'A': 'Zinsabschlag', 'B': "Zinsabschlag in Basispunkten\nRéduction du taux d'intérêt en "}
+{'A': 'SNBFBF', 'B': 'Faktor für die Limite\nCoefficient du seuil\nThreshold factor\n'}
+{'A': 'SARH', 'B': 'SARON Fixing Handelsschluss\nSARON fixing à la fin de la jour', 'J': 'SARON is published on the SNB website for illustrative purpo'}
+{'A': 'R10', 'B': 'Rendite Bundesobligationen Eidgenossenschaft\nRendement des o'}
+{'B': 'SNBLZ', 'C': 'Sondersatz', 'D': 'SNBGIRO1', 'E': 'SNBGIRO2', 'F': 'Zinsabschlag', 'G': 'SNBFBF', 'H': 'SARH', 'I': 'R10'}
+{'A': '46223.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'I': '0.49'}
+{'A': '46220.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.48'}
+{'A': '46219.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.483'}
+{'A': '46218.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.473'}
+{'A': '46217.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.485'}
+{'A': '46216.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.467'}
+{'A': '46213.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.44'}
+{'A': '46212.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.426'}
+{'A': '46211.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.41'}
+{'A': '46210.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.384'}
+{'A': '46209.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.364'}
+{'A': '46206.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.365'}
+{'A': '46205.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.356'}
+{'A': '46204.0', 'B': '0.0', 'C': '0.25', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.337'}
+{'A': '46203.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.31'}
+{'A': '46202.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.305'}
+{'A': '46199.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.3'}
+{'A': '46198.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.311'}
+{'A': '46197.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.353'}
+{'A': '46196.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.37'}
+{'A': '46195.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.385'}
+{'A': '46192.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.384'}
+{'A': '46191.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.371'}
+{'A': '46190.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.386'}
+{'A': '46189.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.393'}
+{'A': '46188.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.406'}
+{'A': '46185.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.451'}
+{'A': '46184.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.487'}
+{'A': '46183.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.482'}
+{'A': '46182.0', 'B': '0.0', 'C': '0.5', 'D': '0.0', 'E': '-0.25', 'F': '25.0', 'G': '15.0', 'H': '-0.04', 'I': '0.473'}
+== SNB RSS primele 4000 ==
+download: 200 application/xml;charset=UTF-8
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cb="http://www.cbwiki.net/wiki/index.php/Specification_1.2/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" version="2.0">
+  <channel>
+    <atom:link href="https://www.snb.ch/public/rss/en/interestRates" rel="self" type="application/rss+xml" />
+    <title>Current interest rates</title>
+    <link>https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates#t00</link>
+    <description>Swiss National Bank (SNB): CHF interest rates at the end of the day</description>
+    <pubDate>Mon, 20 Jul 2026 11:05:00 GMT</pubDate>
+    <dc:date>2026-07-20T11:05:00Z</dc:date>
+    <dcterms:created>2026-07-20T13:08:04Z</dcterms:created>
+    <dcterms:license>https://www.snb.ch/en/srv/disclaimer</dcterms:license>
+    <dc:publisher>SNB</dc:publisher>
+    <dc:date>2026-07-20T13:08:04Z</dc:date>
+    <dc:rights>Copyright © Swiss National Bank, Zurich (Switzerland) 2026</dc:rights>
+    <item>
+      <title>CH: 0.490 R10 2026-07-20 SNB Yield on Swiss Confederation bonds</title>
+      <link>https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates#t00</link>
+      <description>Yield on Swiss Confederation bonds / Spot interest rate for 10-year maturities (2026-07-20T13:05:00+02:00)</description>
+      <pubDate>Mon, 20 Jul 2026 11:05:00 GMT</pubDate>
+      <guid>https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates#t00</guid>
+      <dc:date>2026-07-20T11:05:00Z</dc:date>
+      <dc:language>en</dc:language>
+      <cb:statistics rdf:parseType="Resource">
+        <rdf:type rdf:resource="http://www.cbwiki.net/wiki/index.php/RSS-CB_1.2_RDF_Schema#Statistics" />
+        <cb:country>CH</cb:country>
+        <cb:institutionAbbrev>SNB</cb:institutionAbbrev>
+        <cb:interestRate rdf:parseType="Resource">
+          <rdf:type rdf:resource="http://www.cbwiki.net/wiki/index.php/RSS-CB_1.2_RDF_Schema#InterestRate" />
+          <cb:observation rdf:parseType="Resource">
+            <rdf:type rdf:resource="http://www.cbwiki.net/wiki/index.php/RSS-CB_1.2_RDF_Schema#Observation" />
+            <cb:value>0.490</cb:value>
+            <cb:unit>percent</cb:unit>
+            <cb:decimals>3</cb:decimals>
+          </cb:observation>
+          <cb:rateName>R10</cb:rateName>
+          <cb:rateType>Yield on Swiss Confederation bonds / Spot interest rate for 10-year maturities</cb:rateType>
+          <cb:observationPeriod rdf:parseType="Resource">
+            <rdf:type rdf:resource="http://www.cbwiki.net/wiki/index.php/RSS-CB_1.2_RDF_Schema#ObservationPeriod" />
+            <cb:frequency>daily</cb:frequency>
+            <cb:period>2026-07-20</cb:period>
+          </cb:observationPeriod>
+        </cb:interestRate>
+      </cb:statistics>
+    </item>
+    <item>
+      <title>CH: 0.25 LSFF 2026-07-20 SNB Special rate (liquidity-shortage financing facility)</title>
+      <link>https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates#t00</link>
+      <description>Special rate (liquidity-shortage financing facility) / valid until 12:00 noon of the next bank working day (2026-07-20T13:05:00+02:00)</description>
+      <pubDate>Mon, 20 Jul 2026 11:05:00 GMT</pubDate>
+      <guid>https://www.snb.ch/en/the-snb/mandates-goals/statistics/statistics-pub/current_interest_exchange_rates#t00</guid>
+      <dc:date>2026-07-20T11:05:00Z</dc:date>
+      <dc:language>en</dc:language>
+      <cb:statistics rdf:parseType="Resource">
+        <rdf:type rdf:resource="http://www.cbwiki.net/wiki/index.php/RSS-CB_1.2_RDF_Schema#Statistics" />
+        <cb:country>CH</cb:country>
+        <cb:institutionAbbrev>SNB</cb:institutionAbbrev>
+        <cb:interestRate rdf:parseType="Resource">
+          <rdf:t
