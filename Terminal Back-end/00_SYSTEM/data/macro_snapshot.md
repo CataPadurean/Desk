@@ -23,9 +23,9 @@
 | GBP | 4.239 | +0.119 | 5.014 | +0.063 |
 | CAD | 2.86 | +0.04 | 3.56 | +0.05 |
 | JPY | 1.44 | -0.004 | 2.719 | -0.147 |
-| CHF *(INDISPONIBIL: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV)* | — | — | — | — |
+| CHF *(INDISPONIBIL: SNB)* | — | — | — | — |
 | AUD | 4.5 | +0.013 | 4.913 | +0.02 |
-| NZD *(INDISPONIBIL: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
+| NZD *(INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
 
 ## Spread-uri 2Y/10Y vs USD (criteriul 4)
 

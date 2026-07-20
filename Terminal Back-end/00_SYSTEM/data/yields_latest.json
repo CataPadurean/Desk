@@ -6,9 +6,9 @@
   "GBP": "ok",
   "CAD": "ok",
   "JPY": "ok",
-  "CHF": "INDISPONIBIL: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=')",
+  "CHF": "INDISPONIBIL: SNB (rendoblid): fără date recente || src_snb_xlsx: RuntimeError: SNB xlsx: rândul Confederation negăsit || src_snb_rss: RuntimeError: SNB RSS: randamentul Confederației negăsit || <lambda>: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ychy.b: răspuns non-CSV ('<!DOCTYPE ",
   "AUD": "ok",
-  "NZD": "INDISPONIBIL: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=')"
+  "NZD": "INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ynzy.b: răspuns non-CSV ('<!DOCTYPE "
  },
  "sources": {
   "US": "FRED",
