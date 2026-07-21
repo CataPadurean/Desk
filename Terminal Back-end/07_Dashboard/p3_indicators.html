@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — 3 · Indicatori economici</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="card">
+    <h2>Starea macro per monedă (criteriul 3)</h2>
+    <div id="ind"></div>
+    <div class="comment" id="icomment" style="display:none"><b>Comentariu de desk</b><span></span></div>
+  </div>
+
+  <div class="foot">
+    Sursa: Trading Economics + comunicatele oficiale. „Surpriza netă" = tonul general al publicațiilor recente față de consens, nu un indice calculat.<br>
+    Criteriul 3 susține sau contrazice criteriile 1-2 — nu poartă singur o teză.
+  </div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('p3');
+  var D = window.ANALYSIS_DATA || {};
+  var I = D.indicators || {};
+  var ORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  var cy = D.currencies || {};
+
+  function surpBadge(s) {
+    if (!s) return '<span class="dim">—</span>';
+    var u = s.toLowerCase();
+    var cls = u.indexOf('pozitiv') > -1 ? 'b-long' : u.indexOf('negativ') > -1 ? 'b-short' : u.indexOf('mixt') > -1 ? 'b-watch' : 'b-flat';
+    return '<span class="badge ' + cls + '">' + s + '</span>';
+  }
+
+  document.getElementById('ind').innerHTML = Object.keys(I).length
+    ? '<table><tr><th>Monedă</th><th>Bias</th><th>CPI y/y</th><th>Core</th><th>PMI</th><th>Șomaj</th><th>Surpriza netă</th><th>Citire de desk</th></tr>' +
+      ORD.filter(function (k) { return I[k]; }).map(function (k) {
+        var m = I[k], c = cy[k] || {};
+        return '<tr>' +
+          '<td><b>' + k + '</b> <span class="small">' + (c.core ? 'core' : 'sec.') + '</span></td>' +
+          '<td>' + dirBadge(c.bias) + '</td>' +
+          '<td>' + (m.cpi || '—') + '</td>' +
+          '<td>' + (m.core || '—') + '</td>' +
+          '<td>' + (m.pmi || '—') + '</td>' +
+          '<td>' + (m.unemp || '—') + '</td>' +
+          '<td>' + surpBadge(m.surprise) + '</td>' +
+          '<td class="small">' + (m.read || '—') + '</td>' +
+        '</tr>'; }).join('') + '</table>'
+    : '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
+
+  var ic = (D.comments || {}).indicators;
+  if (ic) { var el = document.getElementById('icomment'); el.style.display = 'block'; el.querySelector('span').textContent = ic; }
+})();
+</script>
+</body>
+</html>

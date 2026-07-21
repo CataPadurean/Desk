@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — 1 · Central Banks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="regime">
+    <div class="hd"><b class="lbl">CRITERIUL 1 — WEEKLY CENTRAL BANKS OUTLOOK</b><span class="badge b-watch">OBLIGATORIU pentru orice teză</span></div>
+    <span id="intro">Politica monetară vs. ce prețuiește piața, per monedă. Fără acest criteriu prezent, o teză nu intră în Weekly Note oricât de bine ar arăta restul.</span>
+  </div>
+
+  <div class="grid2" id="ccys"></div>
+
+  <div class="foot">
+    Sursa: TMV Weekly Central Banks Outlook + sweep pe comunicatele băncilor centrale. Se populează la „generează teza săptămânală".<br>
+    Criteriul 1 și criteriul 2 sunt obligatorii; pragul de confluență e 5/7.
+  </div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('p1');
+  var D = window.ANALYSIS_DATA || {};
+  var cy = D.currencies || {};
+  var CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+
+  document.getElementById('ccys').innerHTML = Object.keys(cy).length
+    ? CORD.filter(function (k) { return cy[k]; }).map(function (k) {
+        var c = cy[k];
+        return '<div class="ccy">' +
+          '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECUNDAR') + '</span>' + dirBadge(c.bias) + '</div>' +
+          '<div class="blk" style="margin-bottom:0"><b>Central Bank Outlook</b><p>' + (c.cb || '—') + '</p></div>' +
+        '</div>'; }).join('')
+    : '<div class="empty" style="grid-column:1/-1">Se populează la „procesează inbox" / „generează teza".</div>';
+})();
+</script>
+</body>
+</html>

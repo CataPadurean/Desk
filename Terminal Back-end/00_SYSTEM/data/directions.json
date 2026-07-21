@@ -8,7 +8,69 @@
  },
  "comments": {
   "cot": "Raport CFTC as-of 30.06 (publicat 6.07, întârziat de 4 Iulie; sinteză Saxo/Ole Hansen). Fast money la EXTREM DUBLU: USD long agregat +$39,8 mld — maxim de ≥10 ani, a 8-a săptămână de creștere; SOFR short RECORD 3,12 mln contracte (~$750 mld) = pariu „higher-for-longer”. Pe monede: NZD short RECORD (−63k, ~$3,6 mld), JPY short la maxim de 2 ani (−155k, ~$12 mld), CAD ~−$10,7 mld (pctl ~2), GBP ~−$8,5 mld (pctl ~8), CHF ~−$6,1 mld; EUR împins spre neutru de vânzări agresive. Citire de desk: extremele NZD/JPY intră fix în săptămâna deciziilor RBNZ/FOMC = combustibil de squeeze pe surpriză hawkish; simetric, USD long de deceniu + SOFR short record = risc mare de reversal ANTI-USD dacă datele slabe continuă. Regula 2: se semnalează, nu se confirmă.",
+  "reports": "Blocul cel mai aliniat al săptămânii e CAD: CACIB (FX Focus 1.07, revizuit) vede „decuplarea regională exagerată” și USDCAD spre 1,35-1,40, iar Scotia și CIBC confirmă pe date (GDP aprilie beat, „R is for Rebound”). Consensul bullish USD era construit PRE-NFP (ING) și a fost invalidat parțial de miss-ul de +57k. Contradicția valoroasă a săptămânii: JPY — CACIB revizuit în sus, bullish USDJPY cu ținte 162-163, vs. MUFG care avertizează că poziționarea de carry e vulnerabilă la squeeze; direcția netă se anulează, JPY rămâne WATCH. UniCredit a mutat EURUSD la neutru („la răscruce”), fără teză. Inbox gol la momentul procesării → sinteza acoperă batch-ul 29.06–03.07.",
+  "indicators": "Imaginea e de încetinire selectivă, nu de recesiune generalizată. SUA: NFP +57k sub consens (primul semn real de răcire a pieței muncii) dar șomajul 4,2% peste așteptări în sens bun — mix ambiguu, de aceea minutele FOMC arbitrează. Zona euro: HICP 2,8% sub consens taie din pricing-ul următorului hike BCE. UK: Services PMI 48,8, minimul din ianuarie 2023 — contracție accentuată, cel mai slab punct din tabel. Canada: singura surpriză net pozitivă — GDP aprilie +0,55% și Q2 spre 2,3-2,5% SAAR, exact ce cere teza short USDCAD. Noua Zeelandă: CPI 3,1% în urcare spre 4,3% proiectat pentru Q3 — susține hike-ul RBNZ. Australia: trimmed mean 3,6%, inflație lipicioasă, piața muncii tare.",
   "yields": "Acoperire completă 8/8 după reparația din 8.07 (surse noi: BoE GLC, MOF, SNB, RBA daily, RBNZ + cache). US 2Y 4,19% (+9bp) / 10Y 4,55% (+17bp) — maxime de 2 săpt. pe revenirea petrolului. Spread-uri 2Y vs USD: EURUSD −1,66 (contra EUR), GBPUSD −0,05 (≈neutru; gilts 26.06, se reîmprospătează din BoE), AUDUSD +0,31 (pro-AUD, dată RBA lunară — daily intră de mâine), USDJPY +2,80 și USDCAD +1,39 — ferm PRO-USD: criteriul 4 rămâne CONTRA tezelor anti-USD pe JPY/CAD (onest). NZD/CHF azi doar 10Y (NZ 4,46%; CH 0,365%) — 2Y intră la prima rulare din Actions. JGB 10Y 2,78% (+7bp de la 1.07)."
+ },
+ "reports_meta": {
+  "week": "29.06–03.07.2026",
+  "processed": 7,
+  "excluded": 2,
+  "note": "Inbox gol la momentul procesării — sinteza acoperă batch-ul precedent. Excluse: 2 note duplicate de strategie fără teză nouă."
+ },
+ "reports": [
+  {
+   "bank": "CACIB", "date": "01.07", "asset": "USDCAD", "dir": "BEARISH", "horizon": "1-3 luni", "conviction": 4,
+   "args": ["Decuplarea regională față de SUA e exagerată", "Reevaluarea „monedelor bătute”", "CAD corelat pozitiv cu risk-on"],
+   "levels": "1,418 → ținte 1,35-1,40", "invalidation": "Minute FOMC hawkish / redresare bruscă a USD global",
+   "change": "REVIZUIT (întărit)"
+  },
+  {
+   "bank": "Scotiabank", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 3,
+   "args": ["GDP aprilie +0,55% (beat)", "Q2 spre 2,3-2,5% SAAR", "Momentum intern în ameliorare"],
+   "levels": "—", "invalidation": "Date canadiene slabe / petrol în cădere",
+   "change": "întărit"
+  },
+  {
+   "bank": "CIBC", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "restul anului", "conviction": 3,
+   "args": ["„R is for Rebound”", "BoC nu mișcă dobânda anul acesta", "Hold cu date în ameliorare"],
+   "levels": "—", "invalidation": "BoC dovish surprise la MPR 15.07",
+   "change": "NOU"
+  },
+  {
+   "bank": "ING", "date": "02.07", "asset": "USD (DXY)", "dir": "BULLISH", "horizon": "1-2 săpt", "conviction": 3,
+   "args": ["Teză construită PRE-NFP", "Repricing hawkish al Fed", "Suport de spread 2Y"],
+   "levels": "DXY 101,7 / 101,80", "invalidation": "Deja parțial invalidată de NFP +57k (miss)",
+   "change": "slăbit (invalidat parțial)"
+  },
+  {
+   "bank": "UniCredit", "date": "01.07", "asset": "EURUSD", "dir": "NEUTRU", "horizon": "1 lună", "conviction": 2,
+   "args": ["„La răscruce” — fără catalizator propriu", "Sensibilitatea la spread Bund-UST a revenit", "Ambele CB au pierdut hike-uri din pricing"],
+   "levels": "—", "invalidation": "—",
+   "change": "ÎNTORS (din direcțional în neutru)"
+  },
+  {
+   "bank": "CACIB", "date": "01.07", "asset": "USDJPY", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 4,
+   "args": ["Diferențial de carry intact", "Normalizare BoJ prea lentă", "Spread 2Y +2,80 ferm pro-USD"],
+   "levels": "ținte 162-163", "invalidation": "BoJ accelerează normalizarea / risk-off global",
+   "change": "REVIZUIT ↑"
+  },
+  {
+   "bank": "MUFG", "date": "02.07", "asset": "USDJPY", "dir": "BEARISH", "horizon": "1-2 luni", "conviction": 3,
+   "args": ["Poziționarea de carry e vulnerabilă", "Short JPY la maxim de 2 ani (−155k)", "Sezonier iulie pro-JPY"],
+   "levels": "—", "invalidation": "BoJ amână hike-ul peste octombrie",
+   "change": "întărit"
+  }
+ ],
+ "indicators": {
+  "USD": { "cpi": "2,9%", "core": "3,0%", "pmi": "52,1", "unemp": "4,2%", "surprise": "mixt", "read": "NFP +57k (miss) = prima răcire reală a pieței muncii; șomajul însă rezistă. Mix ambiguu → minutele FOMC arbitrează." },
+  "EUR": { "cpi": "2,8%", "core": "2,9%", "pmi": "50,4", "unemp": "6,3%", "surprise": "negativ", "read": "HICP 2,8% sub consens taie din pricing-ul următorului hike BCE. Fără catalizator propriu pentru EUR." },
+  "GBP": { "cpi": "3,2%", "core": "48,8 servicii", "pmi": "48,8", "unemp": "4,6%", "surprise": "negativ", "read": "Services PMI 48,8 — minimul din ianuarie 2023, cel mai slab punct din tabel. Contracție accentuată." },
+  "CAD": { "cpi": "3,2%", "core": "2,9%", "pmi": "51,2", "unemp": "6,9%", "surprise": "pozitiv", "read": "Singura surpriză net pozitivă: GDP aprilie +0,55% beat, Q2 spre 2,3-2,5% SAAR. Exact ce cere teza short USDCAD." },
+  "JPY": { "cpi": "2,6%", "core": "sub țintă", "pmi": "51,5", "unemp": "2,5%", "surprise": "neutru", "read": "Core CPI sub țintă → normalizare graduală BoJ, nu accelerare. Susține carry-ul, dar poziționarea e extremă." },
+  "CHF": { "cpi": "0,6%", "core": "0,8%", "pmi": "—", "unemp": "2,8%", "surprise": "neutru", "read": "Inflație foarte joasă, SNB confortabil la 0% până la finalul lui 2026. Francul ferm pe cerere de safe-haven." },
+  "AUD": { "cpi": "3,4%", "core": "3,6% trimmed", "pmi": "50,8", "unemp": "4,1%", "surprise": "pozitiv", "read": "Trimmed mean 3,6% în urcare — inflație lipicioasă; piața muncii tare. Guidance RBA mai hawkish decât pricing-ul." },
+  "NZD": { "cpi": "3,1%", "core": "spre 4,3% Q3", "pmi": "—", "unemp": "5,2%", "surprise": "pozitiv", "read": "CPI 3,1% în urcare spre 4,3% proiectat Q3 — argumentul central pentru hike-ul RBNZ din 8.07." }
  },
  "currencies": {
   "USD": {

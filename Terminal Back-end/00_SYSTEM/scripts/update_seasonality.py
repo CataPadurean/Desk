@@ -11,7 +11,7 @@ reală a anului curent față de un reper de sezonalitate care nu se mișcă sub
 fereastră rulantă recalculată zilnic). NU se apelează din update_data.py și NU rulează
 în GitHub Actions zilnic — doar din workflow-ul anual dedicat sau manual pe Mac.
 
-Chenarul „luna curentă" din analysis.html NU mai vine din date scrise aici — se
+Chenarul „luna curentă" din p7_seasonality.html NU mai vine din date scrise aici — se
 calculează live în browser (JS: new Date().getMonth()) și citește luna corespunzătoare
 din acest tabel fix. Deci chenarul se actualizează singur pe 1 ale fiecărei luni,
 fără nicio rulare de script."""

@@ -3,7 +3,7 @@
 și regenerează 07_Dashboard/analysis_data.js.
 Seasonality NU se rulează aici — se calculează O SINGURĂ DATĂ PE AN (început de an,
 manual: `python3 update_seasonality.py`), ca să rămână fix tot anul (comparabil, nu
-recalculat zilnic pe fereastra rulantă). Chenarul „luna curentă" din analysis.html
+recalculat zilnic pe fereastra rulantă). Chenarul „luna curentă" din p7_seasonality.html
 citește automat luna corectă din tabelul fix, fără să retrimită date.
 Rulare (duminica, înainte de teză): python3 update_data.py"""
 import json, subprocess, sys
@@ -42,8 +42,11 @@ def build_analysis_js():
     obj = {'generated': date.today().isoformat(),
            'regime': d.get('regime', ''), 'regime_date': d.get('date', ''),
            'sentiment': d.get('sentiment'),          # {label, comment}
-           'comments': d.get('comments', {}),        # {cot, yields}
+           'comments': d.get('comments', {}),        # {cot, yields, reports, indicators}
            'currencies': d.get('currencies', {}),    # per monedă: {bias, cb, banks, core}
+           'reports': d.get('reports', []),          # criteriul 2 — schema_bias.md, un rând per raport
+           'reports_meta': d.get('reports_meta', {}),  # {processed, excluded, week}
+           'indicators': d.get('indicators', {}),    # criteriul 3 — per monedă, ordinea YLD_ORDER
            'trades_fx': tfx or [],
            'trades_intraday': tin or [],
            'cot': parts['cot_latest'], 'yields': parts['yields_latest'],

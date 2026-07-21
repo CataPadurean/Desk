@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — 5 · COT</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="card">
+    <h2>COT — Leveraged Funds (TFF) · Managed Money pe Gold (criteriul 5)</h2>
+    <div id="cot"></div>
+    <div class="comment" id="cotcomment" style="display:none"><b>Comentariu de desk</b><span></span></div>
+  </div>
+
+  <div class="foot">
+    Sursa: CFTC via publicreporting.cftc.gov — date de marți, publicate vineri 22:30 ora României.<br>
+    <b>Regula 2 de analiză:</b> poziționările extreme (percentila ≥90 sau ≤10) se semnalează întotdeauna — sunt combustibil de squeeze, NU confirmare de direcție.
+  </div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('p5');
+  var D = window.ANALYSIS_DATA || {};
+  var cls = window.numCls, sign = window.sgn;
+
+  function spark(h) {
+    if (!h || h.length < 2) return '';
+    var W = 90, H = 24, min = Math.min.apply(null, h), max = Math.max.apply(null, h), span = (max - min) || 1;
+    var pts = h.map(function (v, i) {
+      return (i * W / (h.length - 1)).toFixed(1) + ',' + (H - 2 - (v - min) * (H - 4) / span).toFixed(1); }).join(' ');
+    var up = h[h.length - 1] >= h[0];
+    return '<svg width="' + W + '" height="' + H + '"><polyline points="' + pts + '" fill="none" stroke="' + (up ? '#2ecc71' : '#e35d5d') + '" stroke-width="1.5"/></svg>';
+  }
+
+  var cm = (D.cot || {}).markets || {};
+  var order = ['DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'GOLD'];
+  var first = order.filter(function (k) { return cm[k]; })[0];
+
+  document.getElementById('cot').innerHTML = Object.keys(cm).length
+    ? '<div class="small" style="margin-bottom:8px">as of ' + ((cm[first] || {}).as_of || '') + ' · net, contracte · sursa: ' + ((D.cot || {}).source || 'CFTC') + '</div>' +
+      '<table><tr><th>Asset</th><th>Categorie</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extremă</th><th>13 wk</th></tr>' +
+      order.filter(function (k) { return cm[k]; }).map(function (k) {
+        var m = cm[k];
+        var warn = m.percentile_52w >= 90 || m.percentile_52w <= 10;
+        return '<tr>' +
+          '<td><b>' + k + '</b></td>' +
+          '<td class="small">' + (m.category || '') + '</td>' +
+          '<td class="' + cls(m.net) + '">' + sign(m.net) + '</td>' +
+          '<td class="' + cls(m.delta_1w) + '">' + sign(m.delta_1w) + '</td>' +
+          '<td>' + (m.pct_oi === null || m.pct_oi === undefined ? '—' : m.pct_oi + '%') + '</td>' +
+          '<td><div style="display:flex;align-items:center;gap:8px"><div class="ptrack"><div class="pfill" style="width:' + m.percentile_52w + '%;background:' + (warn ? 'var(--warn)' : 'var(--acc)') + '"></div></div><span>' + m.percentile_52w + '</span></div></td>' +
+          '<td>' + (m.extreme ? '<span class="badge b-ext">' + m.extreme + '</span>' : '<span class="dim">—</span>') + '</td>' +
+          '<td>' + spark(m.history_13w) + '</td>' +
+        '</tr>'; }).join('') + '</table>'
+    : '<div class="empty">Rulează update_data.py pentru date COT.</div>';
+
+  var cc = (D.comments || {}).cot;
+  if (cc) { var el = document.getElementById('cotcomment'); el.style.display = 'block'; el.querySelector('span').textContent = cc; }
+})();
+</script>
+</body>
+</html>

@@ -5,55 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>Padu Terminal — Journal</title>
-<style>
-  :root {
-    --bg: #000000; --card: #0b1120; --card2: #111a2b; --line: #223350;
-    --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
-    --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
-    font-size: 15px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
-  .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 16px; }
-  .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
-  .top .page { font-size: .95rem; letter-spacing: 3px; font-weight: 600; color: var(--acc); text-align: center; }
-  .meta { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-  .meta .wk { color: var(--acc); font-weight: 600; font-size: .8rem; }
-  .meta .upd { color: var(--dim); font-size: .8rem; }
-  .nav { justify-self: end; display: flex; gap: 8px; }
-  .nav a { color: var(--acc); font-size: .82rem; text-decoration: none; border: 1px solid var(--line); padding: 6px 14px; border-radius: 8px; }
-  .chips { display: flex; gap: 8px; margin: 10px 0 18px; flex-wrap: wrap; }
-  .chip { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .78rem; color: var(--dim); }
-  .chip b { color: var(--txt); font-weight: 600; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 16px; }
-  .tab { background: var(--card); border: 1px solid var(--line); color: var(--dim); padding: 7px 18px; border-radius: 8px; cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .5px; }
-  .tab.on { background: var(--acc); color: #08101d; border-color: var(--acc); }
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
-  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
-  .kpi .l { font-size: .7rem; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; }
-  .kpi .v { font-size: 1.45rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
-  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 14px; }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
-  .card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
-  .empty { color: var(--dim); font-size: .85rem; padding: 18px 0; text-align: center; }
-  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
-  th { text-align: left; color: var(--dim); font-weight: 600; font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid var(--line); }
-  td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
-  tr:last-child td { border-bottom: none; }
-  .bar { height: 6px; border-radius: 3px; background: var(--acc); min-width: 2px; }
-  .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
-  .foot { color: var(--dim); font-size: .72rem; margin-top: 16px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
-  svg text { font-family: inherit; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="top">
-    <h1>PADU TERMINAL</h1>
-    <div><div class="page">JOURNAL</div>
-    <div class="meta"><span class="wk" id="wk"></span><span class="upd" id="upd"></span></div></div>
-    <div class="nav"><a href="dashboard.html">← Home</a><a href="analysis.html">Analysis →</a></div>
-  </div>
+  <div id="chrome"></div>
   <div class="chips" id="chips"></div>
   <div class="tabs">
     <div class="tab on" data-f="TOT">TOTAL</div>
@@ -73,14 +28,12 @@
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
 <script src="journal_data.js"></script>
+<script src="nav.js"></script>
 <script>
 (function () {
+  renderChrome('journal');
   const D = window.DESK_DATA || { accounts: [] };
   const TR = (window.JOURNAL_DATA || {}).trades || [];  // P&L local (journal_data.js, în .gitignore)
-  document.getElementById('wk').textContent = D.week || '';
-  var A = window.ANALYSIS_DATA || {};
-  var fmtD = function (s) { return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? s.split('-').reverse().join('.') : (s || ''); };
-  document.getElementById('upd').textContent = A.generated ? 'data generated: ' + fmtD(A.generated) + (A.regime_date ? ' · analiza: ' + fmtD(A.regime_date) : '') : (D.updated ? 'data generated: ' + D.updated : '');
   document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
     `<span class="chip"><b>${a.name}</b> · ${a.phase}</span>`).join('') ||
     '<span class="chip">niciun cont configurat</span>';
@@ -166,16 +119,6 @@
   }));
   render('TOT');
 })();
-</script>
-<script>
-if (location.protocol.indexOf('http') === 0) {
-  document.querySelectorAll('.nav a').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      location.href = a.getAttribute('href') + '?t=' + Date.now();
-    });
-  });
-}
 </script>
 </body>
 </html>

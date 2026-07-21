@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — 7 · Seasonality</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="card">
+    <h2>Seasonality — 10y Monthly Average (criteriul 7)</h2>
+    <div class="curmon" id="curmon"></div>
+    <div id="seas"></div>
+  </div>
+
+  <div class="foot">
+    Tabelul se calculează O SINGURĂ DATĂ PE AN (cron 3 ianuarie) și rămâne fix — reper stabil de comparat performanța reală față de el. „Luna curentă" se mută singură în pagină.<br>
+    <b>Regula 5 de analiză:</b> sezonalitatea e vânt din spate sau din față, niciodată motiv principal pentru o teză.
+  </div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('p7');
+  var D = window.ANALYSIS_DATA || {};
+  var cls = window.numCls;
+  var se = (D.seasonality || {}).instruments || {};
+  var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var cur = new Date().getMonth() + 1;
+  var SORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD', 'US30', 'GOLD'];
+  var skeys = SORD.filter(function (k) { return se[k]; })
+    .concat(Object.keys(se).filter(function (k) { return SORD.indexOf(k) === -1; }));
+
+  // luna curentă — media de change % per instrument
+  var cmon = (D.seasonality || {}).current_month;
+  var cd = cmon && cmon.instruments ? cmon.instruments : {};
+  if (!Object.keys(cd).length && Object.keys(se).length) {
+    skeys.forEach(function (k) { if (se[k][String(cur)]) cd[k] = se[k][String(cur)]; });
+  }
+  document.getElementById('curmon').innerHTML = Object.keys(cd).length
+    ? '<div class="cm" style="border-color:var(--acc)"><b>Luna curentă</b>' + MON[cur - 1] + ' — medie 10 ani</div>' +
+      skeys.filter(function (k) { return cd[k]; }).map(function (k) {
+        var v = cd[k];
+        return '<div class="cm"><b>' + k + '</b><span class="' + cls(v.avg) + '">' + (v.avg > 0 ? '+' : '') + v.avg + '%</span> <span class="small">hit ' + v.hit + '%</span></div>'; }).join('')
+    : '';
+
+  function cell(m) {
+    if (!m) return '<td class="dim">—</td>';
+    var a = m.avg, alpha = Math.min(Math.abs(a) / 1.5, 1) * 0.55 + 0.08;
+    var bg = a >= 0 ? 'rgba(46,204,113,' + alpha + ')' : 'rgba(227,93,93,' + alpha + ')';
+    return '<td style="background:' + bg + '" title="medie ' + a + '% · hit ' + m.hit + '% · n=' + m.n + '">' +
+      (a > 0 ? '+' : '') + a + '<span class="hit">' + m.hit + '%</span></td>';
+  }
+  document.getElementById('seas').innerHTML = Object.keys(se).length
+    ? '<table class="seas"><tr><th></th>' + MON.map(function (n, i) {
+        return '<th class="' + (i + 1 === cur ? 'cur' : '') + '">' + n + '</th>'; }).join('') + '</tr>' +
+      skeys.map(function (k) {
+        return '<tr><td>' + k + '</td>' + MON.map(function (_, i) {
+          var c = cell(se[k][String(i + 1)]);
+          return i + 1 === cur ? c.replace('<td', '<td class="cur"') : c; }).join('') + '</tr>'; }).join('') +
+      '</table><div class="small" style="margin-top:8px">Celulă: randament mediu % (jos: % luni pozitive). Luna curentă conturată.</div>'
+    : '<div class="empty">Rulează <code>python3 00_SYSTEM/scripts/update_seasonality.py</code> pe Mac — sezonalitatea se scrie în seasonality.json.</div>';
+})();
+</script>
+</body>
+</html>

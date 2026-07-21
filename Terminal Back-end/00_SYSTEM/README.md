@@ -15,7 +15,7 @@ La rădăcina folderului „Padu Terminal" stau doar folderele cu care lucrezi t
 | `2_Daily_Note` | Daily Note — newsletter-ul zilnic pre-market |
 | `Terminal Back-end/05_Trade_Blotter` | Jurnalul de trade-uri (Excel, statistici automate) |
 | `Terminal Back-end/06_Risk_Reports` | Raport lunar de risc & performanță |
-| `Terminal Back-end/07_Dashboard` | **Dashboard live** (offline, 3 pagini): `dashboard.html` = overview + posibile trade-uri (FX / intraday) · `analysis.html` = cele 7 criterii + secțiuni per monedă · `journal.html` = statistici blotter |
+| `Terminal Back-end/07_Dashboard` | **Dashboard live** (offline, 9 pagini): `dashboard.html` = Home (regim, rezumatele celor 7 criterii, teze, posibile trade-uri) · `p1_central_banks` … `p7_seasonality` = câte o pagină per criteriu · `journal.html` = statistici blotter. Meniul comun: `nav.js`; stilul comun: `style.css` |
 
 ## Cadența (comenzile către Claude)
 

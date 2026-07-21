@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padu Terminal — DEMO multipagină</title>
+<style>
+  :root {
+    --bg: #000000; --card: #0b1120; --card2: #111a2b; --line: #223350;
+    --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
+    --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
+    font-size: 15px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
+  .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .top h1 { font-size: 1.25rem; letter-spacing: 2px; color: #fff; }
+  .top .page-title { font-size: .95rem; letter-spacing: 3px; font-weight: 600; color: var(--acc); text-align: center; }
+  .meta { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .meta .wk { color: var(--acc); font-weight: 600; font-size: .8rem; }
+  .meta .upd { color: var(--dim); font-size: .8rem; }
+  .demotag { justify-self: end; font-size: .7rem; letter-spacing: 1px; color: var(--warn); border: 1px solid rgba(232,179,57,.4); background: rgba(232,179,57,.08); padding: 4px 10px; border-radius: 6px; }
+
+  /* ——— MENIU SUS ——— */
+  .menu { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 16px; }
+  .menu a { color: var(--dim); font-size: .78rem; letter-spacing: .5px; text-decoration: none; border: 1px solid var(--line); padding: 7px 13px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: all .15s; }
+  .menu a:hover { color: var(--txt); border-color: var(--acc); }
+  .menu a.on { color: #fff; background: var(--card2); border-color: var(--acc); box-shadow: inset 0 -2px 0 var(--acc); }
+  .menu a b { color: var(--acc); font-weight: 700; margin-right: 4px; }
+  .menu a.on b { color: var(--acc); }
+
+  .pg { display: none; }
+  .pg.on { display: block; }
+
+  .chips { display: flex; gap: 8px; margin: 0 0 14px; flex-wrap: wrap; }
+  .chip { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .78rem; color: var(--dim); }
+  .chip b { color: var(--txt); font-weight: 600; }
+  .regime { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--acc); border-radius: 10px; padding: 12px 16px; font-size: .86rem; line-height: 1.5; margin-bottom: 14px; }
+  .regime .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .regime b.lbl { color: var(--acc); letter-spacing: 1px; font-size: .72rem; }
+  .regime .snote { color: var(--dim); font-size: .78rem; margin-top: 6px; }
+  .badge { font-size: .7rem; padding: 2px 9px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+  .b-long { background: rgba(46,204,113,.15); color: var(--pos); }
+  .b-short { background: rgba(227,93,93,.15); color: var(--neg); }
+  .b-flat { background: rgba(125,140,163,.15); color: var(--dim); }
+  .b-watch { background: rgba(232,179,57,.15); color: var(--warn); }
+  .b-ext { background: rgba(232,179,57,.2); color: var(--warn); }
+  .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .sum { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; cursor: pointer; transition: border-color .15s; }
+  .sum:hover { border-color: var(--acc); }
+  .sum .k { font-size: .68rem; letter-spacing: 1px; color: var(--acc); text-transform: uppercase; font-weight: 700; margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .sum .k .go { color: var(--dim); font-weight: 400; letter-spacing: 0; text-transform: none; }
+  .sum .v { font-size: .78rem; line-height: 1.5; color: var(--txt); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th { text-align: left; color: var(--dim); font-weight: 600; font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
+  .small { font-size: .74rem; color: var(--dim); }
+  .thesis { background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .thesis .h { display: flex; gap: 10px; align-items: center; font-weight: 700; }
+  .thesis .score { margin-left: auto; color: var(--acc); font-size: .8rem; font-weight: 600; }
+  .thesis .inv { color: var(--dim); font-size: .78rem; margin-top: 5px; }
+  .comment { font-size: .8rem; line-height: 1.55; color: var(--txt); background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+  .comment b { color: var(--acc); font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 980px) { .grid2 { grid-template-columns: 1fr; } }
+  .ptrack { background: #0d1626; border: 1px solid var(--line); border-radius: 4px; height: 10px; width: 100px; position: relative; display: inline-block; vertical-align: middle; }
+  .pfill { height: 100%; border-radius: 3px; background: var(--acc); }
+  .ccy { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .ccy .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .ccy .hd h3 { font-size: 1.05rem; letter-spacing: 1px; color: #fff; }
+  .ccy .tag { font-size: .62rem; letter-spacing: 1px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--line); color: var(--dim); }
+  .ccy .blk { margin-bottom: 9px; }
+  .ccy .blk b { color: var(--acc); font-size: .66rem; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .ccy .blk p { font-size: .78rem; line-height: 1.55; }
+  .seas { border-collapse: collapse; width: 100%; font-size: .7rem; table-layout: fixed; }
+  .seas th, .seas td { border: 1px solid var(--line); text-align: center; padding: 5px 2px; }
+  .seas th:first-child, .seas td:first-child { width: 64px; font-weight: 700; }
+  .seas .cur { outline: 2px solid var(--acc); outline-offset: -2px; }
+  .curmon { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .cm { background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: .78rem; }
+  .cm b { display: block; font-size: .7rem; color: var(--dim); font-weight: 600; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .kpi b { display: block; font-size: .66rem; letter-spacing: 1px; color: var(--dim); text-transform: uppercase; margin-bottom: 4px; }
+  .kpi .val { font-size: 1.2rem; font-weight: 700; color: #fff; }
+  .kpi .sub { font-size: .72rem; color: var(--dim); margin-top: 2px; }
+  .foot { color: var(--dim); font-size: .72rem; margin-top: 16px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>PADU TERMINAL</h1>
+  <div><div class="page-title" id="ptitle">HOME</div>
+  <div class="meta"><span class="wk">13.07–17.07.2026</span><span class="upd">DEMO · date fictive</span></div></div>
+  <div class="demotag">DEMO TEST — separat de terminalul live</div>
+</div>
+
+<!-- ——— MENIU ——— -->
+<nav class="menu" id="menu">
+  <a data-pg="home" class="on">HOME</a>
+  <a data-pg="cb"><b>1</b>Central Banks</a>
+  <a data-pg="banks"><b>2</b>Rapoarte bănci</a>
+  <a data-pg="indic"><b>3</b>Indicatori</a>
+  <a data-pg="yields"><b>4</b>Yields</a>
+  <a data-pg="cot"><b>5</b>COT</a>
+  <a data-pg="sent"><b>6</b>Sentiment</a>
+  <a data-pg="seas"><b>7</b>Seasonality</a>
+</nav>
+
+<!-- ============================================================ HOME -->
+<section class="pg on" id="pg-home" data-title="HOME">
+  <div class="chips">
+    <span class="chip"><b>FTMO Swing</b> · evaluation</span>
+    <span class="chip"><b>Alpha Swing</b> · evaluation</span>
+  </div>
+
+  <div class="regime">
+    <div class="hd"><b class="lbl">MARKET REGIME</b><span class="badge b-watch">RISK NEUTRU → OFF</span></div>
+    Piața digeră CPI-ul peste așteptări din SUA; dolarul și-a oprit corecția, randamentele 2Y au urcat, iar acțiunile ezită sub maxime. Regim de tranziție — poziționare selectivă, nu direcțională pe tot ecranul. <span class="dim">(text fictiv de demo)</span>
+    <div class="snote">VIX 17,8 · DXY 104,20 · US 2Y 4,12% · ES −0,4%</div>
+  </div>
+
+  <div class="sumgrid">
+    <div class="sum" data-goto="cb"><div class="k">1 · Central Banks <span class="go">deschide →</span></div><div class="v">Fed hawkish-hold, prima tăiere împinsă spre dec. BCE on-hold, retorică echilibrată. BoE dovish surprise — piața adaugă o tăiere. BoC neutru, dependent de petrol.</div></div>
+    <div class="sum" data-goto="banks"><div class="k">2 · Rapoarte bănci <span class="go">deschide →</span></div><div class="v">Consens long USD tactic (JPM, MUFG, CACIB). Contradicție pe GBP: HSBC bearish vs. ING neutru-bullish. UniCredit și-a întors poziția pe EURUSD (bearish → neutru).</div></div>
+    <div class="sum" data-goto="indic"><div class="k">3 · Indicatori <span class="go">deschide →</span></div><div class="v">SUA: CPI 3,4% (peste așteptări), ISM servicii solid. EZ: PMI compozit sub 50, slăbiciune Germania. UK: șomaj în creștere, retail slab — susține tăierea BoE.</div></div>
+    <div class="sum" data-goto="yields"><div class="k">4 · Yield Spreads 2Y <span class="go">deschide →</span></div><div class="v">Spread-urile 2Y s-au lărgit pro-USD vs. EUR (−158 bp) și GBP (−82 bp). Vs. CAD aproape neschimbat. Direcția spread-urilor confirmă tezele short EURUSD / GBPUSD.</div></div>
+    <div class="sum" data-goto="cot"><div class="k">5 · COT (Leveraged Funds) <span class="go">deschide →</span></div><div class="v">Short EUR în creștere (−41k, Δ −8k). GBP net short nou. <b>Atenție:</b> JPY la percentila 94 — extremă, risc de squeeze. Gold (Managed Money) long, fără extremă.</div></div>
+    <div class="sum" data-goto="sent"><div class="k">6 · Sentiment / Risk <span class="go">deschide →</span></div><div class="v">Verdict: NEUTRU cu înclinație risk-off. VIX sub 20 dar în urcare 3 zile la rând, HY spreads se lărgesc marginal, cyclicals sub defensives. Nu e panică — e prudență.</div></div>
+    <div class="sum" data-goto="seas"><div class="k">7 · Seasonality (10y) <span class="go">deschide →</span></div><div class="v">Iulie: istoric pozitiv pentru US30 (+1,2% medie) și slab pentru EURUSD (−0,3%). Vânt din spate pentru tezele curente, niciodată motiv principal.</div></div>
+  </div>
+
+  <div class="card"><h2>Teze active (Weekly Macro Note — scor min. 5/7)</h2>
+    <div class="thesis">
+      <div class="h">EURUSD <span class="badge b-short">SHORT</span> <span class="dim" style="font-size:.75rem">1-5 zile</span> <span class="score">6/7</span></div>
+      <div class="inv">Invalidare: CPI EZ peste 2,8% sau Fed semnalează tăiere în sept. · Contra: sezonalitate ușor pro-EUR în a doua parte a lunii.</div>
+    </div>
+    <div class="thesis">
+      <div class="h">GBPUSD <span class="badge b-short">SHORT</span> <span class="dim" style="font-size:.75rem">1-5 zile</span> <span class="score">5/7</span></div>
+      <div class="inv">Invalidare: inflația serviciilor UK re-accelerează peste 5,5%. · Contra: COT deja net short — combustibil limitat.</div>
+    </div>
+  </div>
+
+  <div class="card"><h2>Posibile trade-uri — FX · Strategia A (multi-day, 1-5 zile)</h2>
+    <table><tr><th>Instr.</th><th>Direcție</th><th>Conf.</th><th>Raționament</th><th>Condiție de activare</th><th>Invalidare</th></tr>
+      <tr><td><b>EURUSD</b></td><td><span class="badge b-short">SHORT</span></td><td>6/7</td><td class="small">Divergență Fed-BCE + spread 2Y pro-USD + consens bănci</td><td class="small">Respingere din zona de valoare pe H4, sub EMA</td><td class="small">Close zilnic peste zona de invalidare tehnică</td></tr>
+      <tr><td><b>GBPUSD</b></td><td><span class="badge b-short">SHORT</span></td><td>5/7</td><td class="small">BoE dovish + date slabe UK</td><td class="small">Breakdown confirmat pe suport H4</td><td class="small">Date UK surprind pozitiv (CPI/jobs)</td></tr>
+      <tr><td><b>USDCAD</b></td><td><span class="badge b-watch">WATCH</span></td><td>4/7</td><td class="small">Sub prag — BoC neutru, petrol stabil ține CAD</td><td class="small">Doar dacă petrolul cade sub prag tehnic</td><td class="small">—</td></tr>
+      <tr><td><b>USDJPY</b></td><td><span class="badge b-flat">STAI</span></td><td>3/7</td><td class="small">COT la extremă (percentila 94) — risc de squeeze, nu confirmare</td><td class="small">—</td><td class="small">—</td></tr>
+    </table>
+  </div>
+
+  <div class="card"><h2>Posibile trade-uri — Intraday · Strategia B (Gold + US30, sesiunea NY)</h2>
+    <table><tr><th>Instr.</th><th>Direcție</th><th>Conf.</th><th>Raționament</th><th>Condiție de activare</th><th>Invalidare</th></tr>
+      <tr><td><b>US30</b></td><td><span class="badge b-watch">WATCH</span></td><td>—</td><td class="small">Regim neutru, VIX în urcare — doar breakout curat M30→M5</td><td class="small">Breakout M5 din nivel M30 + VIX sub 18</td><td class="small">VIX peste 19 = stai deoparte</td></tr>
+      <tr><td><b>Gold</b></td><td><span class="badge b-long">LONG</span></td><td>—</td><td class="small">Randamente reale în scădere ușoară, DXY plafonat intraday</td><td class="small">Breakout M5 peste rezistența M30 în NY</td><td class="small">DXY breakout propriu în sus</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ 1 · CENTRAL BANKS -->
+<section class="pg" id="pg-cb" data-title="1 · CENTRAL BANKS">
+  <div class="regime">
+    <div class="hd"><b class="lbl">WEEKLY CENTRAL BANKS OUTLOOK (TMV + SWEEP)</b><span class="badge b-flat">criteriul 1 — obligatoriu</span></div>
+    Săptămâna e dominată de divergența Fed–BoE: Fed rămâne hawkish-hold după CPI, BoE a surprins dovish. BCE și BoC în echilibru. <span class="dim">(text fictiv)</span>
+  </div>
+  <div class="card"><h2>Politică monetară vs. pricing — 8 bănci centrale</h2>
+    <table>
+      <tr><th>Monedă</th><th>Bancă</th><th>Rată</th><th>Stance</th><th>Piața prețuiește</th><th>Următoarea ședință</th><th>Divergență politică↔pricing</th></tr>
+      <tr><td><b>USD</b></td><td>Fed</td><td>4,50%</td><td><span class="badge b-long">HAWKISH-HOLD</span></td><td class="small">1 tăiere până în dec (−25 bp)</td><td class="small">29.07.2026 · FOMC</td><td class="small pos">Piața prea dovish → pro-USD</td></tr>
+      <tr><td><b>EUR</b></td><td>BCE</td><td>2,15%</td><td><span class="badge b-flat">NEUTRU</span></td><td class="small">on-hold până în oct</td><td class="small">24.07.2026</td><td class="small dim">Aliniat</td></tr>
+      <tr><td><b>GBP</b></td><td>BoE</td><td>4,00%</td><td><span class="badge b-short">DOVISH</span></td><td class="small">2 tăieri până în dec</td><td class="small">06.08.2026</td><td class="small neg">Pricing-ul aleargă după BoE → anti-GBP</td></tr>
+      <tr><td><b>CAD</b></td><td>BoC</td><td>2,75%</td><td><span class="badge b-flat">NEUTRU</span></td><td class="small">on-hold</td><td class="small">29.07.2026</td><td class="small dim">Aliniat, dependent de petrol</td></tr>
+      <tr><td><b>JPY</b></td><td>BoJ</td><td>0,75%</td><td><span class="badge b-long">HAWKISH lent</span></td><td class="small">+25 bp până în oct</td><td class="small">31.07.2026</td><td class="small dim">Aliniat — dar COT la extremă</td></tr>
+      <tr><td><b>CHF</b></td><td>SNB</td><td>0,00%</td><td><span class="badge b-flat">NEUTRU</span></td><td class="small">on-hold</td><td class="small">sept 2026</td><td class="small dim">Aliniat</td></tr>
+      <tr><td><b>AUD</b></td><td>RBA</td><td>3,60%</td><td><span class="badge b-flat">NEUTRU</span></td><td class="small">1 tăiere Q4</td><td class="small">11.08.2026</td><td class="small dim">Aliniat</td></tr>
+      <tr><td><b>NZD</b></td><td>RBNZ</td><td>3,00%</td><td><span class="badge b-short">DOVISH</span></td><td class="small">1 tăiere aug</td><td class="small">19.08.2026</td><td class="small dim">Aliniat</td></tr>
+    </table>
+    <div class="comment"><b>Comentariu de desk</b>Perechea de divergență maximă a săptămânii: Fed (hawkish-hold) vs. BoE (dovish surprise) → GBPUSD e canalul cel mai curat de exprimare. Fed vs. BCE rămâne activă dar deja parțial prețuită. (fictiv)</div>
+  </div>
+  <div class="grid2">
+    <div class="ccy"><div class="hd"><h3>USD</h3><span class="tag">CORE</span><span class="badge b-long">BULLISH</span></div>
+      <div class="blk"><b>Ce s-a schimbat</b><p>Powell a re-ancorat „higher for longer" după CPI; dot-plot-ul informal din discursuri arată o singură tăiere. Piața încă prețuiește mai mult — spațiu de repricing pro-USD. (fictiv)</p></div>
+      <div class="blk"><b>Risc pentru teză</b><p>PCE core sub 2,6% sau NFP sub 100k ar redeschide tăierea din septembrie.</p></div></div>
+    <div class="ccy"><div class="hd"><h3>GBP</h3><span class="tag">CORE</span><span class="badge b-short">BEARISH</span></div>
+      <div class="blk"><b>Ce s-a schimbat</b><p>Bailey a deschis explicit ușa tăierii din august; doi membri MPC au votat deja pentru tăiere. Retorica s-a întors în două săptămâni. (fictiv)</p></div>
+      <div class="blk"><b>Risc pentru teză</b><p>Inflația serviciilor rămâne lipicioasă — o re-accelerare peste 5,5% invalidează.</p></div></div>
+  </div>
+</section>
+
+<!-- ============================================================ 2 · RAPOARTE BĂNCI -->
+<section class="pg" id="pg-banks" data-title="2 · RAPOARTE BĂNCI">
+  <div class="kpis">
+    <div class="kpi"><b>Rapoarte procesate</b><div class="val">11</div><div class="sub">săptămâna 13.07–17.07</div></div>
+    <div class="kpi"><b>Excluse (triaj)</b><div class="val">3</div><div class="sub">irelevante / duplicate</div></div>
+    <div class="kpi"><b>Contradicții</b><div class="val">1</div><div class="sub">GBP: HSBC vs. ING</div></div>
+    <div class="kpi"><b>Schimbări de poziție</b><div class="val">1</div><div class="sub">UniCredit pe EURUSD</div></div>
+  </div>
+  <div class="card"><h2>Sinteza rapoartelor — schema fixă (criteriul 2 — obligatoriu)</h2>
+    <table>
+      <tr><th>Banca</th><th>Data</th><th>Activ</th><th>Direcție</th><th>Orizont</th><th>Conv.</th><th>Argumente-cheie</th><th>Invalidare</th><th>vs. anterior</th></tr>
+      <tr><td><b>JPMorgan</b></td><td class="small">14.07</td><td>EURUSD</td><td><span class="badge b-short">BEARISH</span></td><td class="small">2-4 săpt</td><td>4/5</td><td class="small">Divergență Fed-BCE; fluxuri; poziționare încă necurățată</td><td class="small">CPI EZ &gt; 2,8%</td><td class="small">întărit</td></tr>
+      <tr><td><b>CACIB</b></td><td class="small">15.07</td><td>EURUSD</td><td><span class="badge b-short">BEARISH</span></td><td class="small">1-2 săpt</td><td>3/5</td><td class="small">Spread 2Y; PMI slab Germania</td><td class="small">Fed dovish la FOMC</td><td class="small">neschimbat</td></tr>
+      <tr><td><b>UniCredit</b></td><td class="small">16.07</td><td>EURUSD</td><td><span class="badge b-flat">NEUTRU</span></td><td class="small">1 lună</td><td>2/5</td><td class="small">Corecția USD s-a încheiat, dar EUR nu are catalizator propriu</td><td class="small">—</td><td class="small"><span class="badge b-watch">ÎNTORS</span> din bearish</td></tr>
+      <tr><td><b>HSBC</b></td><td class="small">14.07</td><td>GBPUSD</td><td><span class="badge b-short">BEARISH</span></td><td class="small">2-4 săpt</td><td>4/5</td><td class="small">BoE dovish; date reale slabe; fiscal risk premium</td><td class="small">Servicii CPI &gt; 5,5%</td><td class="small">NOU</td></tr>
+      <tr><td><b>ING</b></td><td class="small">15.07</td><td>GBPUSD</td><td><span class="badge b-flat">NEUTRU+</span></td><td class="small">1-2 săpt</td><td>2/5</td><td class="small">Tăierea BoE deja prețuită; carry încă atractiv</td><td class="small">—</td><td class="small">slăbit din bullish</td></tr>
+      <tr><td><b>MUFG</b></td><td class="small">16.07</td><td>USDJPY</td><td><span class="badge b-short">BEARISH</span></td><td class="small">1 lună</td><td>3/5</td><td class="small">BoJ hike în oct; poziționare short JPY extremă</td><td class="small">BoJ amână peste oct</td><td class="small">întărit</td></tr>
+      <tr><td><b>Natixis</b></td><td class="small">13.07</td><td>Gold</td><td><span class="badge b-long">BULLISH</span></td><td class="small">1-3 luni</td><td>4/5</td><td class="small">Randamente reale în scădere; cerere bănci centrale</td><td class="small">Real yields 10Y &gt; 2,2%</td><td class="small">neschimbat</td></tr>
+    </table>
+    <div class="comment"><b>Consens & contradicții</b>Consens: short EURUSD (JPM + CACIB, UniCredit ieșit din tabără dar nu contra). Contradicția valoroasă: GBP — HSBC vede continuare, ING spune „deja prețuit". Dacă CPI UK confirmă dezinflația serviciilor, HSBC câștigă. (fictiv)</div>
+  </div>
+</section>
+
+<!-- ============================================================ 3 · INDICATORI -->
+<section class="pg" id="pg-indic" data-title="3 · INDICATORI ECONOMICI">
+  <div class="card"><h2>Ultimele publicări — per monedă (integrate în comentariul per monedă)</h2>
+    <table>
+      <tr><th>Monedă</th><th>CPI y/y</th><th>Core</th><th>PMI comp.</th><th>Șomaj</th><th>Surpriza netă 4 săpt</th><th>Citire de desk</th></tr>
+      <tr><td><b>USD</b></td><td class="neg">3,4% ↑</td><td>3,1%</td><td class="pos">53,1</td><td>4,1%</td><td class="pos">+ pozitivă</td><td class="small">Economie caldă, inflație lipicioasă → pro-USD</td></tr>
+      <tr><td><b>EUR</b></td><td>2,3%</td><td>2,5%</td><td class="neg">49,4</td><td>6,3%</td><td class="neg">− negativă</td><td class="small">Germania trage în jos; dezinflație pe drum</td></tr>
+      <tr><td><b>GBP</b></td><td>2,9%</td><td class="neg">4,9% serv.</td><td>50,2</td><td class="neg">4,7% ↑</td><td class="neg">− negativă</td><td class="small">Piața muncii se răcește vizibil → susține BoE dovish</td></tr>
+      <tr><td><b>CAD</b></td><td>2,4%</td><td>2,6%</td><td>51,0</td><td>6,4%</td><td class="dim">neutră</td><td class="small">Fără catalizator propriu; urmează petrolul</td></tr>
+      <tr><td><b>JPY</b></td><td>2,7%</td><td>2,4%</td><td>51,8</td><td>2,5%</td><td class="pos">+ ușor pozitivă</td><td class="small">Salariile susțin hike-ul BoJ din toamnă</td></tr>
+      <tr><td><b>CHF</b></td><td>0,9%</td><td>1,1%</td><td>—</td><td>2,4%</td><td class="dim">neutră</td><td class="small">Inflație joasă, SNB confortabil la zero</td></tr>
+      <tr><td><b>AUD</b></td><td>3,0%</td><td>3,2%</td><td>50,6</td><td>4,2%</td><td class="dim">neutră</td><td class="small">RBA așteaptă trimestrialul de inflație</td></tr>
+      <tr><td><b>NZD</b></td><td>2,2%</td><td>2,8%</td><td>—</td><td class="neg">5,1% ↑</td><td class="neg">− negativă</td><td class="small">Economie slabă → tăierea din aug aproape sigură</td></tr>
+    </table>
+  </div>
+  <div class="card"><h2>Calendarul săptămânii — ore România · tier-uri · blackout</h2>
+    <table>
+      <tr><th>Zi</th><th>Ora RO</th><th>Eveniment</th><th>Tier</th><th>Impact</th><th>Blackout</th></tr>
+      <tr><td class="small">Ma 21.07</td><td>15:30</td><td>Retail Sales SUA</td><td><span class="badge b-watch">T2</span></td><td class="small">USD, US30</td><td class="small">±15 min</td></tr>
+      <tr><td class="small">Mi 22.07</td><td>09:00</td><td>CPI UK</td><td><span class="badge b-short">T1</span></td><td class="small">GBP — decisiv pt. teza short</td><td class="small">±30 min</td></tr>
+      <tr><td class="small">Jo 23.07</td><td>15:15</td><td>Decizie BCE + conferință</td><td><span class="badge b-short">T1</span></td><td class="small">EUR</td><td class="small">±30 min</td></tr>
+      <tr><td class="small">Vi 24.07</td><td>16:45</td><td>PMI flash SUA</td><td><span class="badge b-watch">T2</span></td><td class="small">USD, US30</td><td class="small">±15 min</td></tr>
+      <tr><td class="small">Vi 24.07</td><td>22:30</td><td>COT (CFTC, date de marți)</td><td><span class="badge b-flat">info</span></td><td class="small">toate</td><td class="small">—</td></tr>
+    </table>
+    <div class="comment"><b>Fereastra-cheie</b>Miercuri 09:00 (CPI UK) validează sau omoară teza GBPUSD short înainte de BCE de joi. Fără intrări noi pe GBP între marți seara și miercuri 09:30. (fictiv)</div>
+  </div>
+</section>
+
+<!-- ============================================================ 4 · YIELDS -->
+<section class="pg" id="pg-yields" data-title="4 · YIELD SPREADS">
+  <div class="grid2">
+    <div class="card" style="margin-bottom:0"><h2>Levels — 2Y (principal) / 10Y (secundar)</h2>
+      <table>
+        <tr><th></th><th>2Y</th><th>Δ 1w</th><th class="dim">10Y</th><th class="dim">Δ 1w</th></tr>
+        <tr><td><b>US</b></td><td>4,12%</td><td class="pos">+9 bp</td><td class="dim">4,38%</td><td class="dim pos">+5 bp</td></tr>
+        <tr><td><b>EUR</b></td><td>2,54%</td><td class="neg">−3 bp</td><td class="dim">2,91%</td><td class="dim">−1 bp</td></tr>
+        <tr><td><b>GBP</b></td><td>3,30%</td><td class="neg">−11 bp</td><td class="dim">4,05%</td><td class="dim neg">−7 bp</td></tr>
+        <tr><td><b>CAD</b></td><td>3,05%</td><td class="pos">+2 bp</td><td class="dim">3,42%</td><td class="dim">+1 bp</td></tr>
+        <tr><td><b>JPY</b></td><td>0,88%</td><td class="pos">+4 bp</td><td class="dim">1,62%</td><td class="dim pos">+3 bp</td></tr>
+        <tr><td><b>CHF</b></td><td class="dim">—</td><td class="dim">—</td><td class="dim">0,52%</td><td class="dim">0 bp</td></tr>
+        <tr><td><b>AUD</b></td><td>3,71%</td><td>+1 bp</td><td class="dim">4,20%</td><td class="dim">−2 bp</td></tr>
+        <tr><td><b>NZD</b></td><td>3,28%</td><td class="neg">−6 bp</td><td class="dim">4,01%</td><td class="dim neg">−4 bp</td></tr>
+      </table>
+    </div>
+    <div class="card" style="margin-bottom:0"><h2>2Y Spreads vs USD — direcție (criteriul 4)</h2>
+      <table>
+        <tr><th>Pereche</th><th>Spread 2Y</th><th>Δ 1w</th><th>Direcție spread</th><th>Pentru teza…</th></tr>
+        <tr><td><b>EURUSD</b></td><td>−158 bp</td><td class="neg">−12 bp</td><td><span class="badge b-short">pro-USD</span></td><td class="small pos">confirmă short</td></tr>
+        <tr><td><b>GBPUSD</b></td><td>−82 bp</td><td class="neg">−20 bp</td><td><span class="badge b-short">pro-USD</span></td><td class="small pos">confirmă short</td></tr>
+        <tr><td><b>USDCAD</b></td><td>+107 bp</td><td class="pos">+7 bp</td><td><span class="badge b-long">pro-USD</span></td><td class="small dim">watch</td></tr>
+        <tr><td><b>USDJPY</b></td><td>+324 bp</td><td class="pos">+5 bp</td><td><span class="badge b-long">pro-USD</span></td><td class="small neg">contra tezei MUFG short</td></tr>
+        <tr><td><b>USDCHF</b></td><td class="dim">n/a (10Y)</td><td class="dim">—</td><td><span class="badge b-flat">—</span></td><td class="small dim">—</td></tr>
+        <tr><td><b>AUDUSD</b></td><td>−41 bp</td><td class="neg">−8 bp</td><td><span class="badge b-short">pro-USD</span></td><td class="small dim">—</td></tr>
+        <tr><td><b>NZDUSD</b></td><td>−84 bp</td><td class="neg">−15 bp</td><td><span class="badge b-short">pro-USD</span></td><td class="small dim">—</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="comment" style="margin-bottom:14px"><b>Comentariu de desk</b>Lărgirea de −20 bp pe GBP-US într-o singură săptămână e cea mai agresivă mișcare din tabel — piața de rate a înghițit integral pivotul BoE. Onestitate: pe USDJPY spread-ul e PRO-USD, deci contrazice teza short USDJPY a MUFG — o semnalăm explicit, nu o ascundem. (fictiv)</div>
+</section>
+
+<!-- ============================================================ 5 · COT -->
+<section class="pg" id="pg-cot" data-title="5 · COT">
+  <div class="card"><h2>COT — Leveraged Funds (TFF) · Managed Money pe Gold · as of 14.07 (publicat vi 22:30 RO)</h2>
+    <table>
+      <tr><th>Asset</th><th>Categorie</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extremă</th></tr>
+      <tr><td><b>DXY</b></td><td class="small">Lev. Funds</td><td class="pos">+2.140</td><td class="pos">+610</td><td>38%</td><td><div class="ptrack"><div class="pfill" style="width:62%"></div></div> 62</td><td class="dim">—</td></tr>
+      <tr><td><b>EUR</b></td><td class="small">Lev. Funds</td><td class="neg">−41.200</td><td class="neg">−8.100</td><td>9%</td><td><div class="ptrack"><div class="pfill" style="width:31%"></div></div> 31</td><td class="dim">—</td></tr>
+      <tr><td><b>GBP</b></td><td class="small">Lev. Funds</td><td class="neg">−12.400</td><td class="neg">−9.800</td><td>7%</td><td><div class="ptrack"><div class="pfill" style="width:24%"></div></div> 24</td><td class="dim">—</td></tr>
+      <tr><td><b>CAD</b></td><td class="small">Lev. Funds</td><td class="neg">−28.900</td><td class="pos">+1.200</td><td>12%</td><td><div class="ptrack"><div class="pfill" style="width:18%"></div></div> 18</td><td class="dim">—</td></tr>
+      <tr><td><b>JPY</b></td><td class="small">Lev. Funds</td><td class="neg">−96.300</td><td class="neg">−4.400</td><td>21%</td><td><div class="ptrack"><div class="pfill" style="width:94%;background:var(--warn)"></div></div> 94</td><td><span class="badge b-ext">EXTREMĂ short</span></td></tr>
+      <tr><td><b>CHF</b></td><td class="small">Lev. Funds</td><td class="neg">−6.100</td><td class="neg">−300</td><td>11%</td><td><div class="ptrack"><div class="pfill" style="width:45%"></div></div> 45</td><td class="dim">—</td></tr>
+      <tr><td><b>AUD</b></td><td class="small">Lev. Funds</td><td class="neg">−52.700</td><td class="neg">−2.100</td><td>14%</td><td><div class="ptrack"><div class="pfill" style="width:12%"></div></div> 12</td><td class="dim">—</td></tr>
+      <tr><td><b>NZD</b></td><td class="small">Lev. Funds</td><td class="neg">−9.800</td><td class="neg">−1.700</td><td>13%</td><td><div class="ptrack"><div class="pfill" style="width:8%;background:var(--warn)"></div></div> 8</td><td><span class="badge b-ext">EXTREMĂ short</span></td></tr>
+      <tr><td><b>GOLD</b></td><td class="small">Managed Money</td><td class="pos">+188.500</td><td class="pos">+6.200</td><td>34%</td><td><div class="ptrack"><div class="pfill" style="width:71%"></div></div> 71</td><td class="dim">—</td></tr>
+    </table>
+    <div class="comment"><b>Comentariu de desk</b>Două extreme active: JPY short (perc. 94) și NZD short (perc. 8) — ambele sunt combustibil de squeeze, NU confirmare de direcție. Short-ul nou pe GBP (Δ −9.800) e abia la începutul distribuției — poziționarea nu blochează teza short GBPUSD. Gold long dar sub pragul de extremă. (fictiv)</div>
+  </div>
+</section>
+
+<!-- ============================================================ 6 · SENTIMENT -->
+<section class="pg" id="pg-sent" data-title="6 · SENTIMENT / RISK">
+  <div class="regime">
+    <div class="hd"><b class="lbl">MARKET REGIME &amp; SENTIMENT — VERDICT GLOBAL</b><span class="badge b-watch">NEUTRU → RISK-OFF</span></div>
+    Nu e panică — e prudență. Acțiunile ezită sub maxime, volatilitatea se trezește încet, creditul se lărgește marginal. Pentru intraday: prag de selectivitate ridicat; pentru FX: regimul favorizează USD și defavorizează beta-FX (AUD, NZD). <span class="dim">(fictiv)</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>VIX</b><div class="val">17,8</div><div class="sub neg">↑ a 3-a zi la rând · filtru Dow: prudență</div></div>
+    <div class="kpi"><b>DXY</b><div class="val">104,20</div><div class="sub pos">↑ +0,6% pe săptămână</div></div>
+    <div class="kpi"><b>US 2Y</b><div class="val">4,12%</div><div class="sub">+9 bp — real yields ↑ ușor</div></div>
+    <div class="kpi"><b>ES (S&amp;P fut.)</b><div class="val">−0,4%</div><div class="sub">sub VWAP săptămânal</div></div>
+    <div class="kpi"><b>HY spreads</b><div class="val">+312 bp</div><div class="sub neg">lărgire +9 bp</div></div>
+    <div class="kpi"><b>Gold</b><div class="val">+0,8%</div><div class="sub">bid defensiv, confirmă tonul</div></div>
+  </div>
+  <div class="card"><h2>Componente de regim — citire per instrument</h2>
+    <table>
+      <tr><th>Semnal</th><th>Stare</th><th>Pentru US30</th><th>Pentru Gold</th><th>Pentru FX</th></tr>
+      <tr><td class="small">VIX &lt; 18 dar în urcare</td><td><span class="badge b-watch">TRANZIȚIE</span></td><td class="small">breakout-uri doar cu confirmare</td><td class="small">suport ușor</td><td class="small">pro-USD, pro-JPY/CHF</td></tr>
+      <tr><td class="small">Top-8 componente Dow</td><td><span class="badge b-flat">MIXT</span></td><td class="small">fără lider clar — semnal slab</td><td class="small">—</td><td class="small">—</td></tr>
+      <tr><td class="small">Cyclicals vs. defensives</td><td><span class="badge b-short">DEFENSIV</span></td><td class="small">contra long-urilor</td><td class="small">pro</td><td class="small">anti AUD/NZD</td></tr>
+      <tr><td class="small">Randamente reale</td><td><span class="badge b-flat">STABILE</span></td><td class="small">neutru</td><td class="small">neutru-pro</td><td class="small">—</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ 7 · SEASONALITY -->
+<section class="pg" id="pg-seas" data-title="7 · SEASONALITY 10Y">
+  <div class="curmon">
+    <span class="cm"><b>IULIE — media change % (10y)</b>&nbsp;</span>
+    <span class="cm"><b>US30</b><span class="pos">+1,2%</span> · hit 7/10</span>
+    <span class="cm"><b>Gold</b><span class="pos">+0,4%</span> · hit 6/10</span>
+    <span class="cm"><b>EURUSD</b><span class="neg">−0,3%</span> · hit 4/10</span>
+    <span class="cm"><b>GBPUSD</b><span class="neg">−0,5%</span> · hit 3/10</span>
+    <span class="cm"><b>USDCAD</b><span class="pos">+0,2%</span> · hit 6/10</span>
+    <span class="cm"><b>USDJPY</b><span class="dim">0,0%</span> · hit 5/10</span>
+  </div>
+  <div class="card"><h2>Grila anuală — media lunară 10y (luna curentă evidențiată)</h2>
+    <table class="seas">
+      <tr><th></th><th>Ian</th><th>Feb</th><th>Mar</th><th>Apr</th><th>Mai</th><th>Iun</th><th class="cur">Iul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
+      <tr><td>EURUSD</td><td class="neg">−0,4</td><td class="neg">−0,2</td><td class="pos">+0,3</td><td class="pos">+0,6</td><td class="neg">−0,1</td><td class="pos">+0,2</td><td class="cur neg">−0,3</td><td class="neg">−0,2</td><td class="neg">−0,6</td><td class="pos">+0,3</td><td class="pos">+0,5</td><td class="pos">+0,7</td></tr>
+      <tr><td>GBPUSD</td><td class="neg">−0,3</td><td class="pos">+0,1</td><td class="pos">+0,4</td><td class="pos">+0,8</td><td class="pos">+0,2</td><td class="neg">−0,1</td><td class="cur neg">−0,5</td><td class="neg">−0,7</td><td class="neg">−0,4</td><td class="pos">+0,1</td><td class="pos">+0,3</td><td class="pos">+0,4</td></tr>
+      <tr><td>USDCAD</td><td class="pos">+0,3</td><td class="pos">+0,2</td><td class="neg">−0,2</td><td class="neg">−0,5</td><td class="pos">+0,1</td><td class="neg">−0,2</td><td class="cur pos">+0,2</td><td class="pos">+0,4</td><td class="pos">+0,6</td><td class="neg">−0,1</td><td class="neg">−0,3</td><td class="neg">−0,4</td></tr>
+      <tr><td>USDJPY</td><td class="pos">+0,5</td><td class="pos">+0,4</td><td class="pos">+0,3</td><td class="neg">−0,2</td><td class="pos">+0,1</td><td class="pos">+0,3</td><td class="cur dim">0,0</td><td class="neg">−0,6</td><td class="pos">+0,2</td><td class="pos">+0,7</td><td class="pos">+0,4</td><td class="neg">−0,3</td></tr>
+      <tr><td>US30</td><td class="pos">+0,8</td><td class="neg">−0,3</td><td class="pos">+1,0</td><td class="pos">+1,6</td><td class="pos">+0,4</td><td class="pos">+0,2</td><td class="cur pos">+1,2</td><td class="neg">−0,8</td><td class="neg">−1,1</td><td class="pos">+1,3</td><td class="pos">+2,1</td><td class="pos">+1,4</td></tr>
+      <tr><td>Gold</td><td class="pos">+1,1</td><td class="pos">+0,6</td><td class="neg">−0,2</td><td class="pos">+0,9</td><td class="neg">−0,4</td><td class="neg">−0,6</td><td class="cur pos">+0,4</td><td class="pos">+1,0</td><td class="pos">+0,8</td><td class="neg">−0,2</td><td class="pos">+0,5</td><td class="pos">+1,3</td></tr>
+    </table>
+    <div class="comment"><b>Cum se citește</b>Sezonalitatea e vânt din spate/față, niciodată motiv principal. Iulie sprijină tezele curente: negativ pe EURUSD/GBPUSD (aliniat cu short), pozitiv pe US30 (dar regimul de risc are prioritate). Tabelul se calculează o dată pe an și rămâne fix ca reper. (valori fictive)</div>
+  </div>
+</section>
+
+<div class="foot">
+  DEMO TEST — toate valorile sunt fictive; nimic de aici nu e analiză reală. Structura: HOME (rezumatul final, ca în terminalul actual) + câte o pagină per criteriu de confluență (1-7), navigare din meniul de sus.<br>
+  Ipoteze condiționate, NU ordine de execuție. „STAI" e o poziție validă. Limite playbook: 0,5%/1% per trade · −2% zi · −4% săptămână · kill-switch la 2 SL.
+</div>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('.menu a');
+  var pages = document.querySelectorAll('.pg');
+  var title = document.getElementById('ptitle');
+  function go(id) {
+    pages.forEach ? null : null;
+    for (var i = 0; i < pages.length; i++) pages[i].classList.toggle('on', pages[i].id === 'pg-' + id);
+    for (var j = 0; j < links.length; j++) links[j].classList.toggle('on', links[j].getAttribute('data-pg') === id);
+    var pg = document.getElementById('pg-' + id);
+    if (pg) title.textContent = pg.getAttribute('data-title') || 'HOME';
+    window.scrollTo(0, 0);
+  }
+  for (var k = 0; k < links.length; k++) (function (a) {
+    a.addEventListener('click', function () { go(a.getAttribute('data-pg')); });
+  })(links[k]);
+  // click pe cardurile-rezumat din Home → pagina criteriului
+  var sums = document.querySelectorAll('.sum[data-goto]');
+  for (var m = 0; m < sums.length; m++) (function (s) {
+    s.addEventListener('click', function () { go(s.getAttribute('data-goto')); });
+  })(sums[m]);
+})();
+</script>
+</body>
+</html>

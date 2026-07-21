@@ -12,7 +12,7 @@ Un paragraf scurt: cum a închis / cum a deschis, ce s-a mișcat și de ce (DXY,
 Un paragraf: titlurile care contează azi, ce e nou la bănci centrale sau în rapoartele bancare. Doar ce s-a schimbat, spus în mare. Fără citate lungi, fără tabele.
 
 ## De urmărit
-Evenimentele zilei (ore România, tier), blackout pe Tier 1, plus ce anume poate rupe tezele active. Maxim 4-5 rânduri.
+Ce anume poate rupe tezele active azi — surse de risc, nu calendar. Maxim 4-5 rânduri.
 
 ## Bias-ul zilei
 O linie per instrument relevant — direcție (long / short / stai / watch) + trigger și invalidare în câteva cuvinte. Ipoteze condiționate, nu ordine; „stai" e o poziție validă.

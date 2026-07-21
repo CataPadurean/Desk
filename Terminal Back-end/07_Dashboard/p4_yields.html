@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — 4 · Yield Spreads</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="grid2">
+    <div class="card" style="margin-bottom:0"><h2>Yields 2Y (principal) / 10Y (secundar)</h2><div id="ylev"></div></div>
+    <div class="card" style="margin-bottom:0"><h2>2Y Spreads vs USD (criteriul 4)</h2><div id="yspr"></div></div>
+  </div>
+  <div class="comment" id="ycomment" style="display:none; margin-top:14px"><b>Comentariu de desk</b><span></span></div>
+
+  <div class="foot">
+    Surse oficiale cu fallback + cache last-known-good: FRED/Treasury, ECB, BoE GLC, BoC, MOF, SNB (doar 10Y), RBA, RBNZ; Stooq fallback. Refresh zilnic prin GitHub Actions 11:00 UTC.<br>
+    Spread = prima valută − a doua; în creștere = suport pentru prima valută din pereche. Când spread-ul contrazice teza, se scrie explicit — regula 1 de analiză.
+  </div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('p4');
+  var D = window.ANALYSIS_DATA || {};
+  var cls = window.numCls, sign = window.sgn;
+
+  var yl = (D.yields || {}).levels || {};
+  var YORD = ['US', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  document.getElementById('ylev').innerHTML = Object.keys(yl).length
+    ? '<table><tr><th></th><th>2Y</th><th>Δ 2Y</th><th class="dim">10Y</th><th class="dim">Δ 10Y</th></tr>' +
+      YORD.map(function (k) {
+        var v = yl[k];
+        if (!v || !v['2Y']) return '<tr><td><b>' + k + '</b></td><td class="dim" colspan="4">n/a — la prima rulare locală</td></tr>';
+        var t = v['10Y'] || null;
+        return '<tr><td><b>' + k + '</b></td>' +
+          '<td><b>' + v['2Y'].value + '</b></td><td class="' + cls(v['2Y'].delta_1w) + '">' + sign(v['2Y'].delta_1w) + '</td>' +
+          '<td class="dim">' + (t ? t.value : '—') + '</td><td class="dim">' + (t ? sign(t.delta_1w) : '—') + '</td></tr>'; }).join('') + '</table>'
+    : '<div class="empty">Rulează update_data.py.</div>';
+
+  var sp = (D.yields || {}).spreads || {};
+  var PORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'];
+  document.getElementById('yspr').innerHTML = Object.keys(sp).length
+    ? '<table><tr><th>Pair</th><th>2Y Spread</th><th>Δ</th><th class="dim">10Y</th><th class="dim">Δ</th></tr>' +
+      PORD.map(function (p) {
+        var v = sp[p];
+        if (!v || !v['2Y']) return '<tr><td><b>' + p + '</b></td><td class="dim" colspan="4">n/a — la prima rulare locală</td></tr>';
+        var t = v['10Y'] || null;
+        return '<tr><td><b>' + p + '</b></td>' +
+          '<td><b>' + v['2Y'].value + '</b></td><td class="' + cls(v['2Y'].delta_1w) + '">' + sign(v['2Y'].delta_1w) + '</td>' +
+          '<td class="dim">' + (t ? t.value : '—') + '</td><td class="dim">' + (t ? sign(t.delta_1w) : '—') + '</td></tr>'; }).join('') +
+      '</table><div class="small" style="margin-top:8px">Spread = prima valută − a doua; în creștere = suport pentru prima valută din pereche.</div>'
+    : '<div class="empty">Rulează update_data.py.</div>';
+
+  var yc = (D.comments || {}).yields;
+  if (yc) { var el = document.getElementById('ycomment'); el.style.display = 'block'; el.querySelector('span').textContent = yc; }
+})();
+</script>
+</body>
+</html>
