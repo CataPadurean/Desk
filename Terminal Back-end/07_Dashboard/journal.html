@@ -20,11 +20,6 @@
     <div class="card"><h2>Performance curve (cumulative R)</h2><div id="curve"></div></div>
     <div class="card"><h2>Per setup — expectancy</h2><div id="setups"></div></div>
   </div>
-  <div class="foot">
-    Limite (playbook §2.1): risc 0,5% standard / 1% max · zi −2% stop · săptămână −4% stop · 2 SL consecutive = kill-switch · DD 8% = risc înjumătățit.<br>
-    R = P&amp;L / risc în bani. Sub 50 trade-uri per setup = zgomot statistic (playbook §6.2). Blotter-ul complet: 05_Trade_Blotter/Trade_Blotter.xlsx.
-  </div>
-
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
 <script src="journal_data.js"></script>
@@ -108,8 +103,7 @@
           <td>${r.name}</td><td class="dim">${r.n}</td><td>${pct(r.wr)}</td>
           <td class="${cls(r.exp)}">${fmt(r.exp)}</td>
           <td style="width:30%"><div class="bar" style="width:${Math.abs(r.exp || 0) / maxAbs * 100}%;background:${(r.exp || 0) >= 0 ? 'var(--pos)' : 'var(--neg)'}"></div></td>
-        </tr>`).join('') + '</table>' +
-        (s.n < 50 ? '<div class="dim" style="font-size:.72rem;margin-top:8px">Sub 50 trade-uri per setup = zgomot statistic (playbook §6.2).</div>' : '');
+        </tr>`).join('') + '</table>';
   }
 
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {

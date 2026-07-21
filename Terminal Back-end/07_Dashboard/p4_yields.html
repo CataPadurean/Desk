@@ -16,10 +16,7 @@
   </div>
   <div class="comment" id="ycomment" style="display:none; margin-top:14px"><b>Desk comment</b><span></span></div>
 
-  <div class="foot">
-    Surse oficiale cu fallback + cache last-known-good: FRED/Treasury, ECB, BoE GLC, BoC, MOF, SNB (doar 10Y), RBA, RBNZ; Stooq fallback. Refresh zilnic prin GitHub Actions 11:00 UTC.<br>
-    Spread = prima valută − a doua; în creștere = suport pentru prima valută din pereche. Când spread-ul contrazice teza, se scrie explicit — regula 1 de analiză.
-  </div>
+  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -54,7 +51,7 @@
         return '<tr><td><b>' + p + '</b></td>' +
           '<td><b>' + v['2Y'].value + '</b></td><td class="' + cls(v['2Y'].delta_1w) + '">' + sign(v['2Y'].delta_1w) + '</td>' +
           '<td class="dim">' + (t ? t.value : '—') + '</td><td class="dim">' + (t ? sign(t.delta_1w) : '—') + '</td></tr>'; }).join('') +
-      '</table><div class="small" style="margin-top:8px">Spread = prima valută − a doua; în creștere = suport pentru prima valută din pereche.</div>'
+      '</table>'
     : '<div class="empty">Rulează update_data.py.</div>';
 
   var yc = (D.comments || {}).yields;

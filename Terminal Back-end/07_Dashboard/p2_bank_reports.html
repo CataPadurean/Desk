@@ -23,10 +23,7 @@
     <div class="grid2" id="ccys"></div>
   </div>
 
-  <div class="foot">
-    Rapoartele se extrag pe schema din 00_SYSTEM/schema_bias.md și se arhivează în 02_Rapoarte_Procesate/ pe săptămâni.<br>
-    Contradicțiile între bănci sunt mai valoroase decât consensul — se marchează explicit, nu se mediază.
-  </div>
+  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -78,8 +75,7 @@
           '<td class="small">' + (r.levels || '—') + '</td>' +
           '<td class="small">' + (r.invalidation || '—') + '</td>' +
           '<td>' + chgBadge(r.change) + '</td>' +
-        '</tr>'; }).join('') + '</table>' +
-      (M.note ? '<div class="small" style="margin-top:8px">' + M.note + '</div>' : '')
+        '</tr>'; }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox".</div>';
 
   var rc = (D.comments || {}).reports;

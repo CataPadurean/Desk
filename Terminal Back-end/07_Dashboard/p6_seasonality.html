@@ -16,10 +16,7 @@
     <div id="seas"></div>
   </div>
 
-  <div class="foot">
-    Tabelul se calculează O SINGURĂ DATĂ PE AN (cron 3 ianuarie) și rămâne fix — reper stabil de comparat performanța reală față de el. „Luna curentă" se mută singură în pagină.<br>
-    <b>Regula 5 de analiză:</b> sezonalitatea e vânt din spate sau din față, niciodată motiv principal pentru o teză.
-  </div>
+  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -63,7 +60,7 @@
         return '<tr><td>' + k + '</td>' + MON.map(function (_, i) {
           var c = cell(se[k][String(i + 1)]);
           return i + 1 === cur ? c.replace('<td', '<td class="cur"') : c; }).join('') + '</tr>'; }).join('') +
-      '</table><div class="small" style="margin-top:8px">Cell: average return % (bottom: % positive months). Current month outlined.</div>'
+      '</table>'
     : '<div class="empty">Rulează <code>python3 00_SYSTEM/scripts/update_seasonality.py</code> pe Mac — sezonalitatea se scrie în seasonality.json.</div>';
 })();
 </script>

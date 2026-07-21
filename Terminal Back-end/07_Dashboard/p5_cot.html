@@ -16,10 +16,7 @@
     <div class="comment" id="cotcomment" style="display:none"><b>Desk comment</b><span></span></div>
   </div>
 
-  <div class="foot">
-    Sursa: CFTC via publicreporting.cftc.gov — date de marți, publicate vineri 22:30 ora României.<br>
-    <b>Regula 2 de analiză:</b> poziționările extreme (percentila ≥90 sau ≤10) se semnalează întotdeauna — sunt combustibil de squeeze, NU confirmare de direcție.
-  </div>
+  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -44,8 +41,7 @@
   var first = order.filter(function (k) { return cm[k]; })[0];
 
   document.getElementById('cot').innerHTML = Object.keys(cm).length
-    ? '<div class="small" style="margin-bottom:8px">as of ' + ((cm[first] || {}).as_of || '') + ' · net, contracts · source: ' + ((D.cot || {}).source || 'CFTC') + '</div>' +
-      '<table><tr><th>Asset</th><th>Category</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extreme</th><th>13 wk</th></tr>' +
+    ? '<table><tr><th>Asset</th><th>Category</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extreme</th><th>13 wk</th></tr>' +
       order.filter(function (k) { return cm[k]; }).map(function (k) {
         var m = cm[k];
         var warn = m.percentile_52w >= 90 || m.percentile_52w <= 10;

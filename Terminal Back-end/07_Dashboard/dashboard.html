@@ -14,7 +14,6 @@
   <div class="regime">
     <div class="hd"><b class="lbl">MARKET REGIME</b><span id="sentbadge"></span></div>
     <span id="regime"></span>
-    <div class="snote" id="sentnote"></div>
   </div>
 
   <div class="sumgrid" id="sums"></div>
@@ -23,12 +22,6 @@
 
   <div class="card"><h2>Possible Trades — FX · Strategy A (multi-day, 1-5 days)</h2><div id="tfx"></div></div>
   <div class="card"><h2>Possible Trades — Intraday · Strategy B (Gold + US30, NY session)</h2><div id="tin"></div></div>
-
-  <div class="foot">
-    Ipoteze condiționate, NU ordine de execuție — intrarea doar prin filtrul tehnic propriu + checklist (playbook). „STAI" e o poziție validă.<br>
-    Limite (playbook §2.1): risc 0,5% standard / 1% max · zi −2% stop · săptămână −4% stop · 2 SL consecutive = kill-switch · max 3 trade-uri/zi intraday.<br>
-    Home = sinteza. Detaliul fiecărui criteriu e pe pagina lui din meniu. Datele se regenerează la fiecare comandă a sistemului — nu edita data.js manual.
-  </div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -46,7 +39,6 @@
   document.getElementById('regime').textContent = D.regime || 'Se populează la „procesează inbox".';
   var s = D.sentiment || {};
   document.getElementById('sentbadge').innerHTML = sentBadge(s.label);
-  document.getElementById('sentnote').textContent = s.note || '';
 
   // ——— rezumate pe criterii → link către pagina criteriului (maparea prin câmpul pg) ———
   document.getElementById('sums').innerHTML = (D.summaries || []).map(function (x) {

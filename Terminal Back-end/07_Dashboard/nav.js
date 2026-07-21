@@ -37,6 +37,14 @@
       '</div>' +
       '<nav class="menu">' + items + '</nav>';
 
+    // rezumat scurt sub casetele paginii (text alb), din DESK_DATA.summaries potrivit după fișier
+    var ps = document.getElementById('pagesum');
+    if (ps) {
+      var sm = ((window.DESK_DATA || {}).summaries || []).filter(function (x) { return x.pg === me.file; })[0];
+      ps.innerHTML = sm ? sm.v : '';
+      if (!sm) ps.style.display = 'none';
+    }
+
     // cache-busting când e servit prin http (GitHub Pages)
     if (location.protocol.indexOf('http') === 0) {
       var links = document.querySelectorAll('.menu a, a.sum');
