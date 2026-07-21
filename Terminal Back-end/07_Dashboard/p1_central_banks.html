@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<title>Padu Terminal — 1 · Central Banks</title>
+<title>Padu Terminal — Central Banks</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="chrome"></div>
 
   <div class="regime">
-    <div class="hd"><b class="lbl">CRITERIUL 1 — WEEKLY CENTRAL BANKS OUTLOOK</b><span class="badge b-watch">OBLIGATORIU pentru orice teză</span></div>
+    <div class="hd"><b class="lbl">WEEKLY CENTRAL BANKS OUTLOOK</b><span class="badge b-watch">MANDATORY for any thesis</span></div>
     <span id="intro">Politica monetară vs. ce prețuiește piața, per monedă. Fără acest criteriu prezent, o teză nu intră în Weekly Note oricât de bine ar arăta restul.</span>
   </div>
 
@@ -36,7 +36,7 @@
     ? CORD.filter(function (k) { return cy[k]; }).map(function (k) {
         var c = cy[k];
         return '<div class="ccy">' +
-          '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECUNDAR') + '</span>' + dirBadge(c.bias) + '</div>' +
+          '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECONDARY') + '</span>' + dirBadge(c.bias) + '</div>' +
           '<div class="blk" style="margin-bottom:0"><b>Central Bank Outlook</b><p>' + (c.cb || '—') + '</p></div>' +
         '</div>'; }).join('')
     : '<div class="empty" style="grid-column:1/-1">Se populează la „procesează inbox" / „generează teza".</div>';

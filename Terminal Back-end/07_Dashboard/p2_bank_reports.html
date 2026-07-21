@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<title>Padu Terminal — 2 · Rapoarte bănci</title>
+<title>Padu Terminal — Bank Reports</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,13 +13,13 @@
   <div class="kpis" id="kpis"></div>
 
   <div class="card">
-    <h2>Sinteza rapoartelor — schema fixă (criteriul 2 — obligatoriu)</h2>
+    <h2>Bank Reports — fixed schema</h2>
     <div id="reports"></div>
-    <div class="comment" id="rcomment" style="display:none"><b>Consens, contradicții & schimbări de poziție</b><span></span></div>
+    <div class="comment" id="rcomment" style="display:none"><b>Consensus, contradictions & position changes</b><span></span></div>
   </div>
 
   <div class="card">
-    <h2>Citirea per monedă — ce spun băncile comerciale</h2>
+    <h2>Per-currency read — what the commercial banks say</h2>
     <div class="grid2" id="ccys"></div>
   </div>
 
@@ -45,17 +45,17 @@
     return dirs['BULLISH'] && dirs['BEARISH'];
   });
   document.getElementById('kpis').innerHTML =
-    '<div class="kpi"><span class="l">Rapoarte procesate</span><div class="v">' + (M.processed !== undefined ? M.processed : R.length) + '</div><div class="sub">' + (M.week || '') + '</div></div>' +
-    '<div class="kpi"><span class="l">Excluse la triaj</span><div class="v">' + (M.excluded !== undefined ? M.excluded : '—') + '</div><div class="sub">irelevante / duplicate</div></div>' +
-    '<div class="kpi"><span class="l">Contradicții</span><div class="v">' + contra.length + '</div><div class="sub">' + (contra.join(', ') || 'niciuna') + '</div></div>' +
-    '<div class="kpi"><span class="l">Schimbări de poziție</span><div class="v">' + changed + '</div><div class="sub">întors / revizuit</div></div>';
+    '<div class="kpi"><span class="l">Reports processed</span><div class="v">' + (M.processed !== undefined ? M.processed : R.length) + '</div><div class="sub">' + (M.week || '') + '</div></div>' +
+    '<div class="kpi"><span class="l">Excluded (triage)</span><div class="v">' + (M.excluded !== undefined ? M.excluded : '—') + '</div><div class="sub">irrelevant / duplicate</div></div>' +
+    '<div class="kpi"><span class="l">Contradictions</span><div class="v">' + contra.length + '</div><div class="sub">' + (contra.join(', ') || 'none') + '</div></div>' +
+    '<div class="kpi"><span class="l">Position changes</span><div class="v">' + changed + '</div><div class="sub">reversed / revised</div></div>';
 
   // ——— tabelul de rapoarte ———
   function convBar(n) {
     if (!n) return '<span class="dim">—</span>';
     var full = '', i;
     for (i = 1; i <= 5; i++) full += (i <= n ? '●' : '○');
-    return '<span title="convingere ' + n + '/5">' + full + '</span>';
+    return '<span title="conviction ' + n + '/5">' + full + '</span>';
   }
   function chgBadge(c) {
     if (!c) return '<span class="dim">—</span>';
@@ -64,13 +64,13 @@
     return '<span class="badge ' + cls + '">' + c + '</span>';
   }
   document.getElementById('reports').innerHTML = R.length
-    ? '<table><tr><th>Banca</th><th>Data</th><th>Activ</th><th>Direcție</th><th>Orizont</th><th>Convingere</th><th>Argumente-cheie</th><th>Niveluri</th><th>Invalidare</th><th>vs. anterior</th></tr>' +
+    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Levels</th><th>Invalidation</th><th>vs. prior</th></tr>' +
       R.map(function (r) {
         var contraFlag = contra.indexOf(r.asset) > -1;
         return '<tr>' +
           '<td><b>' + r.bank + '</b></td>' +
           '<td class="small">' + (r.date || '—') + '</td>' +
-          '<td>' + r.asset + (contraFlag ? ' <span class="badge b-watch" title="bănci în contradicție pe acest activ">⚔</span>' : '') + '</td>' +
+          '<td>' + r.asset + (contraFlag ? ' <span class="badge b-watch" title="banks in contradiction on this asset">⚔</span>' : '') + '</td>' +
           '<td>' + dirBadge(r.dir) + '</td>' +
           '<td class="small">' + (r.horizon || '—') + '</td>' +
           '<td>' + convBar(r.conviction) + '</td>' +
@@ -92,8 +92,8 @@
     ? CORD.filter(function (k) { return cy[k]; }).map(function (k) {
         var c = cy[k];
         return '<div class="ccy">' +
-          '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECUNDAR') + '</span>' + dirBadge(c.bias) + '</div>' +
-          '<div class="blk" style="margin-bottom:0"><b>Bănci comerciale</b><p>' + (c.banks || '—') + '</p></div>' +
+          '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECONDARY') + '</span>' + dirBadge(c.bias) + '</div>' +
+          '<div class="blk" style="margin-bottom:0"><b>Commercial banks</b><p>' + (c.banks || '—') + '</p></div>' +
         '</div>'; }).join('')
     : '<div class="empty" style="grid-column:1/-1">Se populează la „procesează inbox".</div>';
 })();

@@ -2,15 +2,14 @@
 // Se încarcă DUPĂ data.js și analysis_data.js. Fiecare pagină cheamă: renderChrome('p4').
 (function () {
   var PAGES = [
-    { id: 'home',    file: 'dashboard.html',      label: 'HOME',          title: 'HOME' },
-    { id: 'p1', n: 1, file: 'p1_central_banks.html', label: 'Central Banks', title: '1 · CENTRAL BANKS' },
-    { id: 'p2', n: 2, file: 'p2_bank_reports.html',  label: 'Rapoarte bănci', title: '2 · RAPOARTE BĂNCI' },
-    { id: 'p3', n: 3, file: 'p3_indicators.html',    label: 'Indicatori',    title: '3 · INDICATORI ECONOMICI' },
-    { id: 'p4', n: 4, file: 'p4_yields.html',        label: 'Yields',        title: '4 · YIELD SPREADS' },
-    { id: 'p5', n: 5, file: 'p5_cot.html',           label: 'COT',           title: '5 · COT' },
-    { id: 'p6', n: 6, file: 'p6_sentiment.html',     label: 'Sentiment',     title: '6 · SENTIMENT / RISK' },
-    { id: 'p7', n: 7, file: 'p7_seasonality.html',   label: 'Seasonality',   title: '7 · SEASONALITY 10Y' },
-    { id: 'journal', file: 'journal.html',        label: 'JOURNAL',       title: 'JOURNAL' }
+    { id: 'home', file: 'dashboard.html',        label: 'Home',          title: 'HOME' },
+    { id: 'p1',   file: 'p1_central_banks.html', label: 'Central Banks', title: 'CENTRAL BANKS' },
+    { id: 'p2',   file: 'p2_bank_reports.html',  label: 'Bank Reports',  title: 'BANK REPORTS' },
+    { id: 'p3',   file: 'p3_indicators.html',    label: 'Indicators',    title: 'ECONOMIC INDICATORS' },
+    { id: 'p4',   file: 'p4_yields.html',        label: 'Yields',        title: 'YIELD SPREADS' },
+    { id: 'p5',   file: 'p5_cot.html',           label: 'COT',           title: 'COT — COMMITMENT OF TRADERS' },
+    { id: 'p6',   file: 'p6_seasonality.html',   label: 'Seasonality',   title: 'SEASONALITY 10Y' },
+    { id: 'journal', file: 'journal.html',       label: 'Journal',       title: 'JOURNAL' }
   ];
 
   function fmtD(s) { return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? s.split('-').reverse().join('.') : (s || ''); }
@@ -26,9 +25,7 @@
 
     var items = PAGES.map(function (p) {
       var cls = p.id === active ? ' class="on"' : '';
-      var num = p.n ? '<b>' + p.n + '</b>' : '';
-      var sep = (p.id === 'p1' ? '<span class="sep"></span>' : '') + (p.id === 'journal' ? '<span class="spacer"></span>' : '');
-      return sep + '<a href="' + p.file + '"' + cls + '>' + num + p.label + '</a>';
+      return '<a href="' + p.file + '"' + cls + '>' + p.label + '</a>';
     }).join('');
 
     document.getElementById('chrome').innerHTML =

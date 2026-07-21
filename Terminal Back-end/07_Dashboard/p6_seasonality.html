@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<title>Padu Terminal — 7 · Seasonality</title>
+<title>Padu Terminal — Seasonality</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="chrome"></div>
 
   <div class="card">
-    <h2>Seasonality — 10y Monthly Average (criteriul 7)</h2>
+    <h2>Seasonality — 10y Monthly Average</h2>
     <div class="curmon" id="curmon"></div>
     <div id="seas"></div>
   </div>
@@ -26,7 +26,7 @@
 <script src="nav.js"></script>
 <script>
 (function () {
-  renderChrome('p7');
+  renderChrome('p6');
   var D = window.ANALYSIS_DATA || {};
   var cls = window.numCls;
   var se = (D.seasonality || {}).instruments || {};
@@ -43,7 +43,7 @@
     skeys.forEach(function (k) { if (se[k][String(cur)]) cd[k] = se[k][String(cur)]; });
   }
   document.getElementById('curmon').innerHTML = Object.keys(cd).length
-    ? '<div class="cm" style="border-color:var(--acc)"><b>Luna curentă</b>' + MON[cur - 1] + ' — medie 10 ani</div>' +
+    ? '<div class="cm" style="border-color:var(--acc)"><b>Current month</b>' + MON[cur - 1] + ' — 10y average</div>' +
       skeys.filter(function (k) { return cd[k]; }).map(function (k) {
         var v = cd[k];
         return '<div class="cm"><b>' + k + '</b><span class="' + cls(v.avg) + '">' + (v.avg > 0 ? '+' : '') + v.avg + '%</span> <span class="small">hit ' + v.hit + '%</span></div>'; }).join('')
@@ -63,7 +63,7 @@
         return '<tr><td>' + k + '</td>' + MON.map(function (_, i) {
           var c = cell(se[k][String(i + 1)]);
           return i + 1 === cur ? c.replace('<td', '<td class="cur"') : c; }).join('') + '</tr>'; }).join('') +
-      '</table><div class="small" style="margin-top:8px">Celulă: randament mediu % (jos: % luni pozitive). Luna curentă conturată.</div>'
+      '</table><div class="small" style="margin-top:8px">Cell: average return % (bottom: % positive months). Current month outlined.</div>'
     : '<div class="empty">Rulează <code>python3 00_SYSTEM/scripts/update_seasonality.py</code> pe Mac — sezonalitatea se scrie în seasonality.json.</div>';
 })();
 </script>

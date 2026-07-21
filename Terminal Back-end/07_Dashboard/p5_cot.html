@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<title>Padu Terminal — 5 · COT</title>
+<title>Padu Terminal — COT</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="chrome"></div>
 
   <div class="card">
-    <h2>COT — Leveraged Funds (TFF) · Managed Money pe Gold (criteriul 5)</h2>
+    <h2>COT — Leveraged Funds (TFF) · Managed Money on Gold</h2>
     <div id="cot"></div>
-    <div class="comment" id="cotcomment" style="display:none"><b>Comentariu de desk</b><span></span></div>
+    <div class="comment" id="cotcomment" style="display:none"><b>Desk comment</b><span></span></div>
   </div>
 
   <div class="foot">
@@ -44,8 +44,8 @@
   var first = order.filter(function (k) { return cm[k]; })[0];
 
   document.getElementById('cot').innerHTML = Object.keys(cm).length
-    ? '<div class="small" style="margin-bottom:8px">as of ' + ((cm[first] || {}).as_of || '') + ' · net, contracte · sursa: ' + ((D.cot || {}).source || 'CFTC') + '</div>' +
-      '<table><tr><th>Asset</th><th>Categorie</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extremă</th><th>13 wk</th></tr>' +
+    ? '<div class="small" style="margin-bottom:8px">as of ' + ((cm[first] || {}).as_of || '') + ' · net, contracts · source: ' + ((D.cot || {}).source || 'CFTC') + '</div>' +
+      '<table><tr><th>Asset</th><th>Category</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extreme</th><th>13 wk</th></tr>' +
       order.filter(function (k) { return cm[k]; }).map(function (k) {
         var m = cm[k];
         var warn = m.percentile_52w >= 90 || m.percentile_52w <= 10;

@@ -19,10 +19,10 @@
 
   <div class="sumgrid" id="sums"></div>
 
-  <div class="card"><h2>Teze active (Weekly Macro Note — scor min. 5/7)</h2><div id="theses"></div></div>
+  <div class="card"><h2>Active Theses (Weekly Macro Note — min. score 5/7)</h2><div id="theses"></div></div>
 
-  <div class="card"><h2>Posibile trade-uri — FX · Strategia A (multi-day, 1-5 zile)</h2><div id="tfx"></div></div>
-  <div class="card"><h2>Posibile trade-uri — Intraday · Strategia B (Gold + US30, sesiunea NY)</h2><div id="tin"></div></div>
+  <div class="card"><h2>Possible Trades — FX · Strategy A (multi-day, 1-5 days)</h2><div id="tfx"></div></div>
+  <div class="card"><h2>Possible Trades — Intraday · Strategy B (Gold + US30, NY session)</h2><div id="tin"></div></div>
 
   <div class="foot">
     Ipoteze condiționate, NU ordine de execuție — intrarea doar prin filtrul tehnic propriu + checklist (playbook). „STAI" e o poziție validă.<br>
@@ -48,13 +48,12 @@
   document.getElementById('sentbadge').innerHTML = sentBadge(s.label);
   document.getElementById('sentnote').textContent = s.note || '';
 
-  // ——— rezumate pe criterii → link către pagina criteriului ———
-  var PG = window.PADU_PAGES.filter(function (p) { return p.n; });   // p1..p7, în ordine
-  document.getElementById('sums').innerHTML = (D.summaries || []).map(function (x, i) {
-    var target = PG[i];
-    var href = target ? target.file : '#';
+  // ——— rezumate pe criterii → link către pagina criteriului (maparea prin câmpul pg) ———
+  document.getElementById('sums').innerHTML = (D.summaries || []).map(function (x) {
+    var href = x.pg || '#';
+    var clickable = !!x.pg;
     return '<a class="sum" href="' + href + '"><div class="k"><span>' + x.k + '</span>' +
-           (target ? '<span class="go">deschide →</span>' : '') + '</div><div class="v">' + x.v + '</div></a>';
+           (clickable ? '<span class="go">open →</span>' : '') + '</div><div class="v">' + x.v + '</div></a>';
   }).join('') || '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
 
   // ——— teze ———
@@ -63,13 +62,13 @@
         return '<div class="thesis"><div class="h">' + t.pair + ' ' + dirBadge(t.dir) +
           '<span class="dim" style="font-size:.75rem">' + (t.horizon || '') + '</span>' +
           '<span class="score">' + t.score + '</span></div>' +
-          '<div class="inv">Invalidare: ' + t.invalidation + '</div></div>'; }).join('')
+          '<div class="inv">Invalidation: ' + t.invalidation + '</div></div>'; }).join('')
     : '<div class="empty">Nicio teză activă. Se populează duminica („generează teza săptămânală").</div>';
 
   // ——— trade-uri posibile ———
   function ttable(list) {
     if (!list || !list.length) return '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
-    return '<table><tr><th>Instr.</th><th>Direcție</th><th>Conf.</th><th>Raționament</th><th>Condiție de activare</th><th>Invalidare</th></tr>' +
+    return '<table><tr><th>Instr.</th><th>Direction</th><th>Conf.</th><th>Rationale</th><th>Trigger</th><th>Invalidation</th></tr>' +
       list.map(function (t) {
         return '<tr><td><b>' + t.instrument + '</b></td><td>' + dirBadge(t.dir) + '</td><td>' + t.conf + '</td>' +
           '<td class="small">' + t.rationale + '</td><td class="small">' + t.activation + '</td>' +
