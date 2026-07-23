@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-07-22",
+ "generated": "2026-07-23",
  "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săpt., pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 mld, a 8-a săpt.) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
@@ -308,7 +308,7 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-22",
+  "updated": "2026-07-23",
   "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
@@ -530,7 +530,7 @@ window.ANALYSIS_DATA = {
   }
  },
  "yields": {
-  "updated": "2026-07-22",
+  "updated": "2026-07-23",
   "status": {
    "US": "ok",
    "EUR": "ok",
@@ -553,69 +553,69 @@ window.ANALYSIS_DATA = {
   "levels": {
    "US": {
     "2Y": {
-     "date": "2026-07-20",
-     "value": 4.21,
-     "delta_1w": -0.05
-    },
-    "10Y": {
-     "date": "2026-07-20",
-     "value": 4.6,
-     "delta_1w": -0.02
-    }
-   },
-   "EUR": {
-    "2Y": {
      "date": "2026-07-21",
-     "value": 2.737,
-     "delta_1w": 0.05
-    },
-    "10Y": {
-     "date": "2026-07-21",
-     "value": 3.21,
-     "delta_1w": 0.064
-    }
-   },
-   "GBP": {
-    "2Y": {
-     "date": "2026-07-21",
-     "value": 4.292,
+     "value": 4.26,
      "delta_1w": 0.08
     },
     "10Y": {
      "date": "2026-07-21",
-     "value": 5.093,
-     "delta_1w": 0.079
+     "value": 4.63,
+     "delta_1w": 0.05
+    }
+   },
+   "EUR": {
+    "2Y": {
+     "date": "2026-07-22",
+     "value": 2.762,
+     "delta_1w": 0.086
+    },
+    "10Y": {
+     "date": "2026-07-22",
+     "value": 3.204,
+     "delta_1w": 0.05
+    }
+   },
+   "GBP": {
+    "2Y": {
+     "date": "2026-07-22",
+     "value": 4.329,
+     "delta_1w": 0.116
+    },
+    "10Y": {
+     "date": "2026-07-22",
+     "value": 5.103,
+     "delta_1w": 0.089
     }
    },
    "CAD": {
     "2Y": {
-     "date": "2026-07-21",
-     "value": 2.82,
-     "delta_1w": -0.04
+     "date": "2026-07-22",
+     "value": 2.89,
+     "delta_1w": 0.07
     },
     "10Y": {
-     "date": "2026-07-21",
-     "value": 3.56,
-     "delta_1w": -0.01
+     "date": "2026-07-22",
+     "value": 3.6,
+     "delta_1w": 0.07
     }
    },
    "JPY": {
     "2Y": {
-     "date": "2026-07-21",
-     "value": 1.441,
-     "delta_1w": -0.01
+     "date": "2026-07-22",
+     "value": 1.45,
+     "delta_1w": 0.015
     },
     "10Y": {
-     "date": "2026-07-21",
-     "value": 2.731,
-     "delta_1w": -0.055
+     "date": "2026-07-22",
+     "value": 2.745,
+     "delta_1w": 0.032
     }
    },
    "CHF": {
     "10Y": {
-     "date": "2026-07-22",
-     "value": 0.499,
-     "delta_1w": 0.026
+     "date": "2026-07-23",
+     "value": 0.535,
+     "delta_1w": 0.052
     }
    },
    "AUD": {
@@ -634,68 +634,64 @@ window.ANALYSIS_DATA = {
   "spreads": {
    "EURUSD": {
     "2Y": {
-     "value": -1.473,
-     "delta_1w": 0.1
+     "value": -1.498,
+     "delta_1w": 0.006
     },
     "10Y": {
-     "value": -1.39,
-     "delta_1w": 0.084
+     "value": -1.426,
+     "delta_1w": 0.0
     }
    },
    "GBPUSD": {
     "2Y": {
-     "value": 0.082,
-     "delta_1w": 0.13
+     "value": 0.069,
+     "delta_1w": 0.036
     },
     "10Y": {
-     "value": 0.493,
-     "delta_1w": 0.099
+     "value": 0.473,
+     "delta_1w": 0.039
     }
    },
    "AUDUSD": {
     "2Y": {
-     "value": 0.29,
-     "delta_1w": 0.063
+     "value": 0.24,
+     "delta_1w": -0.067
     },
     "10Y": {
-     "value": 0.313,
-     "delta_1w": 0.04
+     "value": 0.283,
+     "delta_1w": -0.03
     }
    },
    "USDJPY": {
     "2Y": {
-     "value": 2.769,
-     "delta_1w": -0.04
+     "value": 2.81,
+     "delta_1w": 0.065
     },
     "10Y": {
-     "value": 1.869,
-     "delta_1w": 0.035
+     "value": 1.885,
+     "delta_1w": 0.018
     }
    },
    "USDCHF": {
     "10Y": {
-     "value": 4.101,
-     "delta_1w": -0.046
+     "value": 4.095,
+     "delta_1w": -0.002
     }
    },
    "USDCAD": {
     "2Y": {
-     "value": 1.39,
-     "delta_1w": -0.01
+     "value": 1.37,
+     "delta_1w": 0.01
     },
     "10Y": {
-     "value": 1.04,
-     "delta_1w": -0.01
+     "value": 1.03,
+     "delta_1w": -0.02
     }
    }
   },
   "history": {
    "US": {
     "2Y": [
-     [
-      "2026-06-05",
-      4.17
-     ],
      [
       "2026-06-08",
       4.15
@@ -811,13 +807,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-20",
       4.21
+     ],
+     [
+      "2026-07-21",
+      4.26
      ]
     ],
     "10Y": [
-     [
-      "2026-06-05",
-      4.55
-     ],
      [
       "2026-06-08",
       4.56
@@ -933,15 +929,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-20",
       4.6
+     ],
+     [
+      "2026-07-21",
+      4.63
      ]
     ]
    },
    "EUR": {
     "2Y": [
-     [
-      "2026-06-10",
-      2.6354295416
-     ],
      [
       "2026-06-11",
       2.6089401632
@@ -1057,13 +1053,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       2.7373771255
+     ],
+     [
+      "2026-07-22",
+      2.7617110552
      ]
     ],
     "10Y": [
-     [
-      "2026-06-10",
-      3.1162570344
-     ],
      [
       "2026-06-11",
       3.0798140633
@@ -1179,6 +1175,10 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       3.2100962672
+     ],
+     [
+      "2026-07-22",
+      3.2040119707
      ]
     ]
    },
@@ -1243,6 +1243,10 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       4.291527554847961
+     ],
+     [
+      "2026-07-22",
+      4.3293533493665795
      ]
     ],
     "10Y": [
@@ -1305,15 +1309,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       5.092963165462118
+     ],
+     [
+      "2026-07-22",
+      5.103199386708677
      ]
     ]
    },
    "CAD": {
     "2Y": [
-     [
-      "2026-06-09",
-      2.85
-     ],
      [
       "2026-06-10",
       2.83
@@ -1429,13 +1433,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       2.82
+     ],
+     [
+      "2026-07-22",
+      2.89
      ]
     ],
     "10Y": [
-     [
-      "2026-06-09",
-      3.49
-     ],
      [
       "2026-06-10",
       3.49
@@ -1551,6 +1555,10 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       3.56
+     ],
+     [
+      "2026-07-22",
+      3.6
      ]
     ]
    },
@@ -1611,6 +1619,10 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       1.441
+     ],
+     [
+      "2026-07-22",
+      1.45
      ]
     ],
     "10Y": [
@@ -1669,16 +1681,16 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-21",
       2.731
+     ],
+     [
+      "2026-07-22",
+      2.745
      ]
     ]
    },
    "CHF": {
     "2Y": [],
     "10Y": [
-     [
-      "2026-06-11",
-      0.487
-     ],
      [
       "2026-06-12",
       0.451
@@ -1794,6 +1806,10 @@ window.ANALYSIS_DATA = {
      [
       "2026-07-22",
       0.499
+     ],
+     [
+      "2026-07-23",
+      0.535
      ]
     ]
    },
