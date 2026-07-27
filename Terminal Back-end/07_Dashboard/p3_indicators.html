@@ -13,10 +13,8 @@
   <div class="card">
     <h2>Macro state per currency</h2>
     <div id="ind"></div>
-    <div class="comment" id="icomment" style="display:none"><b>Desk comment</b><span></span></div>
+    <div class="comment" id="recap" style="display:none"></div>
   </div>
-
-  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -24,6 +22,7 @@
 <script>
 (function () {
   renderChrome('p3');
+  renderRecap('indicators');
   var D = window.ANALYSIS_DATA || {};
   var I = D.indicators || {};
   var ORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
@@ -52,8 +51,6 @@
         '</tr>'; }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
 
-  var ic = (D.comments || {}).indicators;
-  if (ic) { var el = document.getElementById('icomment'); el.style.display = 'block'; el.querySelector('span').textContent = ic; }
 })();
 </script>
 </body>

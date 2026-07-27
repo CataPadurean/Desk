@@ -42,7 +42,8 @@ def build_analysis_js():
     obj = {'generated': date.today().isoformat(),
            'regime': d.get('regime', ''), 'regime_date': d.get('date', ''),
            'sentiment': d.get('sentiment'),          # {label, comment}
-           'comments': d.get('comments', {}),        # {cot, yields, reports, indicators}
+           'recap': d.get('recap', {}),              # RECAP per pagină, max 250 car., în cuvinte:
+                                                     # {cb, reports, indicators, yields, cot, seasonality}
            'currencies': d.get('currencies', {}),    # per monedă: {bias, cb, banks, core}
            'reports': d.get('reports', []),          # criteriul 2 — schema_bias.md, un rând per raport
            'reports_meta': d.get('reports_meta', {}),  # {processed, excluded, week}

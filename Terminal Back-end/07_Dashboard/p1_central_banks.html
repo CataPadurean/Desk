@@ -17,7 +17,7 @@
 
   <div class="grid2" id="ccys"></div>
 
-  <div class="pagesum" id="pagesum"></div>
+  <div class="comment" id="recap" style="display:none"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -25,6 +25,7 @@
 <script>
 (function () {
   renderChrome('p1');
+  renderRecap('cb');
   var D = window.ANALYSIS_DATA || {};
   var cy = D.currencies || {};
   var CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];

@@ -13,10 +13,8 @@
   <div class="card">
     <h2>COT — Leveraged Funds (TFF) · Managed Money on Gold</h2>
     <div id="cot"></div>
-    <div class="comment" id="cotcomment" style="display:none"><b>Desk comment</b><span></span></div>
+    <div class="comment" id="recap" style="display:none"></div>
   </div>
-
-  <div class="pagesum" id="pagesum"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -24,6 +22,7 @@
 <script>
 (function () {
   renderChrome('p5');
+  renderRecap('cot');
   var D = window.ANALYSIS_DATA || {};
   var cls = window.numCls, sign = window.sgn;
 
@@ -57,8 +56,6 @@
         '</tr>'; }).join('') + '</table>'
     : '<div class="empty">Rulează update_data.py pentru date COT.</div>';
 
-  var cc = (D.comments || {}).cot;
-  if (cc) { var el = document.getElementById('cotcomment'); el.style.display = 'block'; el.querySelector('span').textContent = cc; }
 })();
 </script>
 </body>
