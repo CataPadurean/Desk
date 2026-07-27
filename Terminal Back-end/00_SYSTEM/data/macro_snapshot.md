@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-07-26
+# MACRO SNAPSHOT — 2026-07-27
 
 ## COT (as of 2026-07-21) — Leveraged Funds (TFF) / Managed Money (GOLD)
 
@@ -22,7 +22,7 @@
 | EUR | 2.801 | +0.102 | 3.225 | +0.047 |
 | GBP | 4.39 | +0.15 | 5.168 | +0.131 |
 | CAD | 2.96 | +0.13 | 3.65 | +0.12 |
-| JPY | 1.499 | +0.063 | 2.776 | +0.079 |
+| JPY | 1.531 | +0.091 | 2.815 | +0.096 |
 | CHF | — | — | 0.537 | +0.057 |
 | AUD | 4.561 | +0.061 | 4.989 | +0.076 |
 | NZD *(INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
@@ -34,7 +34,7 @@
 | EURUSD | -1.569 | -0.108 | -1.485 | -0.093 |
 | GBPUSD | 0.02 | -0.06 | 0.458 | -0.009 |
 | USDCAD | 1.41 | +0.08 | 1.06 | +0.02 |
-| USDJPY | 2.871 | +0.147 | 1.934 | +0.061 |
+| USDJPY | 2.839 | +0.119 | 1.895 | +0.044 |
 | USDCHF | — | — | 4.173 | +0.083 |
 | AUDUSD | 0.191 | -0.149 | 0.279 | -0.064 |
 | NZDUSD | — | — | — | — |
