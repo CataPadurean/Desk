@@ -10,8 +10,6 @@
 <body>
   <div id="chrome"></div>
 
-  <div class="kpis" id="kpis"></div>
-
   <div class="card">
     <h2>Bank Reports — fixed schema</h2>
     <div id="reports"></div>
@@ -29,20 +27,14 @@
 (function () {
   renderChrome('p2');
   var D = window.ANALYSIS_DATA || {};
-  var R = D.reports || [], M = D.reports_meta || {};
+  var R = D.reports || [];
 
-  // ——— KPI de triaj ———
-  var changed = R.filter(function (r) { return /ÎNTORS|REVIZUIT/i.test(r.change || ''); }).length;
+  // activele pe care băncile se contrazic — marcate cu ⚔ în tabel
   var assets = {}; R.forEach(function (r) { (assets[r.asset] = assets[r.asset] || []).push(r); });
   var contra = Object.keys(assets).filter(function (a) {
     var dirs = {}; assets[a].forEach(function (r) { dirs[String(r.dir).toUpperCase()] = 1; });
     return dirs['BULLISH'] && dirs['BEARISH'];
   });
-  document.getElementById('kpis').innerHTML =
-    '<div class="kpi"><span class="l">Reports processed</span><div class="v">' + (M.processed !== undefined ? M.processed : R.length) + '</div><div class="sub">' + (M.week || '') + '</div></div>' +
-    '<div class="kpi"><span class="l">Excluded (triage)</span><div class="v">' + (M.excluded !== undefined ? M.excluded : '—') + '</div><div class="sub">irrelevant / duplicate</div></div>' +
-    '<div class="kpi"><span class="l">Contradictions</span><div class="v">' + contra.length + '</div><div class="sub">' + (contra.join(', ') || 'none') + '</div></div>' +
-    '<div class="kpi"><span class="l">Position changes</span><div class="v">' + changed + '</div><div class="sub">reversed / revised</div></div>';
 
   // ——— tabelul de rapoarte ———
   function convBar(n) {
