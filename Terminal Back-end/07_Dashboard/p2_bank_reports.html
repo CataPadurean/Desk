@@ -15,7 +15,6 @@
   <div class="card">
     <h2>Bank Reports — fixed schema</h2>
     <div id="reports"></div>
-    <div class="comment" id="recap" style="display:none"></div>
   </div>
 
   <div class="card">
@@ -29,7 +28,6 @@
 <script>
 (function () {
   renderChrome('p2');
-  renderRecap('reports');
   var D = window.ANALYSIS_DATA || {};
   var R = D.reports || [], M = D.reports_meta || {};
 

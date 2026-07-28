@@ -13,7 +13,6 @@
   <div class="card">
     <h2>Macro state per currency</h2>
     <div id="ind"></div>
-    <div class="comment" id="recap" style="display:none"></div>
   </div>
 
 <script src="data.js"></script>
@@ -22,7 +21,6 @@
 <script>
 (function () {
   renderChrome('p3');
-  renderRecap('indicators');
   var D = window.ANALYSIS_DATA || {};
   var I = D.indicators || {};
   var ORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];

@@ -49,17 +49,6 @@
     }
   };
 
-  // Chenarul RECAP al paginii: rezumatul paginii în cuvinte, max 250 caractere, fără cifre.
-  // Fiecare pagină de criteriu are <div class="comment" id="recap"></div> și cheamă renderRecap('cot').
-  window.renderRecap = function (key) {
-    var el = document.getElementById('recap');
-    if (!el) return;
-    var txt = ((window.ANALYSIS_DATA || {}).recap || {})[key] || '';
-    if (!txt) { el.style.display = 'none'; return; }
-    el.style.display = 'block';
-    el.innerHTML = '<b>Recap</b>' + txt;
-  };
-
   // helper-e comune de formatare, folosite de mai multe pagini
   window.fmtDate = fmtD;
   window.numCls = function (x) { return x > 0 ? 'pos' : (x < 0 ? 'neg' : ''); };

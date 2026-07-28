@@ -7,14 +7,6 @@ window.ANALYSIS_DATA = {
   "label": "RISK-ON (fragil)",
   "comment": "Apetit de risc intact — indici la record, VIX 16 — favorabil monedelor pro-ciclice „bătute” (CAD, NZD, AUD). CACIB: CAD și CHF corelate pozitiv cu risk-on, GBP negativ. Fragilitate: randamentele urcă și poziționarea USD e la extrem de deceniu; un shock de randamente sau minute FOMC hawkish poate inversa brusc tonul. Nu e un risk-on de urmărit orbește."
  },
- "recap": {
-  "cb": "Dobânzile stau pe loc peste tot, dar tonul se mișcă. Fed vorbește dur, piața nu-l crede — miercuri se vede cine are dreptate. Kiwi-ul e singurul cu eveniment propriu, iar lira e cel mai slab picior din grup.",
-  "reports": "Băncile cad de acord pe un singur lucru: dolarul canadian a fost prea aspru pedepsit. În rest fiecare trage în altă parte, iar pe yen se contrazic pe față — când doi analiști buni spun invers, stai deoparte.",
-  "indicators": "Economia americană scârțâie la angajări, dar nu destul cât să sperie. Marea Britanie e clar în frână, iar Canada e singura care accelerează — de asta blocul CAD e cel mai curat de jucat.",
-  "yields": "Banii sunt încă mai bine plătiți în dolar decât aproape oriunde, iar diferența s-a lărgit. Asta trage împotriva short-ului nostru pe dolar: teza merge cu vânt din față și are nevoie de un catalizator.",
-  "cot": "Aproape toată lumea stă de aceeași parte a bărcii. Când toți sunt poziționați la fel, o veste contrară nu găsește cumpărători și mișcarea devine violentă. Extremele sunt muniție de squeeze, nu confirmare.",
-  "seasonality": "Iulie e istoric o lună ușor proastă pentru dolar, dar nimic din tabel nu e destul de puternic cât să te bage singur într-un trade. Pe perechea cu teză activă, istoricul e practic 50/50."
- },
  "currencies": {
   "USD": {
    "core": true,

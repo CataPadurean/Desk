@@ -14,7 +14,6 @@
     <div class="card" style="margin-bottom:0"><h2>Yields 2Y (primary) / 10Y (secondary)</h2><div id="ylev"></div></div>
     <div class="card" style="margin-bottom:0"><h2>2Y Spreads vs USD</h2><div id="yspr"></div></div>
   </div>
-  <div class="comment" id="recap" style="display:none; margin-top:14px"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -22,7 +21,6 @@
 <script>
 (function () {
   renderChrome('p4');
-  renderRecap('yields');
   var D = window.ANALYSIS_DATA || {};
   var cls = window.numCls, sign = window.sgn;
 

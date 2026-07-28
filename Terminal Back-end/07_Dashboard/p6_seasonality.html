@@ -14,7 +14,6 @@
     <h2>Seasonality — 10y Monthly Average</h2>
     <div class="curmon" id="curmon"></div>
     <div id="seas"></div>
-    <div class="comment" id="recap" style="display:none"></div>
   </div>
 
 <script src="data.js"></script>
@@ -23,7 +22,6 @@
 <script>
 (function () {
   renderChrome('p6');
-  renderRecap('seasonality');
   var D = window.ANALYSIS_DATA || {};
   var cls = window.numCls;
   var se = (D.seasonality || {}).instruments || {};
