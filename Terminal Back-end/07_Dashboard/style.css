@@ -63,10 +63,9 @@ tr:last-child td { border-bottom: none; }
 .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
 .small { font-size: .74rem; color: var(--dim); }
 th.c, td.c { text-align: center; }   /* coloane de indicatori — valori centrate sub antet */
-/* separator de stadiu în book-ul de pe Home */
-tr.grp td { background: var(--card2); font-size: .74rem; color: var(--dim); letter-spacing: .3px;
-  padding: 7px 8px; border-bottom: 1px solid var(--line); }
-tr.grp td .badge { margin-right: 8px; }
+/* separator de categorie (Swing / Intraday) în book-ul de pe Home */
+tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; padding: 8px; border-bottom: 1px solid var(--line); }
 
 /* ——— carduri rezumat (Home) ——— */
 .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 10px; margin-bottom: 14px; }

@@ -46,24 +46,32 @@
   }).join('') || '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
 
   // ——— BOOK UNIC, grupat pe stadiu de acțiune ———
-  var STAGES = [
-    { id: 'LIVE',  cls: 'b-long'  },
-    { id: 'ARMED', cls: 'b-watch' },
-    { id: 'WATCH', cls: 'b-flat'  }
+  // grupare pe categorii (Swing, apoi Intraday), fiecare în ordinea activelor din regula 0
+  var GROUPS = [
+    { id: 'Swing',    order: ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'] },
+    { id: 'Intraday', order: ['US30', 'GOLD'] }
   ];
+  function stageBadge(s) {
+    var u = String(s || '').toUpperCase();
+    var cls = u === 'LIVE' ? 'b-long' : u === 'ARMED' ? 'b-watch' : 'b-flat';
+    return u ? '<span class="badge ' + cls + '">' + u + '</span>' : '<span class="dim">—</span>';
+  }
   var book = D.trades || [];
-  var HEAD = '<tr><th>Instrument</th><th>Type</th><th>Direction</th><th>Conviction</th><th>Thesis</th>' +
+  var HEAD = '<tr><th>Instrument</th><th>Stage</th><th>Direction</th><th>Conviction</th><th>Thesis</th>' +
              '<th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>';
 
   document.getElementById('book').innerHTML = book.length
-    ? '<table>' + HEAD + STAGES.map(function (s) {
-        var rows = book.filter(function (t) { return String(t.stage).toUpperCase() === s.id; });
+    ? '<table>' + HEAD + GROUPS.map(function (g) {
+        var rows = book.filter(function (t) { return t.type === g.id; }).sort(function (a, b) {
+          var ia = g.order.indexOf(a.instrument), ib = g.order.indexOf(b.instrument);
+          return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        });
         if (!rows.length) return '';
-        return '<tr class="grp"><td colspan="8"><span class="badge ' + s.cls + '">' + s.id + '</span></td></tr>' +
+        return '<tr class="grp"><td colspan="8">' + g.id + '</td></tr>' +
           rows.map(function (t) {
             return '<tr>' +
               '<td><b>' + t.instrument + '</b>' + (t.horizon && t.horizon !== '—' ? '<br><span class="small">' + t.horizon + '</span>' : '') + '</td>' +
-              '<td class="small">' + (t.type || '—') + '</td>' +
+              '<td>' + stageBadge(t.stage) + '</td>' +
               '<td>' + dirBadge(t.dir) + '</td>' +
               '<td>' + convDots(t.conf) + '</td>' +
               '<td>' + (t.thesis && t.thesis !== '—' ? '<span class="score">' + t.thesis + '</span>' : '<span class="dim">—</span>') + '</td>' +
