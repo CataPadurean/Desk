@@ -36,13 +36,13 @@ window.ANALYSIS_DATA = {
    "core": false,
    "bias": "Bearish (dar risc mare de squeeze) — WATCH",
    "cb": "BoJ a urcat la 1,00% cu vot larg, iar majoritatea board-ului vede încă un pas anul acesta — direcția e clară, viteza nu. Inflația de bază sub țintă le permite să normalizeze în ritmul lor. Yenul are argumente pe termen lung, dar niciun catalizator imediat. Decizie 31.07.",
-   "banks": "Yenul e locul unde blocul bancar se rupe în două, și asta e informația cea mai valoroasă a săptămânii. CACIB și-a urcat ținta față de raportul anterior și vede USDJPY la 162-163, pe argumentul că diferența de dobândă plătește poziția, iar normalizarea japoneză merge prea încet ca să conteze — inflația rămâne sub țintă, ceea ce le dă dreptate. MUFG atacă aceeași poziție din partea cealaltă: nu contestă logica de carry, ci spune că trade-ul e prea aglomerat și se golește violent. Argumente solide, concluzii opuse — o contradicție de manual, care anulează direcția netă."
+   "banks": "Yenul e locul unde blocul bancar se rupe în două, și aceasta e informația cea mai valoroasă a săptămânii. CACIB și-a urcat ținta față de raportul anterior și vede USDJPY la 162-163, pe argumentul că diferența de dobândă plătește poziția, iar normalizarea japoneză merge prea încet ca să conteze — inflația rămâne sub țintă, ceea ce le dă dreptate. MUFG atacă aceeași poziție din partea cealaltă: nu contestă logica de carry, ci spune că trade-ul e prea aglomerat și se golește violent. Argumente solide, concluzii opuse — o contradicție de manual, care anulează direcția netă."
   },
   "CHF": {
    "core": false,
    "bias": "Neutru-Bullish franc",
    "cb": "SNB ține dobânda la zero și sugerează că acolo rămâne până la finalul anului: cu inflația la 0,6% nu are nici motiv să urce, nici spațiu să coboare. Instrumentul real nu mai e dobânda, ci intervenția pe curs — o întărire amplă a francului vine cu risc de intervenție.",
-   "banks": "Nicio casă nu deschide o teză pe franc săptămâna asta, dar CACIB semnalează o anomalie care merită reținută: francul se corelează pozitiv cu apetitul de risc, adică se comportă atipic pentru o monedă de refugiu. Observația contează pentru corelații — ca acoperire într-un scenariu risk-off, francul poate să nu reacționeze conform manualului. În rest, blocul bancar îl descrie ca ferm, pe cerere constantă de safe-haven, susținut de o inflație aproape inexistentă. Fără teză și fără catalizator propriu, rămâne monedă de context, nu de poziție."
+   "banks": "Nicio casă nu deschide o teză pe franc în această săptămână, dar CACIB semnalează o anomalie care merită reținută: francul se corelează pozitiv cu apetitul de risc, adică se comportă atipic pentru o monedă de refugiu. Observația contează pentru corelații — ca acoperire într-un scenariu risk-off, francul poate să nu reacționeze conform manualului. În rest, blocul bancar îl descrie ca ferm, pe cerere constantă de safe-haven, susținut de o inflație aproape inexistentă. Fără teză și fără catalizator propriu, rămâne monedă de context, nu de poziție."
   },
   "AUD": {
    "core": false,
@@ -116,7 +116,7 @@ window.ANALYSIS_DATA = {
      "name": "Hawkish",
      "odds": "~35%",
      "reaction": "USD relansat pe toată linia; randamentele urcă",
-     "action": "Short USDCAD moare înainte de BoC; fără intrări anti-USD, stai pe mâini"
+     "action": "Short USDCAD moare înainte de BoC; fără intrări anti-USD — se rămâne pe margine"
     },
     {
      "name": "Bază (echilibrat)",
@@ -128,7 +128,7 @@ window.ANALYSIS_DATA = {
      "name": "Dovish",
      "odds": "~20%",
      "reaction": "USD vândut agresiv; risk-on se amplifică",
-     "action": "Cel mai bun scenariu pentru ambele teze — execuție la trigger, fără mărit riscul"
+     "action": "Cel mai bun scenariu pentru ambele teze — execuție la trigger, fără creșterea riscului"
     }
    ]
   },
@@ -152,7 +152,7 @@ window.ANALYSIS_DATA = {
      "name": "Hold",
      "odds": "~15%",
      "reaction": "NZD vândut violent; squeeze-ul se amână",
-     "action": "Teza moare pe loc — se arhivează, fără repoziționare în ziua aia"
+     "action": "Teza moare pe loc — se arhivează, fără repoziționare în aceeași zi"
     }
    ]
   },
@@ -270,7 +270,7 @@ window.ANALYSIS_DATA = {
    "horizon": "1-2 luni",
    "conviction": 4,
    "args": [
-    "Diferența de dobândă plătește poziția cât o ții deschisă",
+    "Diferența de dobândă plătește poziția pe toată durata deținerii",
     "Normalizarea japoneză merge prea încet",
     "Și-au urcat ținta față de raportul anterior"
    ],
@@ -401,7 +401,7 @@ window.ANALYSIS_DATA = {
    "strat": "A",
    "conf": "3/5",
    "rationale": "Hike la 2,50% devenit consens (22/28) + CPI ↑ spre 4,3% + short leveraged funds la RECORD + risk-on cu NZD pro-ciclic = profil clasic de squeeze. Scor confluență 5/7 (criteriile 1+2 prezente).",
-   "activation": "Hike SAU ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel (confirmarea ta)",
+   "activation": "Hike SAU ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel (confirmare proprie)",
    "invalidation": "Hold dovish pe 8.07 → setup mort; SAU minute FOMC hawkish care relansează USD global. Onest: câștig limitat (hike deja prețuit), spread 2Y indisponibil = criteriul 4 necunoscut"
   }
  ],
