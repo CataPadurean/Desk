@@ -309,19 +309,18 @@ window.ANALYSIS_DATA = {
   }
  ],
  "cot": {
-  "updated": "2026-07-31",
+  "updated": "2026-08-01",
   "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
   "markets": {
    "EUR": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -56671,
-    "delta_1w": -2980,
-    "pct_oi": -7.1,
+    "as_of": "2026-07-28",
+    "net": -65198,
+    "delta_1w": -8527,
+    "pct_oi": -8.0,
     "percentile_52w": 2,
     "extreme": "SHORT",
     "history_13w": [
-     11594,
      11846,
      18003,
      16317,
@@ -333,19 +332,19 @@ window.ANALYSIS_DATA = {
      -32644,
      -45461,
      -53691,
-     -56671
+     -56671,
+     -65198
     ]
    },
    "GBP": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": 33236,
-    "delta_1w": 4695,
-    "pct_oi": 12.7,
-    "percentile_52w": 71,
-    "extreme": null,
+    "as_of": "2026-07-28",
+    "net": 41097,
+    "delta_1w": 7861,
+    "pct_oi": 15.4,
+    "percentile_52w": 96,
+    "extreme": "LONG",
     "history_13w": [
-     28882,
      26049,
      37302,
      31369,
@@ -357,19 +356,19 @@ window.ANALYSIS_DATA = {
      16273,
      17979,
      28541,
-     33236
+     33236,
+     41097
     ]
    },
    "CAD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -98377,
-    "delta_1w": -5606,
-    "pct_oi": -26.9,
+    "as_of": "2026-07-28",
+    "net": -102495,
+    "delta_1w": -4118,
+    "pct_oi": -27.5,
     "percentile_52w": 2,
     "extreme": "SHORT",
     "history_13w": [
-     -53828,
      -47758,
      -37663,
      -38654,
@@ -381,19 +380,19 @@ window.ANALYSIS_DATA = {
      -88101,
      -85957,
      -92771,
-     -98377
+     -98377,
+     -102495
     ]
    },
    "JPY": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -96185,
-    "delta_1w": -5724,
-    "pct_oi": -22.7,
-    "percentile_52w": 12,
-    "extreme": null,
+    "as_of": "2026-07-28",
+    "net": -101990,
+    "delta_1w": -5805,
+    "pct_oi": -23.6,
+    "percentile_52w": 4,
+    "extreme": "SHORT",
     "history_13w": [
-     -75802,
      -52897,
      -62440,
      -64945,
@@ -405,19 +404,19 @@ window.ANALYSIS_DATA = {
      -115400,
      -90083,
      -90461,
-     -96185
+     -96185,
+     -101990
     ]
    },
    "CHF": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -8897,
-    "delta_1w": 603,
-    "pct_oi": -8.2,
-    "percentile_52w": 13,
+    "as_of": "2026-07-28",
+    "net": -9647,
+    "delta_1w": -750,
+    "pct_oi": -8.6,
+    "percentile_52w": 12,
     "extreme": null,
     "history_13w": [
-     -5174,
      -6634,
      -7708,
      -4845,
@@ -429,19 +428,19 @@ window.ANALYSIS_DATA = {
      -9666,
      -7218,
      -9500,
-     -8897
+     -8897,
+     -9647
     ]
    },
    "AUD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": 24788,
-    "delta_1w": -2434,
-    "pct_oi": 11.0,
-    "percentile_52w": 40,
+    "as_of": "2026-07-28",
+    "net": 27618,
+    "delta_1w": 2830,
+    "pct_oi": 12.0,
+    "percentile_52w": 44,
     "extreme": null,
     "history_13w": [
-     47855,
      56600,
      55851,
      61178,
@@ -453,19 +452,19 @@ window.ANALYSIS_DATA = {
      31777,
      29683,
      27222,
-     24788
+     24788,
+     27618
     ]
    },
    "NZD": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -31086,
-    "delta_1w": -2084,
+    "as_of": "2026-07-28",
+    "net": -30027,
+    "delta_1w": 1059,
     "pct_oi": -28.6,
-    "percentile_52w": 2,
+    "percentile_52w": 4,
     "extreme": "SHORT",
     "history_13w": [
-     -16833,
      -19294,
      -19435,
      -15336,
@@ -477,19 +476,19 @@ window.ANALYSIS_DATA = {
      -25285,
      -27201,
      -29002,
-     -31086
+     -31086,
+     -30027
     ]
    },
    "DXY": {
     "category": "Leveraged Funds (TFF)",
-    "as_of": "2026-07-21",
-    "net": -1938,
-    "delta_1w": 2928,
-    "pct_oi": -3.6,
-    "percentile_52w": 77,
+    "as_of": "2026-07-28",
+    "net": -1601,
+    "delta_1w": 337,
+    "pct_oi": -2.7,
+    "percentile_52w": 81,
     "extreme": null,
     "history_13w": [
-     -3161,
      -5805,
      -4751,
      -11716,
@@ -501,19 +500,19 @@ window.ANALYSIS_DATA = {
      -5580,
      -4454,
      -4866,
-     -1938
+     -1938,
+     -1601
     ]
    },
    "GOLD": {
     "category": "Managed Money (Disagg)",
-    "as_of": "2026-07-21",
-    "net": 124831,
-    "delta_1w": 4052,
-    "pct_oi": 32.6,
-    "percentile_52w": 69,
+    "as_of": "2026-07-28",
+    "net": 119795,
+    "delta_1w": -5036,
+    "pct_oi": 31.1,
+    "percentile_52w": 60,
     "extreme": null,
     "history_13w": [
-     89752,
      94254,
      98015,
      93540,
@@ -525,13 +524,14 @@ window.ANALYSIS_DATA = {
      120091,
      116161,
      120779,
-     124831
+     124831,
+     119795
     ]
    }
   }
  },
  "yields": {
-  "updated": "2026-07-31",
+  "updated": "2026-08-01",
   "status": {
    "US": "ok",
    "EUR": "ok",
@@ -543,7 +543,7 @@ window.ANALYSIS_DATA = {
    "NZD": "INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ynzy.b: răspuns non-CSV ('<!DOCTYPE "
   },
   "sources": {
-   "US": "US Treasury",
+   "US": "FRED",
    "EUR": "ECB (curba AAA euro area)",
    "GBP": "BoE (curba GLC nominală)",
    "CAD": "BoC Valet",

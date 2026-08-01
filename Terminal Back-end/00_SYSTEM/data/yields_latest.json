@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-31",
+ "updated": "2026-08-01",
  "status": {
   "US": "ok",
   "EUR": "ok",
@@ -11,7 +11,7 @@
   "NZD": "INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ynzy.b: răspuns non-CSV ('<!DOCTYPE "
  },
  "sources": {
-  "US": "US Treasury",
+  "US": "FRED",
   "EUR": "ECB (curba AAA euro area)",
   "GBP": "BoE (curba GLC nominală)",
   "CAD": "BoC Valet",
