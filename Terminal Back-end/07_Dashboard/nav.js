@@ -41,6 +41,19 @@
       '</div>' +
       '<nav class="menu">' + items + '</nav>';
 
+    // aliniere: butonul HISTORY primește exact lățimea ultimului item din meniu (Journal),
+    // ca să stea fix deasupra lui. Ambele sunt lipite de marginea dreaptă, deci se suprapun perfect.
+    var syncHist = function () {
+      var last = document.querySelector('.menu a:last-child');
+      var h = document.querySelector('.top a.hist');
+      if (!last || !h) return;
+      var w = last.getBoundingClientRect().width;
+      if (w > 0) h.style.width = w + 'px';   // 0 = layout încă nefăcut; lăsăm lățimea naturală
+    };
+    syncHist();
+    window.addEventListener('resize', syncHist);
+    if (window.requestAnimationFrame) requestAnimationFrame(syncHist);
+
     // cache-busting când e servit prin http (GitHub Pages)
     if (location.protocol.indexOf('http') === 0) {
       var links = document.querySelectorAll('.menu a, a.sum, a.hist');

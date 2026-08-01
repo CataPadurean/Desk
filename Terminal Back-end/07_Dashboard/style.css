@@ -15,12 +15,13 @@ body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF
 .meta { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
 .meta .wk { color: var(--acc); font-weight: 600; font-size: .8rem; }
 .meta .upd { color: var(--dim); font-size: .8rem; }
-/* buton HISTORY — dreapta sus, cât titlul paginii din mijloc */
-.top .hist { justify-self: end; font-size: .95rem; letter-spacing: 3px; font-weight: 600; color: var(--acc);
-  text-decoration: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 18px; white-space: nowrap;
-  transition: border-color .15s, background .15s; }
-.top .hist:hover { border-color: var(--acc); }
-.top .hist.on { background: var(--card2); border-color: var(--acc); }
+/* buton HISTORY — deasupra lui Journal, identic la stil cu itemele din meniu.
+   Lățimea se sincronizează din nav.js cu ultimul buton din meniu, ca să fie aliniate perfect. */
+.top .hist { justify-self: end; text-align: center; color: var(--dim); font-size: .95rem; font-weight: 600;
+  letter-spacing: .4px; text-decoration: none; border: 1px solid var(--line); padding: 12px 12px; border-radius: 8px;
+  white-space: nowrap; transition: color .15s, border-color .15s, background .15s; }
+.top .hist:hover { color: var(--txt); border-color: var(--acc); }
+.top .hist.on { color: #fff; background: var(--card2); border-color: var(--acc); box-shadow: inset 0 -2px 0 var(--acc); }
 .menu { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; align-items: stretch; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 18px; }
 .menu a { flex: 1 1 120px; text-align: center; color: var(--dim); font-size: .95rem; font-weight: 600; letter-spacing: .4px; text-decoration: none; border: 1px solid var(--line); padding: 12px 12px; border-radius: 8px; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; }
 .menu a:hover { color: var(--txt); border-color: var(--acc); }

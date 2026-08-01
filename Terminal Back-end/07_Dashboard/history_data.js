@@ -13,7 +13,8 @@
 //   dir         "SHORT" | "LONG" | "WATCH" | "STAI"
 //   score       "3/5" — convingerea din tabelul de trade-uri
 //   criteria    criteriile care au cântărit, pe scurt; contra-criteriile în paranteză
-//   outcome     "VALIDATĂ" | "INVALIDATĂ" | "EXPIRATĂ" | "NEACTIVATĂ"
+//   outcome     "VALIDATĂ" | "INVALIDATĂ" | "BREAKEVEN" | "EXPIRATĂ" | "NEACTIVATĂ"
+//               (BREAKEVEN / EXPIRATĂ / NEACTIVATĂ nu intră în rata de validare — sunt neconcludente)
 //   reason      2-3 rânduri: ce s-a întâmplat și de ce, în cuvinte
 window.HISTORY_DATA = {
   entries: [
@@ -30,6 +31,20 @@ window.HISTORY_DATA = {
       criteria: "Bank Reports · Central Banks · Indicators · COT (contra: Yields — spread 2Y pro-USD)",
       outcome: "VALIDATĂ",
       reason: "BoC a ținut dobânda pe 15.07 cu ton neutru-hawkish, iar petrolul aproape de 80 $ a susținut loonie-ul. USDCAD a coborât de la ~1,418 spre 1,4047, iar dolarul canadian a atins maximul ultimelor patru săptămâni. Direcția a fost corectă, dar zona-țintă a băncilor, 1,35-1,40, n-a fost atinsă."
+    },
+    {
+      opened: "06.07.2026", date: "10.07.2026", type: "Trade intraday",
+      instrument: "US30", dir: "LONG", score: "3/5",
+      criteria: "Sentiment (risk-on, VIX 16) · Central Banks (minute FOMC) — contra: randamente în creștere",
+      outcome: "VALIDATĂ",
+      reason: "Regimul risk-on s-a menținut, iar indicele a mers bullish din nivelul record atins la începutul săptămânii. Riscul semnalat la deschidere — minutele FOMC de miercuri — n-a rupt trendul, iar VIX-ul a rămas sub pragul de 20 care ar fi anulat setup-ul."
+    },
+    {
+      opened: "06.07.2026", date: "10.07.2026", type: "Trade intraday",
+      instrument: "GOLD", dir: "LONG", score: "2,5/5",
+      criteria: "Sentiment · DXY sub 101 — contra: randamente reale în urcare (10Y 4,50%)",
+      outcome: "BREAKEVEN",
+      reason: "Setup-ul s-a activat, dar mișcarea n-a avut continuare și poziția s-a închis la zero. Vântul din față semnalat încă de la deschidere — randamentele reale în creștere — a anulat suportul venit din slăbiciunea dolarului. Convingerea redusă, 2,5/5, s-a dovedit corect calibrată."
     }
   ]
 };
