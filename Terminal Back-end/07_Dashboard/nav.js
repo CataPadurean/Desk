@@ -11,7 +11,7 @@
     { id: 'p6',   file: 'p6_seasonality.html',   label: 'Seasonality',   title: 'SEASONALITY 10Y' },
     { id: 'journal', file: 'journal.html',       label: 'Journal',       title: 'JOURNAL' },
     // buton separat, dreapta sus — NU apare în meniu
-    { id: 'history', file: 'history.html',       label: 'HISTORY',       title: 'HISTORY', header: true }
+    { id: 'history', file: 'history.html',       label: 'History',       title: 'HISTORY', header: true }
   ];
 
   function fmtD(s) { return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? s.split('-').reverse().join('.') : (s || ''); }
@@ -85,10 +85,11 @@
   window.dirBadge = function (d) {
     if (!d) return '';
     var su = String(d).toUpperCase();
-    var c = su.indexOf('LONG') === 0 || su.indexOf('BULLISH') === 0 ? 'b-long'
-      : su.indexOf('SHORT') === 0 || su.indexOf('BEARISH') === 0 ? 'b-short'
-      : su.indexOf('WATCH') === 0 ? 'b-watch'
-      : (su.indexOf('BULLISH') > -1 || su.indexOf('BEARISH') > -1) ? 'b-watch' : 'b-flat';
+    if (su.indexOf('WATCH') === 0) return '<span class="badge b-watch">' + d + '</span>';
+    var core = su.replace(/^LIVE\s*-\s*/, '');   // „LIVE - LONG" se colorează după direcție
+    var c = core.indexOf('LONG') === 0 || core.indexOf('BULLISH') === 0 ? 'b-long'
+      : core.indexOf('SHORT') === 0 || core.indexOf('BEARISH') === 0 ? 'b-short'
+      : (core.indexOf('BULLISH') > -1 || core.indexOf('BEARISH') > -1) ? 'b-watch' : 'b-flat';
     return '<span class="badge ' + c + '">' + d + '</span>';
   };
   window.sentBadge = function (label) {

@@ -21,8 +21,11 @@ window.DESK_DATA = {
   ],
 
   // ——— BOOK UNIC (ipoteze condiționate, NU ordine de execuție) ———
+  // Aici intră DOAR ideile care pot deveni trade la un declanșator — nimic „de context".
   // stage: "LIVE" (poziție deschisă) | "ARMED" (trigger la un pas, gata de execuție)
-  //      | "WATCH" (fii atent: devine trade dacă se întâmplă condiția din Trigger)
+  //      | "WATCH" (devine trade dacă se întâmplă condiția din Trigger)
+  // Stadiul nu are coloană proprie: se vede în Direction — LONG / SHORT (ARMED),
+  // WATCH - LONG / WATCH - SHORT, LIVE - LONG / LIVE - SHORT.
   // type:  "Swing" (multi-day, 1-5 zile) | "Intraday" (Gold + US30, sesiunea NY)
   // thesis: scorul de confluență (min. 5/7, criteriile Central Banks + Bank Reports obligatorii)
   //         dacă ideea vine dintr-o teză săptămânală; "—" dacă e pur tactică.
@@ -52,17 +55,11 @@ window.DESK_DATA = {
       trigger: "DXY slab + randamente reale care nu mai urcă; breakout M5 din M30 cu retest",
       invalidation: "10Y peste 4,50% / DXY peste 101; trendul mare descendent intact — NU e trade de poziție" },
 
-    { stage: "WATCH", type: "Swing", instrument: "GBPUSD", dir: "LONG (squeeze)", conf: "—", thesis: "—",
+    { stage: "WATCH", type: "Swing", instrument: "GBPUSD", dir: "LONG", conf: "—", thesis: "—",
       horizon: "—",
       drivers: "Leveraged Funds short la percentila ~8 = combustibil de squeeze; dar Services PMI 48,8 și BoE împărțită = fundamente slabe; lipsesc criteriile obligatorii",
       trigger: "Catalizator pozitiv din Marea Britanie + risk-on susținut",
-      invalidation: "Date britanice slabe care confirmă traiectoria dovish a BoE" },
-
-    { stage: "WATCH", type: "Swing", instrument: "EURUSD", dir: "—", conf: "—", thesis: "—",
-      horizon: "—",
-      drivers: "Ambele bănci centrale au pierdut majorări din pricing; spread 2Y încă contra EUR; poziționare neutră; criteriul Central Banks neutru → sub prag",
-      trigger: "Divergență clară între Fed și ECB, sau întoarcerea spread-ului 2Y în favoarea EUR",
-      invalidation: "Teză neclară = nu există trade (playbook §3.2)" }
+      invalidation: "Date britanice slabe care confirmă traiectoria dovish a BoE" }
   ],
   // P&L / trade-uri: în journal_data.js (local, în .gitignore) — nu aici
 };
