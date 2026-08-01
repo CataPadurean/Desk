@@ -49,6 +49,17 @@
     }
   };
 
+  // Convingere ca puncte: "3/5" → ●●●○○, "2,5/5" → ●●◐○○, lipsă → —
+  window.convDots = function (c) {
+    if (c === null || c === undefined || c === '' || c === '—') return '<span class="dim">—</span>';
+    var m = String(c).replace(',', '.').match(/([\d.]+)\s*\/\s*5/);
+    var n = m ? parseFloat(m[1]) : parseFloat(String(c).replace(',', '.'));
+    if (isNaN(n)) return '<span class="dim">' + c + '</span>';
+    var s = '', i;
+    for (i = 1; i <= 5; i++) s += (n >= i ? '●' : (n >= i - 0.5 ? '◐' : '○'));
+    return '<span title="' + c + '">' + s + '</span>';
+  };
+
   // helper-e comune de formatare, folosite de mai multe pagini
   window.fmtDate = fmtD;
   window.numCls = function (x) { return x > 0 ? 'pos' : (x < 0 ? 'neg' : ''); };

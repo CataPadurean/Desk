@@ -55,6 +55,7 @@ td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top
 tr:last-child td { border-bottom: none; }
 .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
 .small { font-size: .74rem; color: var(--dim); }
+th.c, td.c { text-align: center; }   /* coloane de indicatori — valori centrate sub antet */
 
 /* ——— carduri rezumat (Home) ——— */
 .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 10px; margin-bottom: 14px; }

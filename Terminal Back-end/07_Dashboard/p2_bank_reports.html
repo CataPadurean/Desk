@@ -11,12 +11,12 @@
   <div id="chrome"></div>
 
   <div class="card">
-    <h2>Bank Reports — fixed schema</h2>
+    <h2>Bank Reports — fixed scheme</h2>
     <div id="reports"></div>
   </div>
 
   <div class="card">
-    <h2>Per-currency read — what the commercial banks say</h2>
+    <h2>Bank Reports — Summary</h2>
     <div class="grid2" id="ccys"></div>
   </div>
 
@@ -43,14 +43,8 @@
     for (i = 1; i <= 5; i++) full += (i <= n ? '●' : '○');
     return '<span title="conviction ' + n + '/5">' + full + '</span>';
   }
-  function chgBadge(c) {
-    if (!c) return '<span class="dim">—</span>';
-    var u = c.toUpperCase();
-    var cls = /ÎNTORS/.test(u) ? 'b-watch' : /NOU/.test(u) ? 'b-long' : /SLĂBIT|INVALIDAT/.test(u) ? 'b-short' : 'b-flat';
-    return '<span class="badge ' + cls + '">' + c + '</span>';
-  }
   document.getElementById('reports').innerHTML = R.length
-    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Levels</th><th>Invalidation</th><th>vs. prior</th></tr>' +
+    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Levels</th><th>Invalidation</th></tr>' +
       R.map(function (r) {
         var contraFlag = contra.indexOf(r.asset) > -1;
         return '<tr>' +
@@ -63,7 +57,6 @@
           '<td class="small">' + ((r.args || []).join(' · ') || '—') + '</td>' +
           '<td class="small">' + (r.levels || '—') + '</td>' +
           '<td class="small">' + (r.invalidation || '—') + '</td>' +
-          '<td>' + chgBadge(r.change) + '</td>' +
         '</tr>'; }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox".</div>';
 

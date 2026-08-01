@@ -62,7 +62,7 @@
     if (!list || !list.length) return '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
     return '<table><tr><th>Instr.</th><th>Direction</th><th>Conf.</th><th>Rationale</th><th>Trigger</th><th>Invalidation</th></tr>' +
       list.map(function (t) {
-        return '<tr><td><b>' + t.instrument + '</b></td><td>' + dirBadge(t.dir) + '</td><td>' + t.conf + '</td>' +
+        return '<tr><td><b>' + t.instrument + '</b></td><td>' + dirBadge(t.dir) + '</td><td>' + convDots(t.conf) + '</td>' +
           '<td class="small">' + t.rationale + '</td><td class="small">' + t.activation + '</td>' +
           '<td class="small">' + t.invalidation + '</td></tr>'; }).join('') + '</table>';
   }

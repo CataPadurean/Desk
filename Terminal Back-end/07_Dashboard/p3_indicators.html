@@ -34,18 +34,20 @@
   }
 
   document.getElementById('ind').innerHTML = Object.keys(I).length
-    ? '<table><tr><th>Currency</th><th>Bias</th><th>CPI y/y</th><th>Core</th><th>PMI</th><th>Unemployment</th><th>Net surprise</th><th>Desk read</th></tr>' +
+    ? '<table><tr><th>Currency</th>' +
+        '<th class="c">GDP</th><th class="c">Interest<br>rate</th><th class="c">CPI</th><th class="c">Unemployment</th>' +
+        '<th>Net surprise</th><th>Desk read</th><th>Bias</th></tr>' +
       ORD.filter(function (k) { return I[k]; }).map(function (k) {
         var m = I[k], c = cy[k] || {};
         return '<tr>' +
-          '<td><b>' + k + '</b> <span class="small">' + (c.core ? 'core' : 'sec.') + '</span></td>' + // core/sec = tag
-          '<td>' + dirBadge(c.bias) + '</td>' +
-          '<td>' + (m.cpi || '—') + '</td>' +
-          '<td>' + (m.core || '—') + '</td>' +
-          '<td>' + (m.pmi || '—') + '</td>' +
-          '<td>' + (m.unemp || '—') + '</td>' +
+          '<td><b>' + k + '</b> <span class="small">' + (c.core ? 'core' : 'sec.') + '</span></td>' +
+          '<td class="c">' + (m.gdp || '—') + '</td>' +
+          '<td class="c">' + (m.rate || '—') + '</td>' +
+          '<td class="c">' + (m.cpi || '—') + '</td>' +
+          '<td class="c">' + (m.unemp || '—') + '</td>' +
           '<td>' + surpBadge(m.surprise) + '</td>' +
           '<td class="small">' + (m.read || '—') + '</td>' +
+          '<td>' + dirBadge(c.bias) + '</td>' +
         '</tr>'; }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
 
