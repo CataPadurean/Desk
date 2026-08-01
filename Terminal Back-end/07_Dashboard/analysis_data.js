@@ -12,49 +12,49 @@ window.ANALYSIS_DATA = {
    "core": true,
    "bias": "Bearish tactic / Neutru m.t. (risc de reversal pe poziționare)",
    "cb": "Fed hold 3,50-3,75% (17.06), ton hawkish (dot median 3,8% = un hike încă pe masă), dar NFP +57k a tăiat hike-ul din sept. sub 50%. Minute FOMC miercuri 8.07 (21:00 RO) = pivotul: hawkish → USD relansat; non-hawkish → continuă repricing-ul dovish.",
-   "banks": "ING bullish USD pre-NFP (DXY 101,7/80) — invalidat parțial. CACIB: corelația negativă USD–risk în creștere. Indicatori: NFP +57k (miss), șomaj 4,2% (beat). COT: USD long de deceniu + SOFR short record = poziționare care se poate goli violent (anti-USD) dacă minutele nu livrează hawkish."
+   "banks": "Singura casă cu teză direcțională pe dolar e ING, care miza pe repricing hawkish al Fed-ului și ținte DXY 101,7-101,80 — doar că raportul a fost scris înainte de datele pieței muncii, iar premisa lui s-a rupt între timp. CACIB nu ia poziție pe direcție, dar semnalează ceva mai util pentru execuție: corelația negativă dintre dolar și apetitul de risc se adâncește, adică dolarul se comportă tot mai mult ca refugiu. Concluzia de desk: nicio bancă nu apără acum un long de dolar cu convingere, dar nici nu-l atacă frontal."
   },
   "EUR": {
    "core": true,
    "bias": "Neutru",
    "cb": "ECB a urcat recent și ține ușa deschisă, dar cu HICP la 2,8% argumentul pentru încă un pas se subțiază de la o lună la alta. Nu are motive să grăbească nimic, iar piața a început să scoată din preț următorul hike. Decizia din 23.07 e un test de ton, nu de dobândă.",
-   "banks": "UniCredit: EUR-USD la răscruce, sensibilitatea la spread Bund-UST revenită. CACIB + ING dovish pe dezinflație. Indicatori: HICP 2,8% sub consens. COT: EUR împins spre neutru de vânzări. Sezonier: iulie +0,48% (hit 70%) — cel mai bun vânt din spate pe EUR, dar criteriul 1 neutru → STAI."
+   "banks": "UniCredit dă tonul și îl rezumă într-o formulă: perechea e la răscruce, fiindcă niciunul dintre cele două blocuri nu are un motiv propriu să tragă cursul într-o parte. Observația lor operațională e că legătura cu diferența de randamente germano-americane, ruptă o vreme, a redevenit motorul principal — deci mișcările vor urmări spread-ul, nu titlurile. CACIB și ING merg pe aceeași linie dovish privind dezinflația din zona euro. Nicio casă nu propune o direcție: consensul e că, fără declanșator din afară, e o piață de intervale."
   },
   "GBP": {
    "core": true,
    "bias": "Bearish (fragil) / WATCH squeeze",
    "cb": "BoE e împărțită 7-2, iar economia încetinește vizibil: activitatea din servicii a căzut la minimul ultimilor doi ani și jumătate. Complicația e riscul fiscal, care ține randamentele sus și nu-i lasă să taie liniștit chiar dacă datele o cer. Decizia din 6.08 arbitrează.",
-   "banks": "ING: bearish fragil. Indicatori: Services PMI 48,8 — contracție accentuată. COT: lev funds short ~$8,5 mld (pctl ~8, aproape minim 52w) = combustibil de squeeze pe catalizator pozitiv UK, dar fundamentele nu susțin long-ul (lipsesc criteriile 1-2)."
+   "banks": "Lira e moneda cu cea mai slabă acoperire din inbox-ul săptămânii: o singură casă, ING, ia poziție, iar aceea e bearish și explicit fragilă — adică o direcție pe care nici autorii ei n-o apără cu tărie. Nimeni nu construiește un caz pozitiv pe liră, dar nici nu vine cineva cu o teză bear convingătoare, cu ținte și orizont. Practic, blocul bancar nu oferă niciunul dintre cele două lucruri de care ai nevoie ca să deschizi o poziție: nici convingere, nici catalizator. De aceea lira rămâne subiect de urmărit, nu de tranzacționat."
   },
   "CAD": {
    "core": true,
    "bias": "Bullish (în construcție spre BoC 15.07)",
    "cb": "BoC stă pe loc cu inflația la 3,2% — prea sus ca să taie, prea jos ca să urce. Decizia și raportul din 15.07 sunt evenimentul Tier 1 și catalizatorul tezei pe CAD. CIBC merge mai departe: dobânda nu se mai mișcă anul acesta, adică hold prelungit peste date care se ameliorează.",
-   "banks": "CACIB (FX Focus 1.07, REVIZUIT): „decuplarea regională exagerată” — USDCAD spre 1,35-1,40 de la 1,418. Scotia + CIBC: GDP aprilie +0,55% beat, Q2 2,3-2,5% SAAR, „R is for Rebound”. COT: short CAD extremă (pctl ~2) = squeeze CAD-pozitiv. Contra onest: spread 2Y (+1,38) încă PRO-USD."
+   "banks": "Aici e singurul bloc din inbox unde trei case spun același lucru din unghiuri diferite. CACIB dă teza și nivelurile: decuplarea economiei canadiene de cea americană e exagerată, iar USDCAD ar trebui să coboare de la 1,418 spre 1,35-1,40. Scotiabank o susține cu datele de creștere, care au bătut clar așteptările după o serie de luni slabe. CIBC adaugă piesa de politică monetară: dobânda nu se mai mișcă anul acesta, deci un hold prelungit peste date care se ameliorează. Rar se aliniază atâtea case pe aceeași monedă — de aici și convingerea cea mai mare din tabel."
   },
   "JPY": {
    "core": false,
    "bias": "Bearish (dar risc mare de squeeze) — WATCH",
    "cb": "BoJ a urcat la 1,00% cu vot larg, iar majoritatea board-ului vede încă un pas anul acesta — direcția e clară, viteza nu. Inflația de bază sub țintă le permite să normalizeze în ritmul lor. Yenul are argumente pe termen lung, dar niciun catalizator imediat. Decizie 31.07.",
-   "banks": "CONTRADICȚIE-cheie: CACIB (revizuit ↑) bullish USDJPY (ținte 162-163) vs. MUFG: carry vulnerabil la squeeze. COT: short JPY la maxim de 2 ani (−155k) + sezonier iulie USDJPY −0,90% (hit 30%, favorabil JPY) → muniție de squeeze, dar direcția netă e anulată de contradicție. WATCH, nu direcțional."
+   "banks": "Yenul e locul unde blocul bancar se rupe în două, și asta e informația cea mai valoroasă a săptămânii. CACIB și-a urcat ținta față de raportul anterior și vede USDJPY la 162-163, pe argumentul că diferența de dobândă plătește poziția, iar normalizarea japoneză merge prea încet ca să conteze. MUFG atacă exact aceeași poziție din partea cealaltă: nu contestă logica de carry, ci spune că trade-ul e prea aglomerat și se golește violent. Doi analiști buni, argumente solide, concluzii opuse — când vezi asta, nu alegi tabăra, stai deoparte."
   },
   "CHF": {
    "core": false,
    "bias": "Neutru-Bullish franc",
    "cb": "SNB ține dobânda la zero și sugerează că acolo rămâne până la finalul anului: cu inflația la 0,6% nu are nici motiv să urce, nici spațiu să coboare. Instrumentul real nu mai e dobânda, ci intervenția pe curs — o întărire amplă a francului vine cu risc de intervenție.",
-   "banks": "Francul ferm pe cerere de safe-haven. CACIB: CHF corelat POZITIV cu risk-on (atipic). COT: short CHF extremă (~$6,1 mld) contra unei monede care refuză să slăbească. Sezonier iulie USDCHF −0,81%. Fără catalizator propriu → nu e teză activă."
+   "banks": "Nicio casă nu deschide o teză pe franc săptămâna asta, dar CACIB semnalează o anomalie care merită reținută: francul se corelează pozitiv cu apetitul de risc, adică se comportă atipic pentru o monedă de refugiu. Observația contează pentru corelații — dacă o folosești ca acoperire într-un scenariu risk-off, s-ar putea să nu facă ce te aștepți. În rest, blocul bancar îl descrie ca ferm, pe cerere constantă de safe-haven, fără un catalizator propriu în calendar. Fără teză și fără eveniment, francul rămâne monedă de context, nu de poziție."
   },
   "AUD": {
    "core": false,
    "bias": "Neutru-Bullish",
    "cb": "RBA a ținut 4,35%, dar mesajul a fost mai dur decât gestul: Bullock spune că pauza nu e finalul ciclului și că mai există spațiu de urcare. Ghidajul e mai hawkish decât ce prețuiește piața, deci există loc de repricing pro-AUD. Lipsește catalizatorul propriu — următorul e 5.08.",
-   "banks": "CACIB („The downtrodden”): grupul monedelor bătute la reevaluare. Indicatori: trimmed mean 3,6% ↑ (sticky), piața muncii tare. Sezonier iulie AUDUSD +0,49%. Poate prinde spillover din risk-on + RBNZ, dar fără eveniment propriu săptămâna asta."
+   "banks": "Dolarul australian nu are un raport dedicat, ci intră într-o temă mai largă: CACIB îl încadrează în grupul „monedelor bătute”, adică valutele pedepsite excesiv în lunile trecute și care urmează să fie reevaluate pe măsură ce narativul pesimist se golește. E o teză de coș, nu de pereche — argumentul nu ține de Australia, ci de rotația generală. Practic, AUD-ul poate prinde mișcarea prin ricoșeu, dacă tema funcționează pe monedele cu catalizator propriu. Fără raport dedicat, rămâne o poziție de urmărit din coada ochiului."
   },
   "NZD": {
    "core": false,
    "bias": "Bullish tactic (event RBNZ 8.07)",
    "cb": "RBNZ a ținut 2,25% într-o ședință atât de strânsă încât votul 3-3 a fost spart de Guvernator. Pentru 8.07, 22 din 28 de economiști așteaptă majorare la 2,50% — consens, deci deja prețuit. Nuanța: prăbușirea petrolului sub nivelul asumat slăbește argumentul inflaționist.",
-   "banks": "TMV: path of least resistance = kiwi mai ferm spre decizie. Indicatori: CPI 3,1% ↑ spre 4,3% proiectat Q3. COT: short NZD la RECORD (−63k) = profil clasic de squeeze pe confirmare/surpriză hawkish. Contra onest: „câștigurile NZD văzute limitate chiar și la hike” (hike deja prețuit); monedă secundară."
+   "banks": "Pe kiwi, sinteza vine din TMV, nu dintr-un raport de bancă comercială, și e formulată prudent: drumul cu cea mai mică rezistență duce spre o monedă mai fermă până la decizie. Ce merită reținut e avertismentul care însoțește teza — câștigurile sunt văzute ca limitate chiar și în cazul unei majorări, fiindcă piața a prețuit-o deja. Cu alte cuvinte, direcția e probabil corectă, dar spațiul de mișcare e mic. Fiind și monedă secundară în universul tău, o joci doar la un setup curat, nu pentru că teza sună bine."
   }
  },
  "reports": [
@@ -66,10 +66,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1-3 luni",
    "conviction": 4,
    "args": [
-    "Piața a exagerat ideea că economia canadiană se rupe de cea americană — decalajul de creștere e mult mai mic decât spune prețul",
-    "Face parte dintr-o temă mai largă: monedele bătute în ultimele luni sunt reevaluate pe măsură ce narativul pesimist se golește",
-    "CAD reacționează pozitiv la apetitul de risc, deci teza merge în tandem cu bursele, nu împotriva lor",
-    "Nivelul de intrare e văzut ca fiind deja aproape de zona de valoare, nu ca o urmărire de trend"
+    "Piața a exagerat decuplarea economiei canadiene de cea americană",
+    "Temă mai largă: monedele bătute se reevaluează",
+    "CAD urcă odată cu apetitul de risc"
    ],
    "levels": "1,418 → ținte 1,35-1,40",
    "invalidation": "Minute FOMC hawkish / redresare bruscă a USD global",
@@ -83,10 +82,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1-2 luni",
    "conviction": 3,
    "args": [
-    "Creșterea din aprilie a bătut clar așteptările, ceea ce schimbă tonul după o serie de luni slabe",
-    "Trimestrul al doilea se conturează mult peste ce prețuia piața la începutul verii",
-    "Cererea internă dă semne că se stabilizează, nu doar exporturile",
-    "Concluzia lor: economia nu mai are nevoie de ajutor suplimentar de la banca centrală"
+    "Creșterea din aprilie a bătut clar așteptările",
+    "Trimestrul doi se conturează peste ce prețuia piața",
+    "Cererea internă se stabilizează, nu doar exporturile"
    ],
    "levels": "—",
    "invalidation": "Date canadiene slabe / petrol în cădere",
@@ -100,10 +98,9 @@ window.ANALYSIS_DATA = {
    "horizon": "restul anului",
    "conviction": 3,
    "args": [
-    "Teza casei e că anul acesta e despre revenire, nu despre recesiune — de aici și titlul raportului",
-    "Nu văd nicio mișcare de dobândă până la finalul anului, într-o direcție sau alta",
-    "Un hold prelungit pe date care se ameliorează e, în opinia lor, cel mai bun context posibil pentru monedă",
-    "Riscul pe care îl semnalează singuri: dacă banca centrală se sperie și devine dovish, teza se rupe imediat"
+    "Anul acesta e despre revenire, nu despre recesiune",
+    "Nicio mișcare de dobândă până la finalul anului",
+    "Hold prelungit pe date în ameliorare = context ideal"
    ],
    "levels": "—",
    "invalidation": "BoC dovish surprise la MPR 15.07",
@@ -117,10 +114,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1-2 săpt",
    "conviction": 3,
    "args": [
-    "Atenție la datare: teza a fost publicată ÎNAINTE de raportul pieței muncii, deci premisa ei s-a schimbat între timp",
-    "Se bazau pe ideea că piața va reprețui Fed-ul în direcție hawkish după o serie de date solide",
-    "Argumentul de fond rămâne valabil: diferența de dobândă pe termen scurt e încă favorabilă dolarului",
-    "Practic, structura tezei e bună, dar catalizatorul pe care mizau a livrat exact pe dos"
+    "Publicată ÎNAINTE de raportul pieței muncii — premisa s-a schimbat",
+    "Mizau pe repricing hawkish al Fed",
+    "Diferența de dobândă rămâne favorabilă dolarului"
    ],
    "levels": "DXY 101,7 / 101,80",
    "invalidation": "Deja parțial invalidată de NFP +57k (miss)",
@@ -134,10 +130,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1 lună",
    "conviction": 2,
    "args": [
-    "Perechea e descrisă ca fiind la răscruce: niciunul dintre cele două blocuri nu are un motiv propriu să tragă cursul",
-    "Legătura cu diferența de randamente germano-americane, ruptă o vreme, a redevenit motorul principal al mișcării",
-    "Ambele bănci centrale au pierdut din pricing câte o majorare, deci avantajul relativ se anulează",
-    "Concluzia lor practică: fără un declanșator din afară, e o piață de intervale, nu de direcție"
+    "La răscruce: niciun bloc nu are motiv propriu să tragă cursul",
+    "Spread-ul Bund-UST a redevenit motorul mișcării",
+    "Fără declanșator extern, e piață de intervale"
    ],
    "levels": "—",
    "invalidation": "—",
@@ -151,10 +146,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1-2 luni",
    "conviction": 4,
    "args": [
-    "Diferența de dobândă rămâne suficient de mare cât să plătească poziția cât timp o ții deschisă",
-    "Normalizarea politicii japoneze merge prea încet ca să schimbe ecuația în lunile următoare",
-    "Randamentele pe doi ani rămân ferm în favoarea dolarului, iar ei tratează asta ca ancora tezei",
-    "Și-au urcat ținta față de raportul anterior, deci convingerea e în creștere, nu în scădere"
+    "Diferența de dobândă plătește poziția cât o ții deschisă",
+    "Normalizarea japoneză merge prea încet",
+    "Și-au urcat ținta față de raportul anterior"
    ],
    "levels": "ținte 162-163",
    "invalidation": "BoJ accelerează normalizarea / risk-off global",
@@ -168,10 +162,9 @@ window.ANALYSIS_DATA = {
    "horizon": "1-2 luni",
    "conviction": 3,
    "args": [
-    "Avertismentul lor central: trade-ul de carry e aglomerat, iar aglomerația se plătește violent când se golește",
-    "Poziționarea speculativă contra yenului e la cel mai extrem nivel din ultimii doi ani",
-    "Luna iulie e istoric favorabilă yenului, deci calendarul lucrează în defavoarea celor care stau short",
-    "Nu contestă logica de carry — spun doar că raportul risc/randament s-a deteriorat la nivelurile astea"
+    "Trade-ul de carry e aglomerat și se golește violent",
+    "Poziționarea contra yenului, la extrem de doi ani",
+    "Iulie e istoric favorabil yenului"
    ],
    "levels": "—",
    "invalidation": "BoJ amână hike-ul peste octombrie",
@@ -191,7 +184,7 @@ window.ANALYSIS_DATA = {
    "cpi": "3,5%",
    "unemp": "4,2%",
    "surprise": "mixt",
-   "read": "Creșterea a încetinit la jumătate față de trimestrul anterior, dar inflația a cedat în sfârșit după cinci luni de urcare, iar piața muncii rezistă. Un mix care nu forțează Fed-ul în nicio direcție."
+   "read": "Creștere pe jumătate, dar inflația a cedat în sfârșit și piața muncii rezistă — un mix care nu forțează Fed-ul."
   },
   "EUR": {
    "gdp": "+0,4%",
@@ -199,7 +192,7 @@ window.ANALYSIS_DATA = {
    "cpi": "2,9%",
    "unemp": "6,3%",
    "surprise": "mixt",
-   "read": "Economia a accelerat față de un trimestru plat, dar inflația a urcat din nou pe energie. Combinația asta îi ține pe cei de la ECB blocați: nici motiv de relaxare, nici de strângere."
+   "read": "Economia accelerează, dar inflația a urcat din nou pe energie — ECB rămâne blocată între cele două."
   },
   "GBP": {
    "gdp": "+0,6%",
@@ -207,7 +200,7 @@ window.ANALYSIS_DATA = {
    "cpi": "2,6%",
    "unemp": "4,9%",
    "surprise": "negativ",
-   "read": "Inflația a scăzut mai mult decât se aștepta, dar șomajul e cel mai ridicat din grupul monedelor majore. Economia crește pe hârtie și se răcește în piața muncii — cea mai slabă combinație din tabel."
+   "read": "Inflația scade mai mult decât se aștepta, dar șomajul e cel mai mare din grup — cea mai slabă combinație."
   },
   "CAD": {
    "gdp": "0,0%",
@@ -215,7 +208,7 @@ window.ANALYSIS_DATA = {
    "cpi": "2,8%",
    "unemp": "6,5%",
    "surprise": "pozitiv",
-   "read": "Creșterea a stagnat, dar inflația de bază a coborât la minimul ultimilor cinci ani, iar șomajul a scăzut. Banca centrală are exact ce-i trebuie ca să nu mai miște nimic o bună bucată de vreme."
+   "read": "Creșterea a stagnat, însă inflația de bază e la minim de cinci ani și șomajul scade — BoC poate sta liniștită."
   },
   "JPY": {
    "gdp": "+0,5%",
@@ -223,7 +216,7 @@ window.ANALYSIS_DATA = {
    "cpi": "1,7%",
    "unemp": "2,5%",
    "surprise": "neutru",
-   "read": "Inflația a accelerat la maximul ultimelor luni, dar rămâne sub țintă, iar piața muncii e cea mai strânsă din grup. Normalizarea continuă, doar că într-un ritm care nu grăbește pe nimeni."
+   "read": "Inflația accelerează dar rămâne sub țintă, cu cea mai strânsă piață a muncii din grup — normalizare fără grabă."
   },
   "CHF": {
    "gdp": "+0,4%",
@@ -231,7 +224,7 @@ window.ANALYSIS_DATA = {
    "cpi": "0,5%",
    "unemp": "2,9%",
    "surprise": "neutru",
-   "read": "Inflație aproape inexistentă și șomaj minim — o economie fără probleme, dar și fără motive de mișcare. Singura variabilă reală rămâne cursul, nu dobânda."
+   "read": "Inflație aproape inexistentă și șomaj minim — nimic de rezolvat, deci singura variabilă rămâne cursul."
   },
   "AUD": {
    "gdp": "+0,3%",
@@ -239,7 +232,7 @@ window.ANALYSIS_DATA = {
    "cpi": "3,8%",
    "unemp": "4,4%",
    "surprise": "mixt",
-   "read": "Creșterea a dezamăgit, dar inflația de bază a accelerat din nou, iar angajările au explodat. Banca centrală are cea mai mare dobândă din grup și un motiv în plus s-o țină acolo."
+   "read": "Creșterea dezamăgește, dar inflația de bază accelerează și angajările explodează — RBA are motiv să stea sus."
   },
   "NZD": {
    "gdp": "+0,8%",
@@ -247,7 +240,7 @@ window.ANALYSIS_DATA = {
    "cpi": "3,9%",
    "unemp": "5,3%",
    "surprise": "pozitiv",
-   "read": "Cea mai bună creștere trimestrială din grup și inflația la vârf de ciclu — combinația care a forțat prima majorare de dobândă din ultimii trei ani. Contra: șomajul rămâne ridicat."
+   "read": "Cea mai bună creștere din grup și inflația la vârf de ciclu — de aici prima majorare din trei ani."
   }
  },
  "trades_fx": [

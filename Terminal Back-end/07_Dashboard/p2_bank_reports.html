@@ -69,7 +69,7 @@
         var c = cy[k];
         return '<div class="ccy">' +
           '<div class="hd"><h3>' + k + '</h3><span class="tag">' + (c.core ? 'CORE' : 'SECONDARY') + '</span>' + dirBadge(c.bias) + '</div>' +
-          '<div class="blk" style="margin-bottom:0"><b>Commercial banks</b><p>' + (c.banks || '—') + '</p></div>' +
+          '<div class="blk" style="margin-bottom:0"><p>' + (c.banks || '—') + '</p></div>' +
         '</div>'; }).join('')
     : '<div class="empty" style="grid-column:1/-1">Se populează la „procesează inbox".</div>';
 })();
