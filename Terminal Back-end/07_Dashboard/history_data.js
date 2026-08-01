@@ -8,9 +8,9 @@
 // Schema unei intrări:
 //   date        "16.07.2026"                     — data închiderii ideii
 //   opened      "06.07.2026"                     — data la care a apărut în terminal
-//   type        "Trade FX" | "Trade intraday"
+//   type        "Swing" | "Intraday"
 //   instrument  "USDCAD"
-//   dir         "SHORT" | "LONG" | "WATCH" | "STAI"
+//   dir         "SHORT" | "LONG" | "—" (fără direcție angajată)
 //   score       "3/5" — convingerea din tabelul de trade-uri
 //   criteria    criteriile care au cântărit, pe scurt; contra-criteriile în paranteză
 //   outcome     "VALIDATĂ" | "INVALIDATĂ" | "BREAKEVEN" | "EXPIRATĂ" | "NEACTIVATĂ"
@@ -19,28 +19,28 @@
 window.HISTORY_DATA = {
   entries: [
     {
-      opened: "06.07.2026", date: "10.07.2026", type: "Trade FX",
+      opened: "06.07.2026", date: "10.07.2026", type: "Swing",
       instrument: "NZDUSD", dir: "LONG", score: "3/5",
       criteria: "Central Banks · Bank Reports · Indicators · COT (contra: Yields — 2Y indisponibil)",
       outcome: "VALIDATĂ",
       reason: "RBNZ a majorat dobânda la 2,50% pe 8.07, prima creștere din 2023, exact catalizatorul pe care se sprijinea ideea. NZDUSD a urcat 0,53% în ziua deciziei, spre 0,5706, și a continuat peste 0,58 până spre finalul lunii. Avertismentul din teză — câștig limitat fiindcă majorarea era deja prețuită — s-a dovedit prea prudent."
     },
     {
-      opened: "06.07.2026", date: "16.07.2026", type: "Trade FX",
+      opened: "06.07.2026", date: "16.07.2026", type: "Swing",
       instrument: "USDCAD", dir: "SHORT", score: "3/5",
       criteria: "Bank Reports · Central Banks · Indicators · COT (contra: Yields — spread 2Y pro-USD)",
       outcome: "VALIDATĂ",
       reason: "BoC a ținut dobânda pe 15.07 cu ton neutru-hawkish, iar petrolul aproape de 80 $ a susținut loonie-ul. USDCAD a coborât de la ~1,418 spre 1,4047, iar dolarul canadian a atins maximul ultimelor patru săptămâni. Direcția a fost corectă, dar zona-țintă a băncilor, 1,35-1,40, n-a fost atinsă."
     },
     {
-      opened: "06.07.2026", date: "10.07.2026", type: "Trade intraday",
+      opened: "06.07.2026", date: "10.07.2026", type: "Intraday",
       instrument: "US30", dir: "LONG", score: "3/5",
       criteria: "Sentiment (risk-on, VIX 16) · Central Banks (minute FOMC) — contra: randamente în creștere",
       outcome: "VALIDATĂ",
       reason: "Regimul risk-on s-a menținut, iar indicele a mers bullish din nivelul record atins la începutul săptămânii. Riscul semnalat la deschidere — minutele FOMC de miercuri — n-a rupt trendul, iar VIX-ul a rămas sub pragul de 20 care ar fi anulat setup-ul."
     },
     {
-      opened: "06.07.2026", date: "10.07.2026", type: "Trade intraday",
+      opened: "06.07.2026", date: "10.07.2026", type: "Intraday",
       instrument: "GOLD", dir: "LONG", score: "2,5/5",
       criteria: "Sentiment · DXY sub 101 — contra: randamente reale în urcare (10Y 4,50%)",
       outcome: "BREAKEVEN",

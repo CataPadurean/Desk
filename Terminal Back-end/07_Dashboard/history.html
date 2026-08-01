@@ -14,8 +14,8 @@
 
   <div class="tabs">
     <div class="tab on" data-f="TOT">TOATE</div>
-    <div class="tab" data-f="Trade FX">TRADE FX</div>
-    <div class="tab" data-f="Trade intraday">INTRADAY</div>
+    <div class="tab" data-f="Swing">SWING</div>
+    <div class="tab" data-f="Intraday">INTRADAY</div>
   </div>
 
   <div class="card"><h2>Research history — trade-urile propuse de terminal și ce s-a ales de fiecare</h2><div id="hist"></div></div>
@@ -47,7 +47,7 @@
     var inv = rows.filter(function (e) { return /INVALIDAT/i.test(e.outcome || ''); }).length;
     var idle = rows.filter(function (e) { return /NEACTIVAT|EXPIRAT|BREAKEVEN/i.test(e.outcome || ''); }).length;
     document.getElementById('kpis').innerHTML =
-      '<div class="kpi"><span class="l">Trade-uri arhivate</span><div class="v">' + rows.length + '</div><div class="sub">' + (f === 'TOT' ? 'FX + intraday' : f) + '</div></div>' +
+      '<div class="kpi"><span class="l">Trade-uri arhivate</span><div class="v">' + rows.length + '</div><div class="sub">' + (f === 'TOT' ? 'swing + intraday' : f) + '</div></div>' +
       '<div class="kpi"><span class="l">Validate</span><div class="v">' + ok + '</div><div class="sub">au mers în direcția dată</div></div>' +
       '<div class="kpi"><span class="l">Invalidate</span><div class="v">' + inv + '</div><div class="sub">motivul s-a rupt</div></div>' +
       '<div class="kpi"><span class="l">Rata de validare</span><div class="v">' + (dec.length ? Math.round(100 * ok / dec.length) + '%' : '—') + '</div><div class="sub">' + (dec.length ? ok + ' din ' + dec.length + (idle ? ' · ' + idle + ' neconcludent' + (idle > 1 ? 'e' : 'ă') : '') : 'fără date încă') + '</div></div>';
