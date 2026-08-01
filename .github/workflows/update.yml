@@ -2,7 +2,13 @@ name: Update desk data + deploy dashboard
 
 on:
   schedule:
-    - cron: '0 11 * * *'     # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna) — înainte de sesiunea NY; sâmbăta prinde COT-ul de vineri
+    # ——— REFRESH ZILNIC: PAUZAT (31.07.2026) ———————————————————————————————
+    # Motiv: robotul rescria analysis_data.js + macro_snapshot.md pe server exact
+    # când lucram și eu la ele local → conflict de rebase la fiecare push.command.
+    # CA SĂ-L REPORNEȘTI: șterge cele două caractere „# " de pe linia de mai jos.
+    # Între timp datele se pot împrospăta oricând la cerere: scrie [refresh] în
+    # mesajul unui commit, sau apasă „Run workflow" din tab-ul Actions.
+    # - cron: '0 11 * * *'   # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna)
     - cron: '0 5 3 1 *'      # o dată pe an, 3 ianuarie 05:00 UTC — recalculează seasonality.json (fix tot anul)
   push:
     branches: [ main ]        # push-ul lui Claude/tău reîmprospătează site-ul
