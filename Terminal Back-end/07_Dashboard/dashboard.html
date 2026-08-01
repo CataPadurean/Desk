@@ -18,6 +18,8 @@
 
   <div class="sumgrid" id="sums"></div>
 
+  <div class="card" id="pbcard" style="display:none"><h2>Event Playbook</h2><div id="playbook"></div></div>
+
   <div class="card"><h2>Trades</h2><div id="book"></div></div>
 
 <script src="data.js"></script>
@@ -44,6 +46,26 @@
     return '<a class="sum" href="' + href + '"><div class="k"><span>' + x.k + '</span>' +
            (clickable ? '<span class="go">open →</span>' : '') + '</div><div class="v">' + x.v + '</div></a>';
   }).join('') || '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
+
+  // ——— EVENT PLAYBOOK: matricea de scenarii per eveniment Tier 1 ———
+  var PB = (window.ANALYSIS_DATA || {}).playbook || [];
+  if (PB.length) {
+    document.getElementById('pbcard').style.display = 'block';
+    function scnBadge(n) {
+      var u = String(n).toUpperCase();
+      var cls = u.indexOf('HAWK') === 0 ? 'b-short' : u.indexOf('DOVISH') === 0 || u.indexOf('HOLD') === 0 ? 'b-long' : 'b-flat';
+      // culoarea e doar diferențiere vizuală, nu direcție de trade
+      return '<span class="badge ' + (u.indexOf('BAZ') === 0 || u.indexOf('NEUTRU') > -1 ? 'b-flat' : cls) + '">' + n + '</span>';
+    }
+    document.getElementById('playbook').innerHTML = PB.map(function (e) {
+      return '<div class="pbev"><b>' + e.event + '</b><span class="small" style="margin-left:8px">' + (e.date || '') + '</span>' +
+        '<table style="margin-top:6px"><tr><th>Scenario</th><th>Odds</th><th>Expected reaction</th><th>Action</th></tr>' +
+        (e.scenarios || []).map(function (s) {
+          return '<tr><td>' + scnBadge(s.name) + '</td><td>' + (s.odds || '—') + '</td>' +
+            '<td class="small">' + (s.reaction || '—') + '</td><td class="small">' + (s.action || '—') + '</td></tr>';
+        }).join('') + '</table></div>';
+    }).join('');
+  }
 
   // ——— BOOK UNIC, grupat pe categorii (Swing, apoi Intraday), în ordinea activelor din regula 0 ———
   var GROUPS = [

@@ -57,6 +57,130 @@ window.ANALYSIS_DATA = {
    "banks": "Pe kiwi, sinteza vine din TMV, nu dintr-un raport de bancă comercială, și e formulată prudent: drumul cu cea mai mică rezistență duce spre o monedă mai fermă până la decizie. Argumentul din date e solid — inflația a urcat la vârf de ciclu, iar creșterea trimestrială e cea mai bună din grup. Ce merită reținut e avertismentul care însoțește teza: câștigurile sunt văzute ca limitate chiar și în cazul unei majorări, fiindcă piața a prețuit-o deja. Direcția e probabil corectă, dar spațiul de mișcare e mic — monedă secundară, doar la setup curat."
   }
  },
+ "pricing": {
+  "USD": {
+   "market": "Post-NFP, piața dă hike-ului din septembrie sub 50% și prețuiește dobânda plată până la finalul anului",
+   "view": "Dot-ul median (3,8%) ține încă un hike pe masă — minutele din 8.07 arbitrează",
+   "edge": "PRO-USD dacă minutele confirmă tonul hawkish: piața e poziționată prea dovish",
+   "dir": "PRO-USD"
+  },
+  "EUR": {
+   "market": "Următorul hike ECB aproape scos din preț după HICP 2,8%",
+   "view": "Aliniat — fără motiv de grabă până la decizia din 23.07",
+   "edge": "Fără edge: pricing și politică spun același lucru",
+   "dir": "NEUTRU"
+  },
+  "GBP": {
+   "market": "Piața prețuiește tăieri în a doua parte a anului, pe date slabe",
+   "view": "BoE împărțită 7-2 confirmă direcția — divergența e doar de ritm",
+   "edge": "Slab ANTI-GBP: pricing-ul aleargă înaintea băncii, dar în direcția corectă",
+   "dir": "ANTI-GBP"
+  },
+  "CAD": {
+   "market": "Piața nu prețuiește nicio mișcare BoC anul acesta",
+   "view": "Aliniat (CIBC la fel) — hold prelungit peste date în ameliorare",
+   "edge": "Edge-ul nu e pe dobândă, ci pe ton: un MPR optimist pe 15.07 nu e în preț",
+   "dir": "PRO-CAD"
+  },
+  "JPY": {
+   "market": "Încă un hike BoJ prețuit parțial pentru 2026",
+   "view": "Majoritatea board-ului îl confirmă — direcția e în preț, ritmul nu",
+   "edge": "Fără edge pe pricing; riscul e poziționarea, nu dobânda",
+   "dir": "NEUTRU"
+  },
+  "CHF": {
+   "market": "Zero mișcări prețuite până la finalul lui 2026",
+   "view": "Aliniat — SNB a spus explicit același lucru",
+   "edge": "Fără edge",
+   "dir": "NEUTRU"
+  },
+  "AUD": {
+   "market": "Piața vede ciclul RBA încheiat",
+   "view": "Bullock contrazice: pauza nu e finalul, guidance mai hawkish decât pricing-ul",
+   "edge": "PRO-AUD pe repricing, dar fără catalizator până pe 5.08",
+   "dir": "PRO-AUD"
+  },
+  "NZD": {
+   "market": "Hike-ul din 8.07 prețuit aproape integral (consens 22 din 28)",
+   "view": "Aliniat pe decizie; surpriza posibilă e doar în ton",
+   "edge": "Edge mic: doar un ton hawkish peste așteptări mai poate mișca — de aici „câștig limitat”",
+   "dir": "PRO-NZD (mic)"
+  }
+ },
+ "playbook": [
+  {
+   "event": "Minute FOMC",
+   "date": "miercuri 8.07, 21:00",
+   "scenarios": [
+    {
+     "name": "Hawkish",
+     "odds": "~35%",
+     "reaction": "USD relansat pe toată linia; randamentele urcă",
+     "action": "Short USDCAD moare înainte de BoC; fără intrări anti-USD, stai pe mâini"
+    },
+    {
+     "name": "Bază (echilibrat)",
+     "odds": "~45%",
+     "reaction": "Repricing-ul dovish continuă lent; USD moale",
+     "action": "Tezele rămân ARMED — se caută confirmarea tehnică pe USDCAD"
+    },
+    {
+     "name": "Dovish",
+     "odds": "~20%",
+     "reaction": "USD vândut agresiv; risk-on se amplifică",
+     "action": "Cel mai bun scenariu pentru ambele teze — execuție la trigger, fără mărit riscul"
+    }
+   ]
+  },
+  {
+   "event": "Decizie RBNZ",
+   "date": "miercuri 8.07, ~05:00",
+   "scenarios": [
+    {
+     "name": "Hike + ton hawkish",
+     "odds": "~40%",
+     "reaction": "NZD ferm; squeeze pe short-ul record",
+     "action": "Trigger-ul NZDUSD activ — intrare doar cu breakout confirmat"
+    },
+    {
+     "name": "Hike + ton prudent",
+     "odds": "~45%",
+     "reaction": "Reacție inițială sus, apoi fade — hike-ul e deja în preț",
+     "action": "Fără urmărire după spike; dacă intrarea nu vine în prima oră, ideea expiră"
+    },
+    {
+     "name": "Hold",
+     "odds": "~15%",
+     "reaction": "NZD vândut violent; squeeze-ul se amână",
+     "action": "Teza moare pe loc — se arhivează, fără repoziționare în ziua aia"
+    }
+   ]
+  },
+  {
+   "event": "Decizie BoC + MPR",
+   "date": "miercuri 15.07, 16:45",
+   "scenarios": [
+    {
+     "name": "Hold + MPR optimist",
+     "odds": "~50%",
+     "reaction": "CAD cumpărat pe ton; USDCAD coboară",
+     "action": "Catalizatorul tezei short USDCAD — execuție la confirmarea tehnică"
+    },
+    {
+     "name": "Hold neutru",
+     "odds": "~35%",
+     "reaction": "Reacție mică; direcția o dă petrolul",
+     "action": "Teza rămâne validă dar fără combustibil — se ține doar cu petrol peste prag"
+    },
+    {
+     "name": "Dovish surprise",
+     "odds": "~15%",
+     "reaction": "CAD vândut; invalidarea CIBC se activează",
+     "action": "Teza se închide și se arhivează INVALIDATĂ — fără discuție"
+    }
+   ]
+  }
+ ],
  "reports": [
   {
    "bank": "CACIB",

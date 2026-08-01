@@ -10,6 +10,11 @@
 <body>
   <div id="chrome"></div>
 
+  <div class="card">
+    <h2>Policy vs. Market Pricing</h2>
+    <div id="pricing"></div>
+  </div>
+
   <div class="grid2" id="ccys"></div>
 
 
@@ -22,6 +27,27 @@
   var D = window.ANALYSIS_DATA || {};
   var cy = D.currencies || {};
   var CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+
+  // ——— Policy vs. Market Pricing ———
+  var PR = D.pricing || {};
+  function edgeBadge(dir) {
+    if (!dir) return '<span class="dim">—</span>';
+    var u = String(dir).toUpperCase();
+    var cls = u.indexOf('NEUTRU') === 0 ? 'b-flat' : (u.indexOf('ANTI') === 0 ? 'b-short' : 'b-long');
+    return '<span class="badge ' + cls + '">' + dir + '</span>';
+  }
+  document.getElementById('pricing').innerHTML = Object.keys(PR).length
+    ? '<table><tr><th>Currency</th><th>Market pricing</th><th>Desk view</th><th>Edge</th><th>Divergence</th></tr>' +
+      CORD.filter(function (k) { return PR[k]; }).map(function (k) {
+        var p = PR[k];
+        return '<tr>' +
+          '<td><b>' + k + '</b></td>' +
+          '<td class="small">' + (p.market || '—') + '</td>' +
+          '<td class="small">' + (p.view || '—') + '</td>' +
+          '<td class="small">' + (p.edge || '—') + '</td>' +
+          '<td>' + edgeBadge(p.dir) + '</td>' +
+        '</tr>'; }).join('') + '</table>'
+    : '<div class="empty">Se populează la „generează teza săptămânală".</div>';
 
   document.getElementById('ccys').innerHTML = Object.keys(cy).length
     ? CORD.filter(function (k) { return cy[k]; }).map(function (k) {
