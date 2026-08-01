@@ -20,42 +20,48 @@ window.DESK_DATA = {
     { k: "Seasonality 10y", pg: "p6_seasonality.html", v: "Iulie, medii pe 10 ani: NZDUSD +0,35% (hit 73%), USDCAD −0,40% (hit 45%), EURUSD +0,46% (73%), USDJPY −0,89% (27%). Concluzie: pe NZD sezonalitatea susține teza cu un hit rate decent; pe CAD e practic irelevantă — 45% înseamnă monedă aruncată, deci nici nu adaugă, nici nu scade din scor. Cel mai puternic semnal din tabel e pe USDJPY, pro-yen, exact perechea unde băncile se contrazic." }
   ],
 
-  // ——— posibile trade-uri (ipoteze condiționate, NU ordine de execuție) ———
-  trades_fx: [
-    { instrument: "EURUSD", dir: "STAI", conf: "—",
-      rationale: "Ambele bănci centrale au pierdut hike-uri; spread 2Y încă contra EUR; poziționare neutră; criteriul 1 neutru → sub prag",
-      activation: "—", invalidation: "Teză neclară = nu există trade (playbook §3.2)" },
-    { instrument: "GBPUSD", dir: "WATCH (squeeze)", conf: "—",
-      rationale: "Leveraged Funds short percentila ~8 = combustibil de squeeze; dar Services PMI 48,8 + BoE split = fundamente slabe; lipsesc criteriile 1-2",
-      activation: "Doar catalizator pozitiv UK + risk-on susținut", invalidation: "—" },
-    { instrument: "USDCAD", dir: "SHORT (bias, build spre 15.07)", conf: "3/5",
-      rationale: "Blocul de rapoarte cel mai aliniat (CACIB 1,35-1,40; Scotiabank + CIBC rebound) + GDP beat + short CAD extremă + CAD pro-risk. Scor 5/7. Catalizatorul (BoC+MPR) abia 15.07",
-      activation: "USD moale post-minute FOMC (non-hawkish) + confirmare tehnică sub nivel-cheie",
-      invalidation: "Minute FOMC hawkish / 10Y sus / date CA slabe. Contra: spread 2Y (+1,38) încă PRO-USD + USD long de deceniu" },
-    { instrument: "NZDUSD", dir: "LONG (tactic, event 8.07)", conf: "3/5",
-      rationale: "Hike la 2,50% consens (22/28) + CPI ↑ spre 4,3% + short Leveraged Funds la RECORD + risk-on cu NZD pro-ciclic = squeeze. Scor 5/7 (criteriile 1+2 prezente)",
-      activation: "Hike/ton clar hawkish 8.07 + risk-on intact + breakout tehnic din nivel",
-      invalidation: "Hold dovish 8.07 → mort; minute FOMC hawkish relansează USD. Onest: câștig limitat (hike prețuit), spread 2Y indisponibil" }
-  ],
-  trades_intraday: [
-    { instrument: "US30", dir: "LONG (intraday)", conf: "3/5",
-      rationale: "Risk-on, Dow record 53.056, VIX 16. DAR randamentele urcă + minute FOMC miercuri = risc → convingere temperată",
-      activation: "Breakout M5 din nivel M30 + VIX în scădere + primele 8 componente verzi. NU în blackout minute FOMC (±15-30 de minute de la ora 21:00, miercuri)",
-      invalidation: "Minute FOMC hawkish / 10Y sus agresiv / VIX peste 20" },
-    { instrument: "GOLD", dir: "LONG (tactic, prudent)", conf: "2,5/5",
-      rationale: "Bottom-fishing în metale prețioase + DXY sub 101. DAR randamentele reale urcă (10Y 4,50%) = vânt din față → convingere redusă",
-      activation: "DXY slab + randamente reale care nu mai urcă; breakout M5 din M30 cu retest",
-      invalidation: "10Y peste 4,50% / DXY peste 101; downtrend mare intact — NU trade de poziție" }
-  ],
+  // ——— BOOK UNIC (ipoteze condiționate, NU ordine de execuție) ———
+  // stage: "LIVE" (poziție deschisă) | "ARMED" (trigger la un pas) | "WATCH" (are nevoie de catalizator) | "STAI"
+  // type:  "FX" (strategia A, multi-day) | "Intraday" (strategia B, Gold + US30, sesiunea NY)
+  // thesis: scorul de confluență (min. 5/7, criteriile Central Banks + Bank Reports obligatorii)
+  //         dacă ideea vine dintr-o teză săptămânală; "—" dacă e pur tactică.
+  // La invalidare/expirare, intrarea IESE de aici și se arhivează în history_data.js.
+  trades: [
+    { stage: "ARMED", type: "FX", instrument: "USDCAD", dir: "SHORT", conf: "3/5", thesis: "5/7",
+      horizon: "multi-day, catalizator BoC 15.07",
+      drivers: "Blocul de rapoarte cel mai aliniat (CACIB 1,35-1,40; Scotiabank + CIBC rebound) + GDP peste așteptări + short CAD extremă + CAD pro-risc. Catalizatorul (BoC + raportul de politică monetară) abia pe 15.07",
+      trigger: "USD moale după minutele FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
+      invalidation: "Minute FOMC hawkish / 10Y sus / date canadiene slabe. Contra: spread 2Y (+1,38) încă PRO-USD + USD long de deceniu" },
 
-  // Teze active: minim 5/7, criteriile 1+2 obligatorii.
-  // status: "ACTIVĂ" (așteaptă trigger) | "DECLANȘATĂ" (a produs intrare, motivul e încă valid).
-  // La invalidare/expirare, teza IESE de aici și se mută în history_data.js.
-  theses: [
-    { pair: "USDCAD", dir: "SHORT (bias)", score: "5/7", status: "ACTIVĂ", horizon: "multi-day, catalizator BoC 15.07",
-      invalidation: "Minute FOMC hawkish / 10Y sus / date CA slabe. Contra: spread 2Y +1,38 PRO-USD" },
-    { pair: "NZDUSD", dir: "LONG (tactic)", score: "5/7", status: "ACTIVĂ", horizon: "1-3 zile, event RBNZ 8.07",
-      invalidation: "Hold dovish 8.07 (ASB/Westpac) → mort; sau minute FOMC hawkish → USD relansat" }
+    { stage: "ARMED", type: "FX", instrument: "NZDUSD", dir: "LONG", conf: "3/5", thesis: "5/7",
+      horizon: "1-3 zile, eveniment RBNZ 8.07",
+      drivers: "Majorare la 2,50% devenită consens (22 din 28) + CPI în urcare spre 4,3% + short Leveraged Funds la RECORD + risk-on cu NZD pro-ciclic = profil de squeeze",
+      trigger: "Majorare sau ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel",
+      invalidation: "Hold dovish pe 8.07 → mort; minute FOMC hawkish relansează USD. Onest: câștig limitat (majorarea e prețuită), spread 2Y indisponibil" },
+
+    { stage: "ARMED", type: "Intraday", instrument: "US30", dir: "LONG", conf: "3/5", thesis: "—",
+      horizon: "sesiunea NY",
+      drivers: "Risk-on, Dow la record 53.056, VIX 16. DAR randamentele urcă și minutele FOMC de miercuri aduc risc → convingere temperată",
+      trigger: "Breakout M5 din nivel M30 + VIX în scădere + primele 8 componente verzi. NU în fereastra minutelor FOMC (±15-30 de minute de la ora 21:00, miercuri)",
+      invalidation: "Minute FOMC hawkish / 10Y sus agresiv / VIX peste 20" },
+
+    { stage: "WATCH", type: "Intraday", instrument: "GOLD", dir: "LONG", conf: "2,5/5",
+      thesis: "—", horizon: "sesiunea NY",
+      drivers: "Cumpărare la minime în metale prețioase + DXY sub 101. DAR randamentele reale urcă (10Y 4,50%) = vânt din față → convingere redusă",
+      trigger: "DXY slab + randamente reale care nu mai urcă; breakout M5 din M30 cu retest",
+      invalidation: "10Y peste 4,50% / DXY peste 101; trendul mare descendent intact — NU e trade de poziție" },
+
+    { stage: "WATCH", type: "FX", instrument: "GBPUSD", dir: "WATCH", conf: "—", thesis: "—",
+      horizon: "—",
+      drivers: "Leveraged Funds short la percentila ~8 = combustibil de squeeze; dar Services PMI 48,8 și BoE împărțită = fundamente slabe; lipsesc criteriile obligatorii",
+      trigger: "Doar catalizator pozitiv din Marea Britanie + risk-on susținut",
+      invalidation: "—" },
+
+    { stage: "STAI", type: "FX", instrument: "EURUSD", dir: "STAI", conf: "—", thesis: "—",
+      horizon: "—",
+      drivers: "Ambele bănci centrale au pierdut majorări din pricing; spread 2Y încă contra EUR; poziționare neutră; criteriul Central Banks neutru → sub prag",
+      trigger: "—",
+      invalidation: "Teză neclară = nu există trade (playbook §3.2)" }
   ],
   // P&L / trade-uri: în journal_data.js (local, în .gitignore) — nu aici
 };

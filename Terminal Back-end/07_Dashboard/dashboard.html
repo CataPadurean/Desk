@@ -18,10 +18,7 @@
 
   <div class="sumgrid" id="sums"></div>
 
-  <div class="card"><h2>Active Theses (Weekly Macro Note — minimum score 5/7)</h2><div id="theses"></div></div>
-
-  <div class="card"><h2>Possible Trades — FX · Strategy A (multi-day, 1-5 days)</h2><div id="tfx"></div></div>
-  <div class="card"><h2>Possible Trades — Intraday · Strategy B (Gold + US30, NY session)</h2><div id="tin"></div></div>
+  <div class="card"><h2>Trades — sortate după cât de aproape sunt de execuție</h2><div id="book"></div></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -48,27 +45,35 @@
            (clickable ? '<span class="go">open →</span>' : '') + '</div><div class="v">' + x.v + '</div></a>';
   }).join('') || '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
 
-  // ——— teze ———
-  document.getElementById('theses').innerHTML = (D.theses || []).length
-    ? D.theses.map(function (t) {
-        var st = t.status ? '<span class="badge ' + (/DECLAN/i.test(t.status) ? 'b-long' : 'b-flat') + '">' + t.status + '</span>' : '';
-        return '<div class="thesis"><div class="h">' + t.pair + ' ' + dirBadge(t.dir) + st +
-          '<span class="dim" style="font-size:.75rem">' + (t.horizon || '') + '</span>' +
-          '<span class="score">' + t.score + '</span></div>' +
-          '<div class="inv">Invalidation: ' + t.invalidation + '</div></div>'; }).join('')
-    : '<div class="empty">Nicio teză activă. Se populează duminica („generează teza săptămânală").</div>';
+  // ——— BOOK UNIC, grupat pe stadiu de acțiune ———
+  var STAGES = [
+    { id: 'LIVE',  cls: 'b-long',  note: 'poziție deschisă — motivul fundamental e încă valid' },
+    { id: 'ARMED', cls: 'b-watch', note: 'trigger la un pas — gata de execuție la confirmare' },
+    { id: 'WATCH', cls: 'b-flat',  note: 'are nevoie de un catalizator ca să devină tranzacționabilă' },
+    { id: 'STAI',  cls: 'b-flat',  note: 'nu se tranzacționează — poziție validă' }
+  ];
+  var book = D.trades || [];
+  var HEAD = '<tr><th>Instrument</th><th>Type</th><th>Direction</th><th>Conviction</th><th>Thesis</th>' +
+             '<th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>';
 
-  // ——— trade-uri posibile ———
-  function ttable(list) {
-    if (!list || !list.length) return '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
-    return '<table><tr><th>Instrument</th><th>Direction</th><th>Conviction</th><th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>' +
-      list.map(function (t) {
-        return '<tr><td><b>' + t.instrument + '</b></td><td>' + dirBadge(t.dir) + '</td><td>' + convDots(t.conf) + '</td>' +
-          '<td class="small">' + t.rationale + '</td><td class="small">' + t.activation + '</td>' +
-          '<td class="small">' + t.invalidation + '</td></tr>'; }).join('') + '</table>';
-  }
-  document.getElementById('tfx').innerHTML = ttable(D.trades_fx);
-  document.getElementById('tin').innerHTML = ttable(D.trades_intraday);
+  document.getElementById('book').innerHTML = book.length
+    ? '<table>' + HEAD + STAGES.map(function (s) {
+        var rows = book.filter(function (t) { return String(t.stage).toUpperCase() === s.id; });
+        if (!rows.length) return '';
+        return '<tr class="grp"><td colspan="8"><span class="badge ' + s.cls + '">' + s.id + '</span> ' + s.note + '</td></tr>' +
+          rows.map(function (t) {
+            return '<tr>' +
+              '<td><b>' + t.instrument + '</b>' + (t.horizon && t.horizon !== '—' ? '<br><span class="small">' + t.horizon + '</span>' : '') + '</td>' +
+              '<td class="small">' + (t.type || '—') + '</td>' +
+              '<td>' + dirBadge(t.dir) + '</td>' +
+              '<td>' + convDots(t.conf) + '</td>' +
+              '<td>' + (t.thesis && t.thesis !== '—' ? '<span class="score">' + t.thesis + '</span>' : '<span class="dim">—</span>') + '</td>' +
+              '<td class="small">' + (t.drivers || '—') + '</td>' +
+              '<td class="small">' + (t.trigger || '—') + '</td>' +
+              '<td class="small">' + (t.invalidation || '—') + '</td>' +
+            '</tr>'; }).join('');
+      }).join('') + '</table>'
+    : '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
 })();
 </script>
 </body>
