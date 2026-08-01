@@ -38,7 +38,7 @@
   var first = order.filter(function (k) { return cm[k]; })[0];
 
   document.getElementById('cot').innerHTML = Object.keys(cm).length
-    ? '<table><tr><th>Asset</th><th>Category</th><th>Net</th><th>Δ 1w</th><th>% OI</th><th>52w Percentile</th><th>Extreme</th><th>13 wk</th></tr>' +
+    ? '<table><tr><th>Asset</th><th>Category</th><th>Net</th><th>Δ 1 week</th><th>% Open Interest</th><th>52-week percentile</th><th>Extreme</th><th>13 weeks</th></tr>' +
       order.filter(function (k) { return cm[k]; }).map(function (k) {
         var m = cm[k];
         var warn = m.percentile_52w >= 90 || m.percentile_52w <= 10;

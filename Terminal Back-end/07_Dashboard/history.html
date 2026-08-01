@@ -53,7 +53,7 @@
       '<div class="kpi"><span class="l">Rata de validare</span><div class="v">' + (dec.length ? Math.round(100 * ok / dec.length) + '%' : '—') + '</div><div class="sub">' + (dec.length ? ok + ' din ' + dec.length + (idle ? ' · ' + idle + ' neconcludent' + (idle > 1 ? 'e' : 'ă') : '') : 'fără date încă') + '</div></div>';
 
     document.getElementById('hist').innerHTML = rows.length
-      ? '<table><tr><th>Închis</th><th>Deschis</th><th>Tip</th><th>Instr.</th><th>Direcție</th><th>Conv.</th><th>Criterii care au cântărit</th><th>Deznodământ</th><th>Ce s-a întâmplat</th></tr>' +
+      ? '<table><tr><th>Închis</th><th>Deschis</th><th>Tip</th><th>Instrument</th><th>Direcție</th><th>Conviction</th><th>Criterii care au cântărit</th><th>Deznodământ</th><th>Ce s-a întâmplat</th></tr>' +
         rows.slice().reverse().map(function (e) {
           return '<tr>' +
             '<td>' + (e.date || '—') + '</td>' +

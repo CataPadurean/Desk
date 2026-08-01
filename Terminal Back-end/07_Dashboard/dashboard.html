@@ -18,7 +18,7 @@
 
   <div class="sumgrid" id="sums"></div>
 
-  <div class="card"><h2>Active Theses (Weekly Macro Note — min. score 5/7)</h2><div id="theses"></div></div>
+  <div class="card"><h2>Active Theses (Weekly Macro Note — minimum score 5/7)</h2><div id="theses"></div></div>
 
   <div class="card"><h2>Possible Trades — FX · Strategy A (multi-day, 1-5 days)</h2><div id="tfx"></div></div>
   <div class="card"><h2>Possible Trades — Intraday · Strategy B (Gold + US30, NY session)</h2><div id="tin"></div></div>
@@ -61,7 +61,7 @@
   // ——— trade-uri posibile ———
   function ttable(list) {
     if (!list || !list.length) return '<div class="empty">Se populează la „procesează inbox" / „generează teza".</div>';
-    return '<table><tr><th>Instr.</th><th>Direction</th><th>Conf.</th><th>Rationale</th><th>Trigger</th><th>Invalidation</th></tr>' +
+    return '<table><tr><th>Instrument</th><th>Direction</th><th>Conviction</th><th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>' +
       list.map(function (t) {
         return '<tr><td><b>' + t.instrument + '</b></td><td>' + dirBadge(t.dir) + '</td><td>' + convDots(t.conf) + '</td>' +
           '<td class="small">' + t.rationale + '</td><td class="small">' + t.activation + '</td>' +

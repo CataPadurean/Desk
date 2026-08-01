@@ -1,7 +1,7 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
  "generated": "2026-08-01",
- "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săpt., pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 mld, a 8-a săpt.) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
+ "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săptămâni, pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 miliarde, a 8-a săptămână) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
   "label": "RISK-ON (fragil)",
@@ -10,8 +10,8 @@ window.ANALYSIS_DATA = {
  "currencies": {
   "USD": {
    "core": true,
-   "bias": "Bearish tactic / Neutru m.t. (risc de reversal pe poziționare)",
-   "cb": "Fed hold 3,50-3,75% (17.06), ton hawkish (dot median 3,8% = un hike încă pe masă), dar NFP +57k a tăiat hike-ul din sept. sub 50%. Minute FOMC miercuri 8.07 (21:00 RO) = pivotul: hawkish → USD relansat; non-hawkish → continuă repricing-ul dovish.",
+   "bias": "Bearish tactic / Neutru mediu termen (risc de reversal pe poziționare)",
+   "cb": "Fed hold 3,50-3,75% (17.06), ton hawkish (dot median 3,8% = un hike încă pe masă), dar NFP +57k a tăiat hike-ul din septembrie sub 50%. Minute FOMC miercuri 8.07 (21:00 RO) = pivotul: hawkish → USD relansat; non-hawkish → continuă repricing-ul dovish.",
    "banks": "Singura casă cu teză direcțională pe dolar e ING, care miza pe repricing hawkish al Fed-ului și ținte DXY 101,7-101,80 — doar că raportul a fost scris înainte de datele pieței muncii, iar premisa lui s-a rupt: angajările au ratat consensul, chiar dacă rata șomajului a rezistat. CACIB nu ia poziție pe direcție, dar semnalează ceva mai util pentru execuție: corelația negativă dintre dolar și apetitul de risc se adâncește, adică dolarul se comportă tot mai mult ca refugiu. Concluzia blocului: nicio casă nu mai apără un long de dolar cu convingere, dar nici nu-l atacă frontal."
   },
   "EUR": {
@@ -111,7 +111,7 @@ window.ANALYSIS_DATA = {
    "date": "02.07",
    "asset": "USD (DXY)",
    "dir": "BULLISH",
-   "horizon": "1-2 săpt",
+   "horizon": "1-2 săptămâni",
    "conviction": 3,
    "args": [
     "Publicată ÎNAINTE de raportul pieței muncii — premisa s-a schimbat",
@@ -258,7 +258,7 @@ window.ANALYSIS_DATA = {
    "dir": "WATCH (squeeze)",
    "strat": "A",
    "conf": "—",
-   "rationale": "Lev funds short pctl ~8 = combustibil de squeeze, dar Services PMI 48,8 și BoE split = fundamente slabe; lipsesc criteriile 1-2 obligatorii",
+   "rationale": "Leveraged Funds short percentila ~8 = combustibil de squeeze, dar Services PMI 48,8 și BoE split = fundamente slabe; lipsesc criteriile 1-2 obligatorii",
    "activation": "Doar catalizator pozitiv UK + risk-on susținut",
    "invalidation": "—"
   },
@@ -287,8 +287,8 @@ window.ANALYSIS_DATA = {
    "dir": "LONG (intraday)",
    "strat": "B",
    "conf": "3/5",
-   "rationale": "Risk-on, Dow la record 53.056, VIX 16. DAR randamentele urcă și minute FOMC miercuri = risc → convingere temperată vs. săpt. trecută",
-   "activation": "Breakout M5 valid din nivel M30 + VIX în scădere + top-8 componente verzi. NU în fereastra blackout de la minute FOMC (±15-30 min de la 21:00 mie)",
+   "rationale": "Risk-on, Dow la record 53.056, VIX 16. DAR randamentele urcă și minute FOMC miercuri = risc → convingere temperată față de săptămâna trecută",
+   "activation": "Breakout M5 valid din nivel M30 + VIX în scădere + top-8 componente verzi. NU în fereastra blackout de la minute FOMC (±15-30 de minute de la ora 21:00, miercuri)",
    "invalidation": "Minute FOMC hawkish / 10Y înapoi sus agresiv / VIX peste 20"
   },
   {
