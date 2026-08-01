@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — History</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chrome"></div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="tabs">
+    <div class="tab on" data-f="TOT">TOATE</div>
+    <div class="tab" data-f="Teză">TEZE</div>
+    <div class="tab" data-f="Trade FX">TRADE FX</div>
+    <div class="tab" data-f="Trade intraday">INTRADAY</div>
+  </div>
+
+  <div class="card"><h2>Research history — ce a propus terminalul și ce s-a ales de fiecare idee</h2><div id="hist"></div></div>
+
+<script src="data.js"></script>
+<script src="analysis_data.js"></script>
+<script src="history_data.js"></script>
+<script src="nav.js"></script>
+<script>
+(function () {
+  renderChrome('history');
+  var E = (window.HISTORY_DATA || {}).entries || [];
+
+  function outBadge(o) {
+    if (!o) return '<span class="dim">—</span>';
+    var u = String(o).toUpperCase();
+    var cls = /VALIDAT[ĂA]$|^DECLAN/.test(u) ? 'b-long'
+            : /INVALIDAT/.test(u) ? 'b-short'
+            : /EXPIRAT/.test(u) ? 'b-watch' : 'b-flat';
+    return '<span class="badge ' + cls + '">' + o + '</span>';
+  }
+
+  function render(f) {
+    var rows = E.filter(function (e) { return f === 'TOT' || e.type === f; });
+
+    // KPI: rata de validare, calculată doar pe ideile cu deznodământ clar
+    var dec = rows.filter(function (e) { return /VALIDAT|INVALIDAT/i.test(e.outcome || ''); });
+    var ok = dec.filter(function (e) { return /^VALIDAT/i.test(e.outcome || ''); }).length;
+    var trig = rows.filter(function (e) { return /DECLAN/i.test(e.outcome || ''); }).length;
+    var inv = rows.filter(function (e) { return /INVALIDAT/i.test(e.outcome || ''); }).length;
+    document.getElementById('kpis').innerHTML =
+      '<div class="kpi"><span class="l">Idei arhivate</span><div class="v">' + rows.length + '</div><div class="sub">' + (f === 'TOT' ? 'toate tipurile' : f) + '</div></div>' +
+      '<div class="kpi"><span class="l">Declanșate</span><div class="v">' + trig + '</div><div class="sub">au produs intrare</div></div>' +
+      '<div class="kpi"><span class="l">Invalidate</span><div class="v">' + inv + '</div><div class="sub">motivul s-a rupt</div></div>' +
+      '<div class="kpi"><span class="l">Rata de validare</span><div class="v">' + (dec.length ? Math.round(100 * ok / dec.length) + '%' : '—') + '</div><div class="sub">' + (dec.length ? ok + ' din ' + dec.length : 'fără date încă') + '</div></div>';
+
+    document.getElementById('hist').innerHTML = rows.length
+      ? '<table><tr><th>Închisă</th><th>Deschisă</th><th>Tip</th><th>Instr.</th><th>Direcție</th><th>Scor</th><th>Deznodământ</th><th>Ce s-a întâmplat</th></tr>' +
+        rows.slice().reverse().map(function (e) {
+          return '<tr>' +
+            '<td>' + (e.date || '—') + '</td>' +
+            '<td class="small">' + (e.opened || '—') + '</td>' +
+            '<td class="small">' + (e.type || '—') + '</td>' +
+            '<td><b>' + (e.instrument || '—') + '</b></td>' +
+            '<td>' + dirBadge(e.dir) + '</td>' +
+            '<td>' + (e.score || '—') + '</td>' +
+            '<td>' + outBadge(e.outcome) + '</td>' +
+            '<td class="small">' + (e.reason || '—') + '</td>' +
+          '</tr>'; }).join('') + '</table>'
+      : '<div class="empty">Nicio idee arhivată încă. Se populează automat pe măsură ce tezele se închid („generează teza săptămânală") și trade-urile posibile se sting („procesează inbox").</div>';
+  }
+
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) (function (t) {
+    t.addEventListener('click', function () {
+      for (var j = 0; j < tabs.length; j++) tabs[j].classList.remove('on');
+      t.classList.add('on');
+      render(t.getAttribute('data-f'));
+    });
+  })(tabs[i]);
+  render('TOT');
+})();
+</script>
+</body>
+</html>

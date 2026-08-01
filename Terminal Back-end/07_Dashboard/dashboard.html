@@ -51,7 +51,8 @@
   // ——— teze ———
   document.getElementById('theses').innerHTML = (D.theses || []).length
     ? D.theses.map(function (t) {
-        return '<div class="thesis"><div class="h">' + t.pair + ' ' + dirBadge(t.dir) +
+        var st = t.status ? '<span class="badge ' + (/DECLAN/i.test(t.status) ? 'b-long' : 'b-flat') + '">' + t.status + '</span>' : '';
+        return '<div class="thesis"><div class="h">' + t.pair + ' ' + dirBadge(t.dir) + st +
           '<span class="dim" style="font-size:.75rem">' + (t.horizon || '') + '</span>' +
           '<span class="score">' + t.score + '</span></div>' +
           '<div class="inv">Invalidation: ' + t.invalidation + '</div></div>'; }).join('')

@@ -48,11 +48,13 @@ window.DESK_DATA = {
       invalidation: "10Y peste 4,50% / DXY peste 101; downtrend mare intact — NU trade de poziție" }
   ],
 
-  // Teze active: min. 5/7, criteriile 1+2 obligatorii
+  // Teze active: min. 5/7, criteriile 1+2 obligatorii.
+  // status: "ACTIVĂ" (așteaptă trigger) | "DECLANȘATĂ" (a produs intrare, motivul e încă valid).
+  // La invalidare/expirare, teza IESE de aici și se mută în history_data.js.
   theses: [
-    { pair: "USDCAD", dir: "SHORT (bias)", score: "5/7", horizon: "multi-day, catalizator BoC 15.07",
+    { pair: "USDCAD", dir: "SHORT (bias)", score: "5/7", status: "ACTIVĂ", horizon: "multi-day, catalizator BoC 15.07",
       invalidation: "Minute FOMC hawkish / 10Y sus / date CA slabe. Contra: spread 2Y +1,38 PRO-USD" },
-    { pair: "NZDUSD", dir: "LONG (tactic)", score: "5/7", horizon: "1-3 zile, event RBNZ 8.07",
+    { pair: "NZDUSD", dir: "LONG (tactic)", score: "5/7", status: "ACTIVĂ", horizon: "1-3 zile, event RBNZ 8.07",
       invalidation: "Hold dovish 8.07 (ASB/Westpac) → mort; sau minute FOMC hawkish → USD relansat" }
   ],
   // P&L / trade-uri: în journal_data.js (local, în .gitignore) — nu aici
