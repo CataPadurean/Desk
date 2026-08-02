@@ -29,7 +29,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent.parent   # …/Padu Terminal
 DASH = ROOT / 'Terminal Back-end' / '07_Dashboard'
+
+# În `4_Archive` stau DOAR paginile de citit — câte una per săptămână, `archive_YYYY_MM_DD.html`,
+# fiecare de sine stătătoare. Datele brute și șablonul stau în `_sistem/`, ca folderul pe care
+# îl deschizi tu să rămână curat. Se pot șterge oricând paginile din rădăcină: se regenerează
+# din JSON-urile din `_sistem` la următoarea rulare. Ce NU se șterge: `_sistem/`.
 ARCHIVE = ROOT / '4_Archive'
+SYS = ARCHIVE / '_sistem'
 
 CRIT_LABEL = {'cb': 'CB', 'bnk': 'BNK', 'ind': 'IND', 'yld': 'YLD',
               'cot': 'COT', 'reg': 'REG', 'sea': 'SEA'}
@@ -104,12 +110,12 @@ def _read_js_object(path: Path, var: str) -> dict:
 
 
 def _week_slug(week: str) -> str:
-    """„06.07–10.07.2026" → „2026-07-06" (lunea săptămânii), ca fișierele să se sorteze."""
+    """„06.07–10.07.2026" → „2026_07_06" (lunea săptămânii), ca fișierele să se sorteze."""
     m = re.match(r'(\d{2})\.(\d{2})\D+\d{2}\.\d{2}\.(\d{4})', week or '')
     if m:
         d, mo, y = m.groups()
-        return f'{y}-{mo}-{d}'
-    return date.today().isoformat()
+        return f'{y}_{mo}_{d}'
+    return date.today().isoformat().replace('-', '_')
 
 
 def build_entry() -> dict:
@@ -163,9 +169,9 @@ def build_entry() -> dict:
 
 
 def save(entry: dict, force: bool = False) -> Path:
-    ARCHIVE.mkdir(exist_ok=True)
+    SYS.mkdir(parents=True, exist_ok=True)
     slug = _week_slug(entry['week'])
-    path = ARCHIVE / f'{slug}_scorecard.json'
+    path = SYS / f'{slug}_scorecard.json'
     if path.exists() and not force:
         print(f'[ARHIVA] {path.name} există deja — se rescrie (aceeași săptămână, stare nouă).')
     path.write_text(json.dumps(entry, ensure_ascii=False, indent=1), encoding='utf-8')
@@ -180,14 +186,14 @@ def build_viewer_data() -> Path:
     Pagina se încarcă prin <script>, nu prin fetch — altfel Safari ar bloca citirea
     fișierelor locale (file://) și vizualizatorul n-ar merge fără server."""
     weeks = []
-    for f in sorted(ARCHIVE.glob('*_scorecard.json')):
+    for f in sorted(SYS.glob('*_scorecard.json')):
         try:
             weeks.append(json.loads(f.read_text(encoding='utf-8')))
         except json.JSONDecodeError as e:
             print(f'[ARHIVA] {f.name} ilizibil, sărit: {e}')
     weeks.sort(key=lambda w: _week_slug(w.get('week', '')))
 
-    out = ARCHIVE / 'archive_data.js'
+    out = SYS / 'archive_data.js'
     out.write_text(
         '// GENERAT de archive_week.py — nu edita manual.\n'
         '// Toate săptămânile arhivate, pentru pagina arhiva.html.\n'
@@ -204,7 +210,7 @@ def _build_week_page(entry: dict) -> Path | None:
     dar cu datele înglobate în fișier. Se poate muta, trimite sau deschide oriunde —
     nu depinde de niciun alt fișier. Șablonul e unul singur: dacă schimb `arhiva.html`,
     toate paginile per săptămână se refac la următoarea rulare."""
-    tpl_path = ARCHIVE / 'arhiva.html'
+    tpl_path = SYS / 'arhiva.html'
     if not tpl_path.exists():
         return None
     slug = _week_slug(entry.get('week', ''))
@@ -227,7 +233,7 @@ def _build_week_page(entry: dict) -> Path | None:
 # ══════════════════════════════════════════════════════════════════════════
 
 def list_weeks():
-    files = sorted(ARCHIVE.glob('*_scorecard.json'))
+    files = sorted(SYS.glob('*_scorecard.json'))
     if not files:
         print('Arhiva e goală.')
         return
@@ -242,7 +248,7 @@ def list_weeks():
 
 
 def show(week_arg: str | None):
-    files = sorted(ARCHIVE.glob('*_scorecard.json'))
+    files = sorted(SYS.glob('*_scorecard.json'))
     if not files:
         print('Arhiva e goală.')
         return
@@ -310,6 +316,5 @@ if __name__ == '__main__':
         slug = _week_slug(entry['week'])
         print(f"[ARHIVA] săptămâna {entry['week']}: 8 monede, {n} perechi, "
               f"{len(entry['trades'])} idei în book.")
-        print(f"[ARHIVA]   {p.name}                 (datele)")
-        print(f"[ARHIVA]   archive_{slug}.html      (pagina săptămânii, se deschide singură)")
-        print(f"[ARHIVA]   arhiva.html              (toate săptămânile, cu taburi)")
+        print(f"[ARHIVA]   4_Archive/archive_{slug}.html   ← pagina săptămânii (se deschide singură)")
+        print(f"[ARHIVA]   4_Archive/_sistem/              ← date, șablon, pagina cu toate săptămânile")
