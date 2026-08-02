@@ -108,15 +108,12 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
 .scph { margin: 18px 0 8px; padding-top: 14px; border-top: 1px solid var(--line);
   font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--acc); font-weight: 700; }
 .scph .small { text-transform: none; letter-spacing: 0; font-weight: 400; }
-.scpt { font-size: .86rem; }
-.scpt td { padding: 9px 8px; vertical-align: middle; }
-.scpt td b { font-size: .95rem; letter-spacing: .5px; }
-.scnum2 { font-weight: 700; font-size: .98rem; width: 4rem; }
 .sctag { font-size: .62rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px;
-  padding: 1px 4px; margin-left: 4px; cursor: help; }
+  padding: 1px 4px; margin-left: 4px; cursor: help; white-space: nowrap; }
 .b-book { background: rgba(77,163,255,.18); color: var(--acc); }
-.scin { font-size: .66rem; color: var(--pos); border: 1px solid rgba(46,204,113,.35);
-  border-radius: 4px; padding: 1px 6px; white-space: nowrap; cursor: help; }
+/* rând generat din scorecard, fără teză scrisă încă — vizibil, dar nu la fel de „greu" */
+tr.auto td { background: rgba(232,179,57,.03); }
+tr.auto td b { color: var(--dim); }
 .scsub { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .76rem; color: var(--dim); }
 .scsub .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-size: .66rem; margin-right: 6px; }
 .scsub b { color: var(--txt); font-variant-numeric: tabular-nums; }

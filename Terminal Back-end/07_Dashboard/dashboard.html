@@ -99,35 +99,17 @@
             (r.missing && r.missing.length ? '<span class="scblind" title="criterii fără date — scorul se normalizează pe cele disponibile">orb: ' + r.missing.join(', ') + '</span>' : '') +
           '</td></tr>'; }).join('') + '</table>';
 
-    // ——— perechile: doar cele peste prag, tabel subțire. Motivul complet stă în tooltip-ul
-    // verdictului — detaliul acționabil (trigger, invalidare, orizont) e în book-ul Trades,
-    // ca să nu se dubleze. Sub prag = o linie compactă: absența trade-ului e o decizie, nu o omisiune.
-    var P = SC.pairs || [];
-    var live = P.filter(function (p) { return p.verdict !== 'SUB PRAG'; });
-    var sub = P.filter(function (p) { return p.verdict === 'SUB PRAG'; });
+    // ——— perechile NU mai au tabel propriu: cele peste prag sunt chiar rândurile book-ului
+    // de mai jos (Trades), ca să nu existe două tabele cu aceeași informație. Aici rămâne
+    // doar reversul clasamentului: perechile evaluate și respinse — absența trade-ului
+    // e o decizie documentată, nu o omisiune.
+    var sub = (SC.pairs || []).filter(function (p) { return p.verdict === 'SUB PRAG'; });
     var th = SC.thresholds || {};
-    var inBook = {};
-    (D.trades || []).forEach(function (t) { inBook[t.instrument] = true; });
-
-    document.getElementById('scpairs').innerHTML =
-      '<div class="scph">Pairs from rank spread<span class="small"> · book de la ' +
-        dec(th.book || 6) + ' · watch de la ' + dec(th.watch || 5) + '</span></div>' +
-      (live.length
-        ? '<table class="scpt">' + live.map(function (p) {
-            return '<tr>' +
-              '<td><b>' + p.pair + '</b>' + (p.cross ? ' <span class="sctag" title="cross — fără acoperire directă în rapoarte, spread mai larg la broker">cross</span>' : '') + '</td>' +
-              '<td class="scnum2 ' + numCls(p.gap) + '">' + dec(Math.abs(p.gap)) + '</td>' +
-              '<td>' + dirBadge(p.dir) + '</td>' +
-              '<td><span class="badge ' + (p.verdict === 'BOOK' ? 'b-book' : 'b-watch') +
-                '" title="' + esc(p.note) + '">' + p.verdict + '</span></td>' +
-              '<td class="small">' + (p.catalyst || '<span class="dim">fără catalizator în fereastră</span>') +
-                (p.blind && p.blind.length ? ' <span class="scblind" title="criterii fără date pe unul dintre picioare — scor mai puțin sigur">orb: ' + p.blind.join(', ') + '</span>' : '') + '</td>' +
-              '<td>' + (inBook[p.pair] ? '<span class="scin" title="ideea are deja rând în book, cu trigger și invalidare">→ book</span>' : '') + '</td>' +
-            '</tr>'; }).join('') + '</table>'
-        : '<div class="empty">Nicio pereche peste prag — săptămână fără diferențe exploatabile.</div>') +
-      (sub.length ? '<div class="scsub"><span class="lbl" title="perechi evaluate și respinse — diferență de rank sub pragul de watch">sub prag · fără trade</span>' +
-          sub.map(function (p) {
-            return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>' : '');
+    document.getElementById('scpairs').innerHTML = sub.length
+      ? '<div class="scsub"><span class="lbl" title="perechi evaluate din diferența de rank și respinse — sub pragul de watch (' +
+          dec(th.watch || 5) + ')">sub prag · fără trade</span>' +
+        sub.map(function (p) { return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>'
+      : '';
   }
 
   // ——— EVENT PLAYBOOK: matricea de scenarii per eveniment Tier 1 ———
@@ -163,29 +145,60 @@
     if (d !== 'LONG' && d !== 'SHORT') return d || '—';
     return (st === 'WATCH' || st === 'LIVE') ? st + ' - ' + d : d;
   }
-  // Book-ul e ACȚIONABIL: doar LIVE / ARMED (LONG-SHORT) și WATCH cu direcție angajată.
-  // Ideile fără direcție și cele „de context" nu intră aici — trăiesc în scorecard, la «sub prag».
+  // ——— BOOK = perechile scorecard-ului peste prag + ideile intraday, într-un singur tabel ———
+  // Ideile scrise manual în data.js primesc scorul, catalizatorul și flag-urile din scorecard.
+  // O pereche peste prag care n-are încă teză scrisă NU dispare: apare cu marcajul „scorecard",
+  // ca să nu se piardă tăcut între analiză și book.
+  var PMAP = {};
+  ((SC && SC.pairs) || []).forEach(function (p) { PMAP[p.pair] = p; });
+
   var book = (D.trades || []).filter(function (t) {
     var d = String(t.dir || '').toUpperCase();
     return d.indexOf('LONG') > -1 || d.indexOf('SHORT') > -1;
+  }).map(function (t) {
+    var p = PMAP[t.instrument];
+    return p ? Object.assign({}, t, { _gap: p.gap, _cat: p.catalyst, _blind: p.blind,
+                                      _cross: p.cross, _verdict: p.verdict }) : t;
   });
-  var HEAD = '<tr><th>Instrument</th><th>Direction</th><th>Conviction</th><th>Thesis</th>' +
-             '<th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>';
+  var have = {}; book.forEach(function (t) { have[t.instrument] = true; });
+  ((SC && SC.pairs) || []).forEach(function (p) {
+    if (p.verdict === 'SUB PRAG' || have[p.pair]) return;
+    book.push({ stage: 'WATCH', type: 'Swing', instrument: p.pair, dir: p.dir, conf: '—',
+                horizon: '—', drivers: p.note, trigger: '—', invalidation: '—', _auto: true,
+                _gap: p.gap, _cat: p.catalyst, _blind: p.blind, _cross: p.cross, _verdict: p.verdict });
+  });
+
+  var HEAD = '<tr><th>Instrument</th><th>Direction</th><th>Rank gap</th><th>Conviction</th>' +
+             '<th>Catalyst</th><th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>';
+
+  // ordinea în fiecare grup: întâi stadiul (LIVE → ARMED → WATCH), apoi diferența de rank
+  var STAGE_ORDER = { LIVE: 0, ARMED: 1, WATCH: 2 };
+  function esc2(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 
   document.getElementById('book').innerHTML = book.length
     ? '<table>' + HEAD + GROUPS.map(function (g) {
         var rows = book.filter(function (t) { return t.type === g.id; }).sort(function (a, b) {
+          var sa = STAGE_ORDER[String(a.stage).toUpperCase()], sb = STAGE_ORDER[String(b.stage).toUpperCase()];
+          if ((sa === undefined ? 9 : sa) !== (sb === undefined ? 9 : sb)) return (sa === undefined ? 9 : sa) - (sb === undefined ? 9 : sb);
+          var ga = Math.abs(a._gap === undefined ? -1 : a._gap), gb = Math.abs(b._gap === undefined ? -1 : b._gap);
+          if (ga !== gb) return gb - ga;
           var ia = g.order.indexOf(a.instrument), ib = g.order.indexOf(b.instrument);
           return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
         });
         if (!rows.length) return '';
-        return '<tr class="grp"><td colspan="7">' + g.id + '</td></tr>' +
+        return '<tr class="grp"><td colspan="8">' + g.id + '</td></tr>' +
           rows.map(function (t) {
-            return '<tr>' +
-              '<td><b>' + t.instrument + '</b></td>' +
+            var gap = t._gap === undefined ? (t.thesis && t.thesis !== '—' ? t.thesis : null) : dec(Math.abs(t._gap));
+            return '<tr' + (t._auto ? ' class="auto"' : '') + '>' +
+              '<td><b>' + t.instrument + '</b>' +
+                (t._cross ? ' <span class="sctag" title="cross — fără acoperire directă în rapoarte, spread mai larg la broker">cross</span>' : '') +
+                (t._auto ? ' <span class="sctag" title="pereche peste prag în scorecard, fără teză scrisă încă — se completează la „generează teza„">scorecard</span>' : '') +
+                (t._blind && t._blind.length ? '<span class="scblind" title="criterii fără date pe unul dintre picioare — scor mai puțin sigur">orb: ' + t._blind.join(', ') + '</span>' : '') +
+              '</td>' +
               '<td>' + dirBadge(showDir(t)) + '</td>' +
+              '<td>' + (gap ? '<span class="score"' + (t._verdict ? ' title="' + esc2(t._verdict) + '"' : '') + '>' + gap + '</span>' : '<span class="dim">—</span>') + '</td>' +
               '<td>' + convDots(t.conf) + '</td>' +
-              '<td>' + (t.thesis && t.thesis !== '—' ? '<span class="score">' + t.thesis + '</span>' : '<span class="dim">—</span>') + '</td>' +
+              '<td class="small">' + (t._cat || '<span class="dim">—</span>') + '</td>' +
               '<td class="small">' + (t.drivers || '—') + '</td>' +
               '<td class="small">' + (t.trigger || '—') + '</td>' +
               '<td class="small">' + (t.invalidation || '—') + '</td>' +
