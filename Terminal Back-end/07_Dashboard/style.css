@@ -66,10 +66,17 @@ tr:last-child td { border-bottom: none; }
 .pos { color: var(--pos); } .neg { color: var(--neg); } .dim { color: var(--dim); }
 .small { font-size: .74rem; color: var(--dim); }
 th.c, td.c { text-align: center; }   /* coloane de indicatori — valori centrate sub antet */
-/* Event Playbook — un bloc per eveniment */
+/* Event Playbook — un bloc per eveniment.
+   Coloane cu lățime fixă: fiecare eveniment are tabelul lui, deci fără asta fiecare și-ar
+   dimensiona coloanele singur și antetele n-ar mai fi pe aceeași verticală de la un eveniment
+   la altul. Cu table-layout: fixed, toate blocurile se citesc ca un tabel unic. */
 .pbev { margin-bottom: 14px; }
 .pbev:last-child { margin-bottom: 0; }
 .pbev > b { color: #fff; font-size: .9rem; }
+.pbev table { table-layout: fixed; }
+.pbev th:nth-child(1), .pbev td:nth-child(1) { width: 13rem; }
+.pbev th:nth-child(2), .pbev td:nth-child(2) { width: 6rem; }
+.pbev th:nth-child(3), .pbev td:nth-child(3) { width: 32%; }
 
 /* separator de categorie (Swing / Intraday) în book-ul de pe Home */
 tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font-weight: 700;
