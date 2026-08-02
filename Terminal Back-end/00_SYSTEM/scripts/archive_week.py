@@ -174,9 +174,11 @@ def save(entry: dict, force: bool = False) -> Path:
 
 
 def build_viewer_data() -> Path:
-    """Compune 4_Archive/archive_data.js din toate JSON-urile arhivate.
-    Pagina arhiva.html îl încarcă prin <script>, nu prin fetch — altfel Safari ar bloca
-    citirea fișierelor locale (file://) și vizualizatorul n-ar merge fără server."""
+    """Compune 4_Archive/archive_data.js din toate JSON-urile arhivate ȘI câte o pagină
+    HTML autonomă per săptămână (`archive_YYYY-MM-DD.html`).
+
+    Pagina se încarcă prin <script>, nu prin fetch — altfel Safari ar bloca citirea
+    fișierelor locale (file://) și vizualizatorul n-ar merge fără server."""
     weeks = []
     for f in sorted(ARCHIVE.glob('*_scorecard.json')):
         try:
@@ -184,13 +186,40 @@ def build_viewer_data() -> Path:
         except json.JSONDecodeError as e:
             print(f'[ARHIVA] {f.name} ilizibil, sărit: {e}')
     weeks.sort(key=lambda w: _week_slug(w.get('week', '')))
+
     out = ARCHIVE / 'archive_data.js'
     out.write_text(
         '// GENERAT de archive_week.py — nu edita manual.\n'
         '// Toate săptămânile arhivate, pentru pagina arhiva.html.\n'
         'window.ARCHIVE_DATA = ' + json.dumps({'weeks': weeks}, ensure_ascii=False, indent=1) + ';\n',
         encoding='utf-8')
+
+    for w in weeks:
+        _build_week_page(w)
     return out
+
+
+def _build_week_page(entry: dict) -> Path | None:
+    """Pagină de sine stătătoare pentru o singură săptămână: același șablon ca `arhiva.html`,
+    dar cu datele înglobate în fișier. Se poate muta, trimite sau deschide oriunde —
+    nu depinde de niciun alt fișier. Șablonul e unul singur: dacă schimb `arhiva.html`,
+    toate paginile per săptămână se refac la următoarea rulare."""
+    tpl_path = ARCHIVE / 'arhiva.html'
+    if not tpl_path.exists():
+        return None
+    slug = _week_slug(entry.get('week', ''))
+    tpl = tpl_path.read_text(encoding='utf-8')
+    inline = ('<script>\n// GENERAT de archive_week.py — datele săptămânii, înglobate.\n'
+              'window.ARCHIVE_DATA = ' +
+              json.dumps({'weeks': [entry]}, ensure_ascii=False, indent=1) + ';\n</script>')
+    html = (tpl.replace('<script src="archive_data.js"></script>', inline)
+               .replace('<title>Padu Terminal — Arhivă</title>',
+                        f'<title>Padu Terminal — Arhivă {entry.get("week", slug)}</title>')
+               .replace('output-ul terminalului, salvat săptămână de săptămână',
+                        f'săptămâna {entry.get("week", slug)} · pagină de sine stătătoare'))
+    p = ARCHIVE / f'archive_{slug}.html'
+    p.write_text(html, encoding='utf-8')
+    return p
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -278,6 +307,9 @@ if __name__ == '__main__':
         entry = build_entry()
         p = save(entry, force='--force' in args)
         n = len(entry['scorecard']['pairs'])
-        print(f"[ARHIVA] {p.name} scris — săptămâna {entry['week']}: "
-              f"8 monede, {n} perechi, {len(entry['trades'])} idei în book.")
-        print(f"[ARHIVA] Citește-l cu:  python3 archive_week.py --show")
+        slug = _week_slug(entry['week'])
+        print(f"[ARHIVA] săptămâna {entry['week']}: 8 monede, {n} perechi, "
+              f"{len(entry['trades'])} idei în book.")
+        print(f"[ARHIVA]   {p.name}                 (datele)")
+        print(f"[ARHIVA]   archive_{slug}.html      (pagina săptămânii, se deschide singură)")
+        print(f"[ARHIVA]   arhiva.html              (toate săptămânile, cu taburi)")
