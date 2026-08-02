@@ -169,7 +169,28 @@ def save(entry: dict, force: bool = False) -> Path:
     if path.exists() and not force:
         print(f'[ARHIVA] {path.name} există deja — se rescrie (aceeași săptămână, stare nouă).')
     path.write_text(json.dumps(entry, ensure_ascii=False, indent=1), encoding='utf-8')
+    build_viewer_data()
     return path
+
+
+def build_viewer_data() -> Path:
+    """Compune 4_Archive/archive_data.js din toate JSON-urile arhivate.
+    Pagina arhiva.html îl încarcă prin <script>, nu prin fetch — altfel Safari ar bloca
+    citirea fișierelor locale (file://) și vizualizatorul n-ar merge fără server."""
+    weeks = []
+    for f in sorted(ARCHIVE.glob('*_scorecard.json')):
+        try:
+            weeks.append(json.loads(f.read_text(encoding='utf-8')))
+        except json.JSONDecodeError as e:
+            print(f'[ARHIVA] {f.name} ilizibil, sărit: {e}')
+    weeks.sort(key=lambda w: _week_slug(w.get('week', '')))
+    out = ARCHIVE / 'archive_data.js'
+    out.write_text(
+        '// GENERAT de archive_week.py — nu edita manual.\n'
+        '// Toate săptămânile arhivate, pentru pagina arhiva.html.\n'
+        'window.ARCHIVE_DATA = ' + json.dumps({'weeks': weeks}, ensure_ascii=False, indent=1) + ';\n',
+        encoding='utf-8')
+    return out
 
 
 # ══════════════════════════════════════════════════════════════════════════

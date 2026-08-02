@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Padu Terminal — Arhivă</title>
+<!-- PAGINĂ INDEPENDENTĂ. Nu depinde de 07_Dashboard: stil propriu, date proprii.
+     Terminalul se rescrie la fiecare comandă; aici stă doar ce a fost salvat. -->
+<style>
+:root {
+  --bg:#000; --card:#0b1120; --card2:#111a2b; --line:#223350;
+  --txt:#dbe4f0; --dim:#7d8ca3; --acc:#4da3ff;
+  --pos:#2ecc71; --neg:#e35d5d; --warn:#e8b339;
+  font-size: clamp(15px, .18vw + 13.4px, 19px);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--txt); padding:22px;
+  font-family:-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif; }
+.top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:12px; }
+.top h1 { font-size:1.25rem; letter-spacing:2px; color:#fff; }
+.top .sub { font-size:.8rem; color:var(--dim); }
+.weeks { display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line);
+  padding-bottom:12px; margin-bottom:18px; }
+.wk { background:var(--card); border:1px solid var(--line); color:var(--dim); padding:9px 16px;
+  border-radius:8px; cursor:pointer; font-size:.85rem; font-weight:600; letter-spacing:.4px;
+  font-variant-numeric:tabular-nums; }
+.wk:hover { color:var(--txt); border-color:var(--acc); }
+.wk.on { color:#fff; background:var(--card2); border-color:var(--acc); box-shadow:inset 0 -2px 0 var(--acc); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:14px; }
+.card h2 { font-size:.78rem; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase; margin-bottom:12px; }
+.meta { font-size:.82rem; color:var(--dim); line-height:1.6; margin-bottom:14px; }
+.meta b { color:var(--txt); }
+table { width:100%; border-collapse:collapse; font-size:.86rem; }
+th { text-align:left; color:var(--dim); font-weight:600; font-size:.68rem; letter-spacing:1px;
+  text-transform:uppercase; padding:6px 8px; border-bottom:1px solid var(--line); }
+td { padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:middle; font-variant-numeric:tabular-nums; }
+tr:last-child td { border-bottom:none; }
+th.c, td.c { text-align:center; width:3.4rem; }
+.small { font-size:.76rem; color:var(--dim); }
+.dim { color:var(--dim); }
+.pos { color:var(--pos); } .neg { color:var(--neg); }
+.rk { display:inline-block; width:1.5rem; color:var(--dim); font-size:.76rem; }
+.cell { display:inline-flex; align-items:center; justify-content:center; width:2.1rem; height:1.6rem;
+  border-radius:4px; font-size:.8rem; font-weight:700; cursor:help; }
+.p2 { background:rgba(46,204,113,.28); color:var(--pos); }
+.p1 { background:rgba(46,204,113,.12); color:var(--pos); }
+.z  { background:rgba(125,140,163,.10); color:var(--dim); }
+.n1 { background:rgba(227,93,93,.12); color:var(--neg); }
+.n2 { background:rgba(227,93,93,.28); color:var(--neg); }
+.na { background:repeating-linear-gradient(45deg,#0d1626,#0d1626 3px,#16233a 3px,#16233a 6px);
+  color:var(--dim); font-size:.6rem; font-weight:600; }
+.tot b { font-size:1.02rem; display:inline-block; min-width:3rem; }
+.bar { display:inline-block; vertical-align:middle; width:clamp(90px,9vw,190px); height:6px;
+  border-radius:3px; background:#0d1626; position:relative; margin-left:8px; }
+.bar i { position:absolute; top:0; height:6px; border-radius:3px; }
+.bar i.mid { left:50%; top:-3px; width:1px; height:12px; background:var(--line); border-radius:0; }
+.bar i.gp { background:var(--pos); } .bar i.gn { background:var(--neg); }
+.badge { font-size:.7rem; padding:2px 9px; border-radius:4px; font-weight:700; white-space:nowrap; }
+.b-long { background:rgba(46,204,113,.15); color:var(--pos); }
+.b-short { background:rgba(227,93,93,.15); color:var(--neg); }
+.b-book { background:rgba(77,163,255,.18); color:var(--acc); }
+.b-watch { background:rgba(232,179,57,.15); color:var(--warn); }
+.tag { font-size:.62rem; color:var(--dim); border:1px solid var(--line); border-radius:3px;
+  padding:1px 4px; margin-left:4px; cursor:help; white-space:nowrap; }
+.blind { font-size:.62rem; color:var(--warn); margin-left:6px; cursor:help; }
+.cat { font-size:.62rem; color:var(--warn); border:1px solid rgba(232,179,57,.35);
+  border-radius:4px; padding:1px 5px; margin-left:4px; white-space:nowrap; }
+.sub { margin-top:12px; padding-top:10px; border-top:1px dashed var(--line); font-size:.76rem;
+  color:var(--dim); display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.sub .lbl { text-transform:uppercase; letter-spacing:1px; font-size:.66rem; white-space:nowrap; cursor:help; }
+.sub .items { flex:1 1 auto; }
+.sub b { color:var(--txt); }
+.sub .th { margin-left:auto; color:var(--acc); font-size:.68rem; border:1px solid var(--line);
+  border-radius:4px; padding:2px 8px; white-space:nowrap; }
+.grp td { background:var(--card2); font-size:.72rem; color:var(--acc); font-weight:700;
+  letter-spacing:1.2px; text-transform:uppercase; padding:8px; }
+.empty { color:var(--dim); font-size:.85rem; padding:24px 0; text-align:center; }
+.note { color:var(--dim); font-size:.72rem; margin-top:16px; border-top:1px solid var(--line); padding-top:10px; line-height:1.6; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>ARHIVĂ</h1>
+    <span class="sub">output-ul terminalului, salvat săptămână de săptămână</span>
+  </div>
+  <div class="weeks" id="weeks"></div>
+  <div id="view"></div>
+  <div class="note">Terminalul se rescrie la fiecare comandă — aici stă doar judecata: scorurile, verdictele și ce a fost respins. Se generează cu <code>archive_week.py</code>, la fiecare teză săptămânală.</div>
+
+<script src="archive_data.js"></script>
+<script>
+(function () {
+  var W = ((window.ARCHIVE_DATA || {}).weeks || []).slice().reverse();   // cea mai recentă prima
+  var CRIT = ['cb','bnk','ind','yld','cot','reg','sea'];
+  var LBL = { cb:'CB', bnk:'BNK', ind:'IND', yld:'YLD', cot:'COT', reg:'REG', sea:'SEA' };
+  var ORDER = { Swing:['EURUSD','GBPUSD','USDCAD','USDJPY','USDCHF','AUDUSD','NZDUSD',
+                       'EURGBP','EURJPY','GBPJPY','AUDNZD','CADJPY','GBPNZD'],
+                Intraday:['US30','GOLD'] };
+  var STAGE = { LIVE:0, ARMED:1, WATCH:2 };
+
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+  function dec(x){ return (x==null||isNaN(x)) ? '—' : Number(x).toFixed(1).replace('.',','); }
+  function cls(x){ return x>0?'pos':(x<0?'neg':''); }
+  function dirBadge(d){
+    var u=String(d||'').toUpperCase();
+    var c = u.indexOf('SHORT')>-1 ? 'b-short' : u.indexOf('LONG')>-1 ? 'b-long' : 'b-watch';
+    if (u.indexOf('WATCH')===0) c='b-watch';
+    return '<span class="badge '+c+'">'+d+'</span>';
+  }
+  function cell(v, why, k){
+    if (v==null) return '<td class="c"><span class="cell na" title="'+esc(why||'indisponibil')+'">n/a</span></td>';
+    var c = v>=2?'p2':v===1?'p1':v===0?'z':v===-1?'n1':'n2';
+    return '<td class="c"><span class="cell '+c+'" title="'+esc(LBL[k]+' '+(v>0?'+':'')+v+(why?' — '+why:''))+'">'+
+           (v>0?'+':'')+v+'</span></td>';
+  }
+  function bar(t){
+    var w = Math.min(Math.abs(t)/10,1)*50;
+    return '<span class="bar"><i class="mid"></i><i class="'+(t>=0?'gp':'gn')+'" style="'+
+           (t>=0?'left:50%':'right:50%')+';width:'+w+'%"></i></span>';
+  }
+
+  function render(i){
+    var e = W[i]; if (!e) return;
+    var sc = e.scorecard||{}, cur = sc.currencies||{}, th = sc.thresholds||{};
+    var pairs = sc.pairs||[], sub = pairs.filter(function(p){ return p.verdict==='SUB PRAG'; });
+
+    var h = '<div class="meta">Regim: <b>'+esc((e.regime||{}).label||'—')+'</b>' +
+      ((e.regime||{}).score!=null ? ' (scor '+((e.regime.score>0?'+':'')+e.regime.score)+')' : '') +
+      ' · analiza: <b>'+esc(e.analysis_date||'—')+'</b> · date: <b>'+esc(e.data_generated||'—')+'</b>' +
+      ' · arhivat: <b>'+esc((e.archived||'').slice(0,10))+'</b></div>';
+
+    // ——— scorecard ———
+    h += '<div class="card"><h2>Currency Scorecard</h2><table><tr><th>Currency</th>' +
+      CRIT.map(function(k){ return '<th class="c" title="pondere '+((sc.weights||{})[k]||'')+'">'+LBL[k]+'</th>'; }).join('') +
+      '<th>Score</th></tr>' +
+      (sc.ranked||[]).map(function(c){
+        var r = cur[c]||{};
+        return '<tr><td><span class="rk">'+r.rank+'</span><b>'+c+'</b>' +
+          (r.contra ? ' <span class="badge b-watch" title="'+esc(r.contra)+'">⚔</span>' : '') +
+          (r.catalyst ? ' <span class="cat">'+esc(r.catalyst)+'</span>' : '') + '</td>' +
+          CRIT.map(function(k){ return cell((r.scores||{})[k], (r.why||{})[k], k); }).join('') +
+          '<td class="tot"><b class="'+cls(r.total)+'">'+(r.total>0?'+':'')+dec(r.total)+'</b>'+bar(r.total||0) +
+          (r.missing&&r.missing.length ? '<span class="blind" title="criterii fără date — scor normalizat pe restul">orb: '+r.missing.join(', ')+'</span>' : '') +
+          '</td></tr>'; }).join('') + '</table>' +
+      (sub.length ? '<div class="sub"><span class="lbl">sub prag · fără trade</span><span class="items">' +
+          sub.map(function(p){ return p.pair+' <b>'+dec(Math.abs(p.gap))+'</b>'; }).join(' · ') +
+          '</span><span class="th">watch de la '+dec(th.watch)+' · book de la '+dec(th.book)+'</span></div>' : '') +
+      '</div>';
+
+    // ——— book ———
+    var gaps = {}; pairs.forEach(function(p){ gaps[p.pair]=p; });
+    var book = (e.trades||[]).slice();
+    h += '<div class="card"><h2>Trades</h2>' + (book.length
+      ? '<table><tr><th>Instrument</th><th>Direction</th><th>Rank gap</th><th>Conviction</th>' +
+        '<th>Catalyst</th><th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>' +
+        ['Swing','Intraday'].map(function(g){
+          var rows = book.filter(function(t){ return t.type===g; }).sort(function(a,b){
+            var sa=STAGE[String(a.stage).toUpperCase()], sb=STAGE[String(b.stage).toUpperCase()];
+            sa=sa===undefined?9:sa; sb=sb===undefined?9:sb;
+            if (sa!==sb) return sa-sb;
+            var ga=Math.abs(a.gap==null?-1:a.gap), gb=Math.abs(b.gap==null?-1:b.gap);
+            if (ga!==gb) return gb-ga;
+            return ORDER[g].indexOf(a.instrument)-ORDER[g].indexOf(b.instrument);
+          });
+          if (!rows.length) return '';
+          return '<tr class="grp"><td colspan="8">'+g+'</td></tr>' + rows.map(function(t){
+            var p = gaps[t.instrument]||{};
+            var d = String(t.dir||'').toUpperCase(), st = String(t.stage||'').toUpperCase();
+            var shown = (d==='LONG'||d==='SHORT') && (st==='WATCH'||st==='LIVE') ? st+' - '+d : d;
+            return '<tr><td><b>'+t.instrument+'</b>' +
+              (p.cross ? ' <span class="tag" title="cross — spread mai larg, fără raport dedicat">cross</span>' : '') +
+              (p.blind&&p.blind.length ? '<span class="blind" title="criteriu fără date pe unul dintre picioare">orb: '+p.blind.join(', ')+'</span>' : '') +
+              '</td><td>'+dirBadge(shown)+'</td>' +
+              '<td>'+(t.gap!=null ? '<span class="badge '+(t.verdict==='BOOK'?'b-book':'b-watch')+'" title="'+esc(t.verdict||'')+'">'+dec(Math.abs(t.gap))+'</span>' : '<span class="dim">—</span>')+'</td>' +
+              '<td class="small">'+esc(t.conf||'—')+'</td>' +
+              '<td class="small">'+esc(t.catalyst||'—')+'</td>' +
+              '<td class="small">'+esc(t.drivers||'—')+'</td>' +
+              '<td class="small">'+esc(t.trigger||'—')+'</td>' +
+              '<td class="small">'+esc(t.invalidation||'—')+'</td></tr>'; }).join('');
+        }).join('') + '</table>'
+      : '<div class="empty">Nicio idee în book în săptămâna asta.</div>') + '</div>';
+
+    document.getElementById('view').innerHTML = h;
+    var tabs = document.querySelectorAll('.wk');
+    for (var j=0;j<tabs.length;j++) tabs[j].className = 'wk' + (j===i ? ' on' : '');
+  }
+
+  if (!W.length) {
+    document.getElementById('view').innerHTML =
+      '<div class="empty">Arhiva e goală. Rulează <code>archive_week.py</code> ca să salvezi săptămâna curentă.</div>';
+    return;
+  }
+  document.getElementById('weeks').innerHTML = W.map(function(e,j){
+    return '<div class="wk'+(j===0?' on':'')+'" data-i="'+j+'">'+esc(e.week||'—')+'</div>'; }).join('');
+  var tabs = document.querySelectorAll('.wk');
+  for (var j=0;j<tabs.length;j++) (function(t){
+    t.addEventListener('click', function(){ render(parseInt(t.getAttribute('data-i'),10)); });
+  })(tabs[j]);
+  render(0);
+})();
+</script>
+</body>
+</html>
