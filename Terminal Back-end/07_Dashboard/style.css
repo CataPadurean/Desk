@@ -3,15 +3,13 @@
   --bg: #000000; --card: #0b1120; --card2: #111a2b; --line: #223350;
   --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
   --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
-  /* TIPOGRAFIE FLUIDĂ — se adaptează singură la ecran, fără reglaje manuale la schimbarea
-     monitorului: ~16px pe laptop (1440), ~18px pe ultrawide (2560), plafonat la 19px.
-     Dacă vrei tot terminalul mai mare/mai mic, muti DOAR cele două capete ale clamp-ului. */
+  /* TIPOGRAFIE FLUIDĂ — singurul lucru care se scalează: ~16px pe laptop (1440),
+     ~18px pe ultrawide (2560), plafonat la 19px. Lățimea NU e limitată: conținutul
+     ocupă tot ecranul, ca înainte. Dacă vrei alt scaling, muți capetele clamp-ului. */
   font-size: clamp(15px, 0.18vw + 13.4px, 19px);
-  --maxw: 2200px;          /* lățimea utilă maximă — peste ea, conținutul se centrează */
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-  padding: clamp(14px, 1.1vw, 30px); max-width: var(--maxw); margin: 0 auto; }
+body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
 
 /* ——— header + meniu (randate de nav.js) ——— */
 .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 10px; }
