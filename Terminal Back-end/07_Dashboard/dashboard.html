@@ -99,28 +99,35 @@
             (r.missing && r.missing.length ? '<span class="scblind" title="criterii fără date — scorul se normalizează pe cele disponibile">orb: ' + r.missing.join(', ') + '</span>' : '') +
           '</td></tr>'; }).join('') + '</table>';
 
-    // ——— perechile: doar cele peste prag. Sub prag = o linie compactă, nu rânduri de umplutură ———
+    // ——— perechile: doar cele peste prag, tabel subțire. Motivul complet stă în tooltip-ul
+    // verdictului — detaliul acționabil (trigger, invalidare, orizont) e în book-ul Trades,
+    // ca să nu se dubleze. Sub prag = o linie compactă: absența trade-ului e o decizie, nu o omisiune.
     var P = SC.pairs || [];
     var live = P.filter(function (p) { return p.verdict !== 'SUB PRAG'; });
     var sub = P.filter(function (p) { return p.verdict === 'SUB PRAG'; });
     var th = SC.thresholds || {};
+    var inBook = {};
+    (D.trades || []).forEach(function (t) { inBook[t.instrument] = true; });
 
     document.getElementById('scpairs').innerHTML =
       '<div class="scph">Pairs from rank spread<span class="small"> · book de la ' +
-        (th.book || 6) + ' · watch de la ' + (th.watch || 5) + '</span></div>' +
+        dec(th.book || 6) + ' · watch de la ' + dec(th.watch || 5) + '</span></div>' +
       (live.length
         ? '<table class="scpt">' + live.map(function (p) {
             return '<tr>' +
               '<td><b>' + p.pair + '</b>' + (p.cross ? ' <span class="sctag" title="cross — fără acoperire directă în rapoarte, spread mai larg la broker">cross</span>' : '') + '</td>' +
               '<td class="scnum2 ' + numCls(p.gap) + '">' + dec(Math.abs(p.gap)) + '</td>' +
               '<td>' + dirBadge(p.dir) + '</td>' +
-              '<td><span class="badge ' + (p.verdict === 'BOOK' ? 'b-book' : 'b-watch') + '">' + p.verdict + '</span></td>' +
-              '<td class="small">' + p.note + (p.catalyst ? ' · <b>' + p.catalyst + '</b>' : '') +
-                (p.blind && p.blind.length ? ' <span class="scblind">orb: ' + p.blind.join(', ') + '</span>' : '') + '</td>' +
+              '<td><span class="badge ' + (p.verdict === 'BOOK' ? 'b-book' : 'b-watch') +
+                '" title="' + esc(p.note) + '">' + p.verdict + '</span></td>' +
+              '<td class="small">' + (p.catalyst || '<span class="dim">fără catalizator în fereastră</span>') +
+                (p.blind && p.blind.length ? ' <span class="scblind" title="criterii fără date pe unul dintre picioare — scor mai puțin sigur">orb: ' + p.blind.join(', ') + '</span>' : '') + '</td>' +
+              '<td>' + (inBook[p.pair] ? '<span class="scin" title="ideea are deja rând în book, cu trigger și invalidare">→ book</span>' : '') + '</td>' +
             '</tr>'; }).join('') + '</table>'
         : '<div class="empty">Nicio pereche peste prag — săptămână fără diferențe exploatabile.</div>') +
-      (sub.length ? '<div class="scsub">sub prag: ' + sub.map(function (p) {
-          return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>' : '');
+      (sub.length ? '<div class="scsub"><span class="lbl" title="perechi evaluate și respinse — diferență de rank sub pragul de watch">sub prag · fără trade</span>' +
+          sub.map(function (p) {
+            return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>' : '');
   }
 
   // ——— EVENT PLAYBOOK: matricea de scenarii per eveniment Tier 1 ———

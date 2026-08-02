@@ -3,10 +3,15 @@
   --bg: #000000; --card: #0b1120; --card2: #111a2b; --line: #223350;
   --txt: #dbe4f0; --dim: #7d8ca3; --acc: #4da3ff;
   --pos: #2ecc71; --neg: #e35d5d; --warn: #e8b339;
-  font-size: 16px;
+  /* TIPOGRAFIE FLUIDĂ — se adaptează singură la ecran, fără reglaje manuale la schimbarea
+     monitorului: ~16px pe laptop (1440), ~18px pe ultrawide (2560), plafonat la 19px.
+     Dacă vrei tot terminalul mai mare/mai mic, muti DOAR cele două capete ale clamp-ului. */
+  font-size: clamp(15px, 0.18vw + 13.4px, 19px);
+  --maxw: 2200px;          /* lățimea utilă maximă — peste ea, conținutul se centrează */
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif; padding: 22px; }
+body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  padding: clamp(14px, 1.1vw, 30px); max-width: var(--maxw); margin: 0 auto; }
 
 /* ——— header + meniu (randate de nav.js) ——— */
 .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; margin-bottom: 10px; }
@@ -73,12 +78,16 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
   letter-spacing: 1.2px; text-transform: uppercase; padding: 8px; border-bottom: 1px solid var(--line); }
 
 /* ——— CURRENCY SCORECARD (Home) — cross-secțiunea celor 8 monede ——— */
-.sctbl td { padding: 6px 8px; vertical-align: middle; }
-.sctbl th.c, .sctbl td.c { width: 46px; }
-.sctbl .scrk { display: inline-block; width: 20px; color: var(--dim); font-size: .72rem; }
+/* Tabelul central al terminalului: puțin mai mare decât restul, ca să se citească dintr-o privire. */
+.sctbl { font-size: .88rem; }
+.sctbl th { font-size: .7rem; }
+.sctbl td { padding: 9px 8px; vertical-align: middle; }
+.sctbl th.c, .sctbl td.c { width: 3.4rem; }
+.sctbl td b { font-size: .96rem; letter-spacing: .5px; }
+.sctbl .scrk { display: inline-block; width: 1.5rem; color: var(--dim); font-size: .76rem; }
 .sctbl tr:hover td { background: rgba(77,163,255,.04); }
-.sccell { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 22px;
-  border-radius: 4px; font-size: .74rem; font-weight: 700; cursor: help; }
+.sccell { display: inline-flex; align-items: center; justify-content: center; width: 2.1rem; height: 1.6rem;
+  border-radius: 4px; font-size: .8rem; font-weight: 700; cursor: help; }
 .sccell.p2 { background: rgba(46,204,113,.28); color: var(--pos); }
 .sccell.p1 { background: rgba(46,204,113,.12); color: var(--pos); }
 .sccell.z  { background: rgba(125,140,163,.10); color: var(--dim); }
@@ -87,11 +96,11 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
 .sccell.na { background: repeating-linear-gradient(45deg, #0d1626, #0d1626 3px, #16233a 3px, #16233a 6px);
   color: var(--dim); font-size: .6rem; font-weight: 600; }
 .sctbl .scnum { white-space: nowrap; }
-.sctbl .scnum b { font-size: .9rem; }
-.scbar { display: inline-block; vertical-align: middle; width: 84px; height: 5px; border-radius: 3px;
+.sctbl .scnum b { font-size: 1.02rem; display: inline-block; min-width: 3rem; }
+.scbar { display: inline-block; vertical-align: middle; width: clamp(90px, 9vw, 190px); height: 6px; border-radius: 3px;
   background: #0d1626; position: relative; margin-left: 8px; }
-.scbar i { position: absolute; top: 0; height: 5px; border-radius: 3px; }
-.scbar i.mid { left: 50%; top: -3px; width: 1px; height: 11px; background: var(--line); border-radius: 0; }
+.scbar i { position: absolute; top: 0; height: 6px; border-radius: 3px; }
+.scbar i.mid { left: 50%; top: -3px; width: 1px; height: 12px; background: var(--line); border-radius: 0; }
 .scbar i.pos { background: var(--pos); } .scbar i.neg { background: var(--neg); }
 .sccat { font-size: .62rem; color: var(--warn); border: 1px solid rgba(232,179,57,.35);
   border-radius: 4px; padding: 1px 5px; margin-left: 4px; white-space: nowrap; }
@@ -101,12 +110,17 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
 .scph { margin: 18px 0 8px; padding-top: 14px; border-top: 1px solid var(--line);
   font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--acc); font-weight: 700; }
 .scph .small { text-transform: none; letter-spacing: 0; font-weight: 400; }
-.scpt td { padding: 7px 8px; vertical-align: middle; }
-.scnum2 { font-weight: 700; font-size: .85rem; width: 48px; }
-.sctag { font-size: .6rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px;
+.scpt { font-size: .86rem; }
+.scpt td { padding: 9px 8px; vertical-align: middle; }
+.scpt td b { font-size: .95rem; letter-spacing: .5px; }
+.scnum2 { font-weight: 700; font-size: .98rem; width: 4rem; }
+.sctag { font-size: .62rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px;
   padding: 1px 4px; margin-left: 4px; cursor: help; }
 .b-book { background: rgba(77,163,255,.18); color: var(--acc); }
-.scsub { margin-top: 10px; font-size: .72rem; color: var(--dim); }
+.scin { font-size: .66rem; color: var(--pos); border: 1px solid rgba(46,204,113,.35);
+  border-radius: 4px; padding: 1px 6px; white-space: nowrap; cursor: help; }
+.scsub { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .76rem; color: var(--dim); }
+.scsub .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-size: .66rem; margin-right: 6px; }
 .scsub b { color: var(--txt); font-variant-numeric: tabular-nums; }
 
 /* ——— carduri rezumat (Home) ——— */
