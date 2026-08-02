@@ -21,27 +21,34 @@ window.DESK_DATA = {
   ],
 
   // ——— BOOK UNIC (ipoteze condiționate, NU ordine de execuție) ———
-  // Aici intră DOAR ideile care pot deveni trade la un declanșator — nimic „de context".
+  // Book-ul e ACȚIONABIL: intră DOAR ideile cu direcție angajată — LIVE / ARMED / WATCH.
+  // Ce e „sub prag" NU se scrie aici; apare compact în Currency Scorecard, la finalul perechilor.
   // stage: "LIVE" (poziție deschisă) | "ARMED" (trigger la un pas, gata de execuție)
   //      | "WATCH" (devine trade dacă se întâmplă condiția din Trigger)
   // Stadiul nu are coloană proprie: se vede în Direction — LONG / SHORT (ARMED),
   // WATCH - LONG / WATCH - SHORT, LIVE - LONG / LIVE - SHORT.
   // type:  "Swing" (multi-day, 1-5 zile) | "Intraday" (Gold + US30, sesiunea NY)
-  // thesis: scorul de confluență (min. 5/7, criteriile Central Banks + Bank Reports obligatorii)
-  //         dacă ideea vine dintr-o teză săptămânală; "—" dacă e pur tactică.
+  // thesis: diferența de scor din Currency Scorecard (gap-ul de rank) pentru ideile Swing;
+  //         "—" pentru cele pur tactice (intraday). Book de la 6,0 · watch de la 5,0.
   // La invalidare/expirare, intrarea IESE de aici și se arhivează în history_data.js.
   trades: [
-    { stage: "ARMED", type: "Swing", instrument: "USDCAD", dir: "SHORT", conf: "3/5", thesis: "5/7",
+    { stage: "ARMED", type: "Swing", instrument: "USDCAD", dir: "SHORT", conf: "3/5", thesis: "8,8",
       horizon: "multi-day, catalizator BoC 15.07",
       drivers: "Blocul de rapoarte cel mai aliniat (CACIB 1,35-1,40; Scotiabank + CIBC rebound) + GDP peste așteptări + short CAD extremă + CAD pro-risc. Catalizatorul (BoC + raportul de politică monetară) abia pe 15.07",
       trigger: "USD moale după minutele FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
       invalidation: "Minute FOMC hawkish / 10Y sus / date canadiene slabe. Contra: spread 2Y (+1,38) încă PRO-USD + USD long de deceniu" },
 
-    { stage: "ARMED", type: "Swing", instrument: "NZDUSD", dir: "LONG", conf: "3/5", thesis: "5/7",
+    { stage: "ARMED", type: "Swing", instrument: "NZDUSD", dir: "LONG", conf: "3/5", thesis: "10,0",
       horizon: "1-3 zile, eveniment RBNZ 8.07",
       drivers: "Majorare la 2,50% devenită consens (22 din 28) + CPI în urcare spre 4,3% + short Leveraged Funds la RECORD + risk-on cu NZD pro-ciclic = profil de squeeze",
       trigger: "Majorare sau ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel",
       invalidation: "Hold dovish pe 8.07 → mort; minute FOMC hawkish relansează USD. Onest: câștig limitat (majorarea e prețuită), spread 2Y indisponibil" },
+
+    { stage: "WATCH", type: "Swing", instrument: "GBPNZD", dir: "SHORT", conf: "2,5/5", thesis: "11,7",
+      horizon: "multi-day, catalizator RBNZ 8.07",
+      drivers: "Cea mai mare diferență de rank din tabel: extrema bearish (GBP, ultimul pe șase criterii din șapte) contra extremei bullish (NZD, primul). Fără dolar în mijloc, deci nu depinde de minutele FOMC",
+      trigger: "Confirmare RBNZ pe 8.07 + rupere tehnică; se intră doar cu spread-ul brokerului acceptabil",
+      invalidation: "Hold dovish RBNZ / catalizator pozitiv din Marea Britanie. Contra: nicio casă nu acoperă perechea direct — criteriul 2 e derivat din picioare, nu dintr-un raport" },
 
     { stage: "ARMED", type: "Intraday", instrument: "US30", dir: "LONG", conf: "3/5", thesis: "—",
       horizon: "sesiunea NY",
@@ -53,13 +60,9 @@ window.DESK_DATA = {
       thesis: "—", horizon: "sesiunea NY",
       drivers: "Cumpărare la minime în metale prețioase + DXY sub 101. DAR randamentele reale urcă (10Y 4,50%) = vânt din față → convingere redusă",
       trigger: "DXY slab + randamente reale care nu mai urcă; breakout M5 din M30 cu retest",
-      invalidation: "10Y peste 4,50% / DXY peste 101; trendul mare descendent intact — NU e trade de poziție" },
-
-    { stage: "WATCH", type: "Swing", instrument: "GBPUSD", dir: "LONG", conf: "—", thesis: "—",
-      horizon: "—",
-      drivers: "Leveraged Funds short la percentila ~8 = combustibil de squeeze; dar Services PMI 48,8 și BoE împărțită = fundamente slabe; lipsesc criteriile obligatorii",
-      trigger: "Catalizator pozitiv din Marea Britanie + risk-on susținut",
-      invalidation: "Date britanice slabe care confirmă traiectoria dovish a BoE" }
+      invalidation: "10Y peste 4,50% / DXY peste 101; trendul mare descendent intact — NU e trade de poziție" }
+    // GBPUSD a ieșit din book: scorecard-ul îl dă la 1,7 diferență de rank — ambele picioare slabe,
+    // adică zgomot, nu trade. Apare compact la «sub prag», în Currency Scorecard.
   ],
   // P&L / trade-uri: în journal_data.js (local, în .gitignore) — nu aici
 };

@@ -72,6 +72,43 @@ th.c, td.c { text-align: center; }   /* coloane de indicatori — valori centrat
 tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font-weight: 700;
   letter-spacing: 1.2px; text-transform: uppercase; padding: 8px; border-bottom: 1px solid var(--line); }
 
+/* ——— CURRENCY SCORECARD (Home) — cross-secțiunea celor 8 monede ——— */
+.sctbl td { padding: 6px 8px; vertical-align: middle; }
+.sctbl th.c, .sctbl td.c { width: 46px; }
+.sctbl .scrk { display: inline-block; width: 20px; color: var(--dim); font-size: .72rem; }
+.sctbl tr:hover td { background: rgba(77,163,255,.04); }
+.sccell { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 22px;
+  border-radius: 4px; font-size: .74rem; font-weight: 700; cursor: help; }
+.sccell.p2 { background: rgba(46,204,113,.28); color: var(--pos); }
+.sccell.p1 { background: rgba(46,204,113,.12); color: var(--pos); }
+.sccell.z  { background: rgba(125,140,163,.10); color: var(--dim); }
+.sccell.n1 { background: rgba(227,93,93,.12); color: var(--neg); }
+.sccell.n2 { background: rgba(227,93,93,.28); color: var(--neg); }
+.sccell.na { background: repeating-linear-gradient(45deg, #0d1626, #0d1626 3px, #16233a 3px, #16233a 6px);
+  color: var(--dim); font-size: .6rem; font-weight: 600; }
+.sctbl .scnum { white-space: nowrap; }
+.sctbl .scnum b { font-size: .9rem; }
+.scbar { display: inline-block; vertical-align: middle; width: 84px; height: 5px; border-radius: 3px;
+  background: #0d1626; position: relative; margin-left: 8px; }
+.scbar i { position: absolute; top: 0; height: 5px; border-radius: 3px; }
+.scbar i.mid { left: 50%; top: -3px; width: 1px; height: 11px; background: var(--line); border-radius: 0; }
+.scbar i.pos { background: var(--pos); } .scbar i.neg { background: var(--neg); }
+.sccat { font-size: .62rem; color: var(--warn); border: 1px solid rgba(232,179,57,.35);
+  border-radius: 4px; padding: 1px 5px; margin-left: 4px; white-space: nowrap; }
+.scblind { display: inline-block; font-size: .62rem; color: var(--warn); margin-left: 6px; cursor: help; }
+
+/* perechile rezultate din diferența de rank */
+.scph { margin: 18px 0 8px; padding-top: 14px; border-top: 1px solid var(--line);
+  font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--acc); font-weight: 700; }
+.scph .small { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.scpt td { padding: 7px 8px; vertical-align: middle; }
+.scnum2 { font-weight: 700; font-size: .85rem; width: 48px; }
+.sctag { font-size: .6rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px;
+  padding: 1px 4px; margin-left: 4px; cursor: help; }
+.b-book { background: rgba(77,163,255,.18); color: var(--acc); }
+.scsub { margin-top: 10px; font-size: .72rem; color: var(--dim); }
+.scsub b { color: var(--txt); font-variant-numeric: tabular-nums; }
+
 /* ——— carduri rezumat (Home) ——— */
 .sumgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 10px; margin-bottom: 14px; }
 .sum { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; display: block; text-decoration: none; color: inherit; transition: border-color .15s; }

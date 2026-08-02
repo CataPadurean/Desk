@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-08-01
+# MACRO SNAPSHOT — 2026-08-02
 
 ## COT (as of 2026-07-28) — Leveraged Funds (TFF) / Managed Money (GOLD)
 

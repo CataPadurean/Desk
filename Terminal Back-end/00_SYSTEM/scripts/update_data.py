@@ -10,6 +10,8 @@ import json, subprocess, sys
 from datetime import date
 from pathlib import Path
 
+from scorecard import build_scorecard
+
 HERE = Path(__file__).resolve().parent
 DATA = HERE.parent / 'data'
 
@@ -52,6 +54,19 @@ def build_analysis_js():
            'trades_intraday': tin or [],
            'cot': parts['cot_latest'], 'yields': parts['yields_latest'],
            'seasonality': parts['seasonality']}
+
+    # ——— CURRENCY SCORECARD (motorul de idei) ———
+    # criteriile 1-2 din directions.json (judecată), 3-7 calculate mecanic din datele de mai sus.
+    # Luna pentru seasonality: cea a săptămânii analizate, nu cea de azi — altfel scorecardul
+    # unei teze vechi s-ar rescrie cu sezonalitatea lunii curente.
+    try:
+        wk = d.get('date') or date.today().isoformat()
+        month = int(wk.split('-')[1]) if '-' in wk else date.today().month
+        obj['scorecard'] = build_scorecard(parts['cot_latest'], parts['yields_latest'],
+                                           parts['seasonality'], d, month)
+    except Exception as e:                                   # scorecardul nu trebuie să rupă pipeline-ul
+        print(f'[RUNNER] scorecard EȘUAT: {e}', file=sys.stderr)
+        obj['scorecard'] = None
     js = '// GENERAT de update_data.py / Claude — nu edita manual.\nwindow.ANALYSIS_DATA = ' \
          + json.dumps(obj, ensure_ascii=False, indent=1) + ';\n'
     (DATA.parent.parent / '07_Dashboard' / 'analysis_data.js').write_text(js)

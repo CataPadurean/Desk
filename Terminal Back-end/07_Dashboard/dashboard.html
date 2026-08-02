@@ -16,11 +16,17 @@
     <span id="regime"></span>
   </div>
 
-  <div class="sumgrid" id="sums"></div>
+  <div class="card" id="sccard" style="display:none">
+    <h2>Currency Scorecard</h2>
+    <div id="scorecard"></div>
+    <div id="scpairs"></div>
+  </div>
 
   <div class="card" id="pbcard" style="display:none"><h2>Event Playbook</h2><div id="playbook"></div></div>
 
   <div class="card"><h2>Trades</h2><div id="book"></div></div>
+
+  <div class="sumgrid" id="sums"></div>
 
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
@@ -47,6 +53,76 @@
            (clickable ? '<span class="go">open →</span>' : '') + '</div><div class="v">' + x.v + '</div></a>';
   }).join('') || '<div class="empty">Rezumatele se populează la „procesează inbox" / „generează teza".</div>';
 
+  // ——— CURRENCY SCORECARD: cross-secțiunea celor 8 monede pe cele 7 criterii ———
+  // Motorul de idei: scor −2…+2 per criteriu, ponderat, normalizat la ±10 → rank →
+  // perechile ies din diferență. Criteriile 1-2 sunt judecată, 3-7 se calculează mecanic
+  // (praguri fixe în 00_SYSTEM/scripts/scorecard.py). Fiecare celulă are justificarea în tooltip.
+  var SC = (window.ANALYSIS_DATA || {}).scorecard;
+  if (SC && SC.ranked && SC.ranked.length) {
+    document.getElementById('sccard').style.display = 'block';
+    var CRIT = SC.crit_order, LBL = SC.crit_label || {}, W = SC.weights || {};
+    var JUD = SC.judgment_crit || [];
+
+    function scCell(v, why, crit) {
+      if (v === null || v === undefined)
+        return '<td class="c"><span class="sccell na" title="' + esc(why || 'indisponibil') + '">n/a</span></td>';
+      var cls = v >= 2 ? 'p2' : v === 1 ? 'p1' : v === 0 ? 'z' : v === -1 ? 'n1' : 'n2';
+      var t = LBL[crit] + ' ' + (v > 0 ? '+' : '') + v + (why ? ' — ' + why : '');
+      return '<td class="c"><span class="sccell ' + cls + '" title="' + esc(t) + '">' +
+             (v > 0 ? '+' : '') + v + '</span></td>';
+    }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+    function dec(x) { return x.toFixed(1).replace('.', ','); }   // separator zecimal românesc, ca în rest
+    function totBar(t) {
+      var w = Math.min(Math.abs(t) / 10, 1) * 50;               // 50% = jumătatea barei
+      var side = t >= 0 ? 'left:50%' : 'right:50%';
+      return '<span class="scbar"><i class="mid"></i><i class="' + (t >= 0 ? 'pos' : 'neg') +
+             '" style="' + side + ';width:' + w + '%"></i></span>';
+    }
+
+    var head = '<tr><th>Currency</th>' + CRIT.map(function (k) {
+        return '<th class="c" title="' + esc((JUD.indexOf(k) > -1 ? 'judecată' : 'mecanic') +
+               ' · pondere ' + W[k]) + '">' + LBL[k] + '</th>'; }).join('') +
+      '<th>Score</th></tr>';
+
+    document.getElementById('scorecard').innerHTML = '<table class="sctbl">' + head +
+      SC.ranked.map(function (c) {
+        var r = SC.currencies[c];
+        return '<tr>' +
+          '<td><span class="scrk">' + r.rank + '</span><b>' + c + '</b>' +
+            (r.contra ? ' <span class="badge b-watch" title="' + esc(r.contra) + '">⚔</span>' : '') +
+            (r.catalyst ? ' <span class="sccat" title="catalizator în fereastră">' + r.catalyst + '</span>' : '') +
+          '</td>' +
+          CRIT.map(function (k) { return scCell(r.scores[k], (r.why || {})[k], k); }).join('') +
+          '<td class="scnum"><b class="' + numCls(r.total) + '">' + (r.total > 0 ? '+' : '') +
+            dec(r.total) + '</b>' + totBar(r.total) +
+            (r.missing && r.missing.length ? '<span class="scblind" title="criterii fără date — scorul se normalizează pe cele disponibile">orb: ' + r.missing.join(', ') + '</span>' : '') +
+          '</td></tr>'; }).join('') + '</table>';
+
+    // ——— perechile: doar cele peste prag. Sub prag = o linie compactă, nu rânduri de umplutură ———
+    var P = SC.pairs || [];
+    var live = P.filter(function (p) { return p.verdict !== 'SUB PRAG'; });
+    var sub = P.filter(function (p) { return p.verdict === 'SUB PRAG'; });
+    var th = SC.thresholds || {};
+
+    document.getElementById('scpairs').innerHTML =
+      '<div class="scph">Pairs from rank spread<span class="small"> · book de la ' +
+        (th.book || 6) + ' · watch de la ' + (th.watch || 5) + '</span></div>' +
+      (live.length
+        ? '<table class="scpt">' + live.map(function (p) {
+            return '<tr>' +
+              '<td><b>' + p.pair + '</b>' + (p.cross ? ' <span class="sctag" title="cross — fără acoperire directă în rapoarte, spread mai larg la broker">cross</span>' : '') + '</td>' +
+              '<td class="scnum2 ' + numCls(p.gap) + '">' + dec(Math.abs(p.gap)) + '</td>' +
+              '<td>' + dirBadge(p.dir) + '</td>' +
+              '<td><span class="badge ' + (p.verdict === 'BOOK' ? 'b-book' : 'b-watch') + '">' + p.verdict + '</span></td>' +
+              '<td class="small">' + p.note + (p.catalyst ? ' · <b>' + p.catalyst + '</b>' : '') +
+                (p.blind && p.blind.length ? ' <span class="scblind">orb: ' + p.blind.join(', ') + '</span>' : '') + '</td>' +
+            '</tr>'; }).join('') + '</table>'
+        : '<div class="empty">Nicio pereche peste prag — săptămână fără diferențe exploatabile.</div>') +
+      (sub.length ? '<div class="scsub">sub prag: ' + sub.map(function (p) {
+          return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>' : '');
+  }
+
   // ——— EVENT PLAYBOOK: matricea de scenarii per eveniment Tier 1 ———
   var PB = (window.ANALYSIS_DATA || {}).playbook || [];
   if (PB.length) {
@@ -69,7 +145,8 @@
 
   // ——— BOOK UNIC, grupat pe categorii (Swing, apoi Intraday), în ordinea activelor din regula 0 ———
   var GROUPS = [
-    { id: 'Swing',    order: ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'] },
+    { id: 'Swing',    order: ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD',
+                              'EURGBP', 'EURJPY', 'GBPJPY', 'AUDNZD', 'CADJPY', 'GBPNZD'] },
     { id: 'Intraday', order: ['US30', 'GOLD'] }
   ];
   // direcția afișată înglobează stadiul: LONG / SHORT (gata de execuție),
@@ -79,7 +156,12 @@
     if (d !== 'LONG' && d !== 'SHORT') return d || '—';
     return (st === 'WATCH' || st === 'LIVE') ? st + ' - ' + d : d;
   }
-  var book = D.trades || [];
+  // Book-ul e ACȚIONABIL: doar LIVE / ARMED (LONG-SHORT) și WATCH cu direcție angajată.
+  // Ideile fără direcție și cele „de context" nu intră aici — trăiesc în scorecard, la «sub prag».
+  var book = (D.trades || []).filter(function (t) {
+    var d = String(t.dir || '').toUpperCase();
+    return d.indexOf('LONG') > -1 || d.indexOf('SHORT') > -1;
+  });
   var HEAD = '<tr><th>Instrument</th><th>Direction</th><th>Conviction</th><th>Thesis</th>' +
              '<th>Drivers</th><th>Trigger</th><th>Invalidation</th></tr>';
 

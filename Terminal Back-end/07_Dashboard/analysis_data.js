@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-08-01",
+ "generated": "2026-08-02",
  "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săptămâni, pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 miliarde, a 8-a săptămână) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
  "regime_date": "2026-07-05",
  "sentiment": {
@@ -2852,6 +2852,485 @@ window.ANALYSIS_DATA = {
    "NZDUSD": "ok",
    "US30": "ok",
    "GOLD": "ok"
+  }
+ },
+ "scorecard": {
+  "weights": {
+   "cb": 3.0,
+   "bnk": 3.0,
+   "ind": 2.0,
+   "yld": 1.75,
+   "cot": 1.25,
+   "reg": 1.0,
+   "sea": 0.5
+  },
+  "crit_order": [
+   "cb",
+   "bnk",
+   "ind",
+   "yld",
+   "cot",
+   "reg",
+   "sea"
+  ],
+  "crit_label": {
+   "cb": "CB",
+   "bnk": "BNK",
+   "ind": "IND",
+   "yld": "YLD",
+   "cot": "COT",
+   "reg": "REG",
+   "sea": "SEA"
+  },
+  "judgment_crit": [
+   "cb",
+   "bnk"
+  ],
+  "ccy_order": [
+   "USD",
+   "EUR",
+   "GBP",
+   "CAD",
+   "JPY",
+   "CHF",
+   "AUD",
+   "NZD"
+  ],
+  "month": 7,
+  "regime_score": 1,
+  "currencies": {
+   "USD": {
+    "scores": {
+     "cb": 0,
+     "bnk": -1,
+     "ind": 0,
+     "yld": -1,
+     "cot": -1,
+     "reg": -1,
+     "sea": -1
+    },
+    "why": {
+     "cb": "Fed hold cu dot median 3,8% (un hike pe masă), dar NFP +57k a tăiat septembrie sub 50% — hawkish pe hârtie, dovish în preț. Minutele din 8.07 arbitrează.",
+     "bnk": "Singura teză direcțională (ING, bullish DXY) a fost scrisă înainte de datele pieței muncii și premisa s-a rupt. Nicio casă nu mai apără un long de dolar.",
+     "ind": "surpriză macro: mixt",
+     "yld": "Δ2Y -0.140, adică -0.066 față de media grupului",
+     "cot": "long aglomerat (percentila 81) — vulnerabil la dezamăgire",
+     "reg": "regim +1 × beta -0.5",
+     "sea": "media lunii -0.54%, hit 31% (7 perechi)"
+    },
+    "total": -3.0,
+    "missing": [],
+    "contra": "",
+    "catalyst": "Minute FOMC 8.07",
+    "rank": 7
+   },
+   "EUR": {
+    "scores": {
+     "cb": 0,
+     "bnk": 0,
+     "ind": 0,
+     "yld": 0,
+     "cot": 2,
+     "reg": 0,
+     "sea": 1
+    },
+    "why": {
+     "cb": "ECB fără grabă, HICP 2,8% subțiază argumentul pentru încă un pas. Decizia din 23.07 e test de ton, nu de dobândă — în afara ferestrei.",
+     "bnk": "UniCredit întors în neutru: niciun bloc nu are motiv propriu să tragă cursul. Consens că rămâne piață de intervale.",
+     "ind": "surpriză macro: mixt",
+     "yld": "Δ2Y -0.087, adică -0.004 față de media grupului",
+     "cot": "short aglomerat (percentila 2) — combustibil de squeeze",
+     "reg": "regim +1 × beta +0.0",
+     "sea": "media lunii +0.46%, hit 73% (1 perechi)"
+    },
+    "total": 1.2,
+    "missing": [],
+    "contra": "",
+    "catalyst": "",
+    "rank": 5
+   },
+   "GBP": {
+    "scores": {
+     "cb": -1,
+     "bnk": -1,
+     "ind": -1,
+     "yld": -1,
+     "cot": -2,
+     "reg": 0,
+     "sea": 1
+    },
+    "why": {
+     "cb": "BoE împărțită 7-2 pe fond de încetinire; riscul fiscal ține randamentele sus și încurcă tăierile. Decizia 6.08, în afara ferestrei.",
+     "bnk": "Cea mai slabă acoperire din inbox: o singură casă (ING), bearish și explicit fragilă, fără ținte și fără orizont.",
+     "ind": "surpriză macro: negativ",
+     "yld": "Δ2Y -0.129, adică -0.053 față de media grupului",
+     "cot": "long aglomerat (percentila 96) — vulnerabil la dezamăgire",
+     "reg": "regim +1 × beta -0.3",
+     "sea": "media lunii +0.44%, hit 73% (1 perechi)"
+    },
+    "total": -4.7,
+    "missing": [],
+    "contra": "",
+    "catalyst": "",
+    "rank": 8
+   },
+   "CAD": {
+    "scores": {
+     "cb": 1,
+     "bnk": 2,
+     "ind": 1,
+     "yld": 0,
+     "cot": 2,
+     "reg": 1,
+     "sea": 0
+    },
+    "why": {
+     "cb": "BoC blocată constructiv: inflația prea sus ca să taie, prea jos ca să urce. CIBC merge mai departe — hold prelungit peste date în ameliorare. Decizia + MPR pe 15.07 e Tier 1.",
+     "bnk": "Singurul bloc unde trei case spun același lucru din unghiuri diferite: CACIB nivelurile (1,418 → 1,35-1,40), Scotiabank creșterea, CIBC dobânda.",
+     "ind": "surpriză macro: pozitiv",
+     "yld": "Δ2Y -0.110, adică -0.031 față de media grupului",
+     "cot": "short aglomerat (percentila 2) — combustibil de squeeze",
+     "reg": "regim +1 × beta +1.0",
+     "sea": "media lunii +0.40%, hit 55% (1 perechi)"
+    },
+    "total": 5.8,
+    "missing": [],
+    "contra": "",
+    "catalyst": "BoC + MPR 15.07",
+    "rank": 2
+   },
+   "JPY": {
+    "scores": {
+     "cb": 0,
+     "bnk": 0,
+     "ind": 0,
+     "yld": 1,
+     "cot": 2,
+     "reg": -1,
+     "sea": 1
+    },
+    "why": {
+     "cb": "BoJ la 1,00% cu vot larg și încă un pas așteptat, dar inflația de bază sub țintă permite ritm lent. Direcție clară, catalizator absent în fereastră.",
+     "bnk": "Bloc rupt în două: CACIB ținte 162-163 pe carry, MUFG avertizează că trade-ul e prea aglomerat. Argumente solide, concluzii opuse — direcția netă se anulează.",
+     "ind": "surpriză macro: neutru",
+     "yld": "Δ2Y -0.002, adică +0.095 față de media grupului",
+     "cot": "short aglomerat (percentila 4) — combustibil de squeeze",
+     "reg": "regim +1 × beta -1.0",
+     "sea": "media lunii +0.89%, hit 73% (1 perechi)"
+    },
+    "total": 1.5,
+    "missing": [],
+    "contra": "CACIB vs. MUFG — scor plafonat la 0",
+    "catalyst": "",
+    "rank": 4
+   },
+   "CHF": {
+    "scores": {
+     "cb": 0,
+     "bnk": 0,
+     "ind": 0,
+     "yld": 0,
+     "cot": 1,
+     "reg": 1,
+     "sea": 1
+    },
+    "why": {
+     "cb": "SNB la zero până la finalul anului; instrumentul real e intervenția pe curs, nu dobânda. O întărire amplă vine cu risc de intervenție.",
+     "bnk": "Nicio casă nu deschide teză. CACIB semnalează doar anomalia de corelație: francul se mișcă pozitiv cu apetitul de risc, atipic pentru un refugiu.",
+     "ind": "surpriză macro: neutru",
+     "yld": "Δ10Y -0.062, adică +0.025 față de media grupului [10Y — 2Y indisponibil]",
+     "cot": "short aglomerat (percentila 12) — combustibil de squeeze",
+     "reg": "regim +1 × beta +0.5",
+     "sea": "media lunii +0.76%, hit 73% (1 perechi)"
+    },
+    "total": 1.1,
+    "missing": [],
+    "contra": "",
+    "catalyst": "",
+    "rank": 6
+   },
+   "AUD": {
+    "scores": {
+     "cb": 1,
+     "bnk": 1,
+     "ind": 0,
+     "yld": 0,
+     "cot": 0,
+     "reg": 1,
+     "sea": 0
+    },
+    "why": {
+     "cb": "RBA a ținut 4,35%, dar Bullock spune că pauza nu e finalul ciclului — ghidaj mai hawkish decât pricing-ul, deci loc de repricing. Catalizator abia 5.08.",
+     "bnk": "Fără raport dedicat; intră în tema CACIB a „monedelor bătute\" care urmează să fie reevaluate. Teză de coș, nu de pereche.",
+     "ind": "surpriză macro: mixt",
+     "yld": "Δ2Y -0.055, adică +0.033 față de media grupului",
+     "cot": "poziționare neutră (percentila 44)",
+     "reg": "regim +1 × beta +1.0",
+     "sea": "media lunii +0.50%, hit 64% (1 perechi)"
+    },
+    "total": 2.8,
+    "missing": [],
+    "contra": "",
+    "catalyst": "",
+    "rank": 3
+   },
+   "NZD": {
+    "scores": {
+     "cb": 2,
+     "bnk": 1,
+     "ind": 1,
+     "yld": null,
+     "cot": 2,
+     "reg": 1,
+     "sea": 1
+    },
+    "why": {
+     "cb": "Majorare la 2,50% pe 8.07 devenită consens (22 din 28 de economiști) după o ședință spartă de votul Guvernatorului. Catalizator Tier 1 în fereastră.",
+     "bnk": "Sinteza vine din TMV, nu dintr-o casă comercială: drumul cu cea mai mică rezistență duce spre o monedă mai fermă, dar cu câștig explicit limitat — majorarea e prețuită.",
+     "ind": "surpriză macro: pozitiv",
+     "yld": "randamente indisponibile (INDISPONIBIL)",
+     "cot": "short aglomerat (percentila 4) — combustibil de squeeze",
+     "reg": "regim +1 × beta +1.0",
+     "sea": "media lunii +0.35%, hit 73% (1 perechi)"
+    },
+    "total": 7.0,
+    "missing": [
+     "YLD"
+    ],
+    "contra": "",
+    "catalyst": "Decizie RBNZ 8.07",
+    "rank": 1
+   }
+  },
+  "ranked": [
+   "NZD",
+   "CAD",
+   "AUD",
+   "JPY",
+   "EUR",
+   "CHF",
+   "USD",
+   "GBP"
+  ],
+  "pairs": [
+   {
+    "pair": "GBPNZD",
+    "gap": -11.7,
+    "dir": "SHORT",
+    "verdict": "BOOK",
+    "note": "diferență peste prag, criteriile 1-2 confirmă, catalizator în fereastră",
+    "catalyst": "Decizie RBNZ 8.07",
+    "blind": [
+     "YLD"
+    ],
+    "cross": true,
+    "legs": {
+     "base": "GBP",
+     "quote": "NZD",
+     "base_total": -4.7,
+     "quote_total": 7.0
+    }
+   },
+   {
+    "pair": "NZDUSD",
+    "gap": 10.0,
+    "dir": "LONG",
+    "verdict": "BOOK",
+    "note": "diferență peste prag, criteriile 1-2 confirmă, catalizator în fereastră",
+    "catalyst": "Decizie RBNZ 8.07 · Minute FOMC 8.07",
+    "blind": [
+     "YLD"
+    ],
+    "cross": false,
+    "legs": {
+     "base": "NZD",
+     "quote": "USD",
+     "base_total": 7.0,
+     "quote_total": -3.0
+    }
+   },
+   {
+    "pair": "USDCAD",
+    "gap": -8.8,
+    "dir": "SHORT",
+    "verdict": "BOOK",
+    "note": "diferență peste prag, criteriile 1-2 confirmă, catalizator în fereastră",
+    "catalyst": "Minute FOMC 8.07 · BoC + MPR 15.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "USD",
+     "quote": "CAD",
+     "base_total": -3.0,
+     "quote_total": 5.8
+    }
+   },
+   {
+    "pair": "GBPJPY",
+    "gap": -6.2,
+    "dir": "SHORT",
+    "verdict": "WATCH",
+    "note": "diferență peste prag, dar fără catalizator — rank fără eveniment sângerează timp",
+    "catalyst": "",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "GBP",
+     "quote": "JPY",
+     "base_total": -4.7,
+     "quote_total": 1.5
+    }
+   },
+   {
+    "pair": "EURGBP",
+    "gap": 5.9,
+    "dir": "LONG",
+    "verdict": "WATCH",
+    "note": "diferență moderată — devine idee doar cu catalizator",
+    "catalyst": "",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "EUR",
+     "quote": "GBP",
+     "base_total": 1.2,
+     "quote_total": -4.7
+    }
+   },
+   {
+    "pair": "AUDUSD",
+    "gap": 5.8,
+    "dir": "LONG",
+    "verdict": "WATCH",
+    "note": "diferență moderată — devine idee doar cu catalizator",
+    "catalyst": "Minute FOMC 8.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "AUD",
+     "quote": "USD",
+     "base_total": 2.8,
+     "quote_total": -3.0
+    }
+   },
+   {
+    "pair": "USDJPY",
+    "gap": -4.5,
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "Minute FOMC 8.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "USD",
+     "quote": "JPY",
+     "base_total": -3.0,
+     "quote_total": 1.5
+    }
+   },
+   {
+    "pair": "CADJPY",
+    "gap": 4.3,
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "BoC + MPR 15.07",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "CAD",
+     "quote": "JPY",
+     "base_total": 5.8,
+     "quote_total": 1.5
+    }
+   },
+   {
+    "pair": "EURUSD",
+    "gap": 4.2,
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "Minute FOMC 8.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "EUR",
+     "quote": "USD",
+     "base_total": 1.2,
+     "quote_total": -3.0
+    }
+   },
+   {
+    "pair": "AUDNZD",
+    "gap": -4.2,
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "Decizie RBNZ 8.07",
+    "blind": [
+     "YLD"
+    ],
+    "cross": true,
+    "legs": {
+     "base": "AUD",
+     "quote": "NZD",
+     "base_total": 2.8,
+     "quote_total": 7.0
+    }
+   },
+   {
+    "pair": "USDCHF",
+    "gap": -4.1,
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "Minute FOMC 8.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "USD",
+     "quote": "CHF",
+     "base_total": -3.0,
+     "quote_total": 1.1
+    }
+   },
+   {
+    "pair": "GBPUSD",
+    "gap": -1.7,
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "Minute FOMC 8.07",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "GBP",
+     "quote": "USD",
+     "base_total": -4.7,
+     "quote_total": -3.0
+    }
+   },
+   {
+    "pair": "EURJPY",
+    "gap": -0.3,
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "EUR",
+     "quote": "JPY",
+     "base_total": 1.2,
+     "quote_total": 1.5
+    }
+   }
+  ],
+  "thresholds": {
+   "book": 6.0,
+   "watch": 5.0
   }
  }
 };

@@ -6,6 +6,65 @@
   "label": "RISK-ON (fragil)",
   "comment": "Apetit de risc intact — indici la record, VIX 16 — favorabil monedelor pro-ciclice „bătute” (CAD, NZD, AUD). CACIB: CAD și CHF corelate pozitiv cu risk-on, GBP negativ. Fragilitate: randamentele urcă și poziționarea USD e la extrem de deceniu; un shock de randamente sau minute FOMC hawkish poate inversa brusc tonul. Nu e un risk-on de urmărit orbește."
  },
+ "regime_score": 1,
+ "catalysts": {
+  "USD": "Minute FOMC 8.07",
+  "CAD": "BoC + MPR 15.07",
+  "NZD": "Decizie RBNZ 8.07"
+ },
+ "scorecard": {
+  "judgment": {
+   "USD": {
+    "cb": 0,
+    "cb_why": "Fed hold cu dot median 3,8% (un hike pe masă), dar NFP +57k a tăiat septembrie sub 50% — hawkish pe hârtie, dovish în preț. Minutele din 8.07 arbitrează.",
+    "bnk": -1,
+    "bnk_why": "Singura teză direcțională (ING, bullish DXY) a fost scrisă înainte de datele pieței muncii și premisa s-a rupt. Nicio casă nu mai apără un long de dolar."
+   },
+   "EUR": {
+    "cb": 0,
+    "cb_why": "ECB fără grabă, HICP 2,8% subțiază argumentul pentru încă un pas. Decizia din 23.07 e test de ton, nu de dobândă — în afara ferestrei.",
+    "bnk": 0,
+    "bnk_why": "UniCredit întors în neutru: niciun bloc nu are motiv propriu să tragă cursul. Consens că rămâne piață de intervale."
+   },
+   "GBP": {
+    "cb": -1,
+    "cb_why": "BoE împărțită 7-2 pe fond de încetinire; riscul fiscal ține randamentele sus și încurcă tăierile. Decizia 6.08, în afara ferestrei.",
+    "bnk": -1,
+    "bnk_why": "Cea mai slabă acoperire din inbox: o singură casă (ING), bearish și explicit fragilă, fără ținte și fără orizont."
+   },
+   "CAD": {
+    "cb": 1,
+    "cb_why": "BoC blocată constructiv: inflația prea sus ca să taie, prea jos ca să urce. CIBC merge mai departe — hold prelungit peste date în ameliorare. Decizia + MPR pe 15.07 e Tier 1.",
+    "bnk": 2,
+    "bnk_why": "Singurul bloc unde trei case spun același lucru din unghiuri diferite: CACIB nivelurile (1,418 → 1,35-1,40), Scotiabank creșterea, CIBC dobânda."
+   },
+   "JPY": {
+    "cb": 0,
+    "cb_why": "BoJ la 1,00% cu vot larg și încă un pas așteptat, dar inflația de bază sub țintă permite ritm lent. Direcție clară, catalizator absent în fereastră.",
+    "bnk": 0,
+    "bnk_why": "Bloc rupt în două: CACIB ținte 162-163 pe carry, MUFG avertizează că trade-ul e prea aglomerat. Argumente solide, concluzii opuse — direcția netă se anulează.",
+    "contra": "CACIB vs. MUFG — scor plafonat la 0"
+   },
+   "CHF": {
+    "cb": 0,
+    "cb_why": "SNB la zero până la finalul anului; instrumentul real e intervenția pe curs, nu dobânda. O întărire amplă vine cu risc de intervenție.",
+    "bnk": 0,
+    "bnk_why": "Nicio casă nu deschide teză. CACIB semnalează doar anomalia de corelație: francul se mișcă pozitiv cu apetitul de risc, atipic pentru un refugiu."
+   },
+   "AUD": {
+    "cb": 1,
+    "cb_why": "RBA a ținut 4,35%, dar Bullock spune că pauza nu e finalul ciclului — ghidaj mai hawkish decât pricing-ul, deci loc de repricing. Catalizator abia 5.08.",
+    "bnk": 1,
+    "bnk_why": "Fără raport dedicat; intră în tema CACIB a „monedelor bătute\" care urmează să fie reevaluate. Teză de coș, nu de pereche."
+   },
+   "NZD": {
+    "cb": 2,
+    "cb_why": "Majorare la 2,50% pe 8.07 devenită consens (22 din 28 de economiști) după o ședință spartă de votul Guvernatorului. Catalizator Tier 1 în fereastră.",
+    "bnk": 1,
+    "bnk_why": "Sinteza vine din TMV, nu dintr-o casă comercială: drumul cu cea mai mică rezistență duce spre o monedă mai fermă, dar cu câștig explicit limitat — majorarea e prețuită."
+   }
+  }
+ },
  "reports_meta": {
   "week": "29.06–03.07.2026",
   "processed": 7,
