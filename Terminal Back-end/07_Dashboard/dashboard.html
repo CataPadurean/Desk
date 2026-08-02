@@ -106,8 +106,9 @@
     var sub = (SC.pairs || []).filter(function (p) { return p.verdict === 'SUB PRAG'; });
     var th = SC.thresholds || {};
     document.getElementById('scpairs').innerHTML = sub.length
-      ? '<div class="scsub"><span class="lbl" title="perechi evaluate din diferența de rank și respinse — sub pragul de watch (' +
-          dec(th.watch || 5) + ')">sub prag · fără trade</span>' +
+      ? '<div class="scsub"><span class="lbl" title="perechi evaluate din diferența de rank și respinse: scorul per monedă merge de la −10 la +10, deci diferența poate atinge 20 — practic 0–12">' +
+          'sub prag · fără trade</span><span class="scth">watch de la ' + dec(th.watch || 5) +
+          ' · book de la ' + dec(th.book || 6) + '</span>' +
         sub.map(function (p) { return p.pair + ' <b>' + dec(Math.abs(p.gap)) + '</b>'; }).join(' · ') + '</div>'
       : '';
   }

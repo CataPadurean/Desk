@@ -122,7 +122,9 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
 tr.auto td { background: rgba(232,179,57,.03); }
 tr.auto td b { color: var(--dim); }
 .scsub { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .76rem; color: var(--dim); }
-.scsub .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-size: .66rem; margin-right: 6px; }
+.scsub .lbl { color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-size: .66rem; cursor: help; }
+.scsub .scth { color: var(--acc); font-size: .68rem; border: 1px solid var(--line); border-radius: 4px;
+  padding: 1px 7px; margin: 0 12px 0 10px; white-space: nowrap; }
 .scsub b { color: var(--txt); font-variant-numeric: tabular-nums; }
 
 /* ——— carduri rezumat (Home) ——— */
