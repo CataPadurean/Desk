@@ -31,7 +31,8 @@ def build_analysis_js():
     directions.json (scris de Claude la „procesează inbox"/„generează teza") aduce stratul
     narativ: regim, sentiment, comentarii COT/yields, secțiunile per monedă, trade-urile split."""
     parts = {}
-    for name in ('cot_latest', 'yields_latest', 'seasonality', 'directions'):
+    for name in ('cot_latest', 'yields_latest', 'seasonality', 'directions',
+                 'indicators_latest', 'regime_latest'):
         p = DATA / f'{name}.json'
         parts[name] = json.loads(p.read_text()) if p.exists() else None
     d = parts['directions'] or {}
@@ -52,7 +53,11 @@ def build_analysis_js():
            'playbook': d.get('playbook', []),        # Event Playbook: [{event, date, scenarios: [{name, odds, reaction, action}]}]
            'reports': d.get('reports', []),          # criteriul 2 — schema_bias.md, un rând per raport
            'reports_meta': d.get('reports_meta', {}),  # {processed, excluded, week}
-           'indicators': d.get('indicators', {}),    # criteriul 3 — per monedă, ordinea YLD_ORDER
+           'indicators': d.get('indicators', {}),    # criteriul 3 — starea macro per monedă (narativ)
+           # criteriul 3, cuantificat: surpriza actual-vs-consens (update_indicators.py)
+           'indicators_calc': parts['indicators_latest'],
+           # criteriul 6, cuantificat: VIX + credit + momentum (update_regime.py)
+           'regime_calc': parts['regime_latest'],
            'trades_fx': tfx or [],
            'trades_intraday': tin or [],
            'cot': parts['cot_latest'], 'yields': parts['yields_latest'],
@@ -66,7 +71,9 @@ def build_analysis_js():
         wk = d.get('date') or date.today().isoformat()
         month = int(wk.split('-')[1]) if '-' in wk else date.today().month
         obj['scorecard'] = build_scorecard(parts['cot_latest'], parts['yields_latest'],
-                                           parts['seasonality'], d, month)
+                                           parts['seasonality'], d, month,
+                                           ind=parts['indicators_latest'],
+                                           reg=parts['regime_latest'])
     except Exception as e:                                   # scorecardul nu trebuie să rupă pipeline-ul
         print(f'[RUNNER] scorecard EȘUAT: {e}', file=sys.stderr)
         obj['scorecard'] = None
@@ -77,16 +84,20 @@ def build_analysis_js():
 
 def main():
     no_fetch = '--no-fetch' in sys.argv   # doar recompune snapshot + analysis_data.js
-    ok_cot = ok_yld = True
+    ok_cot = ok_yld = ok_ind = ok_reg = True
     if not no_fetch:
         ok_cot = run('update_cot.py')
         ok_yld = run('update_yields.py')
+        ok_ind = run('update_indicators.py')   # criteriul 3 — surpriză actual vs. consens
+        ok_reg = run('update_regime.py')       # criteriul 6 — VIX + credit + momentum
         # seasonality: NU se rulează aici, e anuală (vezi update_seasonality.py)
 
     lines = [f'# MACRO SNAPSHOT — {date.today().isoformat()}', '']
     cot = json.loads((DATA / 'cot_latest.json').read_text()) if (DATA / 'cot_latest.json').exists() else None
     yld = json.loads((DATA / 'yields_latest.json').read_text()) if (DATA / 'yields_latest.json').exists() else None
     sea = json.loads((DATA / 'seasonality.json').read_text()) if (DATA / 'seasonality.json').exists() else None
+    ind = json.loads((DATA / 'indicators_latest.json').read_text()) if (DATA / 'indicators_latest.json').exists() else None
+    reg = json.loads((DATA / 'regime_latest.json').read_text()) if (DATA / 'regime_latest.json').exists() else None
 
     if cot:
         lines += [f"## COT (as of {max(m['as_of'] for m in cot['markets'].values())}) — Leveraged Funds (TFF) / Managed Money (GOLD)", '',
@@ -121,6 +132,28 @@ def main():
         lines.append('*Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*')
         lines.append('')
 
+    if ind and ind.get('currencies'):
+        lines += [f"## Surpriză macro (criteriul 3) — fereastră {ind.get('window_days', '?')} zile, "
+                  f"sursă: {ind.get('source', '?')}", '',
+                  '| Monedă | Surpriză ponderată | Scor | Publicări | Contributorii principali |',
+                  '|---|---|---|---|---|']
+        for k in ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'):
+            c = ind['currencies'].get(k) or {}
+            z = f"{c['z']:+.2f}σ" if c.get('z') is not None else '—'
+            sc = f"{c['score']:+d}" if c.get('score') is not None else '— (orb)'
+            top = ' · '.join(f"{t['name']} {t['z']:+.1f}σ" for t in (c.get('top') or [])[:2]) or '—'
+            lines.append(f"| {k} | {z} | {sc} | {c.get('n', 0)} | {top} |")
+        lines.append('')
+
+    if reg and reg.get('score') is not None:
+        lines += [f"## Regim de risc (criteriul 6) — scor {reg['score']:+d} ({reg.get('label', '')})"
+                  + ('' if reg.get('status') == 'ok' else f" *({reg.get('status')})*"), '',
+                  '| Componentă | Valoare | Percentilă 1y | Scor |', '|---|---|---|---|']
+        for c in reg.get('components', []):
+            lines.append(f"| {c['label']} | {c['value']} | "
+                         f"{c['pctile'] if c.get('pctile') is not None else '—'} | {c['score']:+d} |")
+        lines.append('')
+
     if sea and sea.get('current_month', {}).get('instruments'):
         cm = sea['current_month']
         lines += [f"## Sezonalitate — luna curentă ({cm['name']}, medie {sea['years']} ani)", '',
@@ -132,7 +165,9 @@ def main():
     DATA.mkdir(exist_ok=True)
     (DATA / 'macro_snapshot.md').write_text('\n'.join(lines))
     build_analysis_js()
-    print(f"[RUNNER] macro_snapshot.md scris. COT={'ok' if ok_cot else 'EȘUAT'}, Randamente={'ok' if ok_yld else 'EȘUAT'}")
+    print(f"[RUNNER] macro_snapshot.md scris. COT={'ok' if ok_cot else 'EȘUAT'}, "
+          f"Randamente={'ok' if ok_yld else 'EȘUAT'}, "
+          f"Surprize={'ok' if ok_ind else 'EȘUAT'}, Regim={'ok' if ok_reg else 'EȘUAT'}")
 
 if __name__ == '__main__':
     main()

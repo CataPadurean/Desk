@@ -77,6 +77,28 @@
     return '<span title="' + c + '">' + s + '</span>';
   };
 
+  // ——— ID-ul unei idei: singura punte între research și execuție ———
+  // Format: AAAA-LL-ZZ-INSTRUMENT-L|S|X, data = ziua în care ideea a intrat în book
+  // (lunea săptămânii, pentru Swing). Se scrie în `id` în data.js / history_data.js și
+  // se copiază în coloana «Idea ref» din blotter. Dacă `id` lipsește, se recalculează
+  // din (opened, instrument, dir) — deci vechile intrări rămân legabile.
+  window.ideaId = function (o) {
+    if (!o) return '';
+    if (o.id) return o.id;
+    var d = String(o.opened || o.date || '').trim();          // acceptă „06.07.2026" sau ISO
+    var m = d.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    var iso = m ? (m[3] + '-' + m[2] + '-' + m[1]) : (/^\d{4}-\d{2}-\d{2}$/.test(d) ? d : '');
+    var dir = String(o.dir || '').toUpperCase();
+    var L = dir.indexOf('LONG') > -1 ? 'L' : (dir.indexOf('SHORT') > -1 ? 'S' : 'X');
+    return iso ? iso + '-' + String(o.instrument || '?').toUpperCase() + '-' + L : '';
+  };
+  // eticheta de copiat lângă instrument (click = selectează textul)
+  window.ideaTag = function (o) {
+    var id = window.ideaId(o);
+    return id ? '<span class="idtag" title="ID-ul ideii — se trece în coloana «Idea ref» din blotter">'
+                + id + '</span>' : '';
+  };
+
   // helper-e comune de formatare, folosite de mai multe pagini
   window.fmtDate = fmtD;
   window.numCls = function (x) { return x > 0 ? 'pos' : (x < 0 ? 'neg' : ''); };

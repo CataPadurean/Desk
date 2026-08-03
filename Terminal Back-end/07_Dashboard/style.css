@@ -117,6 +117,9 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
 .scph .small { text-transform: none; letter-spacing: 0; font-weight: 400; }
 .sctag { font-size: .62rem; color: var(--dim); border: 1px solid var(--line); border-radius: 3px;
   padding: 1px 4px; margin-left: 4px; cursor: help; white-space: nowrap; }
+/* ID-ul ideii — puntea dintre book și blotter; se selectează cu un click, ca să se poată copia */
+.idtag { display: block; margin-top: 3px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .6rem; color: var(--dim); letter-spacing: .2px; user-select: all; white-space: nowrap; }
 .b-book { background: rgba(77,163,255,.18); color: var(--acc); }
 /* rând generat din scorecard, fără teză scrisă încă — vizibil, dar nu la fel de „greu" */
 tr.auto td { background: rgba(232,179,57,.03); }

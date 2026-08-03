@@ -11,13 +11,21 @@ Arhitectură „merge întotdeauna":
        GBP : BoE — ZIP curba GLC (xlsx)      → Stooq
        CAD : Bank of Canada Valet (JSON)
        JPY : MOF Japonia (jgbcme CSV)        → Stooq
-       CHF : SNB — DOAR 10Y din 2025 (xlsx/RSS «Current interest rates»; cuburile spot moarte) → Stooq
+       CHF : SNB — DOAR 10Y din 2025 (xlsx/RSS «Current interest rates»; cuburile spot moarte) → Stooq 2Y
        AUD : RBA F2 zilnic (FCMYGBAG2D/10D)  → RBA F2.1 lunar → Stooq
-       NZD : RBNZ B2 Daily close (xlsx nou, 25.08.2025) → Stooq
-  2. Cache «last-known-good»: dacă o sursă pică azi, păstrăm ultima valoare
+       NZD : RBNZ — tabelul zilnic din pagina B2 (HTML) → xlsx B2 (WAF: 403) → Stooq
+  2. Lanțul umple PER TENOR, nu per monedă (fix 03.08.2026): o sursă care aduce doar
+     10Y (SNB, din 2025) nu mai oprește căutarea pentru 2Y. Ăsta era motivul pentru
+     care CHF intra în scorecard fără criteriul 4 pe tenorul principal.
+  3. Cache «last-known-good»: dacă o sursă pică azi, păstrăm ultima valoare
      bună din yields_latest.json (status = stale), NU dispare din dashboard.
-  3. history per monedă/tenor (ultimele ~30 obs.) pentru Δ stabil.
-Doar stdlib — rulează identic pe Mac, GitHub Actions sau alt sandbox."""
+  4. history per monedă/tenor (ultimele ~30 obs.) pentru Δ stabil.
+Doar stdlib — rulează identic pe Mac, GitHub Actions sau alt sandbox.
+
+Rulare:
+  python3 update_yields.py            → scrie yields_latest.json
+  python3 update_yields.py --probe    → testează fiecare sursă separat, fără să scrie
+  python3 update_yields.py --probe NZD CHF  → doar monedele date"""
 import csv, io, json, re, sys, time, urllib.request, zipfile
 import datetime as dt
 from datetime import date, timedelta
@@ -30,24 +38,33 @@ HIST_KEEP = 30          # observații păstrate per serie
 DELTA_SESSIONS = 5      # Δ = ultima valoare − valoarea de acum ~5 ședințe
 
 # ————————————————————————— utilitare —————————————————————————
-def get(url, tries=3, binary=False, referer=None):
-    """Fetch cu curl și UA-ul lui implicit (curl/x). NU spoof-ui «Mozilla/…»:
-    FRED (Akamai) tarpit-ează UA-uri de browser venite fără fingerprint TLS de
-    browser real (lecția din 04.07.2026). Fallback: urllib fără UA custom."""
+# UA de browser — se folosește DOAR pe sursele al căror WAF respinge din start
+# «curl/8.x» cu 403 (RBNZ, Stooq). NU pe FRED: acolo e exact invers — Akamai
+# tarpit-ează UA-uri de browser venite fără fingerprint TLS de browser real
+# (lecția din 04.07.2026). Deci UA-ul e per sursă, nu global.
+BROWSER_UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
+              '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36')
+
+def get(url, tries=3, binary=False, referer=None, ua=None):
+    """Fetch cu curl (UA implicit curl/x, dacă `ua` nu e dat). Fallback: urllib."""
     import subprocess
     last = None
     for i in range(tries):
         try:
             cmd = ['curl', '-sSL', '--fail', '--max-time', '60']
             if referer: cmd += ['-e', referer]
+            if ua: cmd += ['-A', ua, '-H', 'Accept-Language: en-US,en;q=0.9']
             r = subprocess.run(cmd + [url], capture_output=True, timeout=75)
             if r.returncode == 0 and r.stdout:
                 return r.stdout if binary else r.stdout.decode('utf-8', errors='replace')
             last = RuntimeError(f'curl rc={r.returncode}: {r.stderr.decode("utf-8", "replace")[:100]}')
         except Exception as e:
             last = e
-        try:  # fallback urllib, fără User-Agent custom
-            req = urllib.request.Request(url, headers={'Referer': referer} if referer else {})
+        try:  # fallback urllib
+            hdr = {}
+            if referer: hdr['Referer'] = referer
+            if ua: hdr['User-Agent'] = ua
+            req = urllib.request.Request(url, headers=hdr)
             raw = urllib.request.urlopen(req, timeout=60).read()
             return raw if binary else raw.decode('utf-8', errors='replace')
         except Exception as e:
@@ -256,33 +273,55 @@ def src_snb():
             last_err = f'{cube}: fără 2J/10J0'
     raise RuntimeError(f'SNB cuburi: {last_err}')
 
+# codurile de coloană din «Current interest rates» (SNB). 10Y e sigur publicat;
+# pe 2Y caut mai multe variante — dacă SNB reintroduce tenorul, îl prinde singur.
+SNB_CODE_10Y = ('R10', 'R10J', 'R10Y')
+SNB_CODE_2Y = ('R02', 'R2', 'R2J', 'R2Y')
+
+def _snb_xlsx_sheets():
+    return xlsx_sheets(get('https://www.snb.ch/public/rates/interestRates.xlsx', binary=True))
+
+def snb_xlsx_codes():
+    """Diagnostic (--probe CHF): ce coduri de coloană publică SNB azi.
+    Dacă printre ele apare vreodată un cod de 2 ani, se adaugă în SNB_CODE_2Y și
+    criteriul 4 revine pe tenorul principal fără altă modificare."""
+    out = {}
+    for sheet, rows in _snb_xlsx_sheets().items():
+        codes = set()
+        for r in rows[:40]:
+            for c, v in r.items():
+                if c != 'A' and isinstance(v, str) and re.match(r'^[A-Z]{1,3}\d{1,3}[A-Z]?$', v.strip().upper()):
+                    codes.add(v.strip().upper())
+        if codes:
+            out[sheet] = sorted(codes)
+    return out
+
 def src_snb_xlsx():
     """CHF: «Current interest rates» xlsx (snb.ch/public/rates/interestRates.xlsx).
-    SNB a oprit curba spot completă în 2025 — publică zilnic DOAR 10Y Confederație.
-    Structura (verificată 20.07.2026, foaia «Interest_Rates»): un rând-antet mapează
-    coloanele pe coduri (… «R10» = Rendite Bundesobligationen), apoi rânduri de date
-    cu A = dată serial Excel și R10 = randamentul 10Y. Iau istoricul complet."""
-    raw = get('https://www.snb.ch/public/rates/interestRates.xlsx', binary=True)
-    for sheet, rows in xlsx_sheets(raw).items():
-        col_r10 = None
-        for r in rows:
-            if col_r10 is None:
-                for c, v in r.items():
-                    if isinstance(v, str) and v.strip().upper() == 'R10' and c != 'A':
-                        col_r10 = c
-                if col_r10: continue
-            if col_r10 is None: continue
-        if not col_r10: continue
-        s10 = []
-        for r in rows:
-            d = xl_date(r.get('A'))
-            v = r.get(col_r10)
-            if d and v is not None:
-                try: s10.append((d, float(v)))
-                except (TypeError, ValueError): pass
-        if s10:
-            return {'2Y': [], '10Y': series_clean(s10)}, 'SNB xlsx (doar 10Y)'
-    raise RuntimeError('SNB xlsx: coloana R10 negăsită')
+    SNB a oprit curba spot completă în 2025 — publică zilnic DOAR 10Y Confederație
+    («R10»). Structura (verificată 20.07.2026, foaia «Interest_Rates»): un rând-antet
+    mapează coloanele pe coduri, apoi rânduri cu A = dată serial Excel."""
+    for sheet, rows in _snb_xlsx_sheets().items():
+        col = {}
+        for r in rows[:40]:
+            for c, v in r.items():
+                if c == 'A' or not isinstance(v, str):
+                    continue
+                u = v.strip().upper()
+                if u in SNB_CODE_10Y:
+                    col.setdefault('10Y', c)
+                elif u in SNB_CODE_2Y:
+                    col.setdefault('2Y', c)
+        if not col:
+            continue
+        out = {'2Y': [], '10Y': []}
+        for tenor, c in col.items():
+            s = [(xl_date(r.get('A')), _f(r.get(c))) for r in rows]
+            out[tenor] = series_clean([(d, v) for d, v in s if d and v is not None])
+        if out['2Y'] or out['10Y']:
+            got = '+'.join(t for t in ('2Y', '10Y') if out[t])
+            return out, f'SNB xlsx ({got})'
+    raise RuntimeError('SNB xlsx: nicio coloană R2/R10 găsită')
 
 def src_snb_rss():
     """CHF fallback oficial: RSS «Current interest rates» — DOAR 10Y (ultima valoare).
@@ -337,14 +376,25 @@ def src_rba():
                      ('FCMYGBAG2',), ('FCMYGBAG10',))
     return out, 'RBA F2.1 lunar'
 
+RBNZ_REFERER = ('https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/'
+                'wholesale-interest-rates')
+# căi verificate + moștenite; WAF-ul RBNZ răspunde 403 la «curl/8.x», de aici ua=BROWSER_UA
+RBNZ_URLS = (
+    'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/hb2-daily-close.xlsx',
+    'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/hb2-daily.xlsx',
+    'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/tables/b2/hb2-daily-close.xlsx',
+    'https://www.rbnz.govt.nz/-/media/ReserveBank/Files/Statistics/tables/b2/hb2-daily.xlsx',
+)
+
 def src_rbnz():
-    """NZD oficial: RBNZ B2 Daily close (xlsx, din 25.08.2025; închideri NZFMA, lag 1 zi).\n    Caut coloanele «Govt bond yields … 2/10 year(s)»."""
-    # din 25.08.2025 RBNZ publică «B2 Daily close» (hb2-daily-close.xlsx); cel vechi e mort
+    """NZD oficial: RBNZ B2 Daily close (xlsx, din 25.08.2025; închideri NZFMA, lag 1 zi).
+    Caut coloanele «Govt bond yields … 2/10 year(s)».
+    03.08.2026: feed-ul întorcea 403 — cauza probabilă e UA-ul curl, nu adresa; trec pe
+    UA de browser + referer și încerc mai multe căi (RBNZ și-a mutat fișierele de 2 ori)."""
     last = None
-    for fn in ('hb2-daily-close.xlsx', 'hb2-daily.xlsx'):
+    for url in RBNZ_URLS:
         try:
-            raw = get(f'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/statistics/series/b/b2/{fn}',
-                      binary=True, referer='https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/wholesale-interest-rates')
+            raw = get(url, tries=2, binary=True, referer=RBNZ_REFERER, ua=BROWSER_UA)
             break
         except Exception as e:
             last = e
@@ -383,12 +433,79 @@ def src_rbnz():
             return {'2Y': series_clean(s2), '10Y': series_clean(s10)}, 'RBNZ B2 zilnic'
     raise RuntimeError('RBNZ B2: coloanele bond 2y/10y negăsite')
 
+def src_rbnz_html():
+    """NZD, plan B (03.08.2026): xlsx-ul B2 întoarce 403 și de pe Mac — WAF-ul RBNZ
+    blochează descărcarea programatică a fișierului, indiferent de UA. Pagina B2 însă
+    e servită normal ȘI conține tabelul-rezumat cu ultimele ~10 ședințe, inclusiv
+    «Secondary market government bond closing yields»: 1y, 2y, 5y, 10y.
+    Zece observații ajung pentru Δ pe 5 ședințe; restul se acumulează în cache.
+
+    Structura unui rând: dată + 12 valori
+      OCR · depozit o/n · reverse repo o/n · interbancar o/n · 30d · 60d · 90d
+      · 1y · 2y · 5y · 10y · spread 2-10 (în bp)
+    Citesc de la coadă (2y = a patra de la sfârșit, 10y = a doua) și verific
+    alinierea pe ultima celulă: spread-ul e în puncte de bază, deci >10 în valoare
+    absolută — dacă nu e, structura s-a schimbat și refuz rândul."""
+    html = get('https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/'
+               'wholesale-interest-rates', tries=2, ua=BROWSER_UA)
+    s2, s10 = [], []
+    for row in re.split(r'<tr[\s>]', html)[1:]:
+        cells = [re.sub(r'<[^>]+>', '', c).replace('&nbsp;', ' ').strip()
+                 for c in re.split(r'<t[dh][\s>]', row)[1:]]
+        if len(cells) < 13:
+            continue
+        d = _iso(cells[0])
+        if not re.match(r'^\d{4}-\d{2}-\d{2}$', d):
+            continue
+        vals = cells[1:]
+        try:                              # spread-ul e în bp (zeci), deci NU trece prin _f
+            spread = float(vals[-1].replace(',', '').strip())
+        except (ValueError, AttributeError):
+            continue
+        v2, v10 = _f(vals[-4]), _f(vals[-2])
+        if abs(spread) <= 10 or v2 is None or v10 is None:
+            continue                      # coloanele nu mai sunt unde le știam
+        s2.append((d, v2)); s10.append((d, v10))
+    if not s2:
+        raise RuntimeError('RBNZ pagina B2: tabelul de randamente nu a putut fi citit')
+    return {'2Y': series_clean(s2), '10Y': series_clean(s10)}, 'RBNZ pagina B2 (tabel zilnic)'
+
+
+def src_manual(ccy):
+    """Ultima verigă din orice lanț: seria culeasă manual, din `yields_manual` în
+    directions.json. Nu e o improvizație, e o supapă necesară — RBNZ răspunde 403
+    oricărui client care nu e browser real (Akamai verifică amprenta TLS, nu UA-ul),
+    deci nici Mac-ul, nici GitHub Actions nu pot descărca fișierul. Pagina B2 însă
+    se citește normal dintr-un browser: la «generează teza», Claude o deschide și
+    scrie aici ultimele ~10 ședințe, cu sursa și data culegerii.
+
+    Format (serii, nu valori izolate — altfel Δ pe 5 ședințe n-are din ce se calcula):
+      "yields_manual": {
+        "NZD": {"source": "RBNZ pagina B2 (…)", "asof": "2026-08-03",
+                "2Y":  [["2026-07-17", 3.58], …],
+                "10Y": [["2026-07-17", 4.65], …]}}
+    Datele intră în același cache last-known-good ca restul; dacă o sursă automată
+    revine la viață, ea are prioritate — manualul e ultimul în lanț."""
+    p = DATA / 'directions.json'
+    if not p.exists():
+        raise RuntimeError('directions.json inexistent')
+    node = (json.loads(p.read_text()).get('yields_manual') or {}).get(ccy)
+    if not node:
+        raise RuntimeError(f'fără serie manuală pentru {ccy}')
+    out = {t: series_clean([tuple(x) for x in (node.get(t) or [])]) for t in ('2Y', '10Y')}
+    if not out['2Y'] and not out['10Y']:
+        raise RuntimeError(f'seria manuală {ccy} e goală')
+    return out, f"manual — {node.get('source', 'sursă nespecificată')}"
+
+
 def src_stooq(sym2, sym10):
-    """Fallback de piață. Stooq limitează IP-urile agresiv («Exceeded the daily hits limit»)."""
+    """Fallback de piață. Stooq limitează IP-urile agresiv («Exceeded the daily hits limit»)
+    și răspunde cu HTML în loc de CSV la UA-uri non-browser — de aici ua=BROWSER_UA."""
     d1 = (date.today() - timedelta(days=90)).strftime('%Y%m%d')
     d2 = date.today().strftime('%Y%m%d')
     def one(sym):
-        txt = get(f'https://stooq.com/q/d/l/?s={sym}&d1={d1}&d2={d2}&i=d', tries=2)
+        txt = get(f'https://stooq.com/q/d/l/?s={sym}&d1={d1}&d2={d2}&i=d', tries=2,
+                  referer='https://stooq.com/', ua=BROWSER_UA)
         first = txt.split('\n', 1)[0].strip()
         if not first.lower().startswith('date'):
             raise RuntimeError(f'{sym}: răspuns non-CSV ({first[:60]!r})')
@@ -407,16 +524,31 @@ def src_stooq(sym2, sym10):
     return {'2Y': s2 or [], '10Y': s10 or []}, 'Stooq'
 
 # ————————————————————————— lanțuri primar→fallback —————————————————————————
+# Ordinea contează: prima sursă care aduce un tenor îl „câștigă"; următoarele sunt
+# consultate DOAR pentru tenorurile rămase goale (vezi fetch_chain).
+def _named(fn, name):
+    fn.__name__ = name
+    return fn
+
 CHAINS = {
     'US':  [src_fred, src_treasury],
-    'EUR': [src_ecb,  lambda: src_stooq('2ydey.b', '10ydey.b')],
-    'GBP': [src_boe_glc, lambda: src_stooq('2yuky.b', '10yuky.b')],
+    'EUR': [src_ecb,  _named(lambda: src_stooq('2ydey.b', '10ydey.b'), 'stooq_eur')],
+    'GBP': [src_boe_glc, _named(lambda: src_stooq('2yuky.b', '10yuky.b'), 'stooq_gbp')],
     'CAD': [src_boc],
-    'JPY': [src_mof,  lambda: src_stooq('2yjpy.b', '10yjpy.b')],
-    'CHF': [src_snb, src_snb_xlsx, src_snb_rss, lambda: src_stooq('2ychy.b', '10ychy.b')],
-    'AUD': [src_rba,  lambda: src_stooq('2yauy.b', '10yauy.b')],
-    'NZD': [src_rbnz, lambda: src_stooq('2ynzy.b', '10ynzy.b')],
+    'JPY': [src_mof,  _named(lambda: src_stooq('2yjpy.b', '10yjpy.b'), 'stooq_jpy')],
+    # CHF: SNB publică din 2025 DOAR 10Y. Stooq stă în lanț pentru 2Y — cu umplerea
+    # per tenor, faptul că SNB reușește pe 10Y nu mai anulează căutarea pe 2Y.
+    'CHF': [src_snb, src_snb_xlsx, _named(lambda: src_stooq('2ychy.b', '10ychy.b'), 'stooq_chf'),
+            src_snb_rss],
+    'AUD': [src_rba,  _named(lambda: src_stooq('2yauy.b', '10yauy.b'), 'stooq_aud')],
+    # NZD: xlsx-ul B2 e blocat de WAF (403 și de pe Mac), dar pagina B2 publică
+    # același tabel zilnic → sursa primară e pagina, fișierul rămâne ca fallback.
+    'NZD': [src_rbnz_html, src_rbnz,
+            _named(lambda: src_stooq(('2ynzy.b', '2ynz.b'), ('10ynzy.b', '10ynz.b')), 'stooq_nzd')],
 }
+# seria culeasă manual închide FIECARE lanț — ultima opțiune, niciodată prima
+for _c in CHAINS:
+    CHAINS[_c].append(_named(lambda c=_c: src_manual(c), 'manual'))
 PAIRS = (('EURUSD', 'EUR', 'US'), ('GBPUSD', 'GBP', 'US'), ('AUDUSD', 'AUD', 'US'),
          ('NZDUSD', 'NZD', 'US'), ('USDJPY', 'US', 'JPY'), ('USDCHF', 'US', 'CHF'),
          ('USDCAD', 'US', 'CAD'))
@@ -427,6 +559,77 @@ def snap(series):
     d, v = series[-1]
     ref = series[-(DELTA_SESSIONS + 1)][1] if len(series) > DELTA_SESSIONS else series[0][1]
     return {'date': d, 'value': round(v, 3), 'delta_1w': round(v - ref, 3)}
+
+def fetch_chain(ccy, chain, fresh_lim, verbose=True):
+    """Parcurge lanțul până când AMBELE tenoruri sunt acoperite cu date proaspete.
+    Întoarce (serii_per_tenor, sursă_per_tenor, erori).
+
+    Diferența față de varianta veche: nu mai iese la prima sursă care întoarce «ceva».
+    O sursă care aduce doar 10Y (SNB, din 2025) lăsa 2Y gol pentru totdeauna."""
+    got = {'2Y': [], '10Y': []}
+    src = {}
+    errs = []
+    for fn in chain:
+        if got['2Y'] and got['10Y']:
+            break
+        name = getattr(fn, '__name__', 'fallback')
+        try:
+            fetched, src_name = fn()
+        except Exception as e:
+            errs.append(f'{name}: {type(e).__name__}: {e}')
+            if verbose: print(f'[YLD]   {ccy} {errs[-1]}', file=sys.stderr)
+            continue
+        added = []
+        for t in ('2Y', '10Y'):
+            s = (fetched or {}).get(t) or []
+            if not s or got[t]:
+                continue
+            if s[-1][0] < fresh_lim:          # sursă care întoarce doar date vechi = sursă picată
+                errs.append(f'{src_name} {t}: date vechi ({s[-1][0]})')
+                if verbose: print(f'[YLD]   {ccy} {errs[-1]} — resping', file=sys.stderr)
+                continue
+            got[t], src[t] = s, src_name
+            added.append(t)
+        if not added:
+            errs.append(f'{src_name}: fără tenoruri noi/proaspete')
+    return got, src, errs
+
+
+def probe(only=None):
+    """Diagnostic: testează FIECARE sursă din lanț separat și spune ce întoarce.
+    Nu scrie nimic pe disc. De rulat pe Mac când o monedă apare INDISPONIBIL —
+    sandbox-ul și GitHub Actions au alte IP-uri și alte blocaje decât laptopul."""
+    fresh_lim = (date.today() - timedelta(days=28)).isoformat()
+    for ccy, chain in CHAINS.items():
+        if only and ccy not in only:
+            continue
+        print(f'\n=== {ccy} ===')
+        for fn in chain:
+            name = getattr(fn, '__name__', 'fallback')
+            t0 = time.time()
+            try:
+                fetched, src_name = fn()
+            except Exception as e:
+                print(f'  {name:<18} EȘEC   {type(e).__name__}: {str(e)[:120]}')
+                continue
+            bits = []
+            for t in ('2Y', '10Y'):
+                s = (fetched or {}).get(t) or []
+                if not s:
+                    bits.append(f'{t}: —')
+                else:
+                    flag = '' if s[-1][0] >= fresh_lim else '  VECHI'
+                    bits.append(f'{t}: {s[-1][1]} @ {s[-1][0]} ({len(s)} obs){flag}')
+            print(f'  {name:<18} OK     {src_name} · ' + ' | '.join(bits)
+                  + f'  [{time.time() - t0:.1f}s]')
+        if ccy == 'CHF':
+            # ce tenoruri mai publică SNB azi — singurul mod de a ști dacă 2Y a revenit
+            try:
+                for sheet, codes in snb_xlsx_codes().items():
+                    print(f'  [coduri SNB xlsx · {sheet}] ' + ' '.join(codes))
+            except Exception as e:
+                print(f'  [coduri SNB xlsx] indisponibile: {type(e).__name__}: {e}')
+
 
 def main():
     prev = {}
@@ -446,38 +649,27 @@ def main():
                         [s['date'], s['value']]]
 
     history, status, sources = {}, {}, {}
+    fresh_lim = (date.today() - timedelta(days=28)).isoformat()
     for ccy, chain in CHAINS.items():
-        fetched, src_name, errs = None, None, []
-        fresh_lim = (date.today() - timedelta(days=28)).isoformat()
-        for fn in chain:
-            try:
-                fetched, src_name = fn()
-                if fetched:   # guard: sursă care întoarce doar date vechi = sursă picată
-                    for t in ('2Y', '10Y'):
-                        s = fetched.get(t) or []
-                        if s and s[-1][0] < fresh_lim:
-                            print(f'[YLD]   {ccy} {src_name} {t}: date vechi ({s[-1][0]}) — resping', file=sys.stderr)
-                            fetched[t] = []
-                if fetched and (fetched.get('2Y') or fetched.get('10Y')): break
-                errs.append(f'{src_name}: fără date recente')
-                fetched = None
-            except Exception as e:
-                errs.append(f'{getattr(fn, "__name__", "fallback")}: {type(e).__name__}: {e}')
-                print(f'[YLD]   {ccy} {errs[-1]}', file=sys.stderr)
+        got, src, errs = fetch_chain(ccy, chain, fresh_lim)
         err = ' || '.join(str(x)[:160] for x in errs) if errs else None
         # merge cu istoricul anterior (last-known-good) — nu pierdem nimic
         history[ccy] = {}
         for tenor in ('2Y', '10Y'):
             old = {d: v for d, v in prev_hist.get(ccy, {}).get(tenor, [])}
-            new = dict(fetched.get(tenor) or []) if fetched else {}
-            merged = sorted({**old, **new}.items())[-HIST_KEEP:]
+            merged = sorted({**old, **dict(got[tenor])}.items())[-HIST_KEEP:]
             history[ccy][tenor] = merged
-        if fetched:
-            status[ccy] = 'ok'; sources[ccy] = src_name
+        sources[ccy] = ' · '.join(f'{t}: {src[t]}' for t in ('2Y', '10Y') if t in src) \
+                       or prev.get('sources', {}).get(ccy, 'cache')
+        if got['2Y'] and got['10Y']:
+            status[ccy] = 'ok'
+        elif got['2Y'] or got['10Y']:
+            miss = '2Y' if not got['2Y'] else '10Y'
+            status[ccy] = f'parțial — {miss} indisponibil ({err})'
+            print(f'[YLD] {ccy}: doar {"10Y" if miss == "2Y" else "2Y"} proaspăt, {miss} lipsă', file=sys.stderr)
         elif history[ccy]['2Y'] or history[ccy]['10Y']:
             last_d = max((s[-1][0] for s in history[ccy].values() if s), default='?')
             status[ccy] = f'stale — ultima valoare {last_d} ({err})'
-            sources[ccy] = prev.get('sources', {}).get(ccy, 'cache')
             print(f'[YLD] {ccy}: sursă picată, păstrez last-known-good ({last_d})', file=sys.stderr)
         else:
             status[ccy] = f'INDISPONIBIL: {err}'
@@ -500,13 +692,19 @@ def main():
     DATA.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1))
     ok = [k for k, s in status.items() if s == 'ok']
+    part = [k for k, s in status.items() if s.startswith('parțial')]
     stale = [k for k, s in status.items() if s.startswith('stale')]
-    dead = [k for k in status if k not in ok and k not in stale]
+    dead = [k for k in status if k not in ok and k not in part and k not in stale]
     print(f"[YLD] OK: {', '.join(ok) or '—'}"
+          + (f" | PARȚIAL(un tenor): {', '.join(part)}" if part else '')
           + (f" | STALE(cache): {', '.join(stale)}" if stale else '')
           + (f" | INDISPONIBILE: {', '.join(dead)}" if dead else ''))
-    if not ok and not stale:
+    if not ok and not part and not stale:
         sys.exit(1)
 
 if __name__ == '__main__':
-    main()
+    if '--probe' in sys.argv:
+        args = [a.upper() for a in sys.argv[1:] if not a.startswith('-')]
+        probe(args or None)
+    else:
+        main()

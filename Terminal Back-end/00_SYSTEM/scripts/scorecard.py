@@ -11,6 +11,13 @@ din diferența de rank, nu din intuiție.
   · criteriile 3-7 (Indicators, Yields, COT, Regime, Seasonality) = MECANIC — calculate
     aici din cot_latest.json / yields_latest.json / seasonality.json, cu praguri fixe.
 
+03.08.2026 — criteriile 3 și 6 au trecut de la etichetă la date:
+  · IND citește indicators_latest.json (surpriză actual-vs-consens, z-score ponderat;
+    update_indicators.py). Eticheta veche din directions.json → indicators[].surprise
+    rămâne doar ca ultimă plasă de siguranță și e marcată vizibil ca atare.
+  · REG citește regime_latest.json (VIX + HY OAS + momentum S&P; update_regime.py).
+    `regime_score` din directions.json rămâne fallback dacă FRED e mort.
+
 PRAGURILE SE ÎNGHEAȚĂ. Ajustarea lor retroactiv, ca să iasă scorul dorit, e cel mai
 comun mod de a strica un scorecard. Se modifică doar la review lunar, pe date, ca
 playbook-ul.
@@ -131,29 +138,47 @@ def score_yields(yld: dict | None) -> dict:
     return out
 
 
-def score_indicators(directions: dict) -> dict:
+def score_indicators(directions: dict, ind: dict | None = None) -> dict:
+    """Surpriza macro ponderată (update_indicators.py). Eticheta manuală e ultima soluție:
+    un criteriu de 2,0 din 12,5 nu are voie să stea pe un cuvânt scris din impresie."""
+    calc = (ind or {}).get('currencies', {}) or {}
     out = {}
     for ccy in CCY_ORDER:
-        node = (directions.get('indicators', {}) or {}).get(ccy) or {}
-        s = str(node.get('surprise', '')).strip().lower()
-        if s not in IND_MAP:
-            out[ccy] = (None, 'fără citire de surpriză')
+        node = calc.get(ccy) or {}
+        if node.get('score') is not None:
+            out[ccy] = (_clamp(int(node['score'])), node.get('why', 'surpriză macro calculată'))
             continue
-        out[ccy] = (IND_MAP[s], f'surpriză macro: {s}')
+        # fallback: eticheta scrisă de mână, marcată explicit
+        s = str(((directions.get('indicators', {}) or {}).get(ccy) or {})
+                .get('surprise', '')).strip().lower()
+        if s in IND_MAP:
+            why = f'etichetă manuală „{s}" (fără index de surpriză)'
+            if node.get('why'):
+                why += f" — {node['why']}"
+            out[ccy] = (IND_MAP[s], why)
+        else:
+            out[ccy] = (None, node.get('why') or 'fără citire de surpriză')
     return out
 
 
-def score_regime(directions: dict) -> dict:
-    """regime_score (−2…+2, risk-on pozitiv) × beta monedei."""
-    rs = directions.get('regime_score')
+def score_regime(directions: dict, reg: dict | None = None) -> dict:
+    """regime_score (−2…+2, risk-on pozitiv) × beta monedei.
+    Scorul vine calculat din regime_latest.json; directions.json e doar plasă de siguranță."""
+    src = 'calculat'
+    rs = (reg or {}).get('score')
+    if rs is None:
+        rs, src = directions.get('regime_score'), 'manual'
     out = {}
     for ccy in CCY_ORDER:
         if rs is None:
-            out[ccy] = (None, 'regime_score nesetat în directions.json')
+            out[ccy] = (None, 'regim indisponibil (rulează update_regime.py)')
             continue
         b = RISK_BETA.get(ccy, 0.0)
         sc = _clamp(_round_half_up(float(rs) * b))
-        out[ccy] = (sc, f'regim {float(rs):+.0f} × beta {b:+.1f}')
+        why = f'regim {float(rs):+.0f} × beta {b:+.1f}'
+        why += f" ({(reg or {}).get('why')})" if src == 'calculat' and (reg or {}).get('why') \
+            else ' [scor manual din directions.json]'
+        out[ccy] = (sc, why)
     return out
 
 
@@ -211,13 +236,14 @@ def _total(scores: dict) -> tuple[float | None, list]:
 
 
 def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
-                    directions: dict, month: int) -> dict:
+                    directions: dict, month: int,
+                    ind: dict | None = None, reg: dict | None = None) -> dict:
     """Compune scorecard-ul complet: scoruri per monedă, rank, perechi cu verdict."""
     judgment = (directions.get('scorecard') or {}).get('judgment', {}) or {}
     catalysts = directions.get('catalysts', {}) or {}
 
-    mech = {'ind': score_indicators(directions), 'yld': score_yields(yld),
-            'cot': score_cot(cot), 'reg': score_regime(directions),
+    mech = {'ind': score_indicators(directions, ind), 'yld': score_yields(yld),
+            'cot': score_cot(cot), 'reg': score_regime(directions, reg),
             'sea': score_seasonality(sea, month)}
 
     rows = {}
@@ -244,7 +270,11 @@ def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
 
     return {'weights': WEIGHTS, 'crit_order': list(CRIT_ORDER), 'crit_label': CRIT_LABEL,
             'judgment_crit': list(JUDGMENT), 'ccy_order': list(CCY_ORDER),
-            'month': month, 'regime_score': directions.get('regime_score'),
+            'month': month,
+            'regime_score': (reg or {}).get('score', directions.get('regime_score')),
+            'regime_src': 'calculat' if (reg or {}).get('score') is not None else 'manual',
+            'regime_why': (reg or {}).get('why', ''),
+            'ind_src': (ind or {}).get('source', 'etichete manuale'),
             'currencies': rows, 'ranked': ranked,
             'pairs': _build_pairs(rows),
             'thresholds': {'book': GAP_BOOK, 'watch': GAP_WATCH}}
@@ -305,7 +335,8 @@ if __name__ == '__main__':
 
     month = int(sys.argv[1]) if len(sys.argv) > 1 else date.today().month
     sc = build_scorecard(load('cot_latest'), load('yields_latest'), load('seasonality'),
-                         load('directions') or {}, month)
+                         load('directions') or {}, month,
+                         ind=load('indicators_latest'), reg=load('regime_latest'))
 
     print('CURRENCY SCORECARD — luna %d\n' % month)
     print('%-5s ' % '' + ' '.join('%4s' % CRIT_LABEL[k] for k in CRIT_ORDER) + '  TOTAL')

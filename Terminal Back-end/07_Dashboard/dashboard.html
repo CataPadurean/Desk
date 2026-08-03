@@ -196,6 +196,7 @@
                 (t._cross ? ' <span class="sctag" title="cross — fără acoperire directă în rapoarte, spread mai larg la broker">cross</span>' : '') +
                 (t._auto ? ' <span class="sctag" title="pereche peste prag în scorecard, fără teză scrisă încă — se completează la „generează teza„">scorecard</span>' : '') +
                 (t._blind && t._blind.length ? '<span class="scblind" title="criterii fără date pe unul dintre picioare — scor mai puțin sigur">orb: ' + t._blind.join(', ') + '</span>' : '') +
+                ideaTag(t) +
               '</td>' +
               '<td>' + dirBadge(showDir(t)) + '</td>' +
               '<td>' + (gap ? '<span class="score"' + (t._verdict ? ' title="' + esc2(t._verdict) + '"' : '') + '>' + gap + '</span>' : '<span class="dim">—</span>') + '</td>' +

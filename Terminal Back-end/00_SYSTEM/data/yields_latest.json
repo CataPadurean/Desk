@@ -1,23 +1,24 @@
 {
- "updated": "2026-08-01",
+ "updated": "2026-08-03",
  "status": {
   "US": "ok",
   "EUR": "ok",
   "GBP": "ok",
   "CAD": "ok",
   "JPY": "ok",
-  "CHF": "ok",
+  "CHF": "parțial — 2Y indisponibil (SNB (rendoblid) 2Y: date vechi (2025-07-31) || SNB (rendoblid) 10Y: date vechi (2025-07-31) || SNB (rendoblid): fără tenoruri noi/proaspete || stooq_chf: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ychy.b: răspuns non-CSV ('<!DOCTYPE || SNB RSS (doar 10Y): fără tenoruri noi/proaspete || manual: RuntimeError: fără serie manuală pentru CHF)",
   "AUD": "ok",
-  "NZD": "INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ynzy.b: răspuns non-CSV ('<!DOCTYPE "
+  "NZD": "ok"
  },
  "sources": {
-  "US": "FRED",
-  "EUR": "ECB (curba AAA euro area)",
-  "GBP": "BoE (curba GLC nominală)",
-  "CAD": "BoC Valet",
-  "JPY": "MOF Japonia",
-  "CHF": "SNB xlsx (doar 10Y)",
-  "AUD": "RBA F2 zilnic"
+  "US": "2Y: FRED · 10Y: FRED",
+  "EUR": "2Y: ECB (curba AAA euro area) · 10Y: ECB (curba AAA euro area)",
+  "GBP": "2Y: BoE (curba GLC nominală) · 10Y: BoE (curba GLC nominală)",
+  "CAD": "2Y: BoC Valet · 10Y: BoC Valet",
+  "JPY": "2Y: MOF Japonia · 10Y: MOF Japonia",
+  "CHF": "10Y: SNB xlsx (10Y)",
+  "AUD": "2Y: RBA F2 zilnic · 10Y: RBA F2 zilnic",
+  "NZD": "2Y: manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi) · 10Y: manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi)"
  },
  "levels": {
   "US": {
@@ -34,26 +35,26 @@
   },
   "EUR": {
    "2Y": {
-    "date": "2026-07-30",
-    "value": 2.713,
-    "delta_1w": -0.087
+    "date": "2026-07-31",
+    "value": 2.761,
+    "delta_1w": -0.011
    },
    "10Y": {
-    "date": "2026-07-30",
-    "value": 3.201,
-    "delta_1w": -0.024
+    "date": "2026-07-31",
+    "value": 3.227,
+    "delta_1w": 0.02
    }
   },
   "GBP": {
    "2Y": {
-    "date": "2026-07-30",
-    "value": 4.261,
-    "delta_1w": -0.129
+    "date": "2026-07-31",
+    "value": 4.299,
+    "delta_1w": -0.022
    },
    "10Y": {
-    "date": "2026-07-30",
-    "value": 5.078,
-    "delta_1w": -0.09
+    "date": "2026-07-31",
+    "value": 5.104,
+    "delta_1w": 0.005
    }
   },
   "CAD": {
@@ -70,21 +71,21 @@
   },
   "JPY": {
    "2Y": {
-    "date": "2026-07-30",
-    "value": 1.497,
-    "delta_1w": -0.002
+    "date": "2026-07-31",
+    "value": 1.507,
+    "delta_1w": -0.024
    },
    "10Y": {
-    "date": "2026-07-30",
+    "date": "2026-07-31",
     "value": 2.801,
-    "delta_1w": 0.025
+    "delta_1w": -0.014
    }
   },
   "CHF": {
    "10Y": {
-    "date": "2026-07-31",
-    "value": 0.475,
-    "delta_1w": -0.062
+    "date": "2026-08-03",
+    "value": 0.476,
+    "delta_1w": -0.016
    }
   },
   "AUD": {
@@ -98,27 +99,39 @@
     "value": 4.933,
     "delta_1w": -0.056
    }
+  },
+  "NZD": {
+   "2Y": {
+    "date": "2026-07-30",
+    "value": 3.65,
+    "delta_1w": -0.02
+   },
+   "10Y": {
+    "date": "2026-07-30",
+    "value": 4.73,
+    "delta_1w": 0.01
+   }
   }
  },
  "spreads": {
   "EURUSD": {
    "2Y": {
-    "value": -1.517,
-    "delta_1w": 0.053
+    "value": -1.469,
+    "delta_1w": 0.129
    },
    "10Y": {
-    "value": -1.479,
-    "delta_1w": 0.006
+    "value": -1.453,
+    "delta_1w": 0.05
    }
   },
   "GBPUSD": {
    "2Y": {
-    "value": 0.031,
-    "delta_1w": 0.011
+    "value": 0.069,
+    "delta_1w": 0.118
    },
    "10Y": {
-    "value": 0.398,
-    "delta_1w": -0.06
+    "value": 0.424,
+    "delta_1w": 0.035
    }
   },
   "AUDUSD": {
@@ -131,20 +144,30 @@
     "delta_1w": -0.026
    }
   },
+  "NZDUSD": {
+   "2Y": {
+    "value": -0.58,
+    "delta_1w": 0.12
+   },
+   "10Y": {
+    "value": 0.05,
+    "delta_1w": 0.04
+   }
+  },
   "USDJPY": {
    "2Y": {
-    "value": 2.733,
-    "delta_1w": -0.138
+    "value": 2.723,
+    "delta_1w": -0.116
    },
    "10Y": {
     "value": 1.879,
-    "delta_1w": -0.055
+    "delta_1w": -0.016
    }
   },
   "USDCHF": {
    "10Y": {
-    "value": 4.205,
-    "delta_1w": 0.032
+    "value": 4.204,
+    "delta_1w": -0.014
    }
   },
   "USDCAD": {
@@ -408,10 +431,6 @@
   "EUR": {
    "2Y": [
     [
-     "2026-06-19",
-     2.5758917711
-    ],
-    [
      "2026-06-22",
      2.5451244434
     ],
@@ -526,13 +545,13 @@
     [
      "2026-07-30",
      2.7130737913
+    ],
+    [
+     "2026-07-31",
+     2.7607858384
     ]
    ],
    "10Y": [
-    [
-     "2026-06-19",
-     3.0367350672
-    ],
     [
      "2026-06-22",
      3.0093670766
@@ -648,6 +667,10 @@
     [
      "2026-07-30",
      3.2006565473
+    ],
+    [
+     "2026-07-31",
+     3.2273140986
     ]
    ]
   },
@@ -740,6 +763,10 @@
     [
      "2026-07-30",
      4.261328145286431
+    ],
+    [
+     "2026-07-31",
+     4.299102499557623
     ]
    ],
    "10Y": [
@@ -830,6 +857,10 @@
     [
      "2026-07-30",
      5.077978561621027
+    ],
+    [
+     "2026-07-31",
+     5.1039949579875055
     ]
    ]
   },
@@ -1164,6 +1195,10 @@
     [
      "2026-07-30",
      1.497
+    ],
+    [
+     "2026-07-31",
+     1.507
     ]
    ],
    "10Y": [
@@ -1250,16 +1285,16 @@
     [
      "2026-07-30",
      2.801
+    ],
+    [
+     "2026-07-31",
+     2.801
     ]
    ]
   },
   "CHF": {
    "2Y": [],
    "10Y": [
-    [
-     "2026-06-22",
-     0.385
-    ],
     [
      "2026-06-23",
      0.37
@@ -1375,6 +1410,10 @@
     [
      "2026-07-31",
      0.475
+    ],
+    [
+     "2026-08-03",
+     0.476
     ]
    ]
   },
@@ -1625,8 +1664,90 @@
    ]
   },
   "NZD": {
-   "2Y": [],
-   "10Y": []
+   "2Y": [
+    [
+     "2026-07-17",
+     3.58
+    ],
+    [
+     "2026-07-20",
+     3.65
+    ],
+    [
+     "2026-07-21",
+     3.62
+    ],
+    [
+     "2026-07-22",
+     3.63
+    ],
+    [
+     "2026-07-23",
+     3.67
+    ],
+    [
+     "2026-07-24",
+     3.77
+    ],
+    [
+     "2026-07-27",
+     3.67
+    ],
+    [
+     "2026-07-28",
+     3.68
+    ],
+    [
+     "2026-07-29",
+     3.6
+    ],
+    [
+     "2026-07-30",
+     3.65
+    ]
+   ],
+   "10Y": [
+    [
+     "2026-07-17",
+     4.65
+    ],
+    [
+     "2026-07-20",
+     4.71
+    ],
+    [
+     "2026-07-21",
+     4.68
+    ],
+    [
+     "2026-07-22",
+     4.7
+    ],
+    [
+     "2026-07-23",
+     4.72
+    ],
+    [
+     "2026-07-24",
+     4.79
+    ],
+    [
+     "2026-07-27",
+     4.71
+    ],
+    [
+     "2026-07-28",
+     4.72
+    ],
+    [
+     "2026-07-29",
+     4.65
+    ],
+    [
+     "2026-07-30",
+     4.73
+    ]
+   ]
   }
  }
 }

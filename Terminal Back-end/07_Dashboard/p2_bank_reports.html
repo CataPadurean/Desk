@@ -43,8 +43,19 @@
     for (i = 1; i <= 5; i++) full += (i <= n ? '●' : '○');
     return '<span title="conviction ' + n + '/5">' + full + '</span>';
   }
+  // fluxul e singura informație din raport pe care nu o are toată lumea: se afișează
+  // separat de argumente și se marchează când contrazice direcția scrisă a băncii
+  function flowCell(r) {
+    if (!r.flow) return '<span class="dim">—</span>';
+    var f = String(r.flow), d = String(r.dir || '').toUpperCase();
+    var buys = /cumpăr|buying|bought|long|acumul/i.test(f);
+    var sells = /vând|vinde|selling|sold|short|reduc/i.test(f);
+    var against = (d.indexOf('BULL') > -1 && sells && !buys) ||
+                  (d.indexOf('BEAR') > -1 && buys && !sells);
+    return f + (against ? ' <span class="badge b-short" title="fluxul contrazice direcția scrisă a raportului">contra</span>' : '');
+  }
   document.getElementById('reports').innerHTML = R.length
-    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Levels</th><th>Invalidation</th></tr>' +
+    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Flow / positioning</th><th>Levels</th><th>Invalidation</th></tr>' +
       R.map(function (r) {
         var contraFlag = contra.indexOf(r.asset) > -1;
         return '<tr>' +
@@ -55,6 +66,7 @@
           '<td class="small">' + (r.horizon || '—') + '</td>' +
           '<td>' + convBar(r.conviction) + '</td>' +
           '<td class="small">' + ((r.args || []).join(' · ') || '—') + '</td>' +
+          '<td class="small">' + flowCell(r) + '</td>' +
           '<td class="small">' + (r.levels || '—') + '</td>' +
           '<td class="small">' + (r.invalidation || '—') + '</td>' +
         '</tr>'; }).join('') + '</table>'

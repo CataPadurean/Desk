@@ -2,9 +2,11 @@
 window.DESK_DATA = {
   updated: "19.07.2026 (teza săptămânii 06.07–10.07.2026, generată 05.07)",
   week: "06.07–10.07.2026",
+  // accounts: name = exact ca în blotter (coloana Cont) · type = Demo / Evaluation / Funded
+  // (faza contului, cea după care se separă statisticile din Journal) · phase = etapa din playbook.
   accounts: [
-    { name: "Demo-A", strategy: "A", phase: "Faza 0 — validare" },
-    { name: "Demo-B", strategy: "B", phase: "Faza 0 — validare" }
+    { name: "Demo-A", strategy: "A", type: "Demo", phase: "Faza 0 — validare" },
+    { name: "Demo-B", strategy: "B", type: "Demo", phase: "Faza 0 — validare" }
   ],
 
   // ——— stratul de sinteză (mereu populat; ordinea = cele 7 criterii de confluență) ———
@@ -30,36 +32,45 @@ window.DESK_DATA = {
   //      | "WATCH" (devine trade dacă se întâmplă condiția din Trigger)
   // Stadiul nu are coloană proprie: se vede în Direction — LONG / SHORT (ARMED),
   // WATCH - LONG / WATCH - SHORT, LIVE - LONG / LIVE - SHORT.
+  // id:    ID-ul stabil al ideii — AAAA-LL-ZZ-INSTRUMENT-L|S, data = ziua intrării în book.
+  //        Se copiază în coloana «Idea ref» din blotter și rămâne același când ideea trece
+  //        în history_data.js. Fără el, execuția și research-ul nu se pot compara niciodată.
+  // opened: data intrării în book, în format afișat (dd.mm.yyyy)
   // type:  "Swing" (multi-day, 1-5 zile) | "Intraday" (Gold + US30, sesiunea NY)
   // thesis: diferența de scor din Currency Scorecard (gap-ul de rank) pentru ideile Swing;
   //         "—" pentru cele pur tactice (intraday). Book de la 6,0 · watch de la 5,0.
   // La invalidare/expirare, intrarea IESE de aici și se arhivează în history_data.js.
   trades: [
-    { stage: "ARMED", type: "Swing", instrument: "USDCAD", dir: "SHORT", conf: "3/5", thesis: "8,8",
+    { id: "2026-07-06-USDCAD-S", opened: "06.07.2026",
+      stage: "ARMED", type: "Swing", instrument: "USDCAD", dir: "SHORT", conf: "3/5", thesis: "8,8",
       horizon: "multi-day, catalizator BoC 15.07",
       drivers: "Blocul de rapoarte cel mai aliniat (CACIB 1,35-1,40; Scotiabank + CIBC rebound) + GDP peste așteptări + short CAD extremă + CAD pro-risc. Catalizatorul (BoC + raportul de politică monetară) abia pe 15.07",
       trigger: "USD moale după minutele FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
       invalidation: "Minute FOMC hawkish / 10Y sus / date canadiene slabe. Contra: spread 2Y (+1,38) încă PRO-USD + USD long de deceniu" },
 
-    { stage: "ARMED", type: "Swing", instrument: "NZDUSD", dir: "LONG", conf: "3/5", thesis: "10,0",
+    { id: "2026-07-06-NZDUSD-L", opened: "06.07.2026",
+      stage: "ARMED", type: "Swing", instrument: "NZDUSD", dir: "LONG", conf: "3/5", thesis: "10,0",
       horizon: "1-3 zile, eveniment RBNZ 8.07",
       drivers: "Majorare la 2,50% devenită consens (22 din 28) + CPI în urcare spre 4,3% + short Leveraged Funds la RECORD + risk-on cu NZD pro-ciclic = profil de squeeze",
       trigger: "Majorare sau ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel",
       invalidation: "Hold dovish pe 8.07 → mort; minute FOMC hawkish relansează USD. Onest: câștig limitat (majorarea e prețuită), spread 2Y indisponibil" },
 
-    { stage: "WATCH", type: "Swing", instrument: "GBPNZD", dir: "SHORT", conf: "2,5/5", thesis: "11,7",
+    { id: "2026-07-06-GBPNZD-S", opened: "06.07.2026",
+      stage: "WATCH", type: "Swing", instrument: "GBPNZD", dir: "SHORT", conf: "2,5/5", thesis: "11,7",
       horizon: "multi-day, catalizator RBNZ 8.07",
       drivers: "Cea mai mare diferență de rank din tabel: extrema bearish (GBP, ultimul pe șase criterii din șapte) contra extremei bullish (NZD, primul). Fără dolar în mijloc, deci nu depinde de minutele FOMC",
       trigger: "Confirmare RBNZ pe 8.07 + rupere tehnică; se intră doar cu spread-ul brokerului acceptabil",
       invalidation: "Hold dovish RBNZ / catalizator pozitiv din Marea Britanie. Contra: nicio casă nu acoperă perechea direct — criteriul 2 e derivat din picioare, nu dintr-un raport" },
 
-    { stage: "ARMED", type: "Intraday", instrument: "US30", dir: "LONG", conf: "3/5", thesis: "—",
+    { id: "2026-07-06-US30-L", opened: "06.07.2026",
+      stage: "ARMED", type: "Intraday", instrument: "US30", dir: "LONG", conf: "3/5", thesis: "—",
       horizon: "sesiunea NY",
       drivers: "Risk-on, Dow la record 53.056, VIX 16. DAR randamentele urcă și minutele FOMC de miercuri aduc risc → convingere temperată",
       trigger: "Breakout M5 din nivel M30 + VIX în scădere + primele 8 componente verzi. NU în fereastra minutelor FOMC (±15-30 de minute de la ora 21:00, miercuri)",
       invalidation: "Minute FOMC hawkish / 10Y sus agresiv / VIX peste 20" },
 
-    { stage: "WATCH", type: "Intraday", instrument: "GOLD", dir: "LONG", conf: "2,5/5",
+    { id: "2026-07-06-GOLD-L", opened: "06.07.2026",
+      stage: "WATCH", type: "Intraday", instrument: "GOLD", dir: "LONG", conf: "2,5/5",
       thesis: "—", horizon: "sesiunea NY",
       drivers: "Cumpărare la minime în metale prețioase + DXY sub 101. DAR randamentele reale urcă (10Y 4,50%) = vânt din față → convingere redusă",
       trigger: "DXY slab + randamente reale care nu mai urcă; breakout M5 din M30 cu retest",

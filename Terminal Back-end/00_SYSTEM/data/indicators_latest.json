@@ -1,0 +1,101 @@
+{
+ "updated": "2026-08-03",
+ "window_days": 30,
+ "half_life_days": 10.0,
+ "bands": [
+  [
+   0.75,
+   2
+  ],
+  [
+   0.25,
+   1
+  ],
+  [
+   -0.25,
+   0
+  ],
+  [
+   -0.75,
+   -1
+  ]
+ ],
+ "source": "fără date",
+ "feed_errors": [
+  "ff_calendar_lastweek.json: HTTPError: HTTP Error 403: Forbidden"
+ ],
+ "currencies": {
+  "USD": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "EUR": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "GBP": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "CAD": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "JPY": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "CHF": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "AUD": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  },
+  "NZD": {
+   "score": null,
+   "z": null,
+   "n": 0,
+   "weight": 0,
+   "why": "prea puține publicări cu consens în fereastră",
+   "top": [],
+   "events": []
+  }
+ }
+}

@@ -19,24 +19,45 @@
 | | 2Y | Δ2Y | 10Y | Δ10Y |
 |---|---|---|---|---|
 | US | 4.23 | -0.14 | 4.68 | -0.03 |
-| EUR | 2.713 | -0.087 | 3.201 | -0.024 |
-| GBP | 4.261 | -0.129 | 5.078 | -0.09 |
+| EUR | 2.761 | -0.011 | 3.227 | +0.02 |
+| GBP | 4.299 | -0.022 | 5.104 | +0.005 |
 | CAD | 2.85 | -0.11 | 3.59 | -0.06 |
-| JPY | 1.497 | -0.002 | 2.801 | +0.025 |
-| CHF | — | — | 0.475 | -0.062 |
+| JPY | 1.507 | -0.024 | 2.801 | -0.014 |
+| CHF *(parțial — 2Y indisponibil)* | — | — | 0.476 | -0.016 |
 | AUD | 4.506 | -0.055 | 4.933 | -0.056 |
-| NZD *(INDISPONIBIL: src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || <lambda>: RuntimeError: Stooq: 2ynzy.b: răspuns non-CSV)* | — | — | — | — |
+| NZD | 3.65 | -0.02 | 4.73 | +0.01 |
 
 ## Spread-uri 2Y/10Y vs USD (criteriul 4)
 
 | Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
 |---|---|---|---|---|
-| EURUSD | -1.517 | +0.053 | -1.479 | +0.006 |
-| GBPUSD | 0.031 | +0.011 | 0.398 | -0.06 |
+| EURUSD | -1.469 | +0.129 | -1.453 | +0.05 |
+| GBPUSD | 0.069 | +0.118 | 0.424 | +0.035 |
 | USDCAD | 1.38 | -0.03 | 1.09 | +0.03 |
-| USDJPY | 2.733 | -0.138 | 1.879 | -0.055 |
-| USDCHF | — | — | 4.205 | +0.032 |
+| USDJPY | 2.723 | -0.116 | 1.879 | -0.016 |
+| USDCHF | — | — | 4.204 | -0.014 |
 | AUDUSD | 0.276 | +0.085 | 0.253 | -0.026 |
-| NZDUSD | — | — | — | — |
+| NZDUSD | -0.58 | +0.12 | 0.05 | +0.04 |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
+
+## Surpriză macro (criteriul 3) — fereastră 30 zile, sursă: fără date
+
+| Monedă | Surpriză ponderată | Scor | Publicări | Contributorii principali |
+|---|---|---|---|---|
+| USD | — | — (orb) | 0 | — |
+| EUR | — | — (orb) | 0 | — |
+| GBP | — | — (orb) | 0 | — |
+| CAD | — | — (orb) | 0 | — |
+| JPY | — | — (orb) | 0 | — |
+| CHF | — | — (orb) | 0 | — |
+| AUD | — | — (orb) | 0 | — |
+| NZD | — | — (orb) | 0 | — |
+
+## Regim de risc (criteriul 6) — scor +0 (NEUTRU)
+
+| Componentă | Valoare | Percentilă 1y | Scor |
+|---|---|---|---|
+| VIX | 15.99 | 24 | +1 |
+| HY OAS | 2.84 | 52 | +0 |
+| S&P momentum | 0.09 | — | +0 |

@@ -71,46 +71,62 @@
   "excluded": 2,
   "note": "Inbox gol la momentul procesării — sinteza acoperă batch-ul precedent. Excluse: 2 note duplicate de strategie fără teză nouă."
  },
+ "yields_manual": {
+  "NZD": {
+   "source": "RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi)",
+   "asof": "2026-08-03",
+   "note": "xlsx-ul B2 și tot domeniul rbnz.govt.nz întorc 403 la orice client non-browser; pagina se citește la «generează teza» și se rescrie aici",
+   "2Y": [["2026-07-17", 3.58], ["2026-07-20", 3.65], ["2026-07-21", 3.62], ["2026-07-22", 3.63], ["2026-07-23", 3.67], ["2026-07-24", 3.77], ["2026-07-27", 3.67], ["2026-07-28", 3.68], ["2026-07-29", 3.6], ["2026-07-30", 3.65]],
+   "10Y": [["2026-07-17", 4.65], ["2026-07-20", 4.71], ["2026-07-21", 4.68], ["2026-07-22", 4.7], ["2026-07-23", 4.72], ["2026-07-24", 4.79], ["2026-07-27", 4.71], ["2026-07-28", 4.72], ["2026-07-29", 4.65], ["2026-07-30", 4.73]]
+  }
+ },
  "reports": [
   {
    "bank": "CACIB", "date": "01.07", "asset": "USDCAD", "dir": "BEARISH", "horizon": "1-3 luni", "conviction": 4,
    "args": ["Piața a exagerat decuplarea economiei canadiene de cea americană", "Temă mai largă: monedele bătute se reevaluează", "CAD urcă odată cu apetitul de risc"],
+   "flow": "",
    "levels": "1,418 → ținte 1,35-1,40", "invalidation": "Minute FOMC hawkish / redresare bruscă a USD global",
    "change": "REVIZUIT (întărit)"
   },
   {
    "bank": "Scotiabank", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 3,
    "args": ["Creșterea din aprilie a bătut clar așteptările", "Trimestrul doi se conturează peste ce prețuia piața", "Cererea internă se stabilizează, nu doar exporturile"],
+   "flow": "",
    "levels": "—", "invalidation": "Date canadiene slabe / petrol în cădere",
    "change": "întărit"
   },
   {
    "bank": "CIBC", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "restul anului", "conviction": 3,
    "args": ["Anul acesta e despre revenire, nu despre recesiune", "Nicio mișcare de dobândă până la finalul anului", "Hold prelungit pe date în ameliorare = context ideal"],
+   "flow": "",
    "levels": "—", "invalidation": "BoC dovish surprise la MPR 15.07",
    "change": "NOU"
   },
   {
    "bank": "ING", "date": "02.07", "asset": "USD (DXY)", "dir": "BULLISH", "horizon": "1-2 săptămâni", "conviction": 3,
    "args": ["Publicată ÎNAINTE de raportul pieței muncii — premisa s-a schimbat", "Mizau pe repricing hawkish al Fed", "Diferența de dobândă rămâne favorabilă dolarului"],
+   "flow": "",
    "levels": "DXY 101,7 / 101,80", "invalidation": "Deja parțial invalidată de NFP +57k (miss)",
    "change": "slăbit (invalidat parțial)"
   },
   {
    "bank": "UniCredit", "date": "01.07", "asset": "EURUSD", "dir": "NEUTRU", "horizon": "1 lună", "conviction": 2,
    "args": ["La răscruce: niciun bloc nu are motiv propriu să tragă cursul", "Spread-ul Bund-UST a redevenit motorul mișcării", "Fără declanșator extern, e piață de intervale"],
+   "flow": "",
    "levels": "—", "invalidation": "—",
    "change": "ÎNTORS (din direcțional în neutru)"
   },
   {
    "bank": "CACIB", "date": "01.07", "asset": "USDJPY", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 4,
    "args": ["Diferența de dobândă plătește poziția pe toată durata deținerii", "Normalizarea japoneză merge prea încet", "Și-au urcat ținta față de raportul anterior"],
+   "flow": "",
    "levels": "ținte 162-163", "invalidation": "BoJ accelerează normalizarea / risk-off global",
    "change": "REVIZUIT ↑"
   },
   {
    "bank": "MUFG", "date": "02.07", "asset": "USDJPY", "dir": "BEARISH", "horizon": "1-2 luni", "conviction": 3,
    "args": ["Trade-ul de carry e aglomerat și se golește violent", "Poziționarea contra yenului, la extrem de doi ani", "Iulie e istoric favorabil yenului"],
+   "flow": "",
    "levels": "—", "invalidation": "BoJ amână hike-ul peste octombrie",
    "change": "întărit"
   }
