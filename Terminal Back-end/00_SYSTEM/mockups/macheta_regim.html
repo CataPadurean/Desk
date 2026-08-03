@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MACHETĂ — Risk Regime Panel</title>
+<!-- MACHETĂ. Nu face parte din terminal, nu e legată de niciun fișier de date.
+     Valorile sunt cele din săptămâna de test 06.07–10.07.2026, ca să vezi cum ar arăta
+     criteriul 6 (REG) dacă ar avea date proprii în loc de o etichetă scrisă de mână. -->
+<style>
+:root{--bg:#000;--card:#0b1120;--card2:#111a2b;--line:#223350;--txt:#dbe4f0;--dim:#7d8ca3;
+--acc:#4da3ff;--pos:#2ecc71;--neg:#e35d5d;--warn:#e8b339;font-size:clamp(15px,.18vw + 13.4px,19px);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);padding:22px;font-family:-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+.mk{background:rgba(232,179,57,.08);border:1px solid rgba(232,179,57,.3);border-radius:8px;
+padding:10px 14px;font-size:.8rem;color:var(--warn);margin-bottom:18px;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.card h2{font-size:.78rem;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase;margin-bottom:14px;
+display:flex;align-items:center;gap:10px}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;
+padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+th.c,td.c{text-align:center}
+.small{font-size:.76rem;color:var(--dim)}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.dim{color:var(--dim)}
+.nm{font-weight:700;font-size:.92rem}
+.val{font-size:1.02rem;font-weight:700}
+.pct{position:relative;display:inline-block;width:clamp(110px,11vw,210px);height:16px;
+background:#0d1626;border:1px solid var(--line);border-radius:4px;vertical-align:middle}
+.pct i{position:absolute;top:2px;bottom:2px;width:3px;border-radius:2px;background:var(--acc)}
+.pct .z{position:absolute;top:0;bottom:0;background:rgba(125,140,163,.10)}
+.pct b{position:absolute;right:-2.6rem;top:-1px;font-size:.7rem;color:var(--dim);font-weight:600}
+.cell{display:inline-flex;align-items:center;justify-content:center;width:2.1rem;height:1.6rem;
+border-radius:4px;font-size:.8rem;font-weight:700}
+.p2{background:rgba(46,204,113,.28);color:var(--pos)}.p1{background:rgba(46,204,113,.12);color:var(--pos)}
+.z0{background:rgba(125,140,163,.10);color:var(--dim)}
+.n1{background:rgba(227,93,93,.12);color:var(--neg)}.n2{background:rgba(227,93,93,.28);color:var(--neg)}
+.badge{font-size:.7rem;padding:2px 9px;border-radius:4px;font-weight:700}
+.b-long{background:rgba(46,204,113,.15);color:var(--pos)}
+.b-short{background:rgba(227,93,93,.15);color:var(--neg)}
+.b-flat{background:rgba(125,140,163,.15);color:var(--dim)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 14px;background:var(--card2);
+border:1px solid var(--line);border-radius:8px;margin-top:14px}
+.score .n{font-size:1.7rem;font-weight:700;color:var(--pos);font-variant-numeric:tabular-nums}
+.score .lb{font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+.score .ex{font-size:.78rem;color:var(--dim);line-height:1.5;flex:1 1 320px}
+.betas{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.beta{background:var(--card2);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-size:.76rem}
+.beta b{color:var(--txt)}.beta span{color:var(--dim);font-size:.7rem}
+.note{color:var(--dim);font-size:.74rem;line-height:1.6;margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+h1{font-size:1.1rem;letter-spacing:2px;color:#fff;margin-bottom:4px}
+.sub{font-size:.8rem;color:var(--dim);margin-bottom:16px}
+</style>
+</head>
+<body>
+  <h1>MACHETĂ — RISK REGIME PANEL</h1>
+  <div class="sub">criteriul 6 (REG), dacă ar avea date proprii</div>
+
+  <div class="mk"><b>Machetă, nu e în terminal.</b> Valorile sunt cele din săptămâna de test 06.07–10.07.2026. Azi criteriul REG e o etichetă scrisă de mână („RISK-ON fragil") plus un <code>regime_score</code> pe care îl aleg eu; aici ar deveni măsurabil, iar scorul s-ar calcula din componente.</div>
+
+  <div class="card">
+    <h2>Risk Regime — components <span class="badge b-long">RISK-ON</span></h2>
+    <table>
+      <tr><th>Indicator</th><th class="c">Level</th><th class="c">Δ 5d</th><th>52w percentile</th><th class="c">Score</th><th>Citire</th></tr>
+
+      <tr>
+        <td><span class="nm">VIX</span><div class="small">volatilitate implicită S&amp;P</div></td>
+        <td class="c val">16,06</td>
+        <td class="c neg">−1,4</td>
+        <td><span class="pct"><i style="left:18%"></i><b>18</b></span></td>
+        <td class="c"><span class="cell p2">+2</span></td>
+        <td class="small">Percentila 18 — complacere, nu frică. Sub 15 ar deveni contrarian.</td>
+      </tr>
+
+      <tr>
+        <td><span class="nm">DXY</span><div class="small">indicele dolarului</div></td>
+        <td class="c val">100,8</td>
+        <td class="c neg">−0,6</td>
+        <td><span class="pct"><i style="left:41%"></i><b>41</b></span></td>
+        <td class="c"><span class="cell p1">+1</span></td>
+        <td class="small">Dolar în scădere = lichiditate globală mai bună, suport pentru pro-ciclice.</td>
+      </tr>
+
+      <tr>
+        <td><span class="nm">US 10Y</span><div class="small">randament nominal</div></td>
+        <td class="c val">4,50</td>
+        <td class="c pos">+0,12</td>
+        <td><span class="pct"><i style="left:76%"></i><b>76</b></span></td>
+        <td class="c"><span class="cell n1">−1</span></td>
+        <td class="small">Singura componentă contra: randamentele urcă pe revenirea petrolului.</td>
+      </tr>
+
+      <tr>
+        <td><span class="nm">HY spread</span><div class="small">BAMLH0A0HYM2, credit</div></td>
+        <td class="c val">312bp</td>
+        <td class="c neg">−8bp</td>
+        <td><span class="pct"><i style="left:24%"></i><b>24</b></span></td>
+        <td class="c"><span class="cell p2">+2</span></td>
+        <td class="small">Creditul nu confirmă niciun stres — de obicei se rupe înaintea acțiunilor.</td>
+      </tr>
+
+      <tr>
+        <td><span class="nm">Brent</span><div class="small">petrol</div></td>
+        <td class="c val">71,4</td>
+        <td class="c pos">+3,8%</td>
+        <td><span class="pct"><i style="left:33%"></i><b>33</b></span></td>
+        <td class="c"><span class="cell z0">0</span></td>
+        <td class="small">În revenire, dar de la bază joasă — ambivalent: pro-CAD, contra dezinflație.</td>
+      </tr>
+
+      <tr>
+        <td><span class="nm">S&amp;P 500</span><div class="small">20d vs 100d</div></td>
+        <td class="c val">record</td>
+        <td class="c pos">+0,7%</td>
+        <td><span class="pct"><i style="left:94%"></i><b>94</b></span></td>
+        <td class="c"><span class="cell p1">+1</span></td>
+        <td class="small">Trend intact, dar la percentila 94 — puțin loc de dezamăgire.</td>
+      </tr>
+    </table>
+
+    <div class="score">
+      <div><div class="lb">Regime score</div><div class="n">+1</div></div>
+      <div class="ex"><b>Media componentelor: +0,83 → rotunjit +1.</b> Risk-on confirmat de patru componente din șase, contrazis de randamente. Fragilitatea nu mai e o impresie: e VIX la percentila 18 lângă S&amp;P la 94 — puțin combustibil rămas, mult loc de cădere.</div>
+    </div>
+
+    <div class="betas">
+      <div class="beta"><b>CAD</b> <span>β +1,0</span> → <b class="pos">+1</b></div>
+      <div class="beta"><b>AUD</b> <span>β +1,0</span> → <b class="pos">+1</b></div>
+      <div class="beta"><b>NZD</b> <span>β +1,0</span> → <b class="pos">+1</b></div>
+      <div class="beta"><b>CHF</b> <span>β +0,5</span> → <b class="pos">+1</b></div>
+      <div class="beta"><b>EUR</b> <span>β 0,0</span> → <b>0</b></div>
+      <div class="beta"><b>GBP</b> <span>β −0,3</span> → <b>0</b></div>
+      <div class="beta"><b>USD</b> <span>β −0,5</span> → <b class="neg">−1</b></div>
+      <div class="beta"><b>JPY</b> <span>β −1,0</span> → <b class="neg">−1</b></div>
+    </div>
+
+    <div class="note">
+      <b>Ce s-ar schimba față de azi:</b> scorul REG din Currency Scorecard s-ar calcula din tabelul de mai sus (media componentelor × beta monedei), în loc să pornească de la un <code>regime_score</code> scris de mână. Beta-urile rămân aceleași, înghețate în <code>scorecard.py</code>.<br>
+      <b>Surse, toate gratuite:</b> VIX, DXY, Brent și S&amp;P din Stooq (deja folosit de <code>update_yields.py</code>); US 10Y din FRED, deja în terminal; HY spread din FRED, seria BAMLH0A0HYM2. Percentilele pe 52 de săptămâni se calculează local, ca la COT.<br>
+      <b>Cost:</b> o funcție nouă în pipeline, fără dependențe noi. <b>Ce câștigi:</b> criteriul 6 devine singurul din 7 care nu mai depinde de o impresie, iar caseta MARKET REGIME de pe Home capătă cifre sub afirmație.
+    </div>
+  </div>
+</body>
+</html>

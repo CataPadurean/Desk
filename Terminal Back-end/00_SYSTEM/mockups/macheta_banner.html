@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MACHETĂ — Banner de date vechi</title>
+<!-- MACHETĂ. Nu e în terminal. Arată cele trei stări posibile ale banner-ului de pe Home
+     și cum s-ar comporta restul paginii în starea de „expirat". -->
+<style>
+:root{--bg:#000;--card:#0b1120;--card2:#111a2b;--line:#223350;--txt:#dbe4f0;--dim:#7d8ca3;
+--acc:#4da3ff;--pos:#2ecc71;--neg:#e35d5d;--warn:#e8b339;font-size:clamp(15px,.18vw + 13.4px,19px);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);padding:22px;font-family:-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+h1{font-size:1.1rem;letter-spacing:2px;color:#fff;margin-bottom:4px}
+.sub{font-size:.8rem;color:var(--dim);margin-bottom:16px}
+.mk{background:rgba(232,179,57,.08);border:1px solid rgba(232,179,57,.3);border-radius:8px;
+padding:10px 14px;font-size:.8rem;color:var(--warn);margin-bottom:22px;line-height:1.5}
+.case{margin-bottom:26px}
+.lbl{font-size:.68rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.lbl b{color:var(--acc)}
+
+/* ——— banner-ul propriu-zis, trei stări ——— */
+.stale{display:flex;align-items:center;gap:12px;border-radius:10px;padding:11px 16px;
+font-size:.84rem;line-height:1.45;margin-bottom:10px}
+.stale .ic{font-size:1.1rem;line-height:1}
+.stale .tx{flex:1 1 auto}
+.stale .tx b{color:#fff}
+.stale .age{font-size:.72rem;padding:3px 9px;border-radius:20px;white-space:nowrap;font-weight:700}
+
+.s-ok{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.28);color:var(--pos)}
+.s-ok .age{background:rgba(46,204,113,.15);color:var(--pos)}
+.s-warn{background:rgba(232,179,57,.08);border:1px solid rgba(232,179,57,.38);color:var(--warn)}
+.s-warn .age{background:rgba(232,179,57,.18);color:var(--warn)}
+.s-dead{background:rgba(227,93,93,.10);border:1px solid rgba(227,93,93,.45);color:var(--neg)}
+.s-dead .age{background:rgba(227,93,93,.2);color:var(--neg)}
+.stale .tx span{color:var(--dim)}
+
+/* efectul asupra restului paginii, în starea expirată */
+.faded{opacity:.45;filter:grayscale(.35)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.card h2{font-size:.74rem;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:.66rem;letter-spacing:1px;
+text-transform:uppercase;padding:5px 8px;border-bottom:1px solid var(--line)}
+td{padding:7px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.badge{font-size:.68rem;padding:2px 8px;border-radius:4px;font-weight:700}
+.b-short{background:rgba(227,93,93,.15);color:var(--neg)}
+.b-long{background:rgba(46,204,113,.15);color:var(--pos)}
+.note{color:var(--dim);font-size:.76rem;line-height:1.65;margin-top:20px;border-top:1px solid var(--line);padding-top:12px}
+.note b{color:var(--txt)}
+code{background:var(--card2);padding:1px 5px;border-radius:3px;font-size:.9em}
+</style>
+</head>
+<body>
+  <h1>MACHETĂ — BANNER DE DATE VECHI</h1>
+  <div class="sub">ce apare pe Home în funcție de vechimea săptămânii afișate</div>
+
+  <div class="mk"><b>Machetă, nu e în terminal.</b> Azi Home arată calm săptămâna 06.07–10.07 ca și cum ar fi curentă, deși e 02.08 — exact riscul semnalat la începutul discuției: un ecran vechi e mai periculos decât unul gol, fiindcă poți acționa pe el.</div>
+
+  <div class="case">
+    <div class="lbl">1 · <b>Săptămâna curentă</b> — starea normală, banner discret sau absent</div>
+    <div class="stale s-ok">
+      <span class="ic">●</span>
+      <div class="tx"><b>Săptămâna curentă</b> · analiza 05.07, date 06.07 <span>— scorecard-ul și book-ul sunt de actualitate</span></div>
+      <span class="age">la zi</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="lbl">2 · <b>Săptămâna s-a încheiat</b> — de la vineri seara până la teza următoare</div>
+    <div class="stale s-warn">
+      <span class="ic">▲</span>
+      <div class="tx"><b>Săptămâna afișată s-a încheiat vineri</b> <span>— catalizatorii din book au trecut. Book-ul rămâne de referință până la „generează teza săptămânală".</span></div>
+      <span class="age">acum 3 zile</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="lbl">3 · <b>Expirat</b> — peste 10 zile de la finalul săptămânii (starea de azi)</div>
+    <div class="stale s-dead">
+      <span class="ic">■</span>
+      <div class="tx"><b>DATE EXPIRATE — nu tranzacționa din acest ecran.</b> <span>Săptămâna 06.07–10.07 s-a încheiat acum 23 de zile; catalizatorii (RBNZ 8.07, BoC 15.07) au trecut demult. Rulează „generează teza săptămânală".</span></div>
+      <span class="age">23 de zile</span>
+    </div>
+
+    <div class="faded">
+      <div class="card">
+        <h2>Trades</h2>
+        <table>
+          <tr><th>Instrument</th><th>Direction</th><th>Rank gap</th><th>Catalyst</th></tr>
+          <tr><td><b>USDCAD</b></td><td><span class="badge b-short">SHORT</span></td><td>8,8</td><td>BoC + MPR 15.07</td></tr>
+          <tr><td><b>NZDUSD</b></td><td><span class="badge b-long">LONG</span></td><td>10,0</td><td>Decizie RBNZ 8.07</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Cum funcționează:</b> vechimea se calculează din <code>week</code> (data de vineri a săptămânii afișate) față de data de azi. Trei praguri: până vineri = „la zi"; 1-10 zile după = avertisment galben; peste 10 zile = roșu, cu book-ul estompat dedesubt.<br>
+    <b>De ce estompat, nu ascuns:</b> ascunderea ar face terminalul inutil când vrei doar să te uiți la ce a fost. Estomparea îți dă informația, dar îți taie reflexul de a citi tabelul ca pe unul viu.<br>
+    <b>Cost:</b> ~15 linii în <code>dashboard.html</code> plus câteva reguli de stil. Nicio dependență, nicio schimbare de date.<br>
+    <b>Alternativă mai slabă</b>, dacă ți se pare prea agresiv: doar bara colorată, fără estomparea book-ului. Zi-mi care variantă.
+  </div>
+</body>
+</html>

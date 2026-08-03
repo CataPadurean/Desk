@@ -28,25 +28,46 @@
   var cy = D.currencies || {};
   var CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
 
-  // ——— Policy vs. Market Pricing ———
+  // ——— Policy vs. Market Pricing, în puncte de bază ———
+  // Priced = (randament 2Y − dobânda de politică) × 100 = câtă mișcare de politică monetară
+  // e deja în preț, cumulat. Desk view = judecata noastră, în aceeași unitate. Edge = diferența.
+  // „vs group" e citirea cross-secțională, care anulează prima de termen (aproximativ egală în DM).
   var PR = D.pricing || {};
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function bp(v, plus) {
+    if (v === null || v === undefined) return '<span class="dim">—</span>';
+    return '<span class="' + numCls(v) + '">' + (plus !== false && v > 0 ? '+' : '') + v + 'bp</span>';
+  }
   function edgeBadge(dir) {
     if (!dir) return '<span class="dim">—</span>';
     var u = String(dir).toUpperCase();
-    var cls = u.indexOf('NEUTRU') === 0 ? 'b-flat' : (u.indexOf('ANTI') === 0 ? 'b-short' : 'b-long');
+    var cls = u.indexOf('ALINIAT') === 0 || u.indexOf('NEUTRU') === 0 ? 'b-flat'
+            : u.indexOf('INDISPONIBIL') === 0 ? 'b-watch'
+            : u.indexOf('ANTI') === 0 ? 'b-short' : 'b-long';
     return '<span class="badge ' + cls + '">' + dir + '</span>';
   }
   document.getElementById('pricing').innerHTML = Object.keys(PR).length
-    ? '<table><tr><th>Currency</th><th>Market pricing</th><th>Desk view</th><th>Edge</th><th>Divergence</th></tr>' +
+    ? '<table><tr><th>Currency</th><th class="c">Policy</th><th class="c">Yield</th>' +
+      '<th class="c">Priced</th><th class="c">vs group</th><th class="c">Desk view</th>' +
+      '<th class="c">Edge</th><th>Divergence</th><th>Argument</th></tr>' +
       CORD.filter(function (k) { return PR[k]; }).map(function (k) {
         var p = PR[k];
         return '<tr>' +
-          '<td><b>' + k + '</b></td>' +
-          '<td class="small">' + (p.market || '—') + '</td>' +
-          '<td class="small">' + (p.view || '—') + '</td>' +
-          '<td class="small">' + (p.edge || '—') + '</td>' +
+          '<td><b>' + k + '</b>' + (p.tenor && p.tenor !== '2Y' ?
+            ' <span class="sctag" title="2Y indisponibil — citire pe ' + p.tenor + ', mai puțin exactă">' + p.tenor + '</span>' : '') + '</td>' +
+          '<td class="c small">' + (p.policy_rate === null || p.policy_rate === undefined ? '—' : p.policy_rate.toFixed(2).replace('.', ',') + '%') + '</td>' +
+          '<td class="c small">' + (p.yield === null || p.yield === undefined ? '—' : String(p.yield).replace('.', ',')) + '</td>' +
+          '<td class="c"><span title="' + esc(p.method || '') + '">' + bp(p.market_bp) + '</span></td>' +
+          '<td class="c"><span title="față de media grupului (' + (p.group_avg_bp === null ? '—' : p.group_avg_bp + 'bp') + ') — prima de termen se anulează">' + bp(p.rel_bp) + '</span></td>' +
+          '<td class="c">' + bp(p.view_bp) + '</td>' +
+          '<td class="c"><b>' + bp(p.edge_bp) + '</b></td>' +
           '<td>' + edgeBadge(p.dir) + '</td>' +
-        '</tr>'; }).join('') + '</table>'
+          '<td class="small">' + esc(p.edge || '—') +
+            (p.next_meeting ? '<div class="dim" style="margin-top:3px">Ședința următoare: ' + esc(p.next_meeting) + '</div>' : '') + '</td>' +
+        '</tr>'; }).join('') + '</table>' +
+      '<div class="small" style="margin-top:10px">Priced = (randament − dobânda de politică) × 100, cumulat pe orizontul randamentului. ' +
+      'Conține primă de termen de ordinul a 20-30bp, de aceea pragul de la care o divergență se numește edge e 25bp, ' +
+      'iar coloana „vs group" e citirea mai curată: prima de termen e aproximativ egală în economiile dezvoltate și se anulează la comparație.</div>'
     : '<div class="empty">Se populează la „generează teza săptămânală".</div>';
 
   document.getElementById('ccys').innerHTML = Object.keys(cy).length

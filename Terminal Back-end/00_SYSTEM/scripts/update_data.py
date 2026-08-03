@@ -10,6 +10,7 @@ import json, subprocess, sys
 from datetime import date
 from pathlib import Path
 
+from pricing import build_pricing
 from scorecard import build_scorecard
 
 HERE = Path(__file__).resolve().parent
@@ -45,7 +46,9 @@ def build_analysis_js():
            'regime': d.get('regime', ''), 'regime_date': d.get('date', ''),
            'sentiment': d.get('sentiment'),          # {label, comment}
            'currencies': d.get('currencies', {}),    # per monedă: {bias, cb, banks, core}
-           'pricing': d.get('pricing', {}),          # per monedă: {market, view, edge, dir} — politica vs. pricing, cuantificat
+           # criteriul 1, cuantificat: cât e prețuit (2Y − dobânda de politică, în bp) vs. view-ul
+           # desk-ului; edge = diferența. Narativul vine din directions.json, cifrele se calculează.
+           'pricing': build_pricing(parts['yields_latest'], d),
            'playbook': d.get('playbook', []),        # Event Playbook: [{event, date, scenarios: [{name, odds, reaction, action}]}]
            'reports': d.get('reports', []),          # criteriul 2 — schema_bias.md, un rând per raport
            'reports_meta': d.get('reports_meta', {}),  # {processed, excluded, week}
