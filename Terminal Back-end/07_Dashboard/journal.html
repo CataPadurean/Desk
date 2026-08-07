@@ -9,6 +9,7 @@
 </head>
 <body>
   <div id="chrome"></div>
+  <div class="subnav"><a id="btn-hist">History</a></div>
   <div class="tabs" id="tabs-s">
     <div class="tab on" data-f="TOT">TOTAL</div>
     <div class="tab" data-f="A">SWING</div>
@@ -19,13 +20,19 @@
     <div class="tab" data-p="Evaluation">EVALUATION</div>
     <div class="tab" data-p="Funded">FUNDED</div>
   </div>
-  <div class="kpis" id="kpis"></div>
-  <div class="grid">
-    <div class="card"><h2>Performance curve (cumulative R)</h2><div id="curve"></div></div>
-    <div class="card"><h2>Per setup — expectancy</h2><div id="setups"></div></div>
+
+  <div id="view-journal">
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card"><h2>Performance curve (cumulative R)</h2><div id="curve"></div></div>
+      <div class="card"><h2>Per setup — expectancy</h2><div id="setups"></div></div>
+    </div>
+    <div class="card"><h2>Idea → execution</h2><div id="link"></div></div>
   </div>
-  <div class="card"><h2>Idea → execution</h2><div id="link"></div></div>
-  <div class="card"><h2>Research history</h2><div id="hist"></div></div>
+
+  <div id="view-history" style="display:none">
+    <div class="card"><h2>Research history — direction only</h2><div id="hist"></div></div>
+  </div>
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
 <script src="history_data.js"></script>
@@ -161,30 +168,36 @@
           '</tr>'; }).join('') + '</table>'
       : '<div class="empty">Se populează la „loghează:" / „loghează statement". Coloana Idea ref leagă execuția de ideea din book — fără ea, research-ul și rezultatul rămân două lucruri separate.</div>';
 
-    // ——— research history: ce s-a ales de fiecare idee, inclusiv cele netranzacționate ———
-    // Singura populație pe care blotter-ul nu o vede: ideile care n-au ajuns niciodată
-    // execuție. Fără ele nu se poate separa „scorecard-ul greșește" de „execuția greșește".
+    // ——— research history: a fost direcția bună? atât. ———
+    // Aici NU se măsoară bani și nici execuție — alea sunt treaba tabelelor de mai sus.
+    // Se măsoară o singură întrebare: din ziua în care ideea a intrat în book până în ziua
+    // în care bias-ul s-a oprit, direcția anunțată a fost cea corectă? Ideile netranzacționate
+    // intră la fel ca cele executate — ele sunt tot ce deosebește „scorecard-ul greșește"
+    // de „execuția greșește".
     var HE = ((window.HISTORY_DATA || {}).entries || []).filter(function (e) {
       return F === 'TOT' || e.type === (F === 'A' ? 'Swing' : 'Intraday');
     });
+    // doar deznodămintele care spun ceva despre direcție; BREAKEVEN / EXPIRATĂ /
+    // NEACTIVATĂ nu sunt nici succes, nici eșec de direcție — nu intră în rată
     var dec = HE.filter(function (e) { return /VALIDAT|INVALIDAT/i.test(e.outcome || ''); });
     var ok = dec.filter(function (e) { return /^VALIDAT/i.test(e.outcome || ''); }).length;
     var rate = dec.length
-      ? Math.round(100 * ok / dec.length) + '% (' + ok + ' din ' + dec.length + ')'
+      ? '<b>' + Math.round(100 * ok / dec.length) + '%</b> (' + ok + ' din ' + dec.length + ')'
         + (dec.length < 20 ? ' <span class="dim">— n prea mic pentru o citire statistică</span>' : '')
-      : '<span class="dim">fără idei cu deznodământ clar încă</span>';
+      : '<span class="dim">fără idei cu deznodământ de direcție încă</span>';
 
     document.getElementById('hist').innerHTML = HE.length
-      ? '<div class="small" style="margin-bottom:8px">Validation rate: ' + rate + '</div>' +
-        '<table><tr><th>Closed</th><th>Instrument</th><th>Direction</th>' +
-        '<th>Outcome</th><th>Ce s-a întâmplat</th></tr>' +
+      ? '<div class="small" style="margin-bottom:10px">Direction hit rate: ' + rate + '</div>' +
+        '<table><tr><th>Opened</th><th>Bias closed</th><th>Instrument</th>' +
+        '<th>Direction</th><th>Direction correct?</th></tr>' +
         HE.slice().reverse().map(function (e) {
           return '<tr>' +
+            '<td class="small">' + (e.opened || '—') + '</td>' +
             '<td class="small">' + (e.date || '—') + '</td>' +
             '<td><b>' + (e.instrument || '—') + '</b>' + ideaTag(e) + '</td>' +
             '<td>' + dirBadge(e.dir) + '</td>' +
-            '<td>' + outBadge(e.outcome) + '</td>' +
-            '<td class="small">' + (e.reason || '—') + '</td>' +
+            '<td' + (e.reason ? ' title="' + String(e.reason).replace(/"/g, '&quot;') + '"' : '') +
+              '>' + outBadge(e.outcome) + '</td>' +
           '</tr>'; }).join('') + '</table>'
       : '<div class="empty">Nicio idee închisă încă. Se populează pe măsură ce ideile din book se validează, se rup sau expiră.</div>';
   }
@@ -200,6 +213,30 @@
   }
   wire('tabs-s', function (t) { F = t.getAttribute('data-f'); });
   wire('tabs-p', function (t) { P = t.getAttribute('data-p'); });
+
+  // ——— comutatorul Journal ↔ History ———
+  // History e o vedere a aceleiași pagini, nu o pagină nouă: filtrul de strategie rămâne
+  // comun, iar cel de fază dispare (o idee nu are cont și nici fază).
+  var btn = document.getElementById('btn-hist');
+  var vJ = document.getElementById('view-journal');
+  var vH = document.getElementById('view-history');
+  var tabsP = document.getElementById('tabs-p');
+  btn.addEventListener('click', function () {
+    var on = btn.classList.toggle('on');
+    vJ.style.display = on ? 'none' : '';
+    vH.style.display = on ? '' : 'none';
+    tabsP.style.display = on ? 'none' : '';
+  });
+
+  // butonul stă exact sub „Journal" — ultimul item din meniu, la fel de lat
+  var syncBtn = function () {
+    var last = document.querySelector('.menu a:last-child');
+    if (last) { var w = last.getBoundingClientRect().width; if (w > 0) btn.style.width = w + 'px'; }
+  };
+  syncBtn();
+  window.addEventListener('resize', syncBtn);
+  if (window.requestAnimationFrame) requestAnimationFrame(syncBtn);
+
   render();
 })();
 </script>
