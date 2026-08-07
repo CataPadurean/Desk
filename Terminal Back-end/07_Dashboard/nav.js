@@ -9,9 +9,9 @@
     { id: 'p4',   file: 'p4_yields.html',        label: 'Yields',        title: 'YIELD SPREADS' },
     { id: 'p5',   file: 'p5_cot.html',           label: 'COT',           title: 'COT — COMMITMENT OF TRADERS' },
     { id: 'p6',   file: 'p6_seasonality.html',   label: 'Seasonality',   title: 'SEASONALITY 10Y' },
-    { id: 'journal', file: 'journal.html',       label: 'Journal',       title: 'JOURNAL' },
-    // buton separat, dreapta sus — NU apare în meniu
-    { id: 'history', file: 'history.html',       label: 'History',       title: 'HISTORY', header: true }
+    { id: 'journal', file: 'journal.html',       label: 'Journal',       title: 'JOURNAL' }
+    // History nu mai are pagină proprie (07.08.2026): trăiește ca secțiune în Journal,
+    // lângă „Idea → execution" — ideea și execuția ei se citesc în același loc.
   ];
 
   function fmtD(s) { return (s && /^\d{4}-\d{2}-\d{2}$/.test(s)) ? s.split('-').reverse().join('.') : (s || ''); }

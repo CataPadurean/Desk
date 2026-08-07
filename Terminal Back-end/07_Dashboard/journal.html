@@ -9,7 +9,6 @@
 </head>
 <body>
   <div id="chrome"></div>
-  <div class="chips" id="chips"></div>
   <div class="tabs" id="tabs-s">
     <div class="tab on" data-f="TOT">TOTAL</div>
     <div class="tab" data-f="A">SWING</div>
@@ -26,6 +25,7 @@
     <div class="card"><h2>Per setup — expectancy</h2><div id="setups"></div></div>
   </div>
   <div class="card"><h2>Idea → execution</h2><div id="link"></div></div>
+  <div class="card"><h2>Research history</h2><div id="hist"></div></div>
 <script src="data.js"></script>
 <script src="analysis_data.js"></script>
 <script src="history_data.js"></script>
@@ -47,10 +47,6 @@
   ((window.HISTORY_DATA || {}).entries || []).forEach(function (e) {
     var id = ideaId(e); if (id) IDEAS[id] = { src: 'history', o: e };
   });
-
-  document.getElementById('chips').innerHTML = (D.accounts || []).map(a =>
-    `<span class="chip"><b>${a.name}</b> · ${a.type || '—'} · ${a.phase}</span>`).join('') ||
-    '<span class="chip">niciun cont configurat</span>';
 
   const SETUPS = ['Breakout', 'Retest', 'Retragere', 'News T1', 'Breaking news', 'Alt'];
   const fmt = (x, d) => (x === null || isNaN(x)) ? '—' : x.toFixed(d === undefined ? 2 : d);
@@ -164,6 +160,33 @@
               : (t.rulesOk || '—')) + '</td>' +
           '</tr>'; }).join('') + '</table>'
       : '<div class="empty">Se populează la „loghează:" / „loghează statement". Coloana Idea ref leagă execuția de ideea din book — fără ea, research-ul și rezultatul rămân două lucruri separate.</div>';
+
+    // ——— research history: ce s-a ales de fiecare idee, inclusiv cele netranzacționate ———
+    // Singura populație pe care blotter-ul nu o vede: ideile care n-au ajuns niciodată
+    // execuție. Fără ele nu se poate separa „scorecard-ul greșește" de „execuția greșește".
+    var HE = ((window.HISTORY_DATA || {}).entries || []).filter(function (e) {
+      return F === 'TOT' || e.type === (F === 'A' ? 'Swing' : 'Intraday');
+    });
+    var dec = HE.filter(function (e) { return /VALIDAT|INVALIDAT/i.test(e.outcome || ''); });
+    var ok = dec.filter(function (e) { return /^VALIDAT/i.test(e.outcome || ''); }).length;
+    var rate = dec.length
+      ? Math.round(100 * ok / dec.length) + '% (' + ok + ' din ' + dec.length + ')'
+        + (dec.length < 20 ? ' <span class="dim">— n prea mic pentru o citire statistică</span>' : '')
+      : '<span class="dim">fără idei cu deznodământ clar încă</span>';
+
+    document.getElementById('hist').innerHTML = HE.length
+      ? '<div class="small" style="margin-bottom:8px">Validation rate: ' + rate + '</div>' +
+        '<table><tr><th>Closed</th><th>Instrument</th><th>Direction</th>' +
+        '<th>Outcome</th><th>Ce s-a întâmplat</th></tr>' +
+        HE.slice().reverse().map(function (e) {
+          return '<tr>' +
+            '<td class="small">' + (e.date || '—') + '</td>' +
+            '<td><b>' + (e.instrument || '—') + '</b>' + ideaTag(e) + '</td>' +
+            '<td>' + dirBadge(e.dir) + '</td>' +
+            '<td>' + outBadge(e.outcome) + '</td>' +
+            '<td class="small">' + (e.reason || '—') + '</td>' +
+          '</tr>'; }).join('') + '</table>'
+      : '<div class="empty">Nicio idee închisă încă. Se populează pe măsură ce ideile din book se validează, se rup sau expiră.</div>';
   }
 
   function wire(id, fn) {
