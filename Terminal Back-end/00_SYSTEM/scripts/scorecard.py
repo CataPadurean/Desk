@@ -53,7 +53,12 @@ WEIGHTS = {
 CRIT_ORDER = ('bnk', 'cb', 'ind', 'yld', 'cot', 'reg', 'sea')
 CRIT_LABEL = {'cb': 'CB', 'bnk': 'BNK', 'ind': 'IND', 'yld': 'YLD',
               'cot': 'COT', 'reg': 'REG', 'sea': 'SEA'}
-JUDGMENT = ('bnk', 'cb')
+# criteriile scrise de mână (marcate ca atare în tooltip). CB a ieșit de aici pe
+# 07.08.2026 — se calculează din pricing.
+JUDGMENT = ('bnk',)
+# criteriile 1-2, care trebuie să confirme direcția ca o pereche să intre în BOOK.
+# Rămân aceleași două, indiferent că unul e acum mecanic.
+CONFIRM = ('bnk', 'cb')
 
 CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
 
@@ -61,6 +66,12 @@ CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
 # tocmai pe non-USD, unde nicio bancă nu scrie un raport dedicat)
 USD_PAIRS = ('EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD')
 CROSSES   = ('EURGBP', 'EURJPY', 'GBPJPY', 'AUDNZD', 'CADJPY', 'GBPNZD')
+
+# ——— criteriul 2: CB = edge-ul față de pricing, NU direcția băncii centrale ———
+# Praguri în puncte de bază, ancorate în EDGE_MIN_BP din pricing.py (25bp = prima de
+# termen conținută în randamentul 2Y; sub atât, diferența nu se distinge de zgomot).
+# Semnul: edge pozitiv = desk-ul vede mai multă înăsprire decât e prețuit = pro-monedă.
+CB_BANDS = ((75, 2), (25, 1), (-25, 0), (-75, -1))     # sub tot → −2
 
 # ——— criteriul 5: COT (contrarian la extreme — combustibil de squeeze, nu confirmare) ———
 COT_MARKET = {'USD': 'DXY', 'EUR': 'EUR', 'GBP': 'GBP', 'CAD': 'CAD',
@@ -85,6 +96,20 @@ SEA_HIT_HI, SEA_HIT_LO = 65, 35
 
 # ——— filtrul scorecard → book ———
 GAP_BOOK, GAP_WATCH = 6.0, 5.0
+# Banda de afișare. Gap-ul e ORDINAL, nu cardinal: „9,2" nu înseamnă „cu 53% mai mult
+# decât 6,0" — înseamnă doar „mai sus în clasament". Zecimala comunică o precizie pe care
+# sistemul nu a măsurat-o încă (1 săptămână arhivată, 4 idei închise). Până când arhiva
+# permite regresia gap → mișcare realizată, book-ul arată banda; cifra exactă rămâne în
+# tooltip, pentru cine vrea s-o vadă.
+GAP_STRONG = 8.0
+GAP_BANDS = ((GAP_STRONG, 'STRONG'), (GAP_BOOK, 'CLEAR'), (GAP_WATCH, 'THIN'))
+
+
+def gap_band(gap: float) -> str:
+    for edge, lbl in GAP_BANDS:
+        if abs(gap) >= edge:
+            return lbl
+    return 'NOISE'
 
 
 def _round_half_up(x: float) -> int:
@@ -151,6 +176,40 @@ def score_yields(yld: dict | None) -> dict:
         sc = _band(rel, YLD_BANDS, -2)
         tag = '' if used[ccy] == '2Y' else ' [10Y — 2Y indisponibil]'
         out[ccy] = (sc, f'Δ{used[ccy]} {deltas[ccy]:+.3f}, adică {rel:+.3f} față de media grupului{tag}')
+    return out
+
+
+def score_cb(pricing: dict | None) -> dict:
+    """Criteriul 2 = cât din politica monetară e DEJA ÎN PREȚ, nu încotro merge banca.
+
+    Până la 07.08.2026 criteriul ăsta era o judecată despre direcția băncii centrale —
+    și corela +0,79 cu rapoartele bancare, fiindcă amândouă citeau aceleași comunicate.
+    Două estimări ale aceluiași lucru nu sunt două criterii.
+
+    `edge_bp` (pricing.py) măsoară altceva prin construcție: view-ul desk-ului minus cât
+    prețuiește piața. O bancă centrală hawkish, complet prețuită, dă 0 — oricâte case
+    scriu bullish. Corelația măsurată cu BNK: +0,23.
+
+    Narațiunea despre banca centrală NU dispare: rămâne în currencies[ccy].cb, afișată
+    în cardurile de pe pagina Central Banks. Doar nu mai intră a doua oară în scor.
+    """
+    out = {}
+    for ccy in CCY_ORDER:
+        p = (pricing or {}).get(ccy) or {}
+        e = p.get('edge_bp')
+        if e is None:
+            out[ccy] = (None, p.get('edge') or 'pricing indisponibil (lipsește 2Y sau dobânda de politică)')
+            continue
+        sc = _band(float(e), CB_BANDS, -2)
+        if sc > 0:
+            why = f'edge {e:+.0f}bp — piața prețuiește mai puțin decât vede desk-ul'
+        elif sc < 0:
+            why = f'edge {e:+.0f}bp — deja prețuit peste view-ul desk-ului'
+        else:
+            why = f'edge {e:+.0f}bp — aliniat cu pricing-ul (sub pragul de 25bp)'
+        if p.get('tenor') and p['tenor'] != '2Y':
+            why += f" [citire pe {p['tenor']} — 2Y indisponibil]"
+        out[ccy] = (sc, why)
     return out
 
 
@@ -244,14 +303,14 @@ def _total(scores: dict) -> tuple[float | None, list]:
 
 def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
                     directions: dict, month: int,
-                    reg: dict | None = None) -> dict:
+                    reg: dict | None = None, pricing: dict | None = None) -> dict:
     """Compune scorecard-ul complet: scoruri per monedă, rank, perechi cu verdict."""
     judgment = (directions.get('scorecard') or {}).get('judgment', {}) or {}
     catalysts = directions.get('catalysts', {}) or {}
 
-    mech = {'ind': score_indicators(directions), 'yld': score_yields(yld),
-            'cot': score_cot(cot), 'reg': score_regime(directions, reg),
-            'sea': score_seasonality(sea, month)}
+    mech = {'cb': score_cb(pricing), 'ind': score_indicators(directions),
+            'yld': score_yields(yld), 'cot': score_cot(cot),
+            'reg': score_regime(directions, reg), 'sea': score_seasonality(sea, month)}
 
     rows = {}
     for ccy in CCY_ORDER:
@@ -276,14 +335,15 @@ def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
         rows[c]['rank'] = i
 
     return {'weights': WEIGHTS, 'crit_order': list(CRIT_ORDER), 'crit_label': CRIT_LABEL,
-            'judgment_crit': list(JUDGMENT), 'ccy_order': list(CCY_ORDER),
+            'judgment_crit': list(JUDGMENT), 'confirm_crit': list(CONFIRM),
+            'ccy_order': list(CCY_ORDER),
             'month': month,
             'regime_score': (reg or {}).get('score', directions.get('regime_score')),
             'regime_src': 'calculat' if (reg or {}).get('score') is not None else 'manual',
             'regime_why': (reg or {}).get('why', ''),
             'currencies': rows, 'ranked': ranked,
             'pairs': _build_pairs(rows),
-            'thresholds': {'book': GAP_BOOK, 'watch': GAP_WATCH}}
+            'thresholds': {'book': GAP_BOOK, 'watch': GAP_WATCH, 'strong': GAP_STRONG}}
 
 
 def _build_pairs(rows: dict) -> list:
@@ -300,7 +360,7 @@ def _build_pairs(rows: dict) -> list:
 
         # criteriile 1-2 obligatorii: contribuția lor trebuie să aibă același semn ca gap-ul
         def jsum(node):
-            return sum(node['scores'][k] * WEIGHTS[k] for k in JUDGMENT
+            return sum(node['scores'][k] * WEIGHTS[k] for k in CONFIRM
                        if node['scores'].get(k) is not None)
         jgap = jsum(b) - jsum(q)
         j_ok = (jgap > 0) == (gap > 0) and abs(jgap) > 0
@@ -319,7 +379,8 @@ def _build_pairs(rows: dict) -> list:
         else:
             verdict, note = 'SUB PRAG', 'diferență în zona de zgomot — fără trade'
 
-        out.append({'pair': pair, 'gap': gap, 'dir': direction, 'verdict': verdict,
+        out.append({'pair': pair, 'gap': gap, 'band': gap_band(gap),
+                    'dir': direction, 'verdict': verdict,
                     'note': note, 'catalyst': cat, 'blind': blind,
                     'cross': pair in CROSSES,
                     'legs': {'base': base, 'quote': quote,
@@ -339,9 +400,13 @@ if __name__ == '__main__':
         p = D / f'{n}.json'
         return json.loads(p.read_text()) if p.exists() else None
 
+    from pricing import build_pricing
+
     month = int(sys.argv[1]) if len(sys.argv) > 1 else date.today().month
-    sc = build_scorecard(load('cot_latest'), load('yields_latest'), load('seasonality'),
-                         load('directions') or {}, month, reg=load('regime_latest'))
+    dirs = load('directions') or {}
+    yld = load('yields_latest')
+    sc = build_scorecard(load('cot_latest'), yld, load('seasonality'), dirs, month,
+                         reg=load('regime_latest'), pricing=build_pricing(yld, dirs))
 
     print('CURRENCY SCORECARD — luna %d\n' % month)
     print('%-5s ' % '' + ' '.join('%4s' % CRIT_LABEL[k] for k in CRIT_ORDER) + '  TOTAL')

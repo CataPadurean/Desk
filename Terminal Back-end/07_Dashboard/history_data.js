@@ -17,7 +17,18 @@
 //   criteria    criteriile care au cântărit, pe scurt; contra-criteriile în paranteză
 //   outcome     "VALIDATĂ" | "INVALIDATĂ" | "BREAKEVEN" | "EXPIRATĂ" | "NEACTIVATĂ"
 //               (BREAKEVEN / EXPIRATĂ / NEACTIVATĂ nu intră în rata de validare — sunt neconcludente)
+//   gap         9.2 — diferența de rank din scorecard la data deschiderii (numeric, nu text).
+//               Se copiază din book la închidere: fără ea nu se poate afla niciodată dacă
+//               un gap mare chiar prezice o mișcare mai mare
+//   move_atr    1.8 — mișcarea realizată în direcția ideii, de la `opened` la `date`,
+//               măsurată în ATR(14) zilnic al instrumentului la deschidere. Negativ = a mers
+//               invers. ATR, nu pipi, ca GBPNZD și EURUSD să fie comparabile.
+//               null cât nu e măsurată
 //   reason      2-3 rânduri: ce s-a întâmplat și de ce, în cuvinte
+//
+// De ce `gap` + `move_atr`: perechea lor e singura cale de a afla dacă pragul de 6,0 din
+// scorecard e bun sau ales din burtă. Cu ~30 de idei închise se poate regresa move_atr pe
+// gap; până atunci sunt doar două coloane care se acumulează.
 window.HISTORY_DATA = {
   entries: [
     {

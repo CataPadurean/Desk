@@ -135,7 +135,7 @@ def build_entry() -> dict:
         trades_out.append({
             'instrument': t.get('instrument'), 'type': t.get('type'),
             'stage': t.get('stage'), 'dir': t.get('dir'), 'conf': t.get('conf'),
-            'gap': p.get('gap'), 'verdict': p.get('verdict'),
+            'gap': p.get('gap'), 'band': p.get('band'), 'verdict': p.get('verdict'),
             'catalyst': p.get('catalyst', ''), 'horizon': t.get('horizon'),
             'drivers': t.get('drivers'), 'trigger': t.get('trigger'),
             'invalidation': t.get('invalidation'),
@@ -159,8 +159,9 @@ def build_entry() -> dict:
                                'why': v.get('why', {})}
                            for c, v in (sc.get('currencies') or {}).items()},
             # TOATE perechile, inclusiv cele sub prag: ce ai respins face parte din decizie
-            'pairs': [{'pair': p['pair'], 'gap': p['gap'], 'dir': p['dir'],
-                       'verdict': p['verdict'], 'catalyst': p.get('catalyst', ''),
+            'pairs': [{'pair': p['pair'], 'gap': p['gap'], 'band': p.get('band'),
+                       'dir': p['dir'], 'verdict': p['verdict'],
+                       'catalyst': p.get('catalyst', ''),
                        'blind': p.get('blind', []), 'cross': p.get('cross', False)}
                       for p in pairs],
         },

@@ -189,8 +189,10 @@
     document.getElementById('hist').innerHTML = HE.length
       ? '<div class="small" style="margin-bottom:10px">Direction hit rate: ' + rate + '</div>' +
         '<table><tr><th>Opened</th><th>Bias closed</th><th>Instrument</th>' +
-        '<th>Direction</th><th>Direction correct?</th></tr>' +
+        '<th>Direction</th><th>Direction correct?</th>' +
+        '<th class="c">Rank gap</th><th class="c">Move (ATR)</th></tr>' +
         HE.slice().reverse().map(function (e) {
+          var m = (e.move_atr === null || e.move_atr === undefined) ? null : Number(e.move_atr);
           return '<tr>' +
             '<td class="small">' + (e.opened || '—') + '</td>' +
             '<td class="small">' + (e.date || '—') + '</td>' +
@@ -198,7 +200,16 @@
             '<td>' + dirBadge(e.dir) + '</td>' +
             '<td' + (e.reason ? ' title="' + String(e.reason).replace(/"/g, '&quot;') + '"' : '') +
               '>' + outBadge(e.outcome) + '</td>' +
-          '</tr>'; }).join('') + '</table>'
+            '<td class="c small dim">' + (e.gap === null || e.gap === undefined ? '—'
+              : Math.abs(Number(e.gap)).toFixed(1).replace('.', ',')) + '</td>' +
+            '<td class="c ' + (m === null ? 'dim' : cls(m)) + '"' +
+              ' title="mișcarea realizată în direcția ideii, în ATR(14) zilnic la deschidere">' +
+              (m === null ? '—' : (m > 0 ? '+' : '') + m.toFixed(1).replace('.', ',')) + '</td>' +
+          '</tr>'; }).join('') + '</table>' +
+        (HE.some(function (e) { return e.move_atr !== null && e.move_atr !== undefined; })
+          ? '' : '<div class="small dim" style="margin-top:8px">Move (ATR) se completează la ' +
+                 'închiderea fiecărei idei. Împreună cu Rank gap, e singura cale de a afla ' +
+                 'dacă pragul de 6,0 din scorecard prezice ceva — nu înainte de ~30 de idei.</div>')
       : '<div class="empty">Nicio idee închisă încă. Se populează pe măsură ce ideile din book se validează, se rup sau expiră.</div>';
   }
 

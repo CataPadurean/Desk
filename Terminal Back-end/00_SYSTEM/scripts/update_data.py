@@ -69,7 +69,8 @@ def build_analysis_js():
         month = int(wk.split('-')[1]) if '-' in wk else date.today().month
         obj['scorecard'] = build_scorecard(parts['cot_latest'], parts['yields_latest'],
                                            parts['seasonality'], d, month,
-                                           reg=parts['regime_latest'])
+                                           reg=parts['regime_latest'],
+                                           pricing=obj['pricing'])
     except Exception as e:                                   # scorecardul nu trebuie să rupă pipeline-ul
         print(f'[RUNNER] scorecard EȘUAT: {e}', file=sys.stderr)
         obj['scorecard'] = None
