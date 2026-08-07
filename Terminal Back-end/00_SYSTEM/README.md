@@ -59,5 +59,5 @@ Rulează-l duminica înainte de „generează teza" (sau lasă-l pe Claude să �
 
 - Strategia A (FX intra-week) → cont dedicat (țintă: FTMO Swing)
 - Strategia B (intraday Dow/Gold) → cont dedicat (țintă: Alpha Swing)
-- Fiecare trade din Blotter e etichetat pe cont, strategie și **fază** (coloana W: Demo / Evaluation / Funded); statisticile nu se amestecă — nici între strategii, nici între faze.
+- Fiecare trade din Blotter e etichetat pe cont, strategie și **fază** (coloana W: Evaluation / Funded); statisticile nu se amestecă — nici între strategii, nici între faze.
 - **Idea ref** (coloana V) leagă execuția de ideea din terminal: ID-ul `AAAA-LL-ZZ-INSTRUMENT-L|S` afișat sub instrument în Home și în History. Journal-ul arată fiecare trade lângă ideea lui și deznodământul ei; trade-urile fără ID apar ca `off-book`. KPI-ul „From book" e o măsură de disciplină, nu un scor de performanță.
