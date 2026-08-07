@@ -114,10 +114,13 @@ tr.grp td { background: var(--card2); font-size: .72rem; color: var(--acc); font
   color: var(--dim); font-size: .6rem; font-weight: 600; }
 .sctbl .scnum { white-space: nowrap; }
 .sctbl .scnum b { font-size: 1.02rem; display: inline-block; min-width: 3rem; }
-.scbar { display: inline-block; vertical-align: middle; width: clamp(90px, 9vw, 190px); height: 6px; border-radius: 3px;
-  background: #0d1626; position: relative; margin-left: 8px; }
+/* Canalul barei era #0d1626 — aproape identic cu fundalul cardului, deci nu se vedea
+   nici capătul barei, nici cât spațiu mai era până la ±10. Acum are contur și un fundal
+   mai deschis: se citește și amplitudinea, nu doar direcția. */
+.scbar { display: inline-block; vertical-align: middle; width: clamp(90px, 9vw, 190px); height: 8px; border-radius: 4px;
+  background: #1b2942; border: 1px solid #2c3f5f; position: relative; margin-left: 8px; }
 .scbar i { position: absolute; top: 0; height: 6px; border-radius: 3px; }
-.scbar i.mid { left: 50%; top: -3px; width: 1px; height: 12px; background: var(--line); border-radius: 0; }
+.scbar i.mid { left: 50%; top: -3px; width: 1px; height: 12px; background: #5a7099; border-radius: 0; }
 .scbar i.pos { background: var(--pos); } .scbar i.neg { background: var(--neg); }
 .sccat { font-size: .62rem; color: var(--warn); border: 1px solid rgba(232,179,57,.35);
   border-radius: 4px; padding: 1px 5px; margin-left: 4px; white-space: nowrap; }
