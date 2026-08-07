@@ -44,7 +44,10 @@ body { background: var(--bg); color: var(--txt); font-family: -apple-system, "SF
 .chip { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .78rem; color: var(--dim); }
 .chip b { color: var(--txt); font-weight: 600; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
-.card h2 { font-size: .78rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-bottom: 12px; }
+/* Titlurile de card = aceeași greutate vizuală ca header-ele de monedă (.ccy .hd h3):
+   albe, 1,05rem, letter-spacing 1px. Erau gri și mici, deci un card cu tabel arăta ca și
+   cum n-ar avea titlu. Se schimbă o dată aici, peste tot în terminal. */
+.card h2 { font-size: 1.05rem; letter-spacing: 1px; color: #fff; text-transform: uppercase; margin-bottom: 12px; }
 .empty { color: var(--dim); font-size: .85rem; padding: 14px 0; text-align: center; }
 .foot { color: var(--dim); font-size: .72rem; margin-top: 16px; line-height: 1.6; border-top: 1px solid var(--line); padding-top: 10px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
