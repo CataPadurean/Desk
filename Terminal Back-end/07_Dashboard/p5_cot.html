@@ -11,7 +11,7 @@
   <div id="chrome"></div>
 
   <div class="card">
-    <h2>COT — Leveraged Funds (TFF) · Managed Money on Gold</h2>
+    <h2>COT — Leveraged Funds (TFF)</h2>
     <div id="cot"></div>
   </div>
 
@@ -34,7 +34,7 @@
   }
 
   var cm = (D.cot || {}).markets || {};
-  var order = ['DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'GOLD'];
+  var order = ['DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
   var first = order.filter(function (k) { return cm[k]; })[0];
 
   document.getElementById('cot').innerHTML = Object.keys(cm).length

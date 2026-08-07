@@ -1,6 +1,6 @@
 {
  "updated": "2026-08-03",
- "source": "CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)",
+ "source": "CFTC TFF (Leveraged Funds)",
  "markets": {
   "EUR": {
    "category": "Leveraged Funds (TFF)",
@@ -192,30 +192,6 @@
     -4866,
     -1938,
     -1601
-   ]
-  },
-  "GOLD": {
-   "category": "Managed Money (Disagg)",
-   "as_of": "2026-07-28",
-   "net": 119795,
-   "delta_1w": -5036,
-   "pct_oi": 31.1,
-   "percentile_52w": 60,
-   "extreme": null,
-   "history_13w": [
-    94254,
-    98015,
-    93540,
-    97446,
-    112179,
-    105863,
-    113721,
-    115395,
-    120091,
-    116161,
-    120779,
-    124831,
-    119795
    ]
   }
  }

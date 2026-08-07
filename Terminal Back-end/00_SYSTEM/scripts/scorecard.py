@@ -6,17 +6,22 @@ cele 7 criterii; scorul sintetic se normalizează la ±10 și dă rank-ul. Perec
 din diferența de rank, nu din intuiție.
 
 Împărțirea muncii (decisă 02.08.2026):
-  · criteriile 1-2 (Central Banks, Bank Reports) = JUDECATĂ — scrise de Claude în
+  · criteriile 1-2 (Bank Reports, Central Banks) = JUDECATĂ — scrise de Claude în
     directions.json → scorecard.judgment, cu justificare per monedă;
-  · criteriile 3-7 (Indicators, Yields, COT, Regime, Seasonality) = MECANIC — calculate
-    aici din cot_latest.json / yields_latest.json / seasonality.json, cu praguri fixe.
+  · criteriile 3-7 (Indicators, Yields, COT, Regime, Seasonality) = AUTOMAT, calculate aici
+    — IND din eticheta manuală (directions.json → indicators), restul din cot_latest.json /
+    yields_latest.json / seasonality.json / regime_latest.json, cu praguri fixe.
 
-03.08.2026 — criteriile 3 și 6 au trecut de la etichetă la date:
-  · IND citește indicators_latest.json (surpriză actual-vs-consens, z-score ponderat;
-    update_indicators.py). Eticheta veche din directions.json → indicators[].surprise
-    rămâne doar ca ultimă plasă de siguranță și e marcată vizibil ca atare.
-  · REG citește regime_latest.json (VIX + HY OAS + momentum S&P; update_regime.py).
-    `regime_score` din directions.json rămâne fallback dacă FRED e mort.
+03.08.2026 — criteriul 6 a trecut de la etichetă la date: REG citește regime_latest.json
+(VIX + HY OAS + momentum S&P; update_regime.py). `regime_score` din directions.json
+rămâne fallback dacă FRED e mort.
+
+07.08.2026 — criteriul 3 a revenit la etichetă manuală. Varianta mecanică (index de
+surpriză actual-vs-consens, update_indicators.py) corela +0,8+ cu CB și BNK — aceleași
+publicări citate deja în argumentele lor — și depindea de un feed de calendar mort care
+cerea o corvoadă săptămânală prin Chrome doar ca să dea „fără date". Cătălin urmărește
+oricum calendarul live pentru execuție; eticheta scrisă la procesarea rapoartelor
+(„Macro state per currency") rămâne singura sursă a criteriului 3.
 
 PRAGURILE SE ÎNGHEAȚĂ. Ajustarea lor retroactiv, ca să iasă scorul dorit, e cel mai
 comun mod de a strica un scorecard. Se modifică doar la review lunar, pe date, ca
@@ -24,20 +29,31 @@ playbook-ul.
 """
 from __future__ import annotations
 
-# ——— ponderi (total 12,5 → scor maxim 25 → normalizare curată la ±10) ———
+# ——— ponderi (total 10,0 → normalizare la ±10) ———
+# Rebalansate 07.08.2026, varianta „regim dublu":
+#   · BNK trece peste CB — rapoartele bancare sunt materialul cel mai bogat din inbox
+#     și criteriul pe care Cătălin îl citește efectiv săptămână de săptămână;
+#   · REG urcă de la 0,5 la 1,0 și YLD de la ... la 1,5 — sunt singurele criterii care
+#     hrănesc și execuția intraday (VIX pentru Dow, randamente reale pentru Gold),
+#     nu doar rank-ul cross-secțional de pe FX;
+#   · IND coboară la 1,0 — e etichetă manuală și corelează puternic cu CB/BNK
+#     (aceleași publicări, citate deja în argumentele lor).
+# Totalul e 10,0 ca ponderea să se citească direct („BNK = 3 din 10"). Normalizarea
+# la ±10 se face oricum pe suma criteriilor disponibile, deci schimbarea totalului
+# de la 12,5 la 10,0 nu mută niciun scor — doar raportul dintre criterii o face.
 WEIGHTS = {
-    'cb':  3.00,   # 1. Central Banks  (judecată)
-    'bnk': 3.00,   # 2. Bank Reports   (judecată)
-    'ind': 2.00,   # 3. Economic Indicators
-    'yld': 1.75,   # 4. Yield Spreads
-    'cot': 1.25,   # 5. COT
+    'bnk': 3.00,   # 1. Bank Reports   (judecată)
+    'cb':  2.00,   # 2. Central Banks  (judecată)
+    'ind': 1.00,   # 3. Economic Indicators (etichetă manuală)
+    'yld': 1.50,   # 4. Yield Spreads
+    'cot': 1.00,   # 5. COT
     'reg': 1.00,   # 6. Risk Regime
     'sea': 0.50,   # 7. Seasonality
 }
-CRIT_ORDER = ('cb', 'bnk', 'ind', 'yld', 'cot', 'reg', 'sea')
+CRIT_ORDER = ('bnk', 'cb', 'ind', 'yld', 'cot', 'reg', 'sea')
 CRIT_LABEL = {'cb': 'CB', 'bnk': 'BNK', 'ind': 'IND', 'yld': 'YLD',
               'cot': 'COT', 'reg': 'REG', 'sea': 'SEA'}
-JUDGMENT = ('cb', 'bnk')
+JUDGMENT = ('bnk', 'cb')
 
 CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
 
@@ -138,26 +154,17 @@ def score_yields(yld: dict | None) -> dict:
     return out
 
 
-def score_indicators(directions: dict, ind: dict | None = None) -> dict:
-    """Surpriza macro ponderată (update_indicators.py). Eticheta manuală e ultima soluție:
-    un criteriu de 2,0 din 12,5 nu are voie să stea pe un cuvânt scris din impresie."""
-    calc = (ind or {}).get('currencies', {}) or {}
+def score_indicators(directions: dict) -> dict:
+    """Etichetă manuală, scrisă la procesarea rapoartelor (Macro state per currency).
+    Vezi nota din 07.08.2026 din header: varianta mecanică a fost eliminată."""
     out = {}
     for ccy in CCY_ORDER:
-        node = calc.get(ccy) or {}
-        if node.get('score') is not None:
-            out[ccy] = (_clamp(int(node['score'])), node.get('why', 'surpriză macro calculată'))
-            continue
-        # fallback: eticheta scrisă de mână, marcată explicit
         s = str(((directions.get('indicators', {}) or {}).get(ccy) or {})
                 .get('surprise', '')).strip().lower()
         if s in IND_MAP:
-            why = f'etichetă manuală „{s}" (fără index de surpriză)'
-            if node.get('why'):
-                why += f" — {node['why']}"
-            out[ccy] = (IND_MAP[s], why)
+            out[ccy] = (IND_MAP[s], f'etichetă manuală „{s}"')
         else:
-            out[ccy] = (None, node.get('why') or 'fără citire de surpriză')
+            out[ccy] = (None, 'fără citire de surpriză')
     return out
 
 
@@ -237,12 +244,12 @@ def _total(scores: dict) -> tuple[float | None, list]:
 
 def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
                     directions: dict, month: int,
-                    ind: dict | None = None, reg: dict | None = None) -> dict:
+                    reg: dict | None = None) -> dict:
     """Compune scorecard-ul complet: scoruri per monedă, rank, perechi cu verdict."""
     judgment = (directions.get('scorecard') or {}).get('judgment', {}) or {}
     catalysts = directions.get('catalysts', {}) or {}
 
-    mech = {'ind': score_indicators(directions, ind), 'yld': score_yields(yld),
+    mech = {'ind': score_indicators(directions), 'yld': score_yields(yld),
             'cot': score_cot(cot), 'reg': score_regime(directions, reg),
             'sea': score_seasonality(sea, month)}
 
@@ -274,7 +281,6 @@ def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
             'regime_score': (reg or {}).get('score', directions.get('regime_score')),
             'regime_src': 'calculat' if (reg or {}).get('score') is not None else 'manual',
             'regime_why': (reg or {}).get('why', ''),
-            'ind_src': (ind or {}).get('source', 'etichete manuale'),
             'currencies': rows, 'ranked': ranked,
             'pairs': _build_pairs(rows),
             'thresholds': {'book': GAP_BOOK, 'watch': GAP_WATCH}}
@@ -335,8 +341,7 @@ if __name__ == '__main__':
 
     month = int(sys.argv[1]) if len(sys.argv) > 1 else date.today().month
     sc = build_scorecard(load('cot_latest'), load('yields_latest'), load('seasonality'),
-                         load('directions') or {}, month,
-                         ind=load('indicators_latest'), reg=load('regime_latest'))
+                         load('directions') or {}, month, reg=load('regime_latest'))
 
     print('CURRENCY SCORECARD — luna %d\n' % month)
     print('%-5s ' % '' + ' '.join('%4s' % CRIT_LABEL[k] for k in CRIT_ORDER) + '  TOTAL')

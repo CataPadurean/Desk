@@ -1,6 +1,6 @@
-# MACRO SNAPSHOT — 2026-08-03
+# MACRO SNAPSHOT — 2026-08-07
 
-## COT (as of 2026-07-28) — Leveraged Funds (TFF) / Managed Money (GOLD)
+## COT (as of 2026-07-28) — Leveraged Funds (TFF)
 
 | Activ | Net | Δ 1w | % din OI | Percentilă 52w | Extremă |
 |---|---|---|---|---|---|
@@ -12,7 +12,6 @@
 | CHF | -9,647 | -750 | -8.6% | 12 | — |
 | AUD | +27,618 | +2,830 | 12.0% | 44 | — |
 | NZD | -30,027 | +1,059 | -28.6% | 4 | SHORT |
-| GOLD | +119,795 | -5,036 | 31.1% | 60 | — |
 
 ## Randamente 2Y/10Y (Δ = ~5 ședințe)
 
@@ -40,19 +39,6 @@
 | NZDUSD | -0.58 | +0.12 | 0.05 | +0.04 |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
-
-## Surpriză macro (criteriul 3) — fereastră 30 zile, sursă: fără date
-
-| Monedă | Surpriză ponderată | Scor | Publicări | Contributorii principali |
-|---|---|---|---|---|
-| USD | — | — (orb) | 0 | — |
-| EUR | — | — (orb) | 0 | — |
-| GBP | — | — (orb) | 0 | — |
-| CAD | — | — (orb) | 0 | — |
-| JPY | — | — (orb) | 0 | — |
-| CHF | — | — (orb) | 0 | — |
-| AUD | — | — (orb) | 0 | — |
-| NZD | — | — (orb) | 0 | — |
 
 ## Regim de risc (criteriul 6) — scor +0 (NEUTRU)
 

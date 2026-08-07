@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""COT (CFTC): FX + DXY = Leveraged Funds din TFF (Traders in Financial Futures);
-GOLD = Managed Money din raportul Disaggregated (echivalentul pe mărfuri).
+"""COT (CFTC): FX + DXY = Leveraged Funds din TFF (Traders in Financial Futures).
 Metrici: net, Δ săptămânal, % din OI, percentilă 52w, flag extremă (≥90/≤10), istoric 13w.
+
+07.08.2026 — GOLD scos din COT. Era singura piață din raportul Disaggregated (Managed
+Money); criteriul 5 rămâne strict pe universul de monede al scorecard-ului. Dacă revine,
+se readaugă raportul fut_disagg_txt_{AN}.zip cu coloanele m_money long/short.
+
 Rulare: python3 update_cot.py  →  scrie ../data/cot_latest.json
-Surse (gratuite, fără cheie):
-  https://www.cftc.gov/files/dea/history/fut_fin_txt_{AN}.zip     (TFF futures-only)
-  https://www.cftc.gov/files/dea/history/fut_disagg_txt_{AN}.zip  (Disaggregated futures-only)"""
+Sursă (gratuită, fără cheie):
+  https://www.cftc.gov/files/dea/history/fut_fin_txt_{AN}.zip     (TFF futures-only)"""
 import csv, io, json, sys, urllib.request, zipfile
 from datetime import date
 from pathlib import Path
@@ -21,12 +24,8 @@ TFF_MARKETS = {
     'NZD': ('NZ DOLLAR', 'NEW ZEALAND DOLLAR'),
     'DXY': ('USD INDEX', 'U.S. DOLLAR INDEX', 'DOLLAR INDEX'),
 }
-# piețe Disaggregated (mărfuri)
-DISAGG_MARKETS = {
-    'GOLD': ('GOLD - COMMODITY EXCHANGE',),
-}
 EXCLUDE = ['MICRO', 'E-MINI', ' MINI', 'XRATE', '/']
-ORDER = ['EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'DXY', 'GOLD']
+ORDER = ['EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'DXY']
 UA = {'User-Agent': 'Mozilla/5.0 (desk-system; personal research)'}
 
 def fetch_zip_txt(url):
@@ -74,8 +73,6 @@ def main():
         # (url_template, markets, long-col needles, short-col needles, etichetă)
         ('https://www.cftc.gov/files/dea/history/fut_fin_txt_{y}.zip',
          TFF_MARKETS, ('lev_money', 'long'), ('lev_money', 'short'), 'Leveraged Funds (TFF)'),
-        ('https://www.cftc.gov/files/dea/history/fut_disagg_txt_{y}.zip',
-         DISAGG_MARKETS, ('m_money', 'long'), ('m_money', 'short'), 'Managed Money (Disagg)'),
     ]
     for tmpl, mkts, lc, sc, cat in jobs:
         for y in (year - 1, year):
@@ -87,7 +84,7 @@ def main():
         sys.exit('[COT] EROARE: nicio dată descărcată.')
 
     out = {'updated': date.today().isoformat(),
-           'source': 'CFTC TFF (Leveraged Funds) + Disaggregated (Managed Money, GOLD)',
+           'source': 'CFTC TFF (Leveraged Funds)',
            'markets': {}}
     for key in ORDER:
         if key not in rows: continue

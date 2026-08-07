@@ -51,7 +51,15 @@ HALF_LIFE = 10.0        # zile — ponderea unei surprize se înjumătățește 
 IMPACT_W = {'high': 1.0, 'medium': 0.5, 'low': 0.2, 'holiday': 0.0}
 Z_CLIP = 3.0            # o surpriză nu poate cântări mai mult de 3 deviații
 MIN_OBS = 6             # observații necesare ca să folosesc σ istoric în loc de scara implicită
-MIN_WEIGHT = 0.6        # sub atâta pondere cumulată, moneda rămâne oarbă (nu zero)
+# Pragul de „am destule date": o singură publicare NU are voie să dea nota unei monede.
+# Un ISM peste consens e o știre, nu un regim de surprize — iar scorul ±2 pe care l-ar
+# produce singur ar cântări 2,0 din 12,5 în scorecard, la fel de mult ca o săptămână
+# întreagă de date. De aceea: minimum două publicări ȘI pondere cumulată ≥ 1,0.
+MIN_EVENTS = 2
+MIN_WEIGHT = 1.0
+# …și din cel puțin două zile diferite: ISM și PMI-ul final publicate în aceeași
+# dimineață măsoară același lucru, nu două confirmări independente.
+MIN_DAYS = 2
 IND_BANDS = ((0.75, 2), (0.25, 1), (-0.25, 0), (-0.75, -1))   # sub tot → −2
 HIST_KEEP = 40
 
@@ -285,9 +293,12 @@ def build(events, hist, today=None, window=WINDOW_DAYS):
     for ccy in CCY_ORDER:
         rows = sorted(per[ccy], key=lambda r: abs(r['z'] * r['w']), reverse=True)
         wsum = sum(r['w'] for r in rows)
-        if not rows or wsum < MIN_WEIGHT:
+        days = len({r['date'] for r in rows})
+        if len(rows) < MIN_EVENTS or wsum < MIN_WEIGHT or days < MIN_DAYS:
             out[ccy] = {'score': None, 'z': None, 'n': len(rows), 'weight': round(wsum, 2),
-                        'why': 'prea puține publicări cu consens în fereastră',
+                        'why': (f'date insuficiente: {len(rows)} publicări în {days} '
+                                f'{"zi" if days == 1 else "zile"}, pondere {wsum:.2f} '
+                                f'(prag {MIN_EVENTS} publicări / {MIN_DAYS} zile / {MIN_WEIGHT})'),
                         'top': rows[:3], 'events': rows}
             continue
         z = sum(r['z'] * r['w'] for r in rows) / wsum
