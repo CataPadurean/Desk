@@ -2,12 +2,11 @@
 window.DESK_DATA = {
   updated: "19.07.2026 (teza săptămânii 06.07–10.07.2026, generată 05.07)",
   week: "06.07–10.07.2026",
-  // accounts: name = exact ca în blotter (coloana Cont) · type = Demo / Evaluation / Funded
+  // accounts: name = exact ca în blotter (coloana Cont) · type = Evaluation / Funded
   // (faza contului, cea după care se separă statisticile din Journal) · phase = etapa din playbook.
-  accounts: [
-    { name: "Demo-A", strategy: "A", type: "Demo", phase: "Faza 0 — validare" },
-    { name: "Demo-B", strategy: "B", type: "Demo", phase: "Faza 0 — validare" }
-  ],
+  // Gol din 07.08.2026 — Demo eliminat de tot. Testul începe pe un cont Funded mic (10k),
+  // ca să se vadă comportamentul real, nu pe demo. Se completează la comanda de start a testului.
+  accounts: [],
 
   // ——— stratul de sinteză (mereu populat; ordinea = cele 7 criterii de confluență) ———
   regime: "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1%, VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săptămâni, pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 miliarde) + SOFR short record. Săptămâna se joacă pe evenimente: RBNZ 8.07 (hike devenit consens) + minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
