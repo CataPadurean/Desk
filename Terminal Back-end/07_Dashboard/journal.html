@@ -133,7 +133,7 @@
     const maxAbs = Math.max(0.1, ...rows.map(r => Math.abs(r.exp || 0)));
     document.getElementById('setups').innerHTML = s.n === 0
       ? '<div class="empty">Fără trade-uri încă — statisticile pornesc odată cu blotter-ul.</div>'
-      : `<table><tr><th>Setup</th><th>N</th><th>WR</th><th>Exp (R)</th><th></th></tr>` +
+      : `<table><tr><th>Setup</th><th>Trades</th><th>WR</th><th>Exp (R)</th><th></th></tr>` +
         rows.map(r => `<tr>
           <td>${r.name}</td><td class="dim">${r.n}</td><td>${pct(r.wr)}</td>
           <td class="${cls(r.exp)}">${fmt(r.exp)}</td>
@@ -194,7 +194,7 @@
           return '<tr>' +
             '<td class="small">' + (e.opened || '—') + '</td>' +
             '<td class="small">' + (e.date || '—') + '</td>' +
-            '<td><b>' + (e.instrument || '—') + '</b>' + ideaTag(e) + '</td>' +
+            '<td><b>' + (e.instrument || '—') + '</b></td>' +
             '<td>' + dirBadge(e.dir) + '</td>' +
             '<td' + (e.reason ? ' title="' + String(e.reason).replace(/"/g, '&quot;') + '"' : '') +
               '>' + outBadge(e.outcome) + '</td>' +
