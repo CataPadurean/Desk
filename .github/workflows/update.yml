@@ -2,13 +2,15 @@ name: Update desk data + deploy dashboard
 
 on:
   schedule:
-    # ——— REFRESH ZILNIC: PAUZAT (31.07.2026) ———————————————————————————————
-    # Motiv: robotul rescria analysis_data.js + macro_snapshot.md pe server exact
-    # când lucram și eu la ele local → conflict de rebase la fiecare push.command.
-    # CA SĂ-L REPORNEȘTI: șterge cele două caractere „# " de pe linia de mai jos.
-    # Între timp datele se pot împrospăta oricând la cerere: scrie [refresh] în
-    # mesajul unui commit, sau apasă „Run workflow" din tab-ul Actions.
-    # - cron: '0 11 * * *'   # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna)
+    # ——— REFRESH ZILNIC: repornit 10.08.2026 ————————————————————————————————
+    # Fusese pauzat din 31.07.2026: robotul rescria analysis_data.js exact când se
+    # lucra și local la el → conflict de rebase la fiecare push.command. Fixul (vezi
+    # pasul „Refresh market data" de mai jos): cron-ul zilnic rulează update_data.py
+    # cu --skip-build — fetch normal (COT/randamente/regim/indicatori), dar NU
+    # rescrie analysis_data.js. Fișierul acela se compune DOAR la comenzi explicite
+    # (procesează inbox / generează teza), niciodată automat — deci bot-ul nu mai
+    # atinge fișierul pe care se lucrează manual.
+    - cron: '0 11 * * *'     # zilnic 11:00 UTC (~14:00 RO vara / 13:00 iarna)
     - cron: '0 5 3 1 *'      # o dată pe an, 3 ianuarie 05:00 UTC — recalculează seasonality.json (fix tot anul)
   push:
     branches: [ main ]        # push-ul lui Claude/tău reîmprospătează site-ul
@@ -35,10 +37,22 @@ jobs:
 
       # Datele de piață se reîmprospătează DOAR pe program / manual, nu la fiecare push
       # (seasonality NU e inclus aici — vezi jobul anual mai jos)
-      - name: Refresh market data (COT + randamente)
+      # Cron-ul zilnic (schedule '0 11 * * *') rulează cu --skip-build: fetch fără
+      # rescrierea analysis_data.js, ca să nu intre în conflict cu editările manuale.
+      # workflow_dispatch și push cu [refresh] sunt acțiuni conștiente ale lui Cătălin —
+      # acolo rămâne build-ul complet (comportamentul de dinainte).
+      - name: Refresh market data (COT + randamente + regim + indicatori)
         if: github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh]')
         continue-on-error: true
-        run: python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py"
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" != "0 5 3 1 *" ]; then
+            echo "[workflow] cron zilnic — fetch fara rescriere analysis_data.js"
+            python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py" --skip-build
+          else
+            python3 "Terminal Back-end/00_SYSTEM/scripts/update_data.py"
+          fi
 
 
       # DEBUG temporar: activat doar cu [debug-yields] în mesajul de commit

@@ -433,12 +433,10 @@ def src_rbnz():
             return {'2Y': series_clean(s2), '10Y': series_clean(s10)}, 'RBNZ B2 zilnic'
     raise RuntimeError('RBNZ B2: coloanele bond 2y/10y negăsite')
 
-def src_rbnz_html():
-    """NZD, plan B (03.08.2026): xlsx-ul B2 întoarce 403 și de pe Mac — WAF-ul RBNZ
-    blochează descărcarea programatică a fișierului, indiferent de UA. Pagina B2 însă
-    e servită normal ȘI conține tabelul-rezumat cu ultimele ~10 ședințe, inclusiv
-    «Secondary market government bond closing yields»: 1y, 2y, 5y, 10y.
-    Zece observații ajung pentru Δ pe 5 ședințe; restul se acumulează în cache.
+def _parse_rbnz_b2_table(html):
+    """Parsează tabelul HTML B2 (structura descrisă în src_rbnz_html). Extras într-o
+    funcție separată pe 10.08.2026 ca să fie reutilizat și de src_rbnz_firecrawl —
+    un singur parser pentru un singur format de pagină, indiferent cine o aduce.
 
     Structura unui rând: dată + 12 valori
       OCR · depozit o/n · reverse repo o/n · interbancar o/n · 30d · 60d · 90d
@@ -446,8 +444,6 @@ def src_rbnz_html():
     Citesc de la coadă (2y = a patra de la sfârșit, 10y = a doua) și verific
     alinierea pe ultima celulă: spread-ul e în puncte de bază, deci >10 în valoare
     absolută — dacă nu e, structura s-a schimbat și refuz rândul."""
-    html = get('https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/'
-               'wholesale-interest-rates', tries=2, ua=BROWSER_UA)
     s2, s10 = [], []
     for row in re.split(r'<tr[\s>]', html)[1:]:
         cells = [re.sub(r'<[^>]+>', '', c).replace('&nbsp;', ' ').strip()
@@ -466,9 +462,44 @@ def src_rbnz_html():
         if abs(spread) <= 10 or v2 is None or v10 is None:
             continue                      # coloanele nu mai sunt unde le știam
         s2.append((d, v2)); s10.append((d, v10))
+    return s2, s10
+
+
+def src_rbnz_html():
+    """NZD, plan B (03.08.2026): xlsx-ul B2 întoarce 403 și de pe Mac — WAF-ul RBNZ
+    blochează descărcarea programatică a fișierului, indiferent de UA. Pagina B2 însă
+    e servită normal ȘI conține tabelul-rezumat cu ultimele ~10 ședințe, inclusiv
+    «Secondary market government bond closing yields»: 1y, 2y, 5y, 10y.
+    Zece observații ajung pentru Δ pe 5 ședințe; restul se acumulează în cache."""
+    html = get('https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/'
+               'wholesale-interest-rates', tries=2, ua=BROWSER_UA)
+    s2, s10 = _parse_rbnz_b2_table(html)
     if not s2:
         raise RuntimeError('RBNZ pagina B2: tabelul de randamente nu a putut fi citit')
     return {'2Y': series_clean(s2), '10Y': series_clean(s10)}, 'RBNZ pagina B2 (tabel zilnic)'
+
+
+def src_rbnz_firecrawl():
+    """NZD, plan C (10.08.2026): src_rbnz_html de mai sus eșuează mereu prin curl —
+    Akamai verifică amprenta TLS a clientului, nu header-ele (User-Agent inclus), deci
+    niciun fetch programatic direct (Mac sau GitHub Actions) nu poate trece. Firecrawl
+    randă pagina într-un browser real (headless) și ar trebui să vadă exact tabelul pe
+    care Cătălin îl citește manual. Reutilizează parserul din _parse_rbnz_b2_table —
+    dacă structura paginii se schimbă, se schimbă o singură dată, nu de două ori.
+
+    Necesită FIRECRAWL_API_KEY (vezi firecrawl_client.py). Dacă lipsește cheia sau
+    Firecrawl eșuează, excepția urcă și lanțul trece la src_rbnz (xlsx) și apoi la
+    src_manual — nimic nu blochează pipeline-ul.
+
+    NETESTAT live (10.08.2026): sandbox-ul Claude nu are acces la api.firecrawl.dev.
+    De validat cu --probe NZD pe Mac sau printr-un „Run workflow" manual."""
+    from firecrawl_client import scrape_html
+    html = scrape_html('https://www.rbnz.govt.nz/statistics/series/exchange-and-interest-rates/'
+                        'wholesale-interest-rates')
+    s2, s10 = _parse_rbnz_b2_table(html)
+    if not s2:
+        raise RuntimeError('Firecrawl RBNZ: tabelul de randamente nu a putut fi citit din markup')
+    return {'2Y': series_clean(s2), '10Y': series_clean(s10)}, 'RBNZ pagina B2 via Firecrawl'
 
 
 def src_manual(ccy):
@@ -538,12 +569,19 @@ CHAINS = {
     'JPY': [src_mof,  _named(lambda: src_stooq('2yjpy.b', '10yjpy.b'), 'stooq_jpy')],
     # CHF: SNB publică din 2025 DOAR 10Y. Stooq stă în lanț pentru 2Y — cu umplerea
     # per tenor, faptul că SNB reușește pe 10Y nu mai anulează căutarea pe 2Y.
+    # Investigat 10.08.2026 pentru Firecrawl: nu s-a găsit nicio pagină publică (SNB,
+    # BIS, Investing.com, altă bancă) care să publice explicit CHF 2Y de când cubul
+    # SNB s-a discontinuat — Firecrawl citește o pagină care există, nu inventează una.
+    # Rămâne gol structural confirmat, nu un eșec tehnic; se redeschide doar dacă SNB
+    # publică vreodată din nou un cod de 2 ani (vezi SNB_CODE_2Y).
     'CHF': [src_snb, src_snb_xlsx, _named(lambda: src_stooq('2ychy.b', '10ychy.b'), 'stooq_chf'),
             src_snb_rss],
     'AUD': [src_rba,  _named(lambda: src_stooq('2yauy.b', '10yauy.b'), 'stooq_aud')],
     # NZD: xlsx-ul B2 e blocat de WAF (403 și de pe Mac), dar pagina B2 publică
-    # același tabel zilnic → sursa primară e pagina, fișierul rămâne ca fallback.
-    'NZD': [src_rbnz_html, src_rbnz,
+    # același tabel zilnic → sursa primară e pagina (gratuită, fără credite), apoi
+    # Firecrawl (10.08.2026 — plătit, dar randează browser real, deci trece de Akamai
+    # unde curl nu poate), apoi xlsx-ul (păstrat cât timp există șansa să revină).
+    'NZD': [src_rbnz_html, src_rbnz_firecrawl, src_rbnz,
             _named(lambda: src_stooq(('2ynzy.b', '2ynz.b'), ('10ynzy.b', '10ynz.b')), 'stooq_nzd')],
 }
 # seria culeasă manual închide FIECARE lanț — ultima opțiune, niciodată prima
