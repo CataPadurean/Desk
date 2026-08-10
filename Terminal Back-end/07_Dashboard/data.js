@@ -4,9 +4,11 @@ window.DESK_DATA = {
   week: "06.07–10.07.2026",
   // accounts: name = exact ca în blotter (coloana Cont) · type = Evaluation / Funded
   // (faza contului, cea după care se separă statisticile din Journal) · phase = etapa din playbook.
-  // Gol din 07.08.2026 — Demo eliminat de tot. Testul începe pe un cont Funded mic (10k),
-  // ca să se vadă comportamentul real, nu pe demo. Se completează la comanda de start a testului.
-  accounts: [],
+  // 10.08.2026: cont demo Fusion Markets adăugat pentru testarea pipeline-ului (statement → blotter),
+  // NU ca reluare a trackingului pe demo — planul din 07.08 rămâne: testul real pornește pe Funded mic.
+  accounts: [
+    { name: "Fusion-Demo", strategy: "Swing + Intraday", type: "Demo", phase: "Test pipeline" }
+  ],
 
   // ——— stratul de sinteză (mereu populat; ordinea = cele 7 criterii de confluență) ———
   regime: "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1%, VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săptămâni, pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 miliarde) + SOFR short record. Săptămâna se joacă pe evenimente: RBNZ 8.07 (hike devenit consens) + minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
