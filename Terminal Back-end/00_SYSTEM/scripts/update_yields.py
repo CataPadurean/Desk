@@ -541,10 +541,12 @@ CHAINS = {
     'CHF': [src_snb, src_snb_xlsx, _named(lambda: src_stooq('2ychy.b', '10ychy.b'), 'stooq_chf'),
             src_snb_rss],
     'AUD': [src_rba,  _named(lambda: src_stooq('2yauy.b', '10yauy.b'), 'stooq_aud')],
-    # NZD: xlsx-ul B2 e blocat de WAF (403 și de pe Mac), dar pagina B2 publică
-    # același tabel zilnic → sursa primară e pagina, fișierul rămâne ca fallback.
-    'NZD': [src_rbnz_html, src_rbnz,
-            _named(lambda: src_stooq(('2ynzy.b', '2ynz.b'), ('10ynzy.b', '10ynz.b')), 'stooq_nzd')],
+    # NZD: un singur încercat, ca la restul monedelor (ex. CAD: doar src_boc) — sursa
+    # oficială RBNZ, fără scraping de pagină HTML și fără fallback de piață (Stooq).
+    # Dacă xlsx-ul dă 403 (WAF-ul RBNZ), lanțul cade direct pe `manual`, la fel ca
+    # oricare altă monedă a cărei sursă oficială ar pica. Decizie explicită (10.08.2026):
+    # consecvență de arhitectură, chiar cu riscul ca NZD să ajungă mai des pe manual.
+    'NZD': [src_rbnz],
 }
 # seria culeasă manual închide FIECARE lanț — ultima opțiune, niciodată prima
 for _c in CHAINS:
