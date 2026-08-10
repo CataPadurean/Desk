@@ -213,31 +213,15 @@ def score_cb(pricing: dict | None) -> dict:
     return out
 
 
-def score_indicators(directions: dict, ind: dict | None = None) -> dict:
-    """Criteriul 3, din 10.08.2026: indexul mecanic de surpriză (actual vs. consens,
-    update_indicators.py, acum alimentat de Firecrawl pe calendarul TE — vezi acel
-    fișier) când există date suficiente pentru o monedă; altfel eticheta manuală din
-    directions.json → indicators (Macro state per currency), scrisă la procesarea
-    rapoartelor. Fallback pe rând, per monedă — nu pe tot criteriul deodată.
-
-    Notă onestă păstrată din 07.08.2026: prima variantă mecanică corela +0,81 cu BNK
-    (aceleași publicări citate deja în argumentele băncilor) — motivul pentru care a
-    fost înlocuită atunci cu eticheta manuală. Revine acum la cerere explicită; `why`-ul
-    de mai jos rămâne marcat, ca dubla-numărare să se vadă în tooltip, nu să dispară."""
-    cur = (ind or {}).get('currencies') or {}
+def score_indicators(directions: dict) -> dict:
+    """Etichetă manuală, scrisă la procesarea rapoartelor (Macro state per currency).
+    Vezi nota din 07.08.2026 din header: varianta mecanică a fost eliminată."""
     out = {}
     for ccy in CCY_ORDER:
-        node = cur.get(ccy) or {}
-        sc = node.get('score')
-        if sc is not None:
-            out[ccy] = (_clamp(int(sc)),
-                        f"mecanic — {node.get('why', '')} [corela istoric +0,81 cu BNK — verifică dubla-numărare]")
-            continue
         s = str(((directions.get('indicators', {}) or {}).get(ccy) or {})
                 .get('surprise', '')).strip().lower()
         if s in IND_MAP:
-            reason = node.get('why') or 'date insuficiente pentru scorul mecanic'
-            out[ccy] = (IND_MAP[s], f'etichetă manuală „{s}" [mecanic indisponibil: {reason}]')
+            out[ccy] = (IND_MAP[s], f'etichetă manuală „{s}"')
         else:
             out[ccy] = (None, 'fără citire de surpriză')
     return out
@@ -319,13 +303,12 @@ def _total(scores: dict) -> tuple[float | None, list]:
 
 def build_scorecard(cot: dict | None, yld: dict | None, sea: dict | None,
                     directions: dict, month: int,
-                    reg: dict | None = None, pricing: dict | None = None,
-                    ind: dict | None = None) -> dict:
+                    reg: dict | None = None, pricing: dict | None = None) -> dict:
     """Compune scorecard-ul complet: scoruri per monedă, rank, perechi cu verdict."""
     judgment = (directions.get('scorecard') or {}).get('judgment', {}) or {}
     catalysts = directions.get('catalysts', {}) or {}
 
-    mech = {'cb': score_cb(pricing), 'ind': score_indicators(directions, ind),
+    mech = {'cb': score_cb(pricing), 'ind': score_indicators(directions),
             'yld': score_yields(yld), 'cot': score_cot(cot),
             'reg': score_regime(directions, reg), 'sea': score_seasonality(sea, month)}
 

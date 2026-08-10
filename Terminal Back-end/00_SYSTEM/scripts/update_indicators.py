@@ -11,17 +11,13 @@ per monedă se traduce în −2…+2 pe praguri ÎNGHEȚATE.
 Surse, în ordine:
   1. Calendarul public în JSON (faireconomy/ForexFactory), săptămâna curentă + cea
      anterioară. **Testat 03.08.2026: întoarce 403 și de pe Mac** — rămâne în lanț
-     dacă revine (gratuit, verificat primul), dar azi NU e sursa de lucru.
-  2. Firecrawl pe tradingeconomics.com/calendar (adăugat 10.08.2026) — randează pagina
-     într-un browser real, deci vede același tabel pe care Cătălin îl citește manual
-     la „generează teza". Necesită FIRECRAWL_API_KEY (vezi firecrawl_client.py); costă
-     credite, de-aia rulează DOAR dacă feed-ul gratuit de la (1) a picat.
-     NETESTAT live — sandbox-ul Claude nu are acces la tradingeconomics.com nici la
-     api.firecrawl.dev; de validat pe Mac sau prin „Run workflow" manual, cu --dry
-     înainte să intre în scor.
-  3. `indicators_events` în directions.json — fallback scris manual dacă (1) și (2)
-     pică amândouă. Se combină cu feed-ul, nu îl înlocuiește — dublurile se elimină
-     pe cheia monedă|indicator|dată.
+     dacă revine, dar azi NU e sursa de lucru.
+  2. Sursa reală, azi: `indicators_events` în directions.json, completat la
+     „generează teza" din calendarul Trading Economics (tradingeconomics.com/calendar
+     se citește normal și dă Actual + Consensus + Previous per publicare; se ia
+     coloana **Consensus**, nu «Forecast», care e prognoza casei TE, nu a pieței).
+     Se combină cu feed-ul, nu îl înlocuiește — dublurile se elimină pe cheia
+     monedă|indicator|dată.
 Dacă nu rămâne nimic pentru o monedă, criteriul e ORB (None) — nu zero. Zero ar
 însemna „date neutre", ceea ce e o afirmație, nu o lipsă de date.
 
@@ -48,19 +44,6 @@ CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
 
 FEEDS = ('https://nfs.faireconomy.media/ff_calendar_lastweek.json',
          'https://nfs.faireconomy.media/ff_calendar_thisweek.json')
-
-TE_CALENDAR_URL = 'https://tradingeconomics.com/calendar'
-# doar cele 8 monede din sistem — calendarul TE listează zeci de țări, restul se ignoră
-COUNTRY_TO_CCY = {
-    'united states': 'USD',
-    'euro area': 'EUR', 'eurozone': 'EUR', 'european union': 'EUR',
-    'united kingdom': 'GBP',
-    'canada': 'CAD',
-    'japan': 'JPY',
-    'switzerland': 'CHF',
-    'australia': 'AUD',
-    'new zealand': 'NZD',
-}
 
 # ——— parametri ÎNGHEȚAȚI (se schimbă doar la review lunar, pe date) ———
 WINDOW_DAYS = 30        # cât în urmă contează o publicare
@@ -210,86 +193,6 @@ def from_feed():
     return out, errs
 
 
-def _md_table_rows(md):
-    """Extrage rândurile unui tabel markdown (linii care încep cu «|»), sărind peste
-    linia separator «|---|---|». Firecrawl întoarce markdown, nu HTML brut — de-aia
-    parserul de-aici e diferit de cel regex-pe-tag-uri din update_yields.py."""
-    rows = []
-    for line in md.splitlines():
-        line = line.strip()
-        if not line.startswith('|'):
-            continue
-        if re.match(r'^\|[\s:|-]+\|$', line):
-            continue
-        rows.append([c.strip() for c in line.strip('|').split('|')])
-    return rows
-
-
-def from_firecrawl():
-    """Calendarul TradingEconomics prin Firecrawl (10.08.2026) — vezi docstring-ul
-    fișierului, sursa 2. Parser tolerant la ordinea coloanelor: caut header-ul după
-    text ('actual', 'consensus'/'forecast', ...) în loc să presupun poziții fixe,
-    fiindcă pagina se poate reformata fără avertisment (exact ce a omorât feed-ul
-    faireconomy — nu vreau să repet greșeala cu poziții hardcodate).
-
-    NETESTAT live (10.08.2026) — vezi nota din docstring-ul fișierului. Rulează
-    `python3 update_indicators.py --dry` după ce ai FIRECRAWL_API_KEY setat, ca să
-    vezi ce a extras înainte să intre în scor."""
-    from firecrawl_client import scrape_markdown, FirecrawlError
-    out, errs = [], []
-    try:
-        md = scrape_markdown(TE_CALENDAR_URL)
-    except FirecrawlError as e:
-        errs.append(f'tradingeconomics.com/calendar: {e}')
-        return out, errs
-
-    rows = _md_table_rows(md)
-    header, hdr_row = None, None
-    for r in rows:
-        low = [c.lower() for c in r]
-        if any('actual' in c for c in low) and any('consensus' in c or 'forecast' in c for c in low):
-            header, hdr_row = low, r
-            break
-    if header is None:
-        errs.append('tradingeconomics.com/calendar: header-ul tabelului nu a fost recunoscut '
-                     '(pagina s-a reformatat — de verificat manual)')
-        return out, errs
-
-    def col(*names):
-        for i, c in enumerate(header):
-            if any(n in c for n in names):
-                return i
-        return None
-
-    i_country, i_event = col('country'), col('event')
-    i_actual, i_consensus = col('actual'), col('consensus', 'forecast')
-    i_date = col('date', 'time')
-    need = [i for i in (i_country, i_actual, i_consensus) if i is not None]
-    if len(need) < 3:
-        errs.append('tradingeconomics.com/calendar: coloane obligatorii lipsă (country/actual/consensus)')
-        return out, errs
-
-    today_iso = date.today().isoformat()
-    for r in rows:
-        if r is hdr_row or len(r) <= max(i_country, i_actual, i_consensus):
-            continue
-        ccy = COUNTRY_TO_CCY.get(r[i_country].strip().lower())
-        if not ccy:
-            continue
-        a, f = num(r[i_actual]), num(r[i_consensus])
-        if a is None or f is None:
-            continue
-        d = today_iso
-        if i_date is not None and i_date < len(r):
-            m = re.search(r'\d{4}-\d{2}-\d{2}', r[i_date])
-            if m:
-                d = m.group(0)
-        name = r[i_event].strip() if i_event is not None and i_event < len(r) else ''
-        out.append({'ccy': ccy, 'date': d, 'name': name, 'actual': a, 'consensus': f,
-                    'impact': 'medium', 'src': 'firecrawl'})
-    return out, errs
-
-
 def from_manual(directions):
     """Fallback scris de mână în directions.json → indicators_events."""
     out = []
@@ -426,9 +329,6 @@ def main():
             print(f'[IND] directions.json necitibil: {e}', file=sys.stderr)
 
     feed, errs = from_feed()
-    if not feed:
-        fc_feed, fc_errs = from_firecrawl()
-        feed, errs = fc_feed, errs + fc_errs   # Firecrawl costă credite — încercat doar dacă feed-ul gratuit a picat
     manual = from_manual(directions)
     for e in errs:
         print(f'[IND] feed: {e}', file=sys.stderr)
@@ -440,9 +340,7 @@ def main():
 
     src = []
     if feed:
-        via_fc = any(e.get('src') == 'firecrawl' for e in feed)
-        src.append(f"{'calendar TE via Firecrawl' if via_fc else 'calendar public'} "
-                   f"({len(feed)} publicări cu consens)")
+        src.append(f'calendar public ({len(feed)} publicări cu consens)')
     if manual:
         src.append(f'listă manuală ({len(manual)})')
     out = {'updated': date.today().isoformat(), 'window_days': window,
