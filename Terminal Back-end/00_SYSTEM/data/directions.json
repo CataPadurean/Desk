@@ -1,289 +1,1067 @@
 {
- "date": "2026-07-05",
- "generated": "2026-07-07",
- "regime": "RISK-ON, dar nu „curat”: Dow record 53.056, S&P +0,7%, Nasdaq +1,1% (rally semiconductoare), VIX 16,06. DAR randamentele urcă din nou (10Y US 4,50%, maxim de 2 săptămâni, pe revenirea petrolului) și fast money e la extrem dublu — USD long de deceniu ($39,8 miliarde, a 8-a săptămână) + SOFR short record. Săptămâna se joacă pe evenimente, nu pe trend: RBNZ 8.07 (hike devenit consens) și minute FOMC 8.07 (pivotul USD). BoC + MPR abia 15.07.",
+ "date": "2026-08-10",
+ "generated": "2026-08-11",
+ "regime": "RISK-ON curat, confirmat de date proaspete (refresh 11.08): VIX 14,9 (percentila 8, minim de an), spread high-yield 2,70% (percentila 9) și S&P +3,16% pe 20 de ședințe — toate la extreme calme. Petrolul a urcat brusc (Brent +7%, spre 87-88$) pe eșecul negocierilor SUA-Iran despre Hormuz, iar aurul a spart în sus (~4.388-4.400$) pe repricing dovish Fed + cerere de refugiu — ambele urcă simultan cu bursa, semn de acoperire sub suprafață chiar și într-un risc-on curat. NFP iulie a ratat masiv (-23k vs +80k așteptat), a tăiat șansele de hike Fed din septembrie de la 55% spre ~42% și a lăsat dolarul la extrem de poziționare: COT DXY la percentila 100 (long plin, cel mai crowded posibil), cu EUR/CAD/CHF/NZD toate short adânc (percentila 4-9) — combustibil de squeeze pe partea cealaltă. CPI SUA de mâine (12.08) e catalizatorul central al săptămânii pentru toate tezele.",
  "sentiment": {
-  "label": "RISK-ON (fragil)",
-  "comment": "Apetit de risc intact — indici la record, VIX 16 — favorabil monedelor pro-ciclice „bătute” (CAD, NZD, AUD). CACIB: CAD și CHF corelate pozitiv cu risk-on, GBP negativ. Fragilitate: randamentele urcă și poziționarea USD e la extrem de deceniu; un shock de randamente sau minute FOMC hawkish poate inversa brusc tonul. Nu e un risk-on de urmărit orbește."
+  "label": "RISK-ON (curat, dar cu haven bid neobișnuit)",
+  "comment": "VIX la minim de an (14,9), credit calm, acțiuni cu moment puternic — regim de risc calculat +2 (curat, nu fragil ca acum o săptămână). Excepția: aurul și petrolul urcă simultan cu bursa, nu e risc-on de manual. Poziționarea e la extrem: USD long la percentila 100 (plin), cu monede majore short adânc — teren clasic de squeeze, iar scorecard-ul de azi reflectă exact asta, cu 5 din 7 perechi principale peste pragul de BOOK."
  },
- "regime_score": 1,
+ "regime_score": 0,
  "catalysts": {
-  "USD": "Minute FOMC 8.07",
-  "CAD": "BoC + MPR 15.07",
-  "NZD": "Decizie RBNZ 8.07"
+  "USD": "CPI SUA (iulie) — miercuri 12.08",
+  "NZD": "RBNZ Monetary Policy Statement — miercuri 12.08"
  },
  "scorecard": {
   "judgment": {
    "USD": {
-    "cb": 0,
-    "cb_why": "Fed hold cu dot median 3,8% (un hike pe masă), dar NFP +57k a tăiat septembrie sub 50% — hawkish pe hârtie, dovish în preț. Minutele din 8.07 arbitrează.",
     "bnk": -1,
-    "bnk_why": "Singura teză direcțională (ING, bullish DXY) a fost scrisă înainte de datele pieței muncii și premisa s-a rupt. Nicio casă nu mai apără un long de dolar."
+    "bnk_why": "Bloc majoritar bearish/neutru (ING, MUFG, Natixis x2, TMV) pe NFP -23k și CPI aștept slab mâine, dar nu unanim: Danske (conv. 4-5) și CACIB (via funding EM) rămân structural bullish, iar 3 disidenți FOMC au cerut deja hike. Tilt bearish, nu convingere puternică — CPI de mâine decide."
    },
    "EUR": {
-    "cb": 0,
-    "cb_why": "ECB fără grabă, HICP 2,8% subțiază argumentul pentru încă un pas. Decizia din 23.07 e test de ton, nu de dobândă — în afara ferestrei.",
     "bnk": 0,
-    "bnk_why": "UniCredit întors în neutru: niciun bloc nu are motiv propriu să tragă cursul. Consens că rămâne piață de intervale."
+    "bnk_why": "Fără consens: TMV (CB) și MUFG văd EUR susținut de un ECB mai hawkish decât acum o lună, dar Danske (conv. 5, cea mai înaltă convingere din tot batch-ul) e explicit bearish EUR/USD pe 12 luni, iar ING/KBC stau neutru tehnic.",
+    "contra": "Danske (bearish, conv. 5) vs. TMV+MUFG (bullish pe ECB hawkish) — scor plafonat la 0"
    },
    "GBP": {
-    "cb": -1,
-    "cb_why": "BoE împărțită 7-2 pe fond de încetinire; riscul fiscal ține randamentele sus și încurcă tăierile. Decizia 6.08, în afara ferestrei.",
-    "bnk": -1,
-    "bnk_why": "Cea mai slabă acoperire din inbox: o singură casă (ING), bearish și explicit fragilă, fără ținte și fără orizont."
+    "bnk": 0,
+    "bnk_why": "TMV (fundamental, CB) vede BoE încă divizată spre hike (6-3, gilt cel mai ridicat din G7) — bullish; CACIB vine cu un sell tehnic/poziționare explicit contrarian față de propriul flux de clienți (care cumpărau GBP). Cele două lecturi nu se confirmă reciproc, KBC stă neutru.",
+    "contra": "TMV bullish (fundamental CB) vs. CACIB bearish (poziționare, contrazice chiar fluxul propriu) — scor plafonat la 0"
    },
    "CAD": {
-    "cb": 1,
-    "cb_why": "BoC blocată constructiv: inflația prea sus ca să taie, prea jos ca să urce. CIBC merge mai departe — hold prelungit peste date în ameliorare. Decizia + MPR pe 15.07 e Tier 1.",
-    "bnk": 2,
-    "bnk_why": "Singurul bloc unde trei case spun același lucru din unghiuri diferite: CACIB nivelurile (1,418 → 1,35-1,40), Scotiabank creșterea, CIBC dobânda."
+    "bnk": 1,
+    "bnk_why": "Singurele două surse din batch (TMV, MUFG) sunt aliniate bullish: GDP T2 a bătut cu mult proiecția proprie BoC (3,4% vs 2,5%), bias-ul de relaxare a dispărut, iar petrolul mai ridicat susține CAD. Breadth redusă (2 surse) ține scorul la +1, nu +2."
    },
    "JPY": {
-    "cb": 0,
-    "cb_why": "BoJ la 1,00% cu vot larg și încă un pas așteptat, dar inflația de bază sub țintă permite ritm lent. Direcție clară, catalizator absent în fereastră.",
     "bnk": 0,
-    "bnk_why": "Bloc rupt în două: CACIB ținte 162-163 pe carry, MUFG avertizează că trade-ul e prea aglomerat. Argumente solide, concluzii opuse — direcția netă se anulează.",
-    "contra": "CACIB vs. MUFG — scor plafonat la 0"
+    "bnk_why": "Contradicția clasică a săptămânii: TMV (fundamental, disident hawkish la BoJ, hike octombrie ~96% prețuit) e bullish JPY, dar bloc-ul comercial (ING, Westpac, CACIB, Danske pe termen scurt) arată short JPY reconstruit după intervenția BoJ-Trezorerie SUA, cu MUFG însuși întorcându-se de la Bullish (07.08) la Neutru (10.08) în decurs de 3 zile.",
+    "contra": "TMV+Danske(structural) bullish vs. ING/Westpac/CACIB/Danske(termen scurt) bearish — scor plafonat la 0"
    },
    "CHF": {
-    "cb": 0,
-    "cb_why": "SNB la zero până la finalul anului; instrumentul real e intervenția pe curs, nu dobânda. O întărire amplă vine cu risc de intervenție.",
     "bnk": 0,
-    "bnk_why": "Nicio casă nu deschide teză. CACIB semnalează doar anomalia de corelație: francul se mișcă pozitiv cu apetitul de risc, atipic pentru un refugiu."
+    "bnk_why": "O singură sursă (TMV), și intern contradictorie: politica SNB e dovish (discuție de dobânzi negative în septembrie), dar raportul prognozează totuși apreciere CHF pe fluxuri de refugiu, nu pe rată. Nicio bancă comercială din batch nu a scris o teză proprie pe franc."
    },
    "AUD": {
-    "cb": 1,
-    "cb_why": "RBA a ținut 4,35%, dar Bullock spune că pauza nu e finalul ciclului — ghidaj mai hawkish decât pricing-ul, deci loc de repricing. Catalizator abia 5.08.",
-    "bnk": 1,
-    "bnk_why": "Fără raport dedicat; intră în tema CACIB a „monedelor bătute\" care urmează să fie reevaluate. Teză de coș, nu de pereche."
+    "bnk": 2,
+    "bnk_why": "Cel mai aliniat bloc din tot batch-ul: TMV, MUFG (de două ori, inclusiv o idee nouă Long AUD/JPY) și ING converg independent pe AUD bullish — RBA hawkish-hold, ~44% din analiști încă văd un hike, plus suportul de la petrol/cupru."
    },
    "NZD": {
-    "cb": 2,
-    "cb_why": "Majorare la 2,50% pe 8.07 devenită consens (22 din 28 de economiști) după o ședință spartă de votul Guvernatorului. Catalizator Tier 1 în fereastră.",
     "bnk": 1,
-    "bnk_why": "Sinteza vine din TMV, nu dintr-o casă comercială: drumul cu cea mai mică rezistență duce spre o monedă mai fermă, dar cu câștig explicit limitat — majorarea e prețuită."
+    "bnk_why": "Singura sursă (TMV): prima majorare RBNZ din 2023, ciclu deschis spre ~3,00% OCR. Convingere temperată de propriul raport — șomaj la maxim de 11 ani (5,6%) și inflație ex-combustibil doar în bandă (2,9%) — risc dovish real la Declarația de mâine (12.08)."
    }
   }
  },
  "reports_meta": {
-  "week": "29.06–03.07.2026",
-  "processed": 7,
-  "excluded": 2,
-  "note": "Inbox gol la momentul procesării — sinteza acoperă batch-ul precedent. Excluse: 2 note duplicate de strategie fără teză nouă."
+  "week": "10.08–14.08.2026",
+  "processed": 24,
+  "excluded": 15,
+  "note": "Inbox 11.08: 39 fișiere (31 rapoarte comerciale + 8 TMV Weekly Central Banks Outlook). Date mecanice (COT, randamente, regim) reîmprospătate automat 11.08 (cron GitHub Actions) — folosite proaspete în scorecard. Excluse 15: WolfStreet (acțiune individuală Intel) și UniCredit Carbon Monthly (piețe de carbon) — în afara universului desk-ului; Lloyds FX Technical Chart Pack — explicit tehnic, nu fundamental; Lloyds Market Insights Weekly, LSEG Day Ahead ×2, TTN US Market Close, SEB Nordic Alert, OCBC DTO — recap/context de piață fără teză bancară proprie cu direcție/orizont/convingere; ING-Think ×3 (China reflation, rates RV, commodities) — tematic, fără call direcțional pe G8/Gold; MUFG European Macro Weekly și Fixed Income Commentary — comentariu macro/trip-report fără teză FX proprie; Natixis Asia Macro (China monetary system) — structural, nu tranzacționabil pe termen scurt."
  },
  "yields_manual": {
   "NZD": {
    "source": "RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi)",
    "asof": "2026-08-03",
    "note": "xlsx-ul B2 și tot domeniul rbnz.govt.nz întorc 403 la orice client non-browser; pagina se citește la «generează teza» și se rescrie aici",
-   "2Y": [["2026-07-17", 3.58], ["2026-07-20", 3.65], ["2026-07-21", 3.62], ["2026-07-22", 3.63], ["2026-07-23", 3.67], ["2026-07-24", 3.77], ["2026-07-27", 3.67], ["2026-07-28", 3.68], ["2026-07-29", 3.6], ["2026-07-30", 3.65]],
-   "10Y": [["2026-07-17", 4.65], ["2026-07-20", 4.71], ["2026-07-21", 4.68], ["2026-07-22", 4.7], ["2026-07-23", 4.72], ["2026-07-24", 4.79], ["2026-07-27", 4.71], ["2026-07-28", 4.72], ["2026-07-29", 4.65], ["2026-07-30", 4.73]]
+   "2Y": [
+    [
+     "2026-07-17",
+     3.58
+    ],
+    [
+     "2026-07-20",
+     3.65
+    ],
+    [
+     "2026-07-21",
+     3.62
+    ],
+    [
+     "2026-07-22",
+     3.63
+    ],
+    [
+     "2026-07-23",
+     3.67
+    ],
+    [
+     "2026-07-24",
+     3.77
+    ],
+    [
+     "2026-07-27",
+     3.67
+    ],
+    [
+     "2026-07-28",
+     3.68
+    ],
+    [
+     "2026-07-29",
+     3.6
+    ],
+    [
+     "2026-07-30",
+     3.65
+    ]
+   ],
+   "10Y": [
+    [
+     "2026-07-17",
+     4.65
+    ],
+    [
+     "2026-07-20",
+     4.71
+    ],
+    [
+     "2026-07-21",
+     4.68
+    ],
+    [
+     "2026-07-22",
+     4.7
+    ],
+    [
+     "2026-07-23",
+     4.72
+    ],
+    [
+     "2026-07-24",
+     4.79
+    ],
+    [
+     "2026-07-27",
+     4.71
+    ],
+    [
+     "2026-07-28",
+     4.72
+    ],
+    [
+     "2026-07-29",
+     4.65
+    ],
+    [
+     "2026-07-30",
+     4.73
+    ]
+   ]
   }
  },
- "reports": [
-  {
-   "bank": "CACIB", "date": "01.07", "asset": "USDCAD", "dir": "BEARISH", "horizon": "1-3 luni", "conviction": 4,
-   "args": ["Piața a exagerat decuplarea economiei canadiene de cea americană", "Temă mai largă: monedele bătute se reevaluează", "CAD urcă odată cu apetitul de risc"],
-   "flow": "",
-   "levels": "1,418 → ținte 1,35-1,40", "invalidation": "Minute FOMC hawkish / redresare bruscă a USD global",
-   "change": "REVIZUIT (întărit)"
-  },
-  {
-   "bank": "Scotiabank", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 3,
-   "args": ["Creșterea din aprilie a bătut clar așteptările", "Trimestrul doi se conturează peste ce prețuia piața", "Cererea internă se stabilizează, nu doar exporturile"],
-   "flow": "",
-   "levels": "—", "invalidation": "Date canadiene slabe / petrol în cădere",
-   "change": "întărit"
-  },
-  {
-   "bank": "CIBC", "date": "30.06", "asset": "CAD", "dir": "BULLISH", "horizon": "restul anului", "conviction": 3,
-   "args": ["Anul acesta e despre revenire, nu despre recesiune", "Nicio mișcare de dobândă până la finalul anului", "Hold prelungit pe date în ameliorare = context ideal"],
-   "flow": "",
-   "levels": "—", "invalidation": "BoC dovish surprise la MPR 15.07",
-   "change": "NOU"
-  },
-  {
-   "bank": "ING", "date": "02.07", "asset": "USD (DXY)", "dir": "BULLISH", "horizon": "1-2 săptămâni", "conviction": 3,
-   "args": ["Publicată ÎNAINTE de raportul pieței muncii — premisa s-a schimbat", "Mizau pe repricing hawkish al Fed", "Diferența de dobândă rămâne favorabilă dolarului"],
-   "flow": "",
-   "levels": "DXY 101,7 / 101,80", "invalidation": "Deja parțial invalidată de NFP +57k (miss)",
-   "change": "slăbit (invalidat parțial)"
-  },
-  {
-   "bank": "UniCredit", "date": "01.07", "asset": "EURUSD", "dir": "NEUTRU", "horizon": "1 lună", "conviction": 2,
-   "args": ["La răscruce: niciun bloc nu are motiv propriu să tragă cursul", "Spread-ul Bund-UST a redevenit motorul mișcării", "Fără declanșator extern, e piață de intervale"],
-   "flow": "",
-   "levels": "—", "invalidation": "—",
-   "change": "ÎNTORS (din direcțional în neutru)"
-  },
-  {
-   "bank": "CACIB", "date": "01.07", "asset": "USDJPY", "dir": "BULLISH", "horizon": "1-2 luni", "conviction": 4,
-   "args": ["Diferența de dobândă plătește poziția pe toată durata deținerii", "Normalizarea japoneză merge prea încet", "Și-au urcat ținta față de raportul anterior"],
-   "flow": "",
-   "levels": "ținte 162-163", "invalidation": "BoJ accelerează normalizarea / risk-off global",
-   "change": "REVIZUIT ↑"
-  },
-  {
-   "bank": "MUFG", "date": "02.07", "asset": "USDJPY", "dir": "BEARISH", "horizon": "1-2 luni", "conviction": 3,
-   "args": ["Trade-ul de carry e aglomerat și se golește violent", "Poziționarea contra yenului, la extrem de doi ani", "Iulie e istoric favorabil yenului"],
-   "flow": "",
-   "levels": "—", "invalidation": "BoJ amână hike-ul peste octombrie",
-   "change": "întărit"
-  }
- ],
  "pricing": {
-  "USD": { "view_bp": 25, "next_meeting": "Septembrie sub 50% după NFP +57k", "market": "Post-NFP, piața dă hike-ului din septembrie sub 50% și prețuiește dobânda plată până la finalul anului", "view": "Dot-ul median (3,8%) ține încă un hike pe masă — minutele din 8.07 arbitrează", "edge": "Piața prețuiește deja mai mult decât implică dot-urile; edge-ul e în ton, nu în nivel" },
-  "EUR": { "view_bp": 25, "next_meeting": "23.07 fără mișcare; următorul hike aproape scos din preț", "market": "Următorul hike ECB aproape scos din preț după HICP 2,8%", "view": "Un singur pas rămas plauzibil pe orizontul de doi ani, fără grabă", "edge": "Pricing și politică spun același lucru — fără edge exploatabil" },
-  "GBP": { "view_bp": -50, "next_meeting": "6.08 arbitrează; tăieri prețuite în a doua parte a anului", "market": "Piața prețuiește tăieri în a doua parte a anului, pe date slabe", "view": "BoE împărțită 7-2 pe fond de încetinire — două tăieri pe orizont, dacă fiscalul permite", "edge": "Cea mai mare divergență din tabel: curba încă prețuiește înăsprire netă, banca merge invers" },
-  "CAD": { "view_bp": 25, "next_meeting": "15.07 hold aproape sigur; nicio mișcare prețuită anul acesta", "market": "Piața nu prețuiește nicio mișcare BoC anul acesta", "view": "Hold prelungit (CIBC), apoi normalizare lentă — un singur pas pe doi ani", "edge": "Curba prețuiește cel mai mult din grup; contrazice pe față teza long CAD — de urmărit, nu de ignorat" },
-  "JPY": { "view_bp": 50, "next_meeting": "31.07; încă un pas prețuit parțial pentru 2026", "market": "Încă un hike BoJ prețuit parțial pentru 2026", "view": "Majoritatea board-ului vede continuarea normalizării — doi pași pe orizont", "edge": "Piața prețuiește cam cât vede și desk-ul; riscul e poziționarea, nu dobânda" },
-  "CHF": { "view_bp": 0, "next_meeting": "Zero mișcări prețuite până la finalul lui 2026", "market": "Zero mișcări prețuite până la finalul lui 2026", "view": "SNB a spus explicit că rămâne la zero; instrumentul e cursul, nu dobânda", "edge": "Citire pe 10Y (2Y indisponibil de la discontinuarea curbei zilnice) — de tratat cu rezervă" },
-  "AUD": { "view_bp": 50, "next_meeting": "5.08; piața vede ciclul încheiat", "market": "Piața vede ciclul RBA încheiat", "view": "Bullock: pauza nu e finalul ciclului, mai există spațiu de urcare — doi pași pe orizont", "edge": "Curba prețuiește cel mai puțin din grup, iar banca sună mai dur decât atât" },
-  "NZD": { "view_bp": 25, "next_meeting": "8.07, majorare la 2,50% prețuită integral (22 din 28)", "market": "Hike-ul din 8.07 prețuit aproape integral (consens 22 din 28)", "view": "Majorarea e în preț; după ea, ciclul se apropie de final", "edge": "Necuantificabil — randamentele neozeelandeze lipsesc (RBNZ 403). Edge-ul rămâne calitativ: doar tonul mai poate mișca" }
+  "USD": {
+   "view_bp": -25,
+   "next_meeting": "FOMC septembrie — șanse implicite hike ~42% (de la 55% pre-NFP)",
+   "market": "2Y prețuiește deja o parte din răcirea Fed; piața a tăiat șansele de hike septembrie de la 55% la ~42%",
+   "view": "Bloc majoritar (ING/MUFG/Natixis) vede Fed pe hold restul anului spre o ușoară relaxare a tonului, dar 3 disidenți FOMC au cerut deja hike — nu tăiem, dar nu mai vedem înăsprire netă",
+   "edge": "CPI de mâine (12.08) e testul: o citire moale ar confirma edge-ul negativ, una fierbinte l-ar șterge"
+  },
+  "EUR": {
+   "view_bp": 50,
+   "next_meeting": "ședința BCE din septembrie — Lagarde a numit-o explicit \"live\"",
+   "market": "Piața nu are încă un pricing explicit cuantificat pentru septembrie în sursele din batch",
+   "view": "ECB tocmai a ținut cu inflație peste țintă (2,9%) a doua lună consecutiv; vedem loc pentru 1-2 pași suplimentari pe orizontul de 2 ani dacă șocul energetic nu se stinge",
+   "edge": "Edge pozitiv moderat — piața pare să nu fi prețuit încă toată convingerea din tonul Lagarde"
+  },
+  "GBP": {
+   "view_bp": 25,
+   "next_meeting": "ședința MPC din septembrie — hike rămâne \"live\" după votul 6-3",
+   "market": "Piața prețuiește cel puțin o majorare până la final de 2026",
+   "view": "Comitet puternic divizat (6-3), BoE își prognozează propria reaccelerare a inflației mai târziu în 2026",
+   "edge": "Aliniat cu pricing-ul — edge-ul stă mai degrabă în riscul fiscal (randamente ținute sus), nu în surpriza de politică"
+  },
+  "CAD": {
+   "view_bp": 25,
+   "next_meeting": "ședința BoC din septembrie — a 7-a menținere e scenariul de bază",
+   "market": "Piața nu prețuiește explicit o mișcare BoC pe termen scurt",
+   "view": "GDP T2 a bătut cu mult proiecția proprie a Băncii (3,4% vs 2,5%) — bias-ul de relaxare a dispărut, risc mutat spre hike",
+   "edge": "Edge pozitiv — piața încă nu a prețuit deloc riscul de hike pe care datele îl deschid"
+  },
+  "JPY": {
+   "view_bp": 50,
+   "next_meeting": "ședința BoJ din septembrie — hike \"ferm în joc\", octombrie prețuit ~96%",
+   "market": "Hike octombrie aproape complet prețuit (~96%) — puțin edge mai rămâne pe orizontul apropiat",
+   "view": "Disident hawkish nou (Takata, 1,25%), Ueda vigilent la inflație, plus stimul fiscal (reducere taxă consum) care ar putea forța compensare prin înăsprire",
+   "edge": "Edge-ul e deja mult prețuit pentru octombrie; ce nu e prețuit e al doilea pas pe orizontul de 2 ani"
+  },
+  "CHF": {
+   "view_bp": -25,
+   "next_meeting": "evaluarea trimestrială SNB din septembrie — dezbatere explicită spre teritoriu negativ",
+   "market": "Piața nu are un pricing explicit cuantificat în sursele din batch",
+   "view": "Surpriza negativă de inflație (0,4%, aproape de podea) face o tăiere sub zero mai ușor de justificat decât o nouă menținere",
+   "edge": "Edge negativ pe rată, dar contrazis de teza de flux (apreciere CHF pe refugiu) — de tratat cu rezervă, sursă unică"
+  },
+  "AUD": {
+   "view_bp": 25,
+   "next_meeting": "RBA — decizia de azi (11.08) a confirmat hold hawkish; următoarea fereastră abia peste câteva luni",
+   "market": "~44% dintre analiști încă așteaptă cel puțin un hike până la final de 2026",
+   "view": "Bullock: pauza nu e finalul ciclului — ghidaj mai hawkish decât median-ul pieței",
+   "edge": "Edge pozitiv moderat — bloc de 4 surse (TMV+MUFG×2+ING) confirmă independent aceeași citire"
+  },
+  "NZD": {
+   "view_bp": 50,
+   "next_meeting": "Declarația RBNZ — mâine 12.08, în fereastră",
+   "market": "Băncile mari NZ văd OCR la ~3,00% până final de an (încă 2 hike-uri de 25pb)",
+   "view": "Prima majorare din 2023 tocmai livrată; ciclul e deschis, dar șomaj la maxim de 11 ani (5,6%) limitează spațiul",
+   "edge": "Edge pozitiv, dar cel mai fragil din tabel — Declarația de mâine poate confirma sau opri ciclul pe loc"
+  }
  },
  "playbook": [
   {
-   "event": "Minute FOMC", "date": "miercuri 8.07, 21:00",
+   "event": "CPI SUA (iulie)",
+   "date": "miercuri 12.08, 15:30 RO",
    "scenarios": [
-    { "name": "Hawkish", "odds": "~35%", "reaction": "USD relansat pe toată linia; randamentele urcă", "action": "Short USDCAD moare înainte de BoC; fără intrări anti-USD — se rămâne pe margine" },
-    { "name": "Bază (echilibrat)", "odds": "~45%", "reaction": "Repricing-ul dovish continuă lent; USD moale", "action": "Tezele rămân ARMED — se caută confirmarea tehnică pe USDCAD" },
-    { "name": "Dovish", "odds": "~20%", "reaction": "USD vândut agresiv; risk-on se amplifică", "action": "Cel mai bun scenariu pentru ambele teze — execuție la trigger, fără creșterea riscului" }
+    {
+     "name": "Hot (core > 0,3% m/m)",
+     "odds": "~20%",
+     "reaction": "USD relansat pe toată linia, randamente sus, aurul cedează",
+     "action": "Tezele short-USD/long-EUR-AUD-CAD mor pe scenariul de bază — fără intrări anti-USD până la reconfirmare tehnică"
+    },
+    {
+     "name": "În linie (core ~0,2% m/m)",
+     "odds": "~50%",
+     "reaction": "Repricing-ul dovish continuă lent, USD moale, aurul ține câștigurile",
+     "action": "Tezele CAD/AUD/EUR rămân WATCH — se caută confirmare tehnică proprie, fără urmărire agresivă"
+    },
+    {
+     "name": "Cool (core < 0,2% m/m, per Natixis/ING)",
+     "odds": "~30%",
+     "reaction": "USD vândut agresiv, curbă dovish accelerată, aurul și risk-on se amplifică",
+     "action": "Cel mai bun scenariu pentru tezele CAD/AUD long — execuție la trigger tehnic, fără creșterea riscului per trade"
+    }
    ]
   },
   {
-   "event": "Decizie RBNZ", "date": "miercuri 8.07, ~05:00",
+   "event": "RBNZ — Declarație de Politică Monetară",
+   "date": "miercuri 12.08, ~03:00 RO",
    "scenarios": [
-    { "name": "Hike + ton hawkish", "odds": "~40%", "reaction": "NZD ferm; squeeze pe short-ul record", "action": "Trigger-ul NZDUSD activ — intrare doar cu breakout confirmat" },
-    { "name": "Hike + ton prudent", "odds": "~45%", "reaction": "Reacție inițială sus, apoi fade — hike-ul e deja în preț", "action": "Fără urmărire după spike; dacă intrarea nu vine în prima oră, ideea expiră" },
-    { "name": "Hold", "odds": "~15%", "reaction": "NZD vândut violent; squeeze-ul se amână", "action": "Teza moare pe loc — se arhivează, fără repoziționare în aceeași zi" }
-   ]
-  },
-  {
-   "event": "Decizie BoC + MPR", "date": "miercuri 15.07, 16:45",
-   "scenarios": [
-    { "name": "Hold + MPR optimist", "odds": "~50%", "reaction": "CAD cumpărat pe ton; USDCAD coboară", "action": "Catalizatorul tezei short USDCAD — execuție la confirmarea tehnică" },
-    { "name": "Hold neutru", "odds": "~35%", "reaction": "Reacție mică; direcția o dă petrolul", "action": "Teza rămâne validă dar fără combustibil — se ține doar cu petrol peste prag" },
-    { "name": "Dovish surprise", "odds": "~15%", "reaction": "CAD vândut; invalidarea CIBC se activează", "action": "Teza se închide și se arhivează INVALIDATĂ — fără discuție" }
+    {
+     "name": "Hike confirmat + ton hawkish spre 3,00%",
+     "odds": "~40%",
+     "reaction": "NZD ferm, ciclul confirmat ca deschis",
+     "action": "Trigger NZDUSD activ — intrare doar cu breakout tehnic confirmat, monedă secundară"
+    },
+    {
+     "name": "Ton prudent / pauză semnalată",
+     "odds": "~40%",
+     "reaction": "Reacție inițială moale — șomajul la maxim de 11 ani cântărește",
+     "action": "Fără urmărire — dacă intrarea nu vine în prima oră, ideea expiră"
+    },
+    {
+     "name": "Semnal explicit de oprire a ciclului",
+     "odds": "~20%",
+     "reaction": "NZD vândut — teza bullish moare pe loc",
+     "action": "Se arhivează INVALIDATĂ, fără repoziționare în aceeași zi"
+    }
    ]
   }
  ],
- "indicators_asof": "Date Trading Economics, ultimele publicări la 28.07.2026. GDP = ritm trimestrial (SUA: anualizat).",
+ "indicators_asof": "Date din rapoartele bancare procesate 11.08.2026 (TMV + bănci comerciale); publicări cheie citate în text.",
  "indicators": {
-  "USD": { "gdp": "+1,5%", "rate": "3,75%", "cpi": "3,5%", "unemp": "4,2%", "surprise": "mixt", "read": "Creștere pe jumătate, dar inflația a cedat în sfârșit și piața muncii rezistă — un mix care nu forțează Fed-ul." },
-  "EUR": { "gdp": "+0,4%", "rate": "2,25%", "cpi": "2,9%", "unemp": "6,3%", "surprise": "mixt", "read": "Economia accelerează, dar inflația a urcat din nou pe energie — ECB rămâne blocată între cele două." },
-  "GBP": { "gdp": "+0,6%", "rate": "3,75%", "cpi": "2,6%", "unemp": "4,9%", "surprise": "negativ", "read": "Inflația scade mai mult decât se aștepta, dar șomajul e cel mai mare din grup — cea mai slabă combinație." },
-  "CAD": { "gdp": "0,0%", "rate": "2,25%", "cpi": "2,8%", "unemp": "6,5%", "surprise": "pozitiv", "read": "Creșterea a stagnat, însă inflația de bază e la minim de cinci ani și șomajul scade — BoC poate sta liniștită." },
-  "JPY": { "gdp": "+0,5%", "rate": "1,00%", "cpi": "1,7%", "unemp": "2,5%", "surprise": "neutru", "read": "Inflația accelerează dar rămâne sub țintă, cu cea mai strânsă piață a muncii din grup — normalizare fără grabă." },
-  "CHF": { "gdp": "+0,4%", "rate": "0,00%", "cpi": "0,5%", "unemp": "2,9%", "surprise": "neutru", "read": "Inflație aproape inexistentă și șomaj minim — nimic de rezolvat, deci singura variabilă rămâne cursul." },
-  "AUD": { "gdp": "+0,3%", "rate": "4,35%", "cpi": "3,8%", "unemp": "4,4%", "surprise": "mixt", "read": "Creșterea dezamăgește, dar inflația de bază accelerează și angajările explodează — RBA are motiv să stea sus." },
-  "NZD": { "gdp": "+0,8%", "rate": "2,50%", "cpi": "3,9%", "unemp": "5,3%", "surprise": "pozitiv", "read": "Cea mai bună creștere din grup și inflația la vârf de ciclu — de aici prima majorare din trei ani." }
+  "USD": {
+   "gdp": "+2,0% (proiecție 2026)",
+   "rate": "3,75%",
+   "cpi": "3,5% (2,6% core)",
+   "unemp": "4,1%",
+   "surprise": "negativ",
+   "read": "NFP iulie -23k (vs +80/83k așteptat), revizuiri -103k pe 2 luni, AHE YoY încetinit la 3,2% — cea mai slabă combinație din batch, principalul motor al tiltului bearish USD."
+  },
+  "EUR": {
+   "gdp": "reziliență peste așteptări (T2, confirmare așteptată)",
+   "rate": "2,25%",
+   "cpi": "2,9%",
+   "unemp": "—",
+   "surprise": "pozitiv",
+   "read": "Inflație peste țintă a doua lună consecutiv (energie +10%, servicii +3,3%) — surpriză hawkish care susține cazul pentru un pas ECB suplimentar în septembrie."
+  },
+  "GBP": {
+   "gdp": "—",
+   "rate": "3,75%",
+   "cpi": "2,6%",
+   "unemp": "4,9%",
+   "surprise": "mixt",
+   "read": "CPI sub consens (2,6% vs 2,7%), dar BoE își prognozează propria reaccelerare a inflației mai târziu în 2026 — comitet divizat 6-3, fără o citire curată."
+  },
+  "CAD": {
+   "gdp": "+3,4% (T2, anualizat)",
+   "rate": "2,25%",
+   "cpi": "2,8%",
+   "unemp": "—",
+   "surprise": "pozitiv",
+   "read": "GDP a bătut cu mult proiecția proprie BoC (2,5%), inflația s-a temperat în bandă — cea mai curată combinație pozitivă din batch."
+  },
+  "JPY": {
+   "gdp": "—",
+   "rate": "1,00%",
+   "cpi": "1,7%",
+   "unemp": "—",
+   "surprise": "mixt",
+   "read": "CPI ticked up (1,7% vs 1,5%) — surpriză hawkish pentru BoJ — dar cheltuielile gospodăriilor rămân slabe (-3,3% YoY), mix fără direcție netă."
+  },
+  "CHF": {
+   "gdp": "—",
+   "rate": "0,00%",
+   "cpi": "0,4%",
+   "unemp": "—",
+   "surprise": "negativ",
+   "read": "Inflație aproape de podeaua benzii (0,4%) — surpriză negativă care face o tăiere SNB spre teritoriu negativ mai ușor de justificat în septembrie."
+  },
+  "AUD": {
+   "gdp": "—",
+   "rate": "4,35%",
+   "cpi": "3,8%",
+   "unemp": "4,5%",
+   "surprise": "mixt",
+   "read": "Inflația rămâne peste bandă dar în scădere, iar șomajul a urcat la 4,5% — RBA hawkish în ton, dar datele nu forțează încă un nou pas."
+  },
+  "NZD": {
+   "gdp": "—",
+   "rate": "2,50%",
+   "cpi": "4,1% (2,9% ex-combustibil)",
+   "unemp": "5,6%",
+   "surprise": "mixt",
+   "read": "CPI headline peste bandă, dar ex-combustibil doar în bandă, iar șomajul e la maxim de 11 ani — combinație care lasă un risc dovish real la Declarația de mâine."
+  }
  },
  "currencies": {
   "USD": {
    "core": true,
-   "bias": "Bearish tactic / Neutru mediu termen (risc de reversal pe poziționare)",
-   "cb": "Fed hold 3,50-3,75% (17.06), ton hawkish (dot median 3,8% = un hike încă pe masă), dar NFP +57k a tăiat hike-ul din septembrie sub 50%. Minute FOMC miercuri 8.07 (21:00 RO) = pivotul: hawkish → USD relansat; non-hawkish → continuă repricing-ul dovish.",
-   "banks": "Singura casă cu teză direcțională pe dolar e ING, care miza pe repricing hawkish al Fed-ului și ținte DXY 101,7-101,80 — doar că raportul a fost scris înainte de datele pieței muncii, iar premisa lui s-a rupt: angajările au ratat consensul, chiar dacă rata șomajului a rezistat. CACIB nu ia poziție pe direcție, dar semnalează ceva mai util pentru execuție: corelația negativă dintre dolar și apetitul de risc se adâncește, adică dolarul se comportă tot mai mult ca refugiu. Concluzia blocului: nicio casă nu mai apără un long de dolar cu convingere, dar nici nu-l atacă frontal."
+   "bias": "Bearish tactic / Neutru mediu termen (CPI de mâine decide)",
+   "cb": "Fed hold 3,50-3,75% (vot 9-3, 3 disidenți hawkish: Hammack, Kashkari, Logan). CPI se răcește, NFP -23k a tăiat șansele de hike septembrie de la 55% la ~42%, dar disidența hawkish rămâne activă. CPI SUA de mâine (12.08) e pivotul: o citire moale ar confirma repricing-ul dovish, una fierbinte ar readuce hike-ul septembrie pe masă.",
+   "banks": "Blocul e majoritar bearish/neutru pe fondul NFP-ului ratat: ING, MUFG (de trei ori) și Natixis (de două ori) văd dolarul înmuiat sau pe hold prelungit. Contra-curentul e notabil: Danske (cea mai înaltă convingere din grup pe USD, 4/5) rămâne structural bullish, cu Fed livrând încă două hike-uri peste ce prețuiește piața, iar CACIB exprimă un long USD indirect prin funding EM. Concluzia blocului: tilt bearish real, dar nu unanim — CPI de mâine decide care tabără are dreptate."
   },
   "EUR": {
    "core": true,
-   "bias": "Neutru",
-   "cb": "ECB a urcat recent și ține ușa deschisă, dar cu HICP la 2,8% argumentul pentru încă un pas se subțiază de la o lună la alta. Nu are motive să grăbească nimic, iar piața a început să scoată din preț următorul hike. Decizia din 23.07 e un test de ton, nu de dobândă.",
-   "banks": "UniCredit dă tonul și îl rezumă într-o formulă: perechea e la răscruce, fiindcă niciunul dintre cele două blocuri nu are un motiv propriu să tragă cursul într-o parte. Observația lor operațională e că legătura cu diferența de randamente germano-americane, ruptă o vreme, a redevenit motorul principal — deci mișcările urmăresc spread-ul, nu titlurile. CACIB și ING merg pe aceeași linie dovish privind dezinflația, iar inflația sub consens le confirmă premisa. Nicio casă nu propune o direcție: consensul e că, fără declanșator din afară, rămâne piață de intervale."
+   "bias": "Neutru / ușor Bullish (ECB mai hawkish decât acum o lună)",
+   "cb": "ECB a ținut 2,25% unanim, dar Lagarde a pregătit terenul pentru o posibilă acțiune în septembrie — inflația (2,9%) a depășit ținta a doua lună consecutiv, pe energie și servicii. Derivă hawkish clară față de tonul de acum o lună.",
+   "banks": "TMV și MUFG citesc aceeași derivă hawkish și văd EUR susținut. Contra explicit și de departe cel mai puternic semnal contrar din tot batch-ul: Danske, cu cea mai înaltă convingere (5/5) din toate rapoartele procesate, e structural bearish EUR/USD pe 12 luni, motivat nu de slăbiciune proprie euro ci de un Fed pe care îl vede mai hawkish decât consensul. ING și KBC stau tehnic neutru, în așteptarea CPI-ului SUA. O contradicție reală, nu zgomot — scorul rămâne plafonat la 0 până se limpezește."
   },
   "GBP": {
    "core": true,
-   "bias": "Bearish (fragil) / WATCH squeeze",
-   "cb": "BoE e împărțită 7-2, iar economia încetinește vizibil: activitatea din servicii a căzut la minimul ultimilor doi ani și jumătate. Complicația e riscul fiscal, care ține randamentele sus și nu-i lasă să taie liniștit chiar dacă datele o cer. Decizia din 6.08 arbitrează.",
-   "banks": "Lira are cea mai slabă acoperire din inbox-ul săptămânii: o singură casă, ING, ia poziție, iar aceea e bearish și explicit fragilă — o direcție pe care nici autorii ei n-o apără cu tărie. Argumentul de fond vine din date, nu din analiză: activitatea din servicii a căzut la minimul ultimilor doi ani și jumătate. Nimeni nu construiește însă un caz pozitiv, dar nici nu vine cu o teză bear completă, cu ținte și orizont. Blocul bancar nu oferă nici convingere, nici catalizator — lira rămâne subiect de urmărit, nu de tranzacționat."
+   "bias": "Neutru — teze opuse, fără catalizator în fereastră",
+   "cb": "BoE a ținut 3,75% cu un comitet divizat 6-3 (trei membri au votat deja pentru 4%), iar Banca își prognozează propria reaccelerare a inflației mai târziu în 2026. Gilt-ul pe 10 ani rămâne cel mai ridicat din G7, semn că piața nu a scos complet din preț riscul de hike.",
+   "banks": "Contradicție directă: TMV citește comitetul divizat ca argument fundamental bullish, în timp ce CACIB — singura casă comercială cu o teză explicită pe liră — recomandă vânzare pe motiv de poziționare tehnică supracumpărată, EXPLICIT CONTRARIAN față de propriul flux de clienți (care cumpărau GBP săptămâna trecută). KBC stă neutru tehnic, în așteptarea bugetului din noiembrie. Fără catalizator Tier 1 în fereastra curentă — lira rămâne subiect de urmărit."
   },
   "CAD": {
    "core": true,
-   "bias": "Bullish (în construcție spre BoC 15.07)",
-   "cb": "BoC stă pe loc cu inflația la 3,2% — prea sus ca să taie, prea jos ca să urce. Decizia și raportul din 15.07 sunt evenimentul Tier 1 și catalizatorul tezei pe CAD. CIBC merge mai departe: dobânda nu se mai mișcă anul acesta, adică hold prelungit peste date care se ameliorează.",
-   "banks": "Singurul bloc din inbox unde trei case spun același lucru din unghiuri diferite. CACIB dă teza și nivelurile: decuplarea economiei canadiene de cea americană e exagerată, iar USDCAD ar trebui să coboare de la 1,418 spre 1,35-1,40. Scotiabank o susține cu datele de creștere, care au bătut clar așteptările după o serie de luni slabe. CIBC adaugă piesa de politică monetară: dobânda nu se mai mișcă anul acesta, deci hold prelungit peste date în ameliorare — inflația de bază la minim de cinci ani și șomajul în scădere confirmă. Rar se aliniază atâtea case pe aceeași monedă."
+   "bias": "Bullish (aliniat, breadth redusă)",
+   "cb": "BoC a ținut 2,25% a șasea ședință consecutivă. GDP T2 a bătut cu mult proiecția proprie a Băncii (3,4% vs 2,5% anualizat) și inflația s-a temperat în bandă (2,8%) — bias-ul de relaxare din anul trecut a dispărut, riscul s-a mutat spre o primă majorare, nu spre o nouă tăiere.",
+   "banks": "Doar două surse în batch, dar aliniate: TMV citește exact aceeași schimbare de bias ca argument central, iar MUFG adaugă piesa de corelație — USD/CAD are cea mai puternică legătură cu petrolul dintre perechile G10, iar prețul mai ridicat (Iran/Hormuz) susține moneda direct. Fără contra-argument în batch, dar breadth-ul rămâne subțire (nicio bancă comercială mare, tip CACIB/ING, nu a scris o teză CAD dedicată săptămâna asta)."
   },
   "JPY": {
    "core": false,
-   "bias": "Bearish (dar risc mare de squeeze) — WATCH",
-   "cb": "BoJ a urcat la 1,00% cu vot larg, iar majoritatea board-ului vede încă un pas anul acesta — direcția e clară, viteza nu. Inflația de bază sub țintă le permite să normalizeze în ritmul lor. Yenul are argumente pe termen lung, dar niciun catalizator imediat. Decizie 31.07.",
-   "banks": "Yenul e locul unde blocul bancar se rupe în două, și aceasta e informația cea mai valoroasă a săptămânii. CACIB și-a urcat ținta față de raportul anterior și vede USDJPY la 162-163, pe argumentul că diferența de dobândă plătește poziția, iar normalizarea japoneză merge prea încet ca să conteze — inflația rămâne sub țintă, ceea ce le dă dreptate. MUFG atacă aceeași poziție din partea cealaltă: nu contestă logica de carry, ci spune că trade-ul e prea aglomerat și se golește violent. Argumente solide, concluzii opuse — o contradicție de manual, care anulează direcția netă."
+   "bias": "Fără direcție netă — cea mai contestată monedă a săptămânii — WATCH",
+   "cb": "BoJ a ținut ~1,00% (vot 8-1), cu un prim disident hawkish (Takata, a cerut 1,25%). Ueda a fost ușor hawkish, vigilent la riscurile de inflație, iar reducerea taxei pe consum adaugă stimul fiscal pe care Banca ar putea trebui să-l compenseze prin înăsprire. Piața prețuiește deja ~96% un hike în octombrie.",
+   "banks": "Yenul rupe blocul bancar în două, ca și acum o lună, dar de data asta contradicția e și temporală: MUFG însuși a fost Bullish JPY pe 07.08 (pe efectul intervenției BoJ-Trezorerie SUA) și a coborât la Neutru pe 10.08, la doar 3 zile distanță, pe măsură ce vânzarea de yeni s-a reluat. ING, Westpac, CACIB (semnal slab) și Danske (termen scurt) confirmă independent revenirea trend-ului short JPY — poziții short reconstruite după intervenție, carry trade redevenit atractiv la niveluri mai joase. Contra: TMV (fundamental, hike octombrie aproape cert) și Danske (termen mediu, structural) rămân bullish JPY. Argumente solide, concluzii opuse — scor plafonat la 0, exact ca acum o lună."
   },
   "CHF": {
    "core": false,
-   "bias": "Neutru-Bullish franc",
-   "cb": "SNB ține dobânda la zero și sugerează că acolo rămâne până la finalul anului: cu inflația la 0,6% nu are nici motiv să urce, nici spațiu să coboare. Instrumentul real nu mai e dobânda, ci intervenția pe curs — o întărire amplă a francului vine cu risc de intervenție.",
-   "banks": "Nicio casă nu deschide o teză pe franc în această săptămână, dar CACIB semnalează o anomalie care merită reținută: francul se corelează pozitiv cu apetitul de risc, adică se comportă atipic pentru o monedă de refugiu. Observația contează pentru corelații — ca acoperire într-un scenariu risk-off, francul poate să nu reacționeze conform manualului. În rest, blocul bancar îl descrie ca ferm, pe cerere constantă de safe-haven, susținut de o inflație aproape inexistentă. Fără teză și fără catalizator propriu, rămâne monedă de context, nu de poziție."
+   "bias": "Neutru — sursă unică, intern contradictorie",
+   "cb": "SNB a ținut 0%, dar dezbaterea s-a mutat explicit spre o posibilă revenire la dobânzi negative în septembrie — inflația la 0,4% (aproape de podeaua benzii) face o tăiere ușor de justificat.",
+   "banks": "Nicio bancă comercială din batch nu a deschis o teză proprie pe franc. Singura sursă, TMV, e ea însăși internă contradictorie: politica e dovish, dar raportul prognozează totuși apreciere CHF pe termen scurt, condusă de fluxuri de refugiu și slăbiciune generalizată USD — nu de diferențialul de dobândă. De tratat cu rezervă până apare o a doua sursă."
   },
   "AUD": {
    "core": false,
-   "bias": "Neutru-Bullish",
-   "cb": "RBA a ținut 4,35%, dar mesajul a fost mai dur decât gestul: Bullock spune că pauza nu e finalul ciclului și că mai există spațiu de urcare. Ghidajul e mai hawkish decât ce prețuiește piața, deci există loc de repricing pro-AUD. Lipsește catalizatorul propriu — următorul e 5.08.",
-   "banks": "Dolarul australian nu are un raport dedicat, ci intră într-o temă mai largă: CACIB îl încadrează în grupul „monedelor bătute”, valutele pedepsite excesiv în lunile trecute și care urmează să fie reevaluate pe măsură ce narativul pesimist se golește. E o teză de coș, nu de pereche — argumentul nu ține de Australia, ci de rotația generală. Datele proprii ar susține-o parțial: inflația de bază accelerează și piața muncii rămâne solidă, ceea ce ține banca centrală sus. Fără raport dedicat, rămâne o poziție de urmărit, nu de deschis."
+   "bias": "Bullish (cel mai aliniat bloc din batch)",
+   "cb": "RBA a ținut 4,35% unanim (decizia de azi, 11.08) și a repetat că va majora în continuare dacă e necesar. Inflația rămâne peste bandă (3,8%), iar ~44% dintre analiști încă așteaptă cel puțin un hike până la final de an — ghidaj mai hawkish decât median-ul pieței.",
+   "banks": "Patru surse independente converg pe aceeași direcție: TMV, MUFG (de două ori, inclusiv o idee nouă Long AUD/JPY cu niveluri explicite) și ING citesc toate același RBA hawkish-hold. Argumentul se întărește cu petrolul (Brent +7%) și cuprul la maxim istoric, care susțin termenii de schimb australieni. Cel mai curat consens din tot batch-ul — rar se aliniază atâtea case independente."
   },
   "NZD": {
    "core": false,
-   "bias": "Bullish tactic (event RBNZ 8.07)",
-   "cb": "RBNZ a ținut 2,25% într-o ședință atât de strânsă încât votul 3-3 a fost spart de Guvernator. Pentru 8.07, 22 din 28 de economiști așteaptă majorare la 2,50% — consens, deci deja prețuit. Nuanța: prăbușirea petrolului sub nivelul asumat slăbește argumentul inflaționist.",
-   "banks": "Pe kiwi, sinteza vine din TMV, nu dintr-un raport de bancă comercială, și e formulată prudent: drumul cu cea mai mică rezistență duce spre o monedă mai fermă până la decizie. Argumentul din date e solid — inflația a urcat la vârf de ciclu, iar creșterea trimestrială e cea mai bună din grup. Ce merită reținut e avertismentul care însoțește teza: câștigurile sunt văzute ca limitate chiar și în cazul unei majorări, fiindcă piața a prețuit-o deja. Direcția e probabil corectă, dar spațiul de mișcare e mic — monedă secundară, doar la setup curat."
+   "bias": "Bullish tactic (event RBNZ 12.08) — monedă secundară, doar la setup curat",
+   "cb": "RBNZ a majorat OCR cu 25pb la 2,50% în iulie — prima majorare din mai 2023, finalul a șase tăieri consecutive. Băncile mari NZ văd OCR la ~3,00% până la final de an prin încă două hike-uri. Declarația de Politică Monetară de mâine (12.08) e testul următor.",
+   "banks": "Singura sursă e tot TMV, ca acum o lună — nicio casă comercială nu are o teză proprie pe kiwi. Argumentul e solid (ciclu deschis, consens al băncilor locale spre 3,00%), dar raportul semnalează el însuși riscul dovish: șomaj la maxim de 11 ani (5,6%) și inflație ex-combustibil doar în bandă (2,9%). Direcția e probabil corectă, dar Declarația de mâine poate opri ciclul la fel de ușor cum îl poate confirma."
   }
  },
- "trades_fx": [
+ "reports": [
   {
-   "instrument": "EURUSD",
-   "dir": "STAI",
-   "strat": "A",
-   "conf": "—",
-   "rationale": "Ambele bănci centrale au pierdut hike-uri din pricing; spread 2Y încă contra EUR; poziționare neutră; criteriul 1 neutru → sub prag 5/7",
-   "activation": "—",
-   "invalidation": "Teză neclară = nu există trade (playbook §3.2)"
+   "bank": "CACIB",
+   "date": "11.08",
+   "asset": "USD",
+   "dir": "BULLISH",
+   "horizon": "trimestru",
+   "conviction": 3,
+   "args": [
+    "Scenariu \"US exceptionalism\" (piață a muncii goldilocks, capex AI ridică productivitatea)",
+    "USD exprimat ca proxy direcțional pentru fluxul de capital către activele americane",
+    "Poziție: overweight EM (CLP/TRY/TWD) finanțată prin short EUR, nu long USD direct"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Scenariul de recesiune (bulă de capex AI) sau \"Fed captured\" ar răsturna teza",
+   "change": "NOU"
   },
   {
-   "instrument": "GBPUSD",
-   "dir": "WATCH (squeeze)",
-   "strat": "A",
-   "conf": "—",
-   "rationale": "Leveraged Funds short percentila ~8 = combustibil de squeeze, dar Services PMI 48,8 și BoE split = fundamente slabe; lipsesc criteriile 1-2 obligatorii",
-   "activation": "Doar catalizator pozitiv UK + risk-on susținut",
-   "invalidation": "—"
+   "bank": "CACIB",
+   "date": "07.08",
+   "asset": "USD",
+   "dir": "NEUTRU",
+   "horizon": "trimestru",
+   "conviction": 4,
+   "args": [
+    "NFP iulie -23k, mult sub +80k așteptat, cu revizuiri -103k pe ultimele 2 luni",
+    "AHE YoY a încetinit la 3,2% (minim din 2021) — reduce presiunea inflaționistă din piața muncii",
+    "\"Menținem view-ul că Fed rămâne pe hold pentru restul anului\""
+   ],
+   "flow": "",
+   "levels": "NFP iulie -23k; șomaj 4,1%; AHE YoY 3,2%",
+   "invalidation": "Hike-urile rămân posibile dacă inflația de bază vine \"hot\" și piața muncii își revine",
+   "change": "NOU"
   },
   {
-   "instrument": "USDCAD",
-   "dir": "SHORT (bias, build spre 15.07)",
-   "strat": "A",
-   "conf": "3/5",
-   "rationale": "Cel mai aliniat bloc de rapoarte (CACIB 1,35-1,40; Scotia+CIBC rebound) + GDP beat + short CAD extremă (squeeze) + CAD pro-risk. Scor 5/7. Catalizatorul (BoC+MPR) e abia 15.07 → acumulare, nu urmărire.",
-   "activation": "USD rămâne moale post-minute FOMC (non-hawkish) + confirmare tehnică sub nivelul-cheie",
-   "invalidation": "Minute FOMC hawkish / 10Y US continuă sus / date CA slabe. Contra explicit: spread 2Y (+1,38) încă PRO-USD (criteriul 4) + USD long de deceniu poate întâi să-l împingă mai sus"
+   "bank": "Danske",
+   "date": "11.08",
+   "asset": "USD",
+   "dir": "BULLISH",
+   "horizon": "trimestru",
+   "conviction": 4,
+   "args": [
+    "Fed: încă 2 hike-uri (dec+mar), rate ținute la 4,00-4,25% până în 2027 — peste pricing-ul pieței",
+    "Condițiile financiare s-au relaxat post-FOMC/NFP slab, dar Danske se îndoiește că trendul persistă",
+    "\"Broad USD on a strong footing also against JPY\" — outlook ciclic sănătos, GDP SUA +2,0% 2026"
+   ],
+   "flow": "",
+   "levels": "Fed funds 4,00-4,25% (2027); 10Y UST 5,00% pe 12M (peste forward 4,88%)",
+   "invalidation": "—",
+   "change": "NOU"
   },
   {
-   "instrument": "NZDUSD",
-   "dir": "LONG (tactic, event 8.07)",
-   "strat": "A",
-   "conf": "3/5",
-   "rationale": "Hike la 2,50% devenit consens (22/28) + CPI ↑ spre 4,3% + short leveraged funds la RECORD + risk-on cu NZD pro-ciclic = profil clasic de squeeze. Scor confluență 5/7 (criteriile 1+2 prezente).",
-   "activation": "Hike SAU ton clar hawkish pe 8.07 + risk-on intact + breakout tehnic din nivel (confirmare proprie)",
-   "invalidation": "Hold dovish pe 8.07 → setup mort; SAU minute FOMC hawkish care relansează USD global. Onest: câștig limitat (hike deja prețuit), spread 2Y indisponibil = criteriul 4 necunoscut"
-  }
- ],
- "trades_intraday": [
-  {
-   "instrument": "US30",
-   "dir": "LONG (intraday)",
-   "strat": "B",
-   "conf": "3/5",
-   "rationale": "Risk-on, Dow la record 53.056, VIX 16. DAR randamentele urcă și minute FOMC miercuri = risc → convingere temperată față de săptămâna trecută",
-   "activation": "Breakout M5 valid din nivel M30 + VIX în scădere + top-8 componente verzi. NU în fereastra blackout de la minute FOMC (±15-30 de minute de la ora 21:00, miercuri)",
-   "invalidation": "Minute FOMC hawkish / 10Y înapoi sus agresiv / VIX peste 20"
+   "bank": "ING",
+   "date": "11.08",
+   "asset": "USD (DXY)",
+   "dir": "NEUTRU",
+   "horizon": "zile",
+   "conviction": 3,
+   "args": [
+    "Volatilitate FX realizată în scădere, piața confortabilă cu Fed hold/hike 50/50 pentru septembrie",
+    "Cererea de carry trade rămâne susținută pe termen scurt",
+    "Risc cheie: supply masiv de obligațiuni tech (Nvidia $500bn) ar putea rupe mediul benign"
+   ],
+   "flow": "",
+   "levels": "DXY interval 99,50-100,00 până la CPI",
+   "invalidation": "Sell-off pe obligațiuni dacă supply-ul tech nu e absorbit",
+   "change": "NOU"
   },
   {
-   "instrument": "GOLD",
-   "dir": "LONG (tactic, prudent)",
-   "strat": "B",
-   "conf": "2,5/5",
-   "rationale": "Bottom-fishing în metale prețioase (Saxo) + DXY sub 101. DAR randamentele reale urcă (10Y 4,50%) = vânt din față → convingere redusă",
-   "activation": "DXY slab + randamente reale care nu mai urcă; breakout M5 din nivel M30 cu retest",
-   "invalidation": "10Y US continuă peste 4,50% / DXY peste 101; downtrend-ul mare intact — NU e trade de poziție"
+   "bank": "ING",
+   "date": "10.08",
+   "asset": "USD (DXY)",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 4,
+   "args": [
+    "Payrolls slabe (-20k, revizuiri >100k) confirmă primul din 5 teste dovish înainte de FOMC 16.09",
+    "ING așteaptă CPI miercuri la 0,1% MoM (sub consensul 0,2%) — consolidează cazul dovish",
+    "Doar 11bp prețuite pentru septembrie, 28bp pentru decembrie — spațiu amplu de repricing dovish"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Surpriză hawkish la CPI/Jackson Hole/următorul NFP ar inversa repricing-ul dovish",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "USD",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 4,
+   "args": [
+    "Prognoză explicită: Fed pe hold tot restul anului, USD se va slăbi treptat",
+    "Curbă SUA mai abruptă + term premium (Kim-Wright) la maxim de ciclu 0,87% + incertitudine Fed sub Warsh",
+    "Risc ca alte bănci centrale să fie descurajate să vândă UST pentru intervenții FX (Eichengreen)"
+   ],
+   "flow": "",
+   "levels": "US 10Y term premium 0,87% (maxim din aprilie 2011)",
+   "invalidation": "CPI SUA \"fierbinte\" care reactivează hike-ul din septembrie ar invalida teza",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "10.08",
+   "asset": "USD",
+   "dir": "NEUTRU",
+   "horizon": "zile",
+   "conviction": 2,
+   "args": [
+    "\"Prag mai ridicat pentru un câștig susținut al dolarului\" — CPI + alt NFP urmează înainte de FOMC 16.09",
+    "Probabilitate hike septembrie a scăzut doar de la 55% la 40%, nu la zero",
+    "AHE YoY scăzut la 3,2% (de la 3,5%) confirmă dezinflație, dar dizidențe hawkish Fed persistă"
+   ],
+   "flow": "",
+   "levels": "Probabilitate hike sept: 55%→40%; randament 2Y -5bp în ziua NFP",
+   "invalidation": "Al treilea core CPI consecutiv sub așteptări ar sparge teza prudentă; CPI peste așteptări reactivează hike-ul",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "11.08",
+   "asset": "USD",
+   "dir": "NEUTRU",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "NFP slab a determinat dolarul să \"se înmoaie\", piețele au redus poziții net long USD",
+    "Totuși așteptările pentru un hike Fed rămân în acest an — bias hawkish mai larg persistă"
+   ],
+   "flow": "",
+   "levels": "DXY 99,811 (închidere 10.08)",
+   "invalidation": "CPI mai tare sau retorică Fed hawkish ar confirma bias-ul hawkish",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "11.08",
+   "asset": "USD",
+   "dir": "NEUTRU",
+   "horizon": "trimestru",
+   "conviction": 2,
+   "args": [
+    "Reziliența acțiunilor SUA (câștiguri T2 puternice) susține sentimentul și menține vol. FX scăzută",
+    "\"Lipsa de încredere în funcția de reacție a Fed sub Warsh rămâne un risc de scădere pentru USD\"",
+    "Randamentele UST 10Y/30Y au retrasat deja mai mult decât scăderea de la NFP, curba se abruptizează"
+   ],
+   "flow": "",
+   "levels": "PCE core YoY 3,3%",
+   "invalidation": "Restabilirea încrederii în comunicarea Fed ar elimina riscul de scădere semnalat",
+   "change": "NOU"
+  },
+  {
+   "bank": "Natixis",
+   "date": "07.08",
+   "asset": "USD",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 3,
+   "args": [
+    "NFP -23k, mult sub consens; media pe 3 luni a scăzut la 20k, fără impuls inflaționist din muncă",
+    "Productivitate T2 +1,4% / ULC în scădere reduc presiunea pe costuri — dovish termen scurt",
+    "Piața prețuiește 1-2 hike-uri; Natixis vede pragul de \"1 hike\" fragil"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "CPI mai ferm decât așteptat ar inversa teza de \"extended pause\"",
+   "change": "NOU"
+  },
+  {
+   "bank": "Natixis",
+   "date": "10.08",
+   "asset": "USD",
+   "dir": "BEARISH",
+   "horizon": "zile",
+   "conviction": 4,
+   "args": [
+    "Prognozează core CPI +0,22% m/m — a treia lună consecutivă de citiri încurajatoare (anualizat 3L: 1,7%)",
+    "Inflația concentrată în locuințe/servicii, nu mai e generalizată — progres real spre 2%",
+    "O citire conform așteptărilor reduce presiunea pentru hike în septembrie"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Core CPI semnificativ peste 0,22% m/m ar readuce în discuție hike-ul din septembrie",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "USD",
+   "dir": "BEARISH",
+   "horizon": "1-2 luni",
+   "conviction": 3,
+   "args": [
+    "FOMC hold 3,50-3,75% (vot 9-3, 3 disidenți hawkish: Hammack, Kashkari, Logan)",
+    "CPI se răcește (3,5%/2,6% core), NFP -23k vs +83k așteptat — argumentul pentru hike s-a diminuat",
+    "Șanse implicite septembrie scăzute la ~42% (de la 55%); Warsh refuză forward guidance"
+   ],
+   "flow": "",
+   "levels": "Target range 3,50-3,75%; DXY 99,50",
+   "invalidation": "CPI iulie surprinzător de cald sau rebound puternic NFP",
+   "change": "NOU"
+  },
+  {
+   "bank": "CACIB",
+   "date": "11.08",
+   "asset": "EUR",
+   "dir": "BEARISH",
+   "horizon": "trimestru",
+   "conviction": 2,
+   "args": [
+    "Folosit ca monedă de finanțare (funding leg) pentru pozițiile overweight EM (CLP/TRY/TWD)",
+    "Nu e o teză EUR fundamentală — e mecanica de funding a tezei pozitive pe USD/EM"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Schimbare de scenariu spre \"Sell America\" ar inversa logica de funding",
+   "change": "NOU"
+  },
+  {
+   "bank": "Danske",
+   "date": "11.08",
+   "asset": "EUR/USD",
+   "dir": "BEARISH",
+   "horizon": "trimestru",
+   "conviction": 5,
+   "args": [
+    "\"Relative macro and monetary policy outlook push EUR/USD lower\" pe orizont de 12 luni",
+    "Fed: hike-uri dec+mar, rate ținute la 4,00-4,25% până în 2027 — peste ce prețuiește piața",
+    "Previziune explicit sub consensus (1,18) și sub forward (1,17)"
+   ],
+   "flow": "",
+   "levels": "EUR/USD 1,12 pe 12M (consensus 1,18, forward 1,17)",
+   "invalidation": "—",
+   "change": "NOU"
+  },
+  {
+   "bank": "ING",
+   "date": "11.08",
+   "asset": "EUR/USD",
+   "dir": "NEUTRU",
+   "horizon": "zile",
+   "conviction": 3,
+   "args": [
+    "Volatilitate realizată la minim din noiembrie 2024, fără catalizator domestic până mijloc septembrie",
+    "Risc ca investitorii europeni subacoperiți pe USD să fie forțați să-și mărească rapid hedge ratio",
+    "Perechea rămâne dominată de partea USD, nu de factori proprii zonei euro"
+   ],
+   "flow": "",
+   "levels": "EUR/USD interval 1,1515-1,1560",
+   "invalidation": "—",
+   "change": "NOU"
+  },
+  {
+   "bank": "ING",
+   "date": "10.08",
+   "asset": "EUR/USD",
+   "dir": "BULLISH",
+   "horizon": "zile",
+   "conviction": 3,
+   "args": [
+    "Calendar domestic liniștit; ECB a dat deja o cvasi-angajare pentru o majorare în septembrie",
+    "CPI SUA mai slab ar crește șansele unei sparageri a rezistenței de 1,160 chiar săptămâna aceasta",
+    "Diferențialele de dobândă pe termen scurt rămân principalul motor, sensibilitate ridicată la Fed"
+   ],
+   "flow": "",
+   "levels": "Rezistență 1,160, apoi MA200 la 1,1630",
+   "invalidation": "CPI SUA hawkish ar bloca ruperea peste 1,160",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "EUR",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "PIB T2 zona euro așteptat să confirme reziliență peste așteptări, susține tightening ECB suplimentar",
+    "Context general de slăbiciune USD sprijină indirect EUR"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Date PIB UE sub așteptări sau pivot dovish ECB ar contrazice teza",
+   "change": "NOU"
+  },
+  {
+   "bank": "KBC",
+   "date": "11.08",
+   "asset": "EUR/USD",
+   "dir": "NEUTRU",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "Suportul 1,1392 era pe cale să cedeze înainte ca NFP-ul slab să salveze perechea pe termen scurt",
+    "Pierderea de încredere a pieței după conferința Fed din iulie ia din strălucirea dolarului",
+    "Tehnic, e nevoie de o mișcare peste 1,16 pentru un tablou clar non-neutru"
+   ],
+   "flow": "",
+   "levels": "Suport 1,1392 / prag tehnic 1,16",
+   "invalidation": "Eșecul de a sparge 1,16 menține riscul de reluare a slăbiciunii EUR",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "EUR",
+   "dir": "BULLISH",
+   "horizon": "1-2 luni",
+   "conviction": 4,
+   "args": [
+    "ECB a ținut 2,25% unanim, dar Lagarde: pauza nu înseamnă final de înăsprire",
+    "Inflația a urcat la 2,9% (energie +10,0%, servicii +3,3%), a doua lună consecutiv peste țintă",
+    "Lagarde a pregătit terenul pentru o posibilă acțiune în septembrie — derivă hawkish clară"
+   ],
+   "flow": "",
+   "levels": "Deposit rate 2,25%; EUR/USD 1,1568 (max 7 săpt.), țintă spre 1,17",
+   "invalidation": "O corecție a inflației energetice sau recădere PMI servicii ar elimina argumentul de hike",
+   "change": "NOU"
+  },
+  {
+   "bank": "CACIB",
+   "date": "10.08",
+   "asset": "GBP",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 4,
+   "args": [
+    "Indicele propriu G10 PIX 3.0 arată GBP în teritoriu supracumpărat",
+    "Poziționare sistematică contrarian: short GBP/USD, țintă +4%, stop -2% (orizont 1 săptămână)",
+    "GBP a primit cumpărări proaspete săptămâna trecută, condusă predominant de fluxuri IMM"
+   ],
+   "flow": "Bănci și real money [au cumpărat] GBP (inflows); corporates/hedge funds [au vândut] GBP (outflows) — CACIB CMIT. Fluxul recent e NET CUMPĂRARE, dar teza scrisă e SELL — poziționare explicit contrarian, nu confirmare de flux.",
+   "levels": "Short GBP/USD, țintă +4%, stop -2%",
+   "invalidation": "Atingerea stop-loss -2%, sau revenirea PIX din overbought spre neutru",
+   "change": "NOU"
+  },
+  {
+   "bank": "KBC",
+   "date": "11.08",
+   "asset": "GBP",
+   "dir": "NEUTRU",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "EUR/GBP a spart în jos un triunghi bullish pe GBP, sub suportul cheie de 0,86",
+    "Piața a dat inițial credit noului premier Burnham, dar avântul sterlinei s-a domolit",
+    "Bugetul din noiembrie 2026 e văzut ca testul decisiv pentru Burnham"
+   ],
+   "flow": "",
+   "levels": "EUR/GBP suport ~0,845 / rezistență ~0,86",
+   "invalidation": "Revenire susținută peste 0,86 EUR/GBP ar repune presiune pe liră",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "GBP",
+   "dir": "BULLISH",
+   "horizon": "1-2 luni",
+   "conviction": 3,
+   "args": [
+    "MPC a ținut 3,75% cu vot 6-3, trei membri au votat pentru majorare la 4% — comitet puternic divizat",
+    "CPI a scăzut la 2,6% (sub 2,7% consens), dar Comitetul așteaptă reaccelerare a inflației mai târziu în 2026",
+    "Piața prețuiește cel puțin o majorare până la final de an; gilt 10Y cel mai ridicat din G7"
+   ],
+   "flow": "",
+   "levels": "Bank Rate 3,75% (posibil 4,00%); gilt 10Y 4,91%",
+   "invalidation": "Slăbire suplimentară a pieței muncii + lipsa reaccelerării inflației ar elimina cazul de hike",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "CAD",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "USD/CAD are cea mai puternică corelație cu petrolul dintre perechile G10 în ultima lună",
+    "Volatilitatea petrolului (ruptură armistițiu SUA-Iran) a ajutat la susținerea CAD (și NOK)"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Dezescaladare/redeschidere Hormuz care scade petrolul ar elimina acest suport pentru CAD",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "CAD",
+   "dir": "BULLISH",
+   "horizon": "1-2 luni",
+   "conviction": 4,
+   "args": [
+    "BoC a ținut 2,25% a 6-a ședință consecutivă; Macklem semnalează încredere crescută în digerarea șocurilor",
+    "GDP T2 +3,4% anualizat, mult peste proiecția proprie (2,5%); inflația s-a temperat la 2,8% (în bandă)",
+    "Bias-ul de relaxare a dispărut — riscul s-a mutat spre o primă majorare, nu spre o nouă tăiere"
+   ],
+   "flow": "",
+   "levels": "Overnight rate 2,25%; USD/CAD ~1,39, țintă spre 1,37",
+   "invalidation": "Dezamăgire a datelor de creștere sau reaccelerare a inflației peste 3% ar readuce în discuție o tăiere",
+   "change": "NOU"
+  },
+  {
+   "bank": "CACIB",
+   "date": "10.08",
+   "asset": "JPY",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 1,
+   "args": [
+    "Model FAST FX: USD/JPY sub fair value (z-score -0,28) — semnal slab, sub pragul de declanșare (1,5)",
+    "EUR/JPY fair value a urcat la 184,51 pe fondul creșterii spread-ului Eurozonă-Japonia"
+   ],
+   "flow": "",
+   "levels": "USD/JPY spot 157,76 vs fair value 158,41 (z=-0,28)",
+   "invalidation": "Z-score ar trebui să depășească ±1,5 pentru semnal activ",
+   "change": "NOU"
+  },
+  {
+   "bank": "Danske",
+   "date": "11.08",
+   "asset": "JPY",
+   "dir": "BEARISH",
+   "horizon": "1-3 luni",
+   "conviction": 3,
+   "args": [
+    "Intervenția coordonată BoJ-Trezorerie SUA e puțin probabil să inverseze trendul fără înăsprire BoJ",
+    "Fed rămâne relativ hawkish (încă 2 hike-uri așteptate) și petrolul rămâne ridicat — susțin USD/JPY termen scurt",
+    "Capacitatea Trezoreriei SUA de intervenții suplimentare e limitată (19-38% din rezervele în EUR cheltuite)"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Date SUA mai slabe, randamente UST mai joase, BoJ mai hawkish sau repatriere de active japoneze",
+   "change": "NOU"
+  },
+  {
+   "bank": "Danske",
+   "date": "11.08",
+   "asset": "JPY",
+   "dir": "BULLISH",
+   "horizon": "structural (medie durată)",
+   "conviction": 4,
+   "args": [
+    "\"Rămânem structural bearish pe USD/JPY pe termen mediu\" — JPY real efectiv la cel mai slab nivel din ≥50 ani",
+    "BoJ și-a atins ținta de inflație 2% (\"success story\"), deschide ușa spre normalizare",
+    "Intervenția a generat urmărire (follow-through) limitată dincolo de mișcarea inițială"
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "Fără date SUA mai slabe/BoJ mai hawkish, piața va continua să vândă orice forță a JPY",
+   "change": "NOU"
+  },
+  {
+   "bank": "ING",
+   "date": "10.08",
+   "asset": "JPY",
+   "dir": "BEARISH",
+   "horizon": "săptămâni",
+   "conviction": 3,
+   "args": [
+    "Yenul ar trebui teoretic să beneficieze de surprize dovish SUA, dat fiind sensibilitatea la randamente",
+    "Persistă tendința de reconstruire a pozițiilor short JPY după episodul de intervenție",
+    "Nici riscul de intervenție, nici hike-ul BoJ mai probabil în septembrie nu opresc acest trend"
+   ],
+   "flow": "",
+   "levels": "USD/JPY revenit la 158,30-158,50; risc spre 160,0 în cursul lunii",
+   "invalidation": "—",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "JPY",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 3,
+   "args": [
+    "Intervenția SUA+Japonia schimbă risk-reward pe termen scurt împotriva unei reveniri rapide USD/JPY",
+    "Curbă SUA mai abruptă, term premium la maxim de ciclu 0,87%, incertitudine politică Fed sub Warsh",
+    "Istoric, intervențiile conjugate s-au inversat doar când fundamentele s-au schimbat, nu imediat"
+   ],
+   "flow": "",
+   "levels": "USD/JPY 163,30 (max pre-intervenție) → minim 157,28 vineri",
+   "invalidation": "Dacă hike-urile Fed rămân prețuite și fundamentele nu se schimbă, risc de revenire spre 163,30",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "JPY",
+   "dir": "NEUTRU",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "Intervenția conjugată (prima cumpărare de yeni SUA-Japonia din 1998) e istorică, poate curăța short-urile pe termen scurt",
+    "Dar \"fundamentele probabil încă trebuie să se schimbe pentru o mișcare mai durabilă\" — ton mai precaut decât restul FX Weekly"
+   ],
+   "flow": "",
+   "levels": "USD/JPY: 163,99 (sfârșit iulie) → 155,23 (3.08) → 158 (7.08)",
+   "invalidation": "Fără schimbare durabilă de fundamente, risc de retestare spre 163,99",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "10.08",
+   "asset": "JPY",
+   "dir": "NEUTRU",
+   "horizon": "zile",
+   "conviction": 2,
+   "args": [
+    "[SCHIMBARE vs. FX Weekly 07.08, care era Bullish JPY] Vânzarea de yeni reluată, USD/JPY revenit la nivelul pre-NFP",
+    "Summary of Opinions BoJ (iulie) clar hawkish — hike octombrie prețuit la ~96%",
+    "Reducerea pozițiilor short IMM (-45% în săpt. până 28.07) lasă mai puțin combustibil pentru cumpărare de yeni"
+   ],
+   "flow": "",
+   "levels": "USD/JPY revenit la nivelul pre-NFP; probabilitate hike BoJ octombrie ~96%",
+   "invalidation": "CPI SUA slab ar putea reactiva teza de cumpărare JPY; CPI \"fierbinte\" ar extinde forța USD/JPY",
+   "change": "NOU"
+  },
+  {
+   "bank": "Westpac",
+   "date": "11.08",
+   "asset": "JPY",
+   "dir": "BEARISH",
+   "horizon": "zile-săptămâni",
+   "conviction": 3,
+   "args": [
+    "USD/JPY a urcat de la 157,50 la peste 159, ștergând o parte din câștigurile intervenției comune",
+    "Fundamentele rămân slabe: diferențiale largi de dobândă, îngrijorări legate de finanțele publice japoneze",
+    "Fără sprijin proaspăt din partea autorităților, presiunile \"sunt set to continue dragging the yen lower\""
+   ],
+   "flow": "",
+   "levels": "USD/JPY 159,28 (de la 157,50 post-intervenție)",
+   "invalidation": "Nouă intervenție sau accelerare explicită a hike-urilor BoJ",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "JPY",
+   "dir": "BULLISH",
+   "horizon": "1-2 luni",
+   "conviction": 4,
+   "args": [
+    "Board-ul a ținut ~1,0% (vot 8-1), Takata a votat pentru 1,25% — primul disident hawkish",
+    "Ueda ușor hawkish, vigilent la riscurile de inflație (CPI 1,7% vs 1,5%), deși cheltuielile gospodăriilor rămân slabe",
+    "Reducerea taxei pe consum adaugă stimul fiscal pe care Banca ar putea trebui să-l compenseze prin înăsprire"
+   ],
+   "flow": "",
+   "levels": "Rata 1,00% (posibil 1,25% în septembrie); USD/JPY 157,56, țintă spre 152",
+   "invalidation": "Slăbire persistentă a cererii interne sau nou repricing Fed ar amâna majorarea din septembrie",
+   "change": "ÎNTORS (vs. bloc bancar predominant bearish JPY)"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "CHF",
+   "dir": "BULLISH",
+   "horizon": "1-2 luni",
+   "conviction": 3,
+   "args": [
+    "SNB a ținut 0%, dar dezbaterea s-a mutat pe o posibilă revenire la dobânzi negative în septembrie",
+    "Inflația a scăzut la 0,4% (aproape de podeaua 0-2%) — surpriza negativă face o tăiere mai ușor de justificat",
+    "Raportul prognozează totuși apreciere CHF (spre 0,79), condusă de fluxuri de refugiu/slăbiciune USD, NU de rată — direcție contrară tonului de politică"
+   ],
+   "flow": "",
+   "levels": "Dobânda 0%; USD/CHF 0,808, țintă spre 0,79",
+   "invalidation": "Tăiere efectivă în teritoriu negativ care reușește să slăbească francul, sau revenire puternică a USD global",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "AUD",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 4,
+   "args": [
+    "Idee nouă: Long AUD/JPY, susținută de suport la MA200 și lipsa unei schimbări fundamentale susținute în JPY",
+    "Context de carry favorabil: NFP slab a redus așteptările de hike Fed, vol. FX scăzută susține carry trade-urile",
+    "Metale industriale (cupru la maxim istoric) susțin termenii de schimb ai Australiei, plus investiții AI"
+   ],
+   "flow": "",
+   "levels": "Long AUD/JPY @111,20, țintă 114,50, stop 109,20",
+   "invalidation": "Stop-loss la 109,20; reluare intervenție JPY sau unwind de carry",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "11.08",
+   "asset": "AUD",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 3,
+   "args": [
+    "RBA a ținut rata neschimbată cu ton echilibrat, dar Bullock: \"destul de posibil\" un nou hike",
+    "Un hike aproape complet prețuit până în martie; inflația nu atinge mijlocul țintei (2,5%) până 2028",
+    "Brent +7% (fără progres la redeschiderea Hormuz), consistent cu teza Long AUD/JPY"
+   ],
+   "flow": "",
+   "levels": "Hike RBA aproape complet prețuit până martie 2027; randament AU 2Y +2-3bp",
+   "invalidation": "Dezescaladare Orient Mijlociu eșuată + petrol continuă să urce ar putea forța RBA la un nou hike (risc bilateral, nu doar upside)",
+   "change": "NOU"
+  },
+  {
+   "bank": "ING",
+   "date": "11.08",
+   "asset": "AUD/USD",
+   "dir": "BULLISH",
+   "horizon": "trimestru",
+   "conviction": 4,
+   "args": [
+    "RBA a lăsat dobânda neschimbată la 4,35%, dar Guvernatorul a fost hawkish, riscuri de inflație înclinate în sus",
+    "ING nu vede o nouă majorare RBA anul acesta, dar păstrează ținta bullish pe AUD/USD",
+    "Randamentele australiene pe scadențe scurte au făcut un U-turn hawkish după conferința de presă"
+   ],
+   "flow": "",
+   "levels": "AUD/USD țintă 0,73 până la final de an",
+   "invalidation": "—",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "AUD",
+   "dir": "BULLISH",
+   "horizon": "imediat (decizia 11.08)",
+   "conviction": 4,
+   "args": [
+    "RBA a ținut 4,35% unanim și a repetat că va majora în continuare dacă e necesar — retorică hawkish menținută",
+    "Inflația rămâne peste bandă (3,8% vs 2-3%); ~44% dintre analiști încă așteaptă cel puțin un hike până la final de an",
+    "Șomajul a urcat la 4,5% — o nouă menținere pare probabilă, dar Board-ul nu a semnalat tăieri"
+   ],
+   "flow": "",
+   "levels": "Cash rate 4,35%; AUD/USD 0,7072 (max 7 săpt.), țintă spre 0,72",
+   "invalidation": "Scădere mai rapidă a inflației + deteriorare suplimentară a pieței muncii ar deschide calea spre semnale de relaxare",
+   "change": "NOU"
+  },
+  {
+   "bank": "TMV",
+   "date": "10.08",
+   "asset": "NZD",
+   "dir": "BULLISH",
+   "horizon": "foarte scurt (Declarație 12.08)",
+   "conviction": 4,
+   "args": [
+    "RBNZ a majorat OCR cu 25pb la 2,50% în iulie — prima majorare din mai 2023, finalul a 6 tăieri consecutive",
+    "Băncile mari NZ văd OCR la ~3,00% până la final de an prin încă 2 hike-uri de 25pb",
+    "CPI headline a sărit la 4,1% (peste bandă), dar ex-combustibil doar 2,9% (în bandă); șomaj la maxim de 11 ani (5,6%)"
+   ],
+   "flow": "",
+   "levels": "OCR 2,50% (țintă bănci ~3,00% până final de an); NZD/USD ~0,589, țintă spre 0,60",
+   "invalidation": "Deteriorare suplimentară a pieței muncii sau inflație ex-combustibil persistent scăzută ar putea opri ciclul după 12.08",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "07.08",
+   "asset": "Gold",
+   "dir": "BULLISH",
+   "horizon": "săptămâni",
+   "conviction": 2,
+   "args": [
+    "Term premium SUA în creștere + breakeven 5y5y la maxim din toamna trecută erodează credibilitatea anti-inflație a Fed",
+    "\"Metalele prețioase au beneficiat de acest context, aurul spărgând în sus\""
+   ],
+   "flow": "",
+   "levels": "—",
+   "invalidation": "—",
+   "change": "NOU"
+  },
+  {
+   "bank": "MUFG",
+   "date": "11.08",
+   "asset": "US30",
+   "dir": "BULLISH",
+   "horizon": "trimestru",
+   "conviction": 3,
+   "args": [
+    "NOTĂ: teza se bazează pe S&P 500 ca proxy de risc pe acțiuni SUA, nu pe Dow Jones direct",
+    "Sezon T2 aproape încheiat: 88% raportat, 86% au bătut EPS; creștere EPS blended 50,4% YoY, P/E fwd 20,0x (aproape de medie)",
+    "Reziliența acțiunilor în fața incertitudinilor geopolitice a ajutat la menținerea volatilității financiare scăzute"
+   ],
+   "flow": "",
+   "levels": "S&P fwd P/E 20,0x; creștere EPS T2 blended 50,4% YoY",
+   "invalidation": "Fără Alphabet/Amazon surpriza EPS scade la 10,9% (bază îngustă); urcare continuă a randamentelor e risc pentru reziliența acțiunilor",
+   "change": "NOU"
   }
  ]
 }
