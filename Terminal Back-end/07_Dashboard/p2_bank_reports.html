@@ -70,7 +70,8 @@
     (g[d] = g[d] || []).push(r);
   });
 
-  function groupRow(ccy, dir, rows, firstOfCcy, contra) {
+  // celulele unei direcții (fără Asset — acela apare o singură dată, cu rowspan)
+  function dirCells(dir, rows) {
     rows = rows.slice().sort(function (a, b) { return dnum(b.date) > dnum(a.date) ? 1 : -1; });
     var banks = [], seen = {}, hint = [];
     rows.forEach(function (r) {
@@ -82,32 +83,32 @@
     Object.keys(hz).forEach(function (h) { if (hz[h] > hz[top]) top = h; });
     var cv = rows.filter(function (r) { return r.conviction; });
     var avg = cv.length ? cv.reduce(function (s, r) { return s + r.conviction; }, 0) / cv.length : 0;
-    return '<tr' + (firstOfCcy ? ' style="border-top:1px solid var(--line)"' : '') + '>' +
-      '<td class="small">' + (rows[0].date || '—') + '</td>' +
-      '<td><b>' + ccy + '</b>' + (firstOfCcy && contra ? ' <span class="badge b-watch" title="bănci în contradicție pe acest activ">⚔</span>' : '') + '</td>' +
+    return '<td class="small">' + (rows[0].date || '—') + '</td>' +
       '<td>' + dirBadge(dir) + '</td>' +
       '<td class="small">' + top + '</td>' +
       '<td>' + convBar(avg) + '</td>' +
       '<td class="small" title="' + hint.join(' · ') + '">' + banks.join(', ') +
-        ' <span class="dim">(' + banks.length + ')</span></td>' +
-    '</tr>';
+        ' <span class="dim">(' + banks.length + ')</span></td>';
   }
 
   var order = CORD.concat(XORD.filter(function (k) { return byCcy[k]; }));
+  // Asset apare O SINGURĂ DATĂ per monedă (rowspan); direcțiile se despart pe rânduri,
+  // în coloana Direction — bullish și bearish stau una sub alta, sub același activ.
   document.getElementById('reports').innerHTML = R.length
-    ? '<table><tr><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Banks</th></tr>' +
+    ? '<table><tr><th>Asset</th><th>Date</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Banks</th></tr>' +
       order.map(function (ccy) {
-        var g = byCcy[ccy] || {};
+        var g = byCcy[ccy] || {}, sep = ' style="border-top:1px solid var(--line)"';
         var dirs = Object.keys(g).sort(function (a, b) {
           return (g[b].length - g[a].length) || (DORD[a] - DORD[b]); });
-        if (!dirs.length) return '<tr style="border-top:1px solid var(--line)">' +
-          '<td class="dim">—</td><td><b>' + ccy + '</b></td>' +
-          '<td class="dim" colspan="4">fără rapoarte săptămâna aceasta</td></tr>';
-        var contra = g['BULLISH'] && g['BEARISH'];
-        return dirs.map(function (d, i) { return groupRow(ccy, d, g[d], i === 0, contra); }).join('');
+        if (!dirs.length) return '<tr' + sep + '><td><b>' + ccy + '</b></td>' +
+          '<td class="dim" colspan="5">fără rapoarte săptămâna aceasta</td></tr>';
+        var head = '<td rowspan="' + dirs.length + '"><b>' + ccy + '</b>' +
+          (g['BULLISH'] && g['BEARISH'] ? ' <span class="badge b-watch" title="bănci în contradicție pe acest activ">⚔</span>' : '') + '</td>';
+        return dirs.map(function (d, i) {
+          return '<tr' + (i === 0 ? sep : '') + '>' + (i === 0 ? head : '') + dirCells(d, g[d]) + '</tr>';
+        }).join('');
       }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox".</div>';
-
 
   // ——— per monedă ———
   var cy = D.currencies || {};

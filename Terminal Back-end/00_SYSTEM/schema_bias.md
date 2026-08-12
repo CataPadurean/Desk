@@ -25,9 +25,11 @@ invalidarea trăiesc acolo unde se execută — în book-ul de trade-uri (`trigg
 
 Pagina Bank Reports NU mai listează un rând per raport. Cele 8 monede apar una sub alta, în
 ordinea din regula 0 (`USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD`), apoi `Gold` și `US30` dacă
-există rapoarte pe ele. Un rând = **o monedă + o direcție**, cu toate băncile care au scris-o:
+există rapoarte pe ele. **Activul apare O SINGURĂ DATĂ** (celulă cu `rowspan`); dedesubtul lui,
+câte un rând per direcție — bullish, bearish și neutru stau una sub alta în coloana Direction,
+fiecare cu băncile ei:
 
-`Date | Asset | Direction | Horizon | Conviction | Banks`
+`Asset | Date | Direction | Horizon | Conviction | Banks`
 
 - **Date** = raportul cel mai recent din grup · **Horizon** = orizontul dominant · **Conviction**
   = media grupului (cifra exactă în tooltip) · **Banks** = băncile, cu data fiecăreia în tooltip.
