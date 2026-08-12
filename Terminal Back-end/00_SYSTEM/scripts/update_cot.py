@@ -25,7 +25,7 @@ TFF_MARKETS = {
     'DXY': ('USD INDEX', 'U.S. DOLLAR INDEX', 'DOLLAR INDEX'),
 }
 EXCLUDE = ['MICRO', 'E-MINI', ' MINI', 'XRATE', '/']
-ORDER = ['EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD', 'DXY']
+ORDER = ['EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD', 'DXY']
 UA = {'User-Agent': 'Mozilla/5.0 (desk-system; personal research)'}
 
 def fetch_zip_txt(url):

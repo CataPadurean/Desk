@@ -60,11 +60,11 @@ JUDGMENT = ('bnk',)
 # Rămân aceleași două, indiferent că unul e acum mecanic.
 CONFIRM = ('bnk', 'cb')
 
-CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
+CCY_ORDER = ('USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD')
 
 # perechile evaluate: cele 7 cu dolar + crosses lichide (cross-secțiunea plătește
 # tocmai pe non-USD, unde nicio bancă nu scrie un raport dedicat)
-USD_PAIRS = ('EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD')
+USD_PAIRS = ('EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD', 'AUDUSD', 'NZDUSD')
 CROSSES   = ('EURGBP', 'EURJPY', 'GBPJPY', 'AUDNZD', 'CADJPY', 'GBPNZD')
 
 # ——— criteriul 2: CB = edge-ul față de pricing, NU direcția băncii centrale ———
@@ -74,8 +74,8 @@ CROSSES   = ('EURGBP', 'EURJPY', 'GBPJPY', 'AUDNZD', 'CADJPY', 'GBPNZD')
 CB_BANDS = ((75, 2), (25, 1), (-25, 0), (-75, -1))     # sub tot → −2
 
 # ——— criteriul 5: COT (contrarian la extreme — combustibil de squeeze, nu confirmare) ———
-COT_MARKET = {'USD': 'DXY', 'EUR': 'EUR', 'GBP': 'GBP', 'CAD': 'CAD',
-              'JPY': 'JPY', 'CHF': 'CHF', 'AUD': 'AUD', 'NZD': 'NZD'}
+COT_MARKET = {'USD': 'DXY', 'EUR': 'EUR', 'GBP': 'GBP', 'JPY': 'JPY',
+              'CHF': 'CHF', 'CAD': 'CAD', 'AUD': 'AUD', 'NZD': 'NZD'}
 COT_BANDS = ((10, 2), (20, 1), (79, 0), (89, -1), (100, -2))   # (percentilă max, scor)
 
 # ——— criteriul 4: yields — Δ2Y pe ~5 ședințe, RELATIV la media celorlalte monede ———

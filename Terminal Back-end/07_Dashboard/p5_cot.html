@@ -34,7 +34,7 @@
   }
 
   var cm = (D.cot || {}).markets || {};
-  var order = ['DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  var order = ['DXY', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD'];
   var first = order.filter(function (k) { return cm[k]; })[0];
 
   document.getElementById('cot').innerHTML = Object.keys(cm).length

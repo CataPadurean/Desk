@@ -551,9 +551,9 @@ CHAINS = {
 # seria culeasă manual închide FIECARE lanț — ultima opțiune, niciodată prima
 for _c in CHAINS:
     CHAINS[_c].append(_named(lambda c=_c: src_manual(c), 'manual'))
-PAIRS = (('EURUSD', 'EUR', 'US'), ('GBPUSD', 'GBP', 'US'), ('AUDUSD', 'AUD', 'US'),
-         ('NZDUSD', 'NZD', 'US'), ('USDJPY', 'US', 'JPY'), ('USDCHF', 'US', 'CHF'),
-         ('USDCAD', 'US', 'CAD'))
+PAIRS = (('EURUSD', 'EUR', 'US'), ('GBPUSD', 'GBP', 'US'), ('USDJPY', 'US', 'JPY'),
+         ('USDCHF', 'US', 'CHF'), ('USDCAD', 'US', 'CAD'), ('AUDUSD', 'AUD', 'US'),
+         ('NZDUSD', 'NZD', 'US'))
 
 def snap(series):
     """[(date,val)] → {date, value, delta_1w} (Δ vs ~DELTA_SESSIONS ședințe)."""

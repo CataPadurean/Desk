@@ -87,9 +87,9 @@ def main():
         # ordinea canonică (CLAUDE.md, regula 0): perechi FX, apoi US30, apoi GOLD
         'EURUSD': lambda: monthly_from_fred('DEXUSEU'),
         'GBPUSD': lambda: monthly_from_fred('DEXUSUK'),
-        'USDCAD': lambda: monthly_from_fred('DEXCAUS'),
         'USDJPY': lambda: monthly_from_fred('DEXJPUS'),
         'USDCHF': lambda: monthly_from_fred('DEXSZUS'),
+        'USDCAD': lambda: monthly_from_fred('DEXCAUS'),
         'AUDUSD': lambda: monthly_from_fred('DEXUSAL'),
         'NZDUSD': lambda: monthly_from_fred('DEXUSNZ'),
         'US30':   lambda: monthly_from_fred('DJIA'),

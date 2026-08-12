@@ -27,7 +27,7 @@
   var se = (D.seasonality || {}).instruments || {};
   var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var cur = new Date().getMonth() + 1;
-  var SORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD', 'US30', 'GOLD'];
+  var SORD = ['EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD', 'AUDUSD', 'NZDUSD', 'US30', 'GOLD'];
   var skeys = SORD.filter(function (k) { return se[k]; })
     .concat(Object.keys(se).filter(function (k) { return SORD.indexOf(k) === -1; }));
 

@@ -11,7 +11,7 @@
   <div id="chrome"></div>
 
   <div class="card">
-    <h2>Bank Reports — fixed scheme</h2>
+    <h2>Bank Reports — consensus by currency</h2>
     <div id="reports"></div>
   </div>
 
@@ -29,53 +29,88 @@
   var D = window.ANALYSIS_DATA || {};
   var R = D.reports || [];
 
-  // activele pe care băncile se contrazic — marcate cu ⚔ în tabel
-  var assets = {}; R.forEach(function (r) { (assets[r.asset] = assets[r.asset] || []).push(r); });
-  var contra = Object.keys(assets).filter(function (a) {
-    var dirs = {}; assets[a].forEach(function (r) { dirs[String(r.dir).toUpperCase()] = 1; });
-    return dirs['BULLISH'] && dirs['BEARISH'];
-  });
+  // ——— tabel comasat pe monedă ———
+  // Un rând = o monedă + o direcție, cu toate băncile care au scris-o. Argumentele nu se
+  // repetă aici — trăiesc în comentariul per monedă de mai jos.
+  var CORD = ['USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD'];
+  var XORD = ['Gold', 'US30'];
 
-  // ——— tabelul de rapoarte ———
+  // assetul scris în raport → bucket: „USD (DXY)" → USD, „EUR/USD" → EUR (direcția e a bazei)
+  function bucket(a) {
+    var s = String(a || '').toUpperCase(), i;
+    if (s.indexOf('GOLD') > -1 || s.indexOf('XAU') > -1) return 'Gold';
+    if (s.indexOf('US30') > -1 || s.indexOf('DOW') > -1) return 'US30';
+    var m = s.match(/[A-Z]{3}/g) || [];
+    for (i = 0; i < m.length; i++) if (CORD.indexOf(m[i]) > -1) return m[i];
+    if (s.indexOf('DXY') > -1) return 'USD';
+    return null;
+  }
+  function normDir(d) {
+    var s = String(d || '').toUpperCase();
+    if (s.indexOf('BULL') > -1 || s.indexOf('LONG') > -1) return 'BULLISH';
+    if (s.indexOf('BEAR') > -1 || s.indexOf('SHORT') > -1) return 'BEARISH';
+    return 'NEUTRU';
+  }
+  function dnum(d) {                       // „11.08" / „11.08.2026" → cheie sortabilă
+    var m = String(d || '').match(/(\d{1,2})\.(\d{1,2})(?:\.(\d{4}))?/);
+    return m ? (m[3] || '0000') + ('0' + m[2]).slice(-2) + ('0' + m[1]).slice(-2) : '0';
+  }
   function convBar(n) {
     if (!n) return '<span class="dim">—</span>';
-    var full = '', i;
-    for (i = 1; i <= 5; i++) full += (i <= n ? '●' : '○');
-    return '<span title="conviction ' + n + '/5">' + full + '</span>';
+    var r = Math.round(n), full = '', i;
+    for (i = 1; i <= 5; i++) full += (i <= r ? '●' : '○');
+    return '<span title="conviction ' + (Math.round(n * 10) / 10) + '/5 (medie)">' + full + '</span>';
   }
-  // fluxul e singura informație din raport pe care nu o are toată lumea: se afișează
-  // separat de argumente și se marchează când contrazice direcția scrisă a băncii
-  function flowCell(r) {
-    if (!r.flow) return '<span class="dim">—</span>';
-    var f = String(r.flow), d = String(r.dir || '').toUpperCase();
-    var buys = /cumpăr|buying|bought|long|acumul/i.test(f);
-    var sells = /vând|vinde|selling|sold|short|reduc/i.test(f);
-    var against = (d.indexOf('BULL') > -1 && sells && !buys) ||
-                  (d.indexOf('BEAR') > -1 && buys && !sells);
-    return f + (against ? ' <span class="badge b-short" title="fluxul contrazice direcția scrisă a raportului">contra</span>' : '');
+
+  var DORD = { BULLISH: 0, BEARISH: 1, NEUTRU: 2 };
+  var byCcy = {};
+  R.forEach(function (r) {
+    var b = bucket(r.asset); if (!b) return;
+    var d = normDir(r.dir), g = (byCcy[b] = byCcy[b] || {});
+    (g[d] = g[d] || []).push(r);
+  });
+
+  function groupRow(ccy, dir, rows, firstOfCcy, contra) {
+    rows = rows.slice().sort(function (a, b) { return dnum(b.date) > dnum(a.date) ? 1 : -1; });
+    var banks = [], seen = {}, hint = [];
+    rows.forEach(function (r) {
+      if (seen[r.bank]) return;
+      seen[r.bank] = 1; banks.push(r.bank); hint.push(r.bank + ' ' + (r.date || '—'));
+    });
+    var hz = {}, top = rows[0].horizon || '—';          // orizontul dominant; egalitate → cel mai recent
+    rows.forEach(function (r) { var h = r.horizon || '—'; hz[h] = (hz[h] || 0) + 1; });
+    Object.keys(hz).forEach(function (h) { if (hz[h] > hz[top]) top = h; });
+    var cv = rows.filter(function (r) { return r.conviction; });
+    var avg = cv.length ? cv.reduce(function (s, r) { return s + r.conviction; }, 0) / cv.length : 0;
+    return '<tr' + (firstOfCcy ? ' style="border-top:1px solid var(--line)"' : '') + '>' +
+      '<td class="small">' + (rows[0].date || '—') + '</td>' +
+      '<td><b>' + ccy + '</b>' + (firstOfCcy && contra ? ' <span class="badge b-watch" title="bănci în contradicție pe acest activ">⚔</span>' : '') + '</td>' +
+      '<td>' + dirBadge(dir) + '</td>' +
+      '<td class="small">' + top + '</td>' +
+      '<td>' + convBar(avg) + '</td>' +
+      '<td class="small" title="' + hint.join(' · ') + '">' + banks.join(', ') +
+        ' <span class="dim">(' + banks.length + ')</span></td>' +
+    '</tr>';
   }
+
+  var order = CORD.concat(XORD.filter(function (k) { return byCcy[k]; }));
   document.getElementById('reports').innerHTML = R.length
-    ? '<table><tr><th>Bank</th><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Key arguments</th><th>Flow / positioning</th><th>Levels</th><th>Invalidation</th></tr>' +
-      R.map(function (r) {
-        var contraFlag = contra.indexOf(r.asset) > -1;
-        return '<tr>' +
-          '<td><b>' + r.bank + '</b></td>' +
-          '<td class="small">' + (r.date || '—') + '</td>' +
-          '<td>' + r.asset + (contraFlag ? ' <span class="badge b-watch" title="banks in contradiction on this asset">⚔</span>' : '') + '</td>' +
-          '<td>' + dirBadge(r.dir) + '</td>' +
-          '<td class="small">' + (r.horizon || '—') + '</td>' +
-          '<td>' + convBar(r.conviction) + '</td>' +
-          '<td class="small">' + ((r.args || []).join(' · ') || '—') + '</td>' +
-          '<td class="small">' + flowCell(r) + '</td>' +
-          '<td class="small">' + (r.levels || '—') + '</td>' +
-          '<td class="small">' + (r.invalidation || '—') + '</td>' +
-        '</tr>'; }).join('') + '</table>'
+    ? '<table><tr><th>Date</th><th>Asset</th><th>Direction</th><th>Horizon</th><th>Conviction</th><th>Banks</th></tr>' +
+      order.map(function (ccy) {
+        var g = byCcy[ccy] || {};
+        var dirs = Object.keys(g).sort(function (a, b) {
+          return (g[b].length - g[a].length) || (DORD[a] - DORD[b]); });
+        if (!dirs.length) return '<tr style="border-top:1px solid var(--line)">' +
+          '<td class="dim">—</td><td><b>' + ccy + '</b></td>' +
+          '<td class="dim" colspan="4">fără rapoarte săptămâna aceasta</td></tr>';
+        var contra = g['BULLISH'] && g['BEARISH'];
+        return dirs.map(function (d, i) { return groupRow(ccy, d, g[d], i === 0, contra); }).join('');
+      }).join('') + '</table>'
     : '<div class="empty">Se populează la „procesează inbox".</div>';
 
 
   // ——— per monedă ———
   var cy = D.currencies || {};
-  var CORD = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
   document.getElementById('ccys').innerHTML = Object.keys(cy).length
     ? CORD.filter(function (k) { return cy[k]; }).map(function (k) {
         var c = cy[k];

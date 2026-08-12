@@ -8,38 +8,34 @@ Fiecare raport procesat produce un rând per valută/activ menționat:
 |---|---|
 | Banca | CACIB / JPM / ING / HSBC / MUFG / UniCredit / Natixis / TMV / alta |
 | Data raportului | data publicării, nu a încărcării |
-| Activ | una din cele 8 monede, Gold, indici |
+| Activ | **strict codul monedei** (una din cele 8), `Gold` sau `US30` — o pereche citată în raport se trece pe moneda de bază, cu direcția raportată la ea (raport bearish EUR/USD → `EUR` / Bearish) |
 | Direcție | Bullish / Bearish / Neutru |
 | Orizont | zile / săptămâni / trimestru |
 | Convingere | 1–5 (dedusă din limbaj: „we expect" > „risks are tilted") |
 | Argumente-cheie | max 3, în cuvintele băncii, comprimate — DOAR raționament (macro, politică monetară, evaluare) |
-| **Flux & poziționare** | ce a VĂZUT banca, nu ce crede: flux de clienți (real money, corporate, hedge funds), poziționarea agregată a bazei ei de clienți, ce a fost cumpărat/vândut și de cine. Vezi mai jos |
-| Niveluri menționate | ținte, praguri, forecast-uri numerice |
-| Invalidare | ce eveniment/nivel ar răsturna teza băncii |
 | Schimbare vs. anterior | NOU / neschimbat / întărit / slăbit / întors |
 
-### De ce are fluxul câmp separat
+Câmpurile **Flux & poziționare, Niveluri menționate și Invalidare au fost scoase din schemă
+(12.08.2026)** — nu se mai extrag și nu mai există în `directions.json → reports[]`. Motivul:
+tabelul se citește acum pe verticală, per monedă, iar detaliul de raport individual nu mai
+avea unde să se afișeze. Poziționarea rămâne acoperită de COT (criteriul 5); nivelurile și
+invalidarea trăiesc acolo unde se execută — în book-ul de trade-uri (`trigger` / `invalidation`).
 
-Prognoza direcțională a unei bănci pleacă spre mii de destinatari instituționali în aceeași
-dimineață și e slab calibrată — nu e informație rară. Fluxul de clienți pe care îl vede
-banca prin propriile cărți E informație rară: nimeni altcineva nu-l are, iar el spune ce
-s-a întâmplat deja, nu ce crede cineva că se va întâmpla. Amestecat printre argumente,
-se pierde. Separat, se poate compara cu COT (criteriul 5) și cu poziționarea implicită
-din pricing.
+### Afișarea: comasat pe monedă (12.08.2026)
 
-Reguli de extracție:
-- Se completează **doar dacă banca afirmă o observație de flux sau de poziționare.** Fără
-  flux → `—`. Nu se deduce din ton, nu se inventează din „we expect".
-- Formatul: `[cine] [ce a făcut] [pe ce] — [sursa afirmației]`.
-  Ex.: `real money a cumpărat CAD două săptămâni la rând — flux propriu CACIB`;
-  `baza de clienți e short EUR aproape de maxim de an — sondaj de poziționare ING`.
-- Se marchează explicit când fluxul **contrazice** direcția scrisă a raportului. E cel mai
-  valoros lucru dintr-un raport: banca spune bullish și își vede clienții vânzând.
-- Nu intră aici: date publice de poziționare (COT — criteriul 5), sondaje de sentiment
-  retail, comentarii de tip „piața pare poziționată pentru…" fără observație proprie.
+Pagina Bank Reports NU mai listează un rând per raport. Cele 8 monede apar una sub alta, în
+ordinea din regula 0 (`USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD`), apoi `Gold` și `US30` dacă
+există rapoarte pe ele. Un rând = **o monedă + o direcție**, cu toate băncile care au scris-o:
 
-Câmpul se scrie în `directions.json → reports[].flow` (string; `""` dacă lipsește) și
-apare pe pagina Bank Reports, coloana **Flow / positioning**.
+`Date | Asset | Direction | Horizon | Conviction | Banks`
+
+- **Date** = raportul cel mai recent din grup · **Horizon** = orizontul dominant · **Conviction**
+  = media grupului (cifra exactă în tooltip) · **Banks** = băncile, cu data fiecăreia în tooltip.
+- O monedă fără rapoarte în săptămâna curentă rămâne pe pagină, marcată explicit — absența
+  acoperirii e informație, nu un rând lipsă.
+- Contradicția (aceeași monedă cu bănci bullish ȘI bearish) se marchează cu ⚔ pe monedă.
+- Argumentele NU apar în tabel — sinteza lor per monedă stă în cardul de sub tabel
+  (`currencies[ccy].banks`).
 
 ## Agregarea (Weekly Macro Note)
 
@@ -47,10 +43,8 @@ Per activ:
 - **Consens:** câte bănci pe fiecare direcție (ex. EUR: 3 bullish / 1 neutru)
 - **Contradicții:** cine diverge și pe ce argument — semnalul cel mai valoros
 - **Schimbări de poziție:** cine și-a întors direcția săptămâna asta — al doilea semnal ca valoare
-- **Flux vs. narativ:** ce spun observațiile de flux față de direcția scrisă a rapoartelor și
-  față de COT. Trei cazuri de semnalat: fluxul confirmă narativul (nimic nou), fluxul
-  contrazice narativul aceleiași bănci (semnal), fluxul confirmă o poziționare COT deja
-  extremă (risc de squeeze, nu confirmare)
+- **Narativ vs. COT:** unde consensul bancar bate cu poziționarea leveraged funds și unde nu.
+  Consensul care confirmă o poziționare COT deja extremă (≥90/≤10) e risc de squeeze, nu confirmare
 
 ## Scorul de confluență — 7 criterii, în ordinea importanței
 

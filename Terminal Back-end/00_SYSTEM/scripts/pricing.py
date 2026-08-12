@@ -24,7 +24,7 @@ un desk mai hawkish decât piața (edge pozitiv) e PRO-monedă.
 """
 from __future__ import annotations
 
-CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
+CCY_ORDER = ('USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD')
 YLD_KEY = {'USD': 'US'}          # restul monedelor au aceeași cheie în yields_latest.json
 
 # Pragul de la care o divergență e „edge", nu zgomot. Nu e ales estetic: randamentul 2Y

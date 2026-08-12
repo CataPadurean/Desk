@@ -40,7 +40,7 @@ DATA = Path(__file__).resolve().parents[1] / 'data'
 OUT = DATA / 'indicators_latest.json'
 HIST = DATA / 'indicators_history.json'
 
-CCY_ORDER = ('USD', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
+CCY_ORDER = ('USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD')
 
 FEEDS = ('https://nfs.faireconomy.media/ff_calendar_lastweek.json',
          'https://nfs.faireconomy.media/ff_calendar_thisweek.json')

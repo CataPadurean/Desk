@@ -25,7 +25,7 @@
   var cls = window.numCls, sign = window.sgn;
 
   var yl = (D.yields || {}).levels || {};
-  var YORD = ['US', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD'];
+  var YORD = ['US', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD'];
   document.getElementById('ylev').innerHTML = Object.keys(yl).length
     ? '<table><tr><th></th><th>2Y</th><th>Δ 2Y</th><th class="dim">10Y</th><th class="dim">Δ 10Y</th></tr>' +
       YORD.map(function (k) {
@@ -38,7 +38,7 @@
     : '<div class="empty">Rulează update_data.py.</div>';
 
   var sp = (D.yields || {}).spreads || {};
-  var PORD = ['EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD'];
+  var PORD = ['EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD', 'AUDUSD', 'NZDUSD'];
   document.getElementById('yspr').innerHTML = Object.keys(sp).length
     ? '<table><tr><th>Pair</th><th>2Y Spread</th><th>Δ</th><th class="dim">10Y</th><th class="dim">Δ</th></tr>' +
       PORD.map(function (p) {

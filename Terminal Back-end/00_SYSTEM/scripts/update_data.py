@@ -16,9 +16,9 @@ from scorecard import build_scorecard
 HERE = Path(__file__).resolve().parent
 DATA = HERE.parent / 'data'
 
-COT_ORDER = ('DXY', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
-YLD_ORDER = ('US', 'EUR', 'GBP', 'CAD', 'JPY', 'CHF', 'AUD', 'NZD')
-PAIR_ORDER = ('EURUSD', 'GBPUSD', 'USDCAD', 'USDJPY', 'USDCHF', 'AUDUSD', 'NZDUSD')
+COT_ORDER = ('DXY', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD')
+YLD_ORDER = ('US', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD')
+PAIR_ORDER = ('EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD', 'AUDUSD', 'NZDUSD')
 
 def run(script):
     r = subprocess.run([sys.executable, str(HERE / script)], capture_output=True, text=True)
