@@ -24,3 +24,6 @@ Weeks/
 .DS_Store
 **/__pycache__/
 *.pyc
+
+# folder tampon pentru fișiere blocate (lock-uri git) — se șterge manual de pe Mac
+_to_delete/
