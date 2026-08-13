@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-12",
+ "updated": "2026-08-13",
  "source": "CFTC TFF (Leveraged Funds)",
  "markets": {
   "EUR": {
@@ -50,30 +50,6 @@
     38174
    ]
   },
-  "CAD": {
-   "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -101748,
-   "delta_1w": 747,
-   "pct_oi": -27.9,
-   "percentile_52w": 4,
-   "extreme": "SHORT",
-   "history_13w": [
-    -37663,
-    -38654,
-    -38095,
-    -44601,
-    -58623,
-    -65053,
-    -83377,
-    -88101,
-    -85957,
-    -92771,
-    -98377,
-    -102495,
-    -101748
-   ]
-  },
   "JPY": {
    "category": "Leveraged Funds (TFF)",
    "as_of": "2026-08-04",
@@ -120,6 +96,30 @@
     -8897,
     -9647,
     -10084
+   ]
+  },
+  "CAD": {
+   "category": "Leveraged Funds (TFF)",
+   "as_of": "2026-08-04",
+   "net": -101748,
+   "delta_1w": 747,
+   "pct_oi": -27.9,
+   "percentile_52w": 4,
+   "extreme": "SHORT",
+   "history_13w": [
+    -37663,
+    -38654,
+    -38095,
+    -44601,
+    -58623,
+    -65053,
+    -83377,
+    -88101,
+    -85957,
+    -92771,
+    -98377,
+    -102495,
+    -101748
    ]
   },
   "AUD": {
