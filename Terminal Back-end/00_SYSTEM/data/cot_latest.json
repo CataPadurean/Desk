@@ -1,17 +1,16 @@
 {
- "updated": "2026-08-14",
+ "updated": "2026-08-15",
  "source": "CFTC TFF (Leveraged Funds)",
  "markets": {
   "EUR": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -52205,
-   "delta_1w": 12993,
-   "pct_oi": -6.5,
-   "percentile_52w": 8,
+   "as_of": "2026-08-11",
+   "net": -60600,
+   "delta_1w": -8395,
+   "pct_oi": -7.6,
+   "percentile_52w": 4,
    "extreme": "SHORT",
    "history_13w": [
-    18003,
     16317,
     7296,
     12027,
@@ -23,19 +22,19 @@
     -53691,
     -56671,
     -65198,
-    -52205
+    -52205,
+    -60600
    ]
   },
   "GBP": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": 38174,
-   "delta_1w": -2923,
-   "pct_oi": 15.5,
-   "percentile_52w": 85,
-   "extreme": null,
+   "as_of": "2026-08-11",
+   "net": 40670,
+   "delta_1w": 2496,
+   "pct_oi": 15.9,
+   "percentile_52w": 92,
+   "extreme": "LONG",
    "history_13w": [
-    37302,
     31369,
     28829,
     27353,
@@ -47,19 +46,19 @@
     28541,
     33236,
     41097,
-    38174
+    38174,
+    40670
    ]
   },
   "JPY": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -60825,
-   "delta_1w": 41165,
-   "pct_oi": -14.5,
-   "percentile_52w": 50,
+   "as_of": "2026-08-11",
+   "net": -53070,
+   "delta_1w": 7755,
+   "pct_oi": -13.5,
+   "percentile_52w": 69,
    "extreme": null,
    "history_13w": [
-    -62440,
     -64945,
     -70508,
     -88063,
@@ -71,19 +70,19 @@
     -90461,
     -96185,
     -101990,
-    -60825
+    -60825,
+    -53070
    ]
   },
   "CHF": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -10084,
-   "delta_1w": -437,
-   "pct_oi": -9.2,
-   "percentile_52w": 8,
+   "as_of": "2026-08-11",
+   "net": -11432,
+   "delta_1w": -1348,
+   "pct_oi": -10.4,
+   "percentile_52w": 6,
    "extreme": "SHORT",
    "history_13w": [
-    -7708,
     -4845,
     -4823,
     -9949,
@@ -95,19 +94,19 @@
     -9500,
     -8897,
     -9647,
-    -10084
+    -10084,
+    -11432
    ]
   },
   "CAD": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -101748,
-   "delta_1w": 747,
-   "pct_oi": -27.9,
-   "percentile_52w": 4,
+   "as_of": "2026-08-11",
+   "net": -92005,
+   "delta_1w": 9743,
+   "pct_oi": -25.3,
+   "percentile_52w": 10,
    "extreme": "SHORT",
    "history_13w": [
-    -37663,
     -38654,
     -38095,
     -44601,
@@ -119,19 +118,19 @@
     -92771,
     -98377,
     -102495,
-    -101748
+    -101748,
+    -92005
    ]
   },
   "AUD": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": 40637,
-   "delta_1w": 13019,
-   "pct_oi": 16.9,
-   "percentile_52w": 58,
+   "as_of": "2026-08-11",
+   "net": 48541,
+   "delta_1w": 7904,
+   "pct_oi": 18.2,
+   "percentile_52w": 77,
    "extreme": null,
    "history_13w": [
-    55851,
     61178,
     60234,
     58800,
@@ -143,19 +142,19 @@
     27222,
     24788,
     27618,
-    40637
+    40637,
+    48541
    ]
   },
   "NZD": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": -30290,
-   "delta_1w": -263,
-   "pct_oi": -29.7,
-   "percentile_52w": 4,
+   "as_of": "2026-08-11",
+   "net": -33461,
+   "delta_1w": -3171,
+   "pct_oi": -34.6,
+   "percentile_52w": 2,
    "extreme": "SHORT",
    "history_13w": [
-    -19435,
     -15336,
     -13670,
     -27725,
@@ -167,19 +166,19 @@
     -29002,
     -31086,
     -30027,
-    -30290
+    -30290,
+    -33461
    ]
   },
   "DXY": {
    "category": "Leveraged Funds (TFF)",
-   "as_of": "2026-08-04",
-   "net": 3849,
-   "delta_1w": 5450,
-   "pct_oi": 7.4,
+   "as_of": "2026-08-11",
+   "net": 5772,
+   "delta_1w": 1923,
+   "pct_oi": 11.7,
    "percentile_52w": 100,
    "extreme": "LONG",
    "history_13w": [
-    -4751,
     -11716,
     -12530,
     -11112,
@@ -191,7 +190,8 @@
     -4866,
     -1938,
     -1601,
-    3849
+    3849,
+    5772
    ]
   }
  }
