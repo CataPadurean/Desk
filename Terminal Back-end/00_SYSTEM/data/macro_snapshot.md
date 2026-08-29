@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-08-28
+# MACRO SNAPSHOT — 2026-08-29
 
 ## COT (as of 2026-08-25) — Leveraged Funds (TFF)
 
@@ -40,10 +40,10 @@
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
 
-## Regim de risc (criteriul 6) — scor +2 (RISK-ON)
+## Regim de risc (criteriul 6) — scor +1 (RISK-ON (fragil))
 
 | Componentă | Valoare | Percentilă 1y | Scor |
 |---|---|---|---|
 | VIX | 14.51 | 4 | +2 |
 | HY OAS | 2.63 | 1 | +2 |
-| S&P momentum | 3.94 | — | +2 |
+| S&P momentum | 2.96 | — | +0 |
