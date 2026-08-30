@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-08-29
+# MACRO SNAPSHOT — 2026-08-30
 
 ## COT (as of 2026-08-25) — Leveraged Funds (TFF)
 
