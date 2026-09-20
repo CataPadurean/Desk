@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-18",
+ "updated": "2026-09-20",
  "asof": "2026-09-17",
  "score": 1,
  "raw": 1.4,
@@ -43,5 +43,5 @@
   "credit": 0.35,
   "momentum": 0.3
  },
- "status": "stale — ultima valoare bună 2026-09-17 (TimeoutError)"
+ "status": "ok"
 }
