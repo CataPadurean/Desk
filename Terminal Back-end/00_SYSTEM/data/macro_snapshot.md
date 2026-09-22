@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-09-21
+# MACRO SNAPSHOT — 2026-09-22
 
 ## COT (as of 2026-09-15) — Leveraged Funds (TFF)
 
@@ -18,11 +18,11 @@
 | | 2Y | Δ2Y | 10Y | Δ10Y |
 |---|---|---|---|---|
 | US | 4.76 | +0.13 | 5.01 | +0.05 |
-| EUR | 3.215 | +0.088 | 3.53 | +0.007 |
-| GBP | 4.658 | +0.034 | 5.29 | -0.058 |
+| EUR | 3.148 | -0.08 | 3.474 | -0.067 |
+| GBP | 4.561 | -0.154 | 5.194 | -0.195 |
 | JPY | 1.868 | +0.045 | 2.993 | +0.073 |
-| CHF *(parțial — 2Y indisponibil)* | — | — | 0.55 | -0.071 |
-| CAD | 3.32 | -0.03 | 3.87 | -0.08 |
+| CHF *(parțial — 2Y indisponibil)* | — | — | 0.564 | -0.089 |
+| CAD | 3.29 | -0.08 | 3.84 | -0.1 |
 | AUD | 4.999 | +0.164 | 5.348 | +0.146 |
 | NZD *(stale — ultima valoare 2026-07-30)* | 3.65 | -0.02 | 4.73 | +0.01 |
 
@@ -30,20 +30,20 @@
 
 | Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
 |---|---|---|---|---|
-| EURUSD | -1.545 | -0.042 | -1.48 | -0.043 |
-| GBPUSD | -0.102 | -0.096 | 0.28 | -0.108 |
+| EURUSD | -1.612 | -0.21 | -1.536 | -0.117 |
+| GBPUSD | -0.199 | -0.284 | 0.184 | -0.245 |
 | USDJPY | 2.892 | +0.085 | 2.017 | -0.023 |
-| USDCHF | — | — | 4.46 | +0.121 |
-| USDCAD | 1.44 | +0.16 | 1.14 | +0.13 |
+| USDCHF | — | — | 4.446 | +0.139 |
+| USDCAD | 1.47 | +0.21 | 1.17 | +0.15 |
 | AUDUSD | 0.239 | +0.034 | 0.338 | +0.096 |
 | NZDUSD | -1.11 | -0.15 | -0.28 | -0.04 |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
 
-## Regim de risc (criteriul 6) — scor +1 (RISK-ON (fragil))
+## Regim de risc (criteriul 6) — scor +2 (RISK-ON)
 
 | Componentă | Valoare | Percentilă 1y | Scor |
 |---|---|---|---|
-| VIX | 14.81 | 7 | +2 |
+| VIX | 14.87 | 8 | +2 |
 | HY OAS | 2.68 | 10 | +2 |
-| S&P momentum | 0.12 | — | +0 |
+| S&P momentum | 1.18 | — | +2 |
