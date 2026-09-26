@@ -1,12 +1,12 @@
 {
- "updated": "2026-09-25",
+ "updated": "2026-09-26",
  "status": {
   "US": "ok",
   "EUR": "ok",
   "GBP": "ok",
   "CAD": "ok",
   "JPY": "ok",
-  "CHF": "parțial — 2Y indisponibil (SNB (rendoblid) 2Y: date vechi (2025-07-31) || SNB (rendoblid) 10Y: date vechi (2025-07-31) || SNB (rendoblid): fără tenoruri noi/proaspete || stooq_chf: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ychy.b: răspuns non-CSV ('<!DOCTYPE || SNB RSS (doar 10Y): fără tenoruri noi/proaspete || manual: RuntimeError: fără serie manuală pentru CHF)",
+  "CHF": "parțial — 2Y indisponibil (SNB (rendoblid) 2Y: date vechi (2025-07-31) || SNB (rendoblid) 10Y: date vechi (2025-07-31) || SNB (rendoblid): fără tenoruri noi/proaspete || stooq_chf: RuntimeError: Stooq: <urlopen error timed out>; <urlopen error timed out> || SNB RSS (doar 10Y): fără tenoruri noi/proaspete || manual: RuntimeError: fără serie manuală pentru CHF)",
   "AUD": "ok",
   "NZD": "stale — ultima valoare 2026-07-30 (src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi) 2Y: date vechi (2026-07-30) || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi) 10Y: date vechi (2026-07-30) || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi): fără tenoruri noi/proaspete)"
  },
@@ -23,14 +23,14 @@
  "levels": {
   "US": {
    "2Y": {
-    "date": "2026-09-23",
-    "value": 4.85,
-    "delta_1w": 0.11
+    "date": "2026-09-24",
+    "value": 4.87,
+    "delta_1w": 0.2
    },
    "10Y": {
-    "date": "2026-09-23",
-    "value": 5.11,
-    "delta_1w": 0.1
+    "date": "2026-09-24",
+    "value": 5.18,
+    "delta_1w": 0.24
    }
   },
   "EUR": {
@@ -116,78 +116,74 @@
  "spreads": {
   "EURUSD": {
    "2Y": {
-    "value": -1.621,
-    "delta_1w": -0.029
+    "value": -1.641,
+    "delta_1w": -0.119
    },
    "10Y": {
-    "value": -1.544,
-    "delta_1w": -0.021
+    "value": -1.614,
+    "delta_1w": -0.161
    }
   },
   "GBPUSD": {
    "2Y": {
-    "value": -0.156,
-    "delta_1w": 0.048
+    "value": -0.176,
+    "delta_1w": -0.042
    },
    "10Y": {
-    "value": 0.251,
-    "delta_1w": 0.054
+    "value": 0.181,
+    "delta_1w": -0.086
    }
   },
   "USDJPY": {
    "2Y": {
-    "value": 2.938,
-    "delta_1w": 0.039
+    "value": 2.958,
+    "delta_1w": 0.129
    },
    "10Y": {
-    "value": 2.037,
-    "delta_1w": 0.015
+    "value": 2.107,
+    "delta_1w": 0.155
    }
   },
   "USDCHF": {
    "10Y": {
-    "value": 4.461,
-    "delta_1w": 0.032
+    "value": 4.531,
+    "delta_1w": 0.172
    }
   },
   "USDCAD": {
    "2Y": {
-    "value": 1.46,
-    "delta_1w": -0.01
+    "value": 1.48,
+    "delta_1w": 0.08
    },
    "10Y": {
-    "value": 1.14,
-    "delta_1w": -0.04
+    "value": 1.21,
+    "delta_1w": 0.1
    }
   },
   "AUDUSD": {
    "2Y": {
-    "value": 0.097,
-    "delta_1w": -0.163
+    "value": 0.077,
+    "delta_1w": -0.253
    },
    "10Y": {
-    "value": 0.135,
-    "delta_1w": -0.203
+    "value": 0.065,
+    "delta_1w": -0.343
    }
   },
   "NZDUSD": {
    "2Y": {
-    "value": -1.2,
-    "delta_1w": -0.13
+    "value": -1.22,
+    "delta_1w": -0.22
    },
    "10Y": {
-    "value": -0.38,
-    "delta_1w": -0.09
+    "value": -0.45,
+    "delta_1w": -0.23
    }
   }
  },
  "history": {
   "US": {
    "2Y": [
-    [
-     "2026-08-12",
-     4.2
-    ],
     [
      "2026-08-13",
      4.15
@@ -303,13 +299,13 @@
     [
      "2026-09-23",
      4.85
+    ],
+    [
+     "2026-09-24",
+     4.87
     ]
    ],
    "10Y": [
-    [
-     "2026-08-12",
-     4.68
-    ],
     [
      "2026-08-13",
      4.63
@@ -425,6 +421,10 @@
     [
      "2026-09-23",
      5.11
+    ],
+    [
+     "2026-09-24",
+     5.18
     ]
    ]
   },
