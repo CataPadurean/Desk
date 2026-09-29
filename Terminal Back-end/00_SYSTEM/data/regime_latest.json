@@ -1,6 +1,6 @@
 {
- "updated": "2026-09-28",
- "asof": "2026-09-25",
+ "updated": "2026-09-29",
+ "asof": "2026-09-28",
  "score": 0,
  "raw": 0.35,
  "label": "NEUTRU",
@@ -19,25 +19,25 @@
   {
    "key": "credit",
    "label": "HY OAS",
-   "value": 2.93,
-   "pctile": 71,
+   "value": 3.02,
+   "pctile": 83,
    "score": -1,
    "weight": 0.35,
-   "asof": "2026-09-25",
-   "why": "spread high yield 2.93%, percentila 71 pe 1 an"
+   "asof": "2026-09-28",
+   "why": "spread high yield 3.02%, percentila 83 pe 1 an"
   },
   {
    "key": "momentum",
    "label": "S&P momentum",
-   "value": 0.16,
+   "value": -0.36,
    "pctile": null,
    "score": 0,
    "weight": 0.3,
-   "asof": "2026-09-25",
-   "why": "S&P +0.16% pe 20 de ședințe, +1.21% pe 5"
+   "asof": "2026-09-28",
+   "why": "S&P -0.36% pe 20 de ședințe, -1.04% pe 5"
   }
  ],
- "why": "VIX 14.21, percentila 2 pe 1 an · spread high yield 2.93%, percentila 71 pe 1 an · S&P +0.16% pe 20 de ședințe, +1.21% pe 5",
+ "why": "VIX 14.21, percentila 2 pe 1 an · spread high yield 3.02%, percentila 83 pe 1 an · S&P -0.36% pe 20 de ședințe, -1.04% pe 5",
  "weights": {
   "vix": 0.35,
   "credit": 0.35,
