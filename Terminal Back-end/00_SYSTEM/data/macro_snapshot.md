@@ -1,4 +1,4 @@
-# MACRO SNAPSHOT — 2026-11-05
+# MACRO SNAPSHOT — 2026-11-06
 
 ## COT (as of 2026-10-27) — Leveraged Funds (TFF)
 
@@ -17,33 +17,33 @@
 
 | | 2Y | Δ2Y | 10Y | Δ10Y |
 |---|---|---|---|---|
-| US | 4.61 | -0.09 | 4.95 | -0.04 |
-| EUR | 2.998 | -0.062 | 3.34 | -0.052 |
-| GBP | 4.578 | -0.191 | 5.146 | -0.18 |
-| JPY | 1.891 | +0.003 | 2.855 | +0.026 |
-| CHF *(parțial — 2Y indisponibil)* | — | — | 0.475 | -0.061 |
-| CAD | 3.22 | -0.19 | 3.7 | -0.17 |
-| AUD | 4.951 | +0.034 | 5.208 | -0.069 |
+| US | 4.58 | -0.09 | 4.9 | -0.15 |
+| EUR | 2.958 | -0.05 | 3.294 | -0.079 |
+| GBP | 4.57 | -0.135 | 5.132 | -0.145 |
+| JPY | 1.86 | -0.055 | 2.806 | -0.061 |
+| CHF *(parțial — 2Y indisponibil)* | — | — | 0.45 | -0.055 |
+| CAD | 3.17 | -0.19 | 3.67 | -0.17 |
+| AUD | 4.826 | -0.125 | 5.082 | -0.126 |
 | NZD *(stale — ultima valoare 2026-07-30)* | 3.65 | -0.02 | 4.73 | +0.01 |
 
 ## Spread-uri 2Y/10Y vs USD (criteriul 4)
 
 | Pereche | Spread 2Y | Δ | Spread 10Y | Δ |
 |---|---|---|---|---|
-| EURUSD | -1.612 | +0.028 | -1.61 | -0.012 |
-| GBPUSD | -0.032 | -0.101 | 0.196 | -0.14 |
-| USDJPY | 2.719 | -0.093 | 2.095 | -0.066 |
-| USDCHF | — | — | 4.475 | +0.021 |
-| USDCAD | 1.39 | +0.1 | 1.25 | +0.13 |
-| AUDUSD | 0.341 | +0.124 | 0.258 | -0.029 |
-| NZDUSD | -0.96 | +0.07 | -0.22 | +0.05 |
+| EURUSD | -1.622 | +0.04 | -1.606 | +0.071 |
+| GBPUSD | -0.01 | -0.045 | 0.232 | +0.005 |
+| USDJPY | 2.72 | -0.035 | 2.094 | -0.089 |
+| USDCHF | — | — | 4.45 | -0.095 |
+| USDCAD | 1.41 | +0.1 | 1.23 | +0.02 |
+| AUDUSD | 0.246 | -0.035 | 0.182 | +0.024 |
+| NZDUSD | -0.93 | +0.07 | -0.17 | +0.16 |
 
 *Interpretare: spread 2Y în creștere = suport pentru prima valută din pereche (playbook §3.1.3).*
 
-## Regim de risc (criteriul 6) — scor -1 (RISK-OFF (incipient))
+## Regim de risc (criteriul 6) — scor -2 (RISK-OFF)
 
 | Componentă | Valoare | Percentilă 1y | Scor |
 |---|---|---|---|
-| VIX | 16.61 | 42 | +0 |
-| HY OAS | 3.32 | 97 | -2 |
-| S&P momentum | -3.2 | — | -2 |
+| VIX | 28.18 | 99 | -2 |
+| HY OAS | 3.48 | 100 | -2 |
+| S&P momentum | -5.3 | — | -2 |
