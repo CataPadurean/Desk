@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-16",
+ "updated": "2026-11-17",
  "status": {
   "US": "ok",
   "EUR": "ok",
   "GBP": "ok",
   "CAD": "ok",
   "JPY": "ok",
-  "CHF": "parțial — 2Y indisponibil (SNB (rendoblid) 2Y: date vechi (2025-07-31) || SNB (rendoblid) 10Y: date vechi (2025-07-31) || SNB (rendoblid): fără tenoruri noi/proaspete || stooq_chf: RuntimeError: Stooq: 2ychy.b: răspuns non-CSV ('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name='); 10ychy.b: răspuns non-CSV ('<!DOCTYPE || SNB RSS (doar 10Y): fără tenoruri noi/proaspete || manual: RuntimeError: fără serie manuală pentru CHF)",
+  "CHF": "parțial — 2Y indisponibil (SNB (rendoblid) 2Y: date vechi (2025-07-31) || SNB (rendoblid) 10Y: date vechi (2025-07-31) || SNB (rendoblid): fără tenoruri noi/proaspete || stooq_chf: RuntimeError: Stooq: <urlopen error timed out>; <urlopen error timed out> || SNB RSS (doar 10Y): fără tenoruri noi/proaspete || manual: RuntimeError: fără serie manuală pentru CHF)",
   "AUD": "ok",
   "NZD": "stale — ultima valoare 2026-07-30 (src_rbnz: RuntimeError: RBNZ B2: HTTP Error 403: Forbidden || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi) 2Y: date vechi (2026-07-30) || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi) 10Y: date vechi (2026-07-30) || manual — RBNZ pagina B2 — Secondary market government bond closing yields (NZFMA, lag 1 zi): fără tenoruri noi/proaspete)"
  },
@@ -23,69 +23,69 @@
  "levels": {
   "US": {
    "2Y": {
-    "date": "2026-11-12",
-    "value": 4.86,
-    "delta_1w": 0.28
+    "date": "2026-11-13",
+    "value": 4.88,
+    "delta_1w": 0.42
    },
    "10Y": {
-    "date": "2026-11-12",
-    "value": 5.1,
-    "delta_1w": 0.2
+    "date": "2026-11-13",
+    "value": 5.15,
+    "delta_1w": 0.31
    }
   },
   "EUR": {
    "2Y": {
-    "date": "2026-11-13",
-    "value": 3.072,
-    "delta_1w": 0.141
+    "date": "2026-11-16",
+    "value": 3.109,
+    "delta_1w": 0.17
    },
    "10Y": {
-    "date": "2026-11-13",
-    "value": 3.412,
-    "delta_1w": 0.126
+    "date": "2026-11-16",
+    "value": 3.422,
+    "delta_1w": 0.15
    }
   },
   "GBP": {
    "2Y": {
-    "date": "2026-11-13",
-    "value": 4.743,
-    "delta_1w": 0.177
+    "date": "2026-11-16",
+    "value": 4.771,
+    "delta_1w": 0.214
    },
    "10Y": {
-    "date": "2026-11-13",
-    "value": 5.322,
-    "delta_1w": 0.18
+    "date": "2026-11-16",
+    "value": 5.334,
+    "delta_1w": 0.207
    }
   },
   "CAD": {
    "2Y": {
-    "date": "2026-11-13",
-    "value": 3.37,
-    "delta_1w": 0.2
+    "date": "2026-11-16",
+    "value": 3.3,
+    "delta_1w": 0.18
    },
    "10Y": {
-    "date": "2026-11-13",
-    "value": 3.85,
-    "delta_1w": 0.18
+    "date": "2026-11-16",
+    "value": 3.81,
+    "delta_1w": 0.16
    }
   },
   "JPY": {
    "2Y": {
-    "date": "2026-11-13",
-    "value": 1.882,
-    "delta_1w": 0.15
+    "date": "2026-11-16",
+    "value": 1.878,
+    "delta_1w": 0.1
    },
    "10Y": {
-    "date": "2026-11-13",
-    "value": 2.899,
+    "date": "2026-11-16",
+    "value": 2.927,
     "delta_1w": 0.203
    }
   },
   "CHF": {
    "10Y": {
-    "date": "2026-11-16",
-    "value": 0.595,
-    "delta_1w": 0.136
+    "date": "2026-11-17",
+    "value": 0.567,
+    "delta_1w": 0.097
    }
   },
   "AUD": {
@@ -116,78 +116,74 @@
  "spreads": {
   "EURUSD": {
    "2Y": {
-    "value": -1.788,
-    "delta_1w": -0.139
+    "value": -1.771,
+    "delta_1w": -0.25
    },
    "10Y": {
-    "value": -1.688,
-    "delta_1w": -0.074
+    "value": -1.728,
+    "delta_1w": -0.16
    }
   },
   "GBPUSD": {
    "2Y": {
-    "value": -0.117,
-    "delta_1w": -0.103
+    "value": -0.109,
+    "delta_1w": -0.206
    },
    "10Y": {
-    "value": 0.222,
-    "delta_1w": -0.02
+    "value": 0.184,
+    "delta_1w": -0.103
    }
   },
   "USDJPY": {
    "2Y": {
-    "value": 2.978,
-    "delta_1w": 0.13
+    "value": 3.002,
+    "delta_1w": 0.32
    },
    "10Y": {
-    "value": 2.201,
-    "delta_1w": -0.003
+    "value": 2.223,
+    "delta_1w": 0.107
    }
   },
   "USDCHF": {
    "10Y": {
-    "value": 4.505,
-    "delta_1w": 0.064
+    "value": 4.583,
+    "delta_1w": 0.213
    }
   },
   "USDCAD": {
    "2Y": {
-    "value": 1.49,
-    "delta_1w": 0.08
+    "value": 1.58,
+    "delta_1w": 0.24
    },
    "10Y": {
-    "value": 1.25,
-    "delta_1w": 0.02
+    "value": 1.34,
+    "delta_1w": 0.15
    }
   },
   "AUDUSD": {
    "2Y": {
-    "value": -0.052,
-    "delta_1w": -0.298
+    "value": -0.072,
+    "delta_1w": -0.438
    },
    "10Y": {
-    "value": -0.056,
-    "delta_1w": -0.238
+    "value": -0.106,
+    "delta_1w": -0.348
    }
   },
   "NZDUSD": {
    "2Y": {
-    "value": -1.21,
-    "delta_1w": -0.3
+    "value": -1.23,
+    "delta_1w": -0.44
    },
    "10Y": {
-    "value": -0.37,
-    "delta_1w": -0.19
+    "value": -0.42,
+    "delta_1w": -0.3
    }
   }
  },
  "history": {
   "US": {
    "2Y": [
-    [
-     "2026-09-30",
-     4.88
-    ],
     [
      "2026-10-01",
      4.78
@@ -303,13 +299,13 @@
     [
      "2026-11-12",
      4.86
+    ],
+    [
+     "2026-11-13",
+     4.88
     ]
    ],
    "10Y": [
-    [
-     "2026-09-30",
-     5.29
-    ],
     [
      "2026-10-01",
      5.24
@@ -425,15 +421,15 @@
     [
      "2026-11-12",
      5.1
+    ],
+    [
+     "2026-11-13",
+     5.15
     ]
    ]
   },
   "EUR": {
    "2Y": [
-    [
-     "2026-10-05",
-     2.9971302357
-    ],
     [
      "2026-10-06",
      3.0522967595
@@ -549,13 +545,13 @@
     [
      "2026-11-13",
      3.0718048758
+    ],
+    [
+     "2026-11-16",
+     3.1090750626
     ]
    ],
    "10Y": [
-    [
-     "2026-10-05",
-     3.5019810931
-    ],
     [
      "2026-10-06",
      3.5187645217
@@ -671,15 +667,15 @@
     [
      "2026-11-13",
      3.4115908883
+    ],
+    [
+     "2026-11-16",
+     3.4224059614
     ]
    ]
   },
   "GBP": {
    "2Y": [
-    [
-     "2026-10-05",
-     4.637349839872814
-    ],
     [
      "2026-10-06",
      4.612482282704806
@@ -795,13 +791,13 @@
     [
      "2026-11-13",
      4.743051293331721
+    ],
+    [
+     "2026-11-16",
+     4.771239934011751
     ]
    ],
    "10Y": [
-    [
-     "2026-10-05",
-     5.41908883492175
-    ],
     [
      "2026-10-06",
      5.367668852434683
@@ -917,15 +913,15 @@
     [
      "2026-11-13",
      5.322373334154951
+    ],
+    [
+     "2026-11-16",
+     5.333659807489921
     ]
    ]
   },
   "CAD": {
    "2Y": [
-    [
-     "2026-10-01",
-     3.27
-    ],
     [
      "2026-10-02",
      3.25
@@ -1041,13 +1037,13 @@
     [
      "2026-11-13",
      3.37
+    ],
+    [
+     "2026-11-16",
+     3.3
     ]
    ],
    "10Y": [
-    [
-     "2026-10-01",
-     3.94
-    ],
     [
      "2026-10-02",
      3.93
@@ -1163,15 +1159,15 @@
     [
      "2026-11-13",
      3.85
+    ],
+    [
+     "2026-11-16",
+     3.81
     ]
    ]
   },
   "JPY": {
    "2Y": [
-    [
-     "2026-10-01",
-     1.939
-    ],
     [
      "2026-10-02",
      1.919
@@ -1287,13 +1283,13 @@
     [
      "2026-11-13",
      1.882
+    ],
+    [
+     "2026-11-16",
+     1.878
     ]
    ],
    "10Y": [
-    [
-     "2026-10-01",
-     3.092
-    ],
     [
      "2026-10-02",
      3.097
@@ -1409,16 +1405,16 @@
     [
      "2026-11-13",
      2.899
+    ],
+    [
+     "2026-11-16",
+     2.927
     ]
    ]
   },
   "CHF": {
    "2Y": [],
    "10Y": [
-    [
-     "2026-10-06",
-     0.55
-    ],
     [
      "2026-10-07",
      0.558
@@ -1534,6 +1530,10 @@
     [
      "2026-11-16",
      0.595
+    ],
+    [
+     "2026-11-17",
+     0.567
     ]
    ]
   },
