@@ -1,6 +1,6 @@
 // GENERAT de update_data.py / Claude — nu edita manual.
 window.ANALYSIS_DATA = {
- "generated": "2026-11-19",
+ "generated": "2026-11-20",
  "regime": "RISK-ON curat, confirmat de date proaspete (refresh 11.08): VIX 14,9 (percentila 8, minim de an), spread high-yield 2,70% (percentila 9) și S&P +3,16% pe 20 de ședințe — toate la extreme calme. Petrolul a urcat brusc (Brent +7%, spre 87-88$) pe eșecul negocierilor SUA-Iran despre Hormuz, iar aurul a spart în sus (~4.388-4.400$) pe repricing dovish Fed + cerere de refugiu — ambele urcă simultan cu bursa, semn de acoperire sub suprafață chiar și într-un risc-on curat. NFP iulie a ratat masiv (-23k vs +80k așteptat), a tăiat șansele de hike Fed din septembrie de la 55% spre ~42% și a lăsat dolarul la extrem de poziționare: COT DXY la percentila 100 (long plin, cel mai crowded posibil), cu EUR/CAD/CHF/NZD toate short adânc (percentila 4-9) — combustibil de squeeze pe partea cealaltă. CPI SUA de mâine (12.08) e catalizatorul central al săptămânii pentru toate tezele.",
  "regime_date": "2026-08-10",
  "sentiment": {
@@ -68,7 +68,7 @@ window.ANALYSIS_DATA = {
    "yield": 4.8,
    "tenor": "2Y",
    "market_bp": 105,
-   "market_delta_bp": 24,
+   "market_delta_bp": 7,
    "edge_bp": -130,
    "dir": "ANTI-USD",
    "method": "(2Y 4.8 − politică 3.75) × 100",
@@ -82,15 +82,15 @@ window.ANALYSIS_DATA = {
    "view": "ECB tocmai a ținut cu inflație peste țintă (2,9%) a doua lună consecutiv; vedem loc pentru 1-2 pași suplimentari pe orizontul de 2 ani dacă șocul energetic nu se stinge",
    "edge": "Edge pozitiv moderat — piața pare să nu fi prețuit încă toată convingerea din tonul Lagarde",
    "policy_rate": 2.25,
-   "yield": 3.086,
+   "yield": 3.125,
    "tenor": "2Y",
-   "market_bp": 84,
-   "market_delta_bp": 4,
-   "edge_bp": -34,
+   "market_bp": 88,
+   "market_delta_bp": 5,
+   "edge_bp": -38,
    "dir": "ANTI-EUR",
-   "method": "(2Y 3.086 − politică 2.25) × 100",
+   "method": "(2Y 3.125 − politică 2.25) × 100",
    "group_avg_bp": 87,
-   "rel_bp": -3
+   "rel_bp": 1
   },
   "GBP": {
    "view_bp": 25,
@@ -99,15 +99,15 @@ window.ANALYSIS_DATA = {
    "view": "Comitet puternic divizat (6-3), BoE își prognozează propria reaccelerare a inflației mai târziu în 2026",
    "edge": "Aliniat cu pricing-ul — edge-ul stă mai degrabă în riscul fiscal (randamente ținute sus), nu în surpriza de politică",
    "policy_rate": 3.75,
-   "yield": 4.714,
+   "yield": 4.735,
    "tenor": "2Y",
-   "market_bp": 96,
+   "market_bp": 99,
    "market_delta_bp": 0,
-   "edge_bp": -71,
+   "edge_bp": -74,
    "dir": "ANTI-GBP",
-   "method": "(2Y 4.714 − politică 3.75) × 100",
+   "method": "(2Y 4.735 − politică 3.75) × 100",
    "group_avg_bp": 87,
-   "rel_bp": 9
+   "rel_bp": 12
   },
   "JPY": {
    "view_bp": 50,
@@ -116,15 +116,15 @@ window.ANALYSIS_DATA = {
    "view": "Disident hawkish nou (Takata, 1,25%), Ueda vigilent la inflație, plus stimul fiscal (reducere taxă consum) care ar putea forța compensare prin înăsprire",
    "edge": "Edge-ul e deja mult prețuit pentru octombrie; ce nu e prețuit e al doilea pas pe orizontul de 2 ani",
    "policy_rate": 1.0,
-   "yield": 1.872,
+   "yield": 1.853,
    "tenor": "2Y",
-   "market_bp": 87,
-   "market_delta_bp": 1,
-   "edge_bp": -37,
+   "market_bp": 85,
+   "market_delta_bp": 0,
+   "edge_bp": -35,
    "dir": "ANTI-JPY",
-   "method": "(2Y 1.872 − politică 1.0) × 100",
+   "method": "(2Y 1.853 − politică 1.0) × 100",
    "group_avg_bp": 87,
-   "rel_bp": 0
+   "rel_bp": -2
   },
   "CHF": {
    "view_bp": -25,
@@ -133,15 +133,15 @@ window.ANALYSIS_DATA = {
    "view": "Surpriza negativă de inflație (0,4%, aproape de podea) face o tăiere sub zero mai ușor de justificat decât o nouă menținere",
    "edge": "Edge negativ pe rată, dar contrazis de teza de flux (apreciere CHF pe refugiu) — de tratat cu rezervă, sursă unică",
    "policy_rate": 0.0,
-   "yield": 0.614,
+   "yield": 0.555,
    "tenor": "10Y",
-   "market_bp": 61,
-   "market_delta_bp": 9,
-   "edge_bp": -86,
+   "market_bp": 56,
+   "market_delta_bp": -4,
+   "edge_bp": -81,
    "dir": "ANTI-CHF",
-   "method": "(10Y 0.614 − politică 0.0) × 100",
+   "method": "(10Y 0.555 − politică 0.0) × 100",
    "group_avg_bp": 87,
-   "rel_bp": -26
+   "rel_bp": -31
   },
   "CAD": {
    "view_bp": 25,
@@ -153,7 +153,7 @@ window.ANALYSIS_DATA = {
    "yield": 3.3,
    "tenor": "2Y",
    "market_bp": 105,
-   "market_delta_bp": 5,
+   "market_delta_bp": -3,
    "edge_bp": -80,
    "dir": "ANTI-CAD",
    "method": "(2Y 3.3 − politică 2.25) × 100",
@@ -167,13 +167,13 @@ window.ANALYSIS_DATA = {
    "view": "Bullock: pauza nu e finalul ciclului — ghidaj mai hawkish decât median-ul pieței",
    "edge": "Edge pozitiv moderat — bloc de 4 surse (TMV+MUFG×2+ING) confirmă independent aceeași citire",
    "policy_rate": 4.35,
-   "yield": 4.808,
+   "yield": 4.813,
    "tenor": "2Y",
    "market_bp": 46,
-   "market_delta_bp": -2,
+   "market_delta_bp": 1,
    "edge_bp": -21,
    "dir": "ALINIAT",
-   "method": "(2Y 4.808 − politică 4.35) × 100",
+   "method": "(2Y 4.813 − politică 4.35) × 100",
    "group_avg_bp": 87,
    "rel_bp": -41
   },
@@ -887,45 +887,45 @@ window.ANALYSIS_DATA = {
   }
  },
  "regime_calc": {
-  "updated": "2026-11-19",
-  "asof": "2026-11-18",
+  "updated": "2026-11-20",
+  "asof": "2026-11-19",
   "score": -2,
   "raw": -2.0,
   "label": "RISK-OFF",
-  "vix": 24.56,
+  "vix": 28.44,
   "components": [
    {
     "key": "vix",
     "label": "VIX",
-    "value": 24.56,
-    "pctile": 93,
+    "value": 28.44,
+    "pctile": 99,
     "score": -2,
     "weight": 0.35,
-    "asof": "2026-11-18",
-    "why": "VIX 24.56, percentila 93 pe 1 an"
+    "asof": "2026-11-19",
+    "why": "VIX 28.44, percentila 99 pe 1 an"
    },
    {
     "key": "credit",
     "label": "HY OAS",
-    "value": 3.47,
+    "value": 3.52,
     "pctile": 100,
     "score": -2,
     "weight": 0.35,
-    "asof": "2026-11-18",
-    "why": "spread high yield 3.47%, percentila 100 pe 1 an"
+    "asof": "2026-11-19",
+    "why": "spread high yield 3.52%, percentila 100 pe 1 an"
    },
    {
     "key": "momentum",
     "label": "S&P momentum",
-    "value": -5.59,
+    "value": -6.36,
     "pctile": null,
     "score": -2,
     "weight": 0.3,
-    "asof": "2026-11-18",
-    "why": "S&P -5.59% pe 20 de ședințe, -3.88% pe 5"
+    "asof": "2026-11-19",
+    "why": "S&P -6.36% pe 20 de ședințe, -5.49% pe 5"
    }
   ],
-  "why": "VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5",
+  "why": "VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5",
   "weights": {
    "vix": 0.35,
    "credit": 0.35,
@@ -936,7 +936,7 @@ window.ANALYSIS_DATA = {
  "trades_fx": [],
  "trades_intraday": [],
  "cot": {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "source": "CFTC TFF (Leveraged Funds)",
   "markets": {
    "EUR": {
@@ -1134,7 +1134,7 @@ window.ANALYSIS_DATA = {
   }
  },
  "yields": {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "status": {
    "US": "ok",
    "EUR": "ok",
@@ -1158,81 +1158,81 @@ window.ANALYSIS_DATA = {
   "levels": {
    "US": {
     "2Y": {
-     "date": "2026-11-17",
+     "date": "2026-11-18",
      "value": 4.8,
-     "delta_1w": 0.24
+     "delta_1w": 0.07
     },
     "10Y": {
-     "date": "2026-11-17",
-     "value": 5.1,
-     "delta_1w": 0.22
+     "date": "2026-11-18",
+     "value": 5.07,
+     "delta_1w": 0.09
     }
    },
    "EUR": {
     "2Y": {
-     "date": "2026-11-18",
-     "value": 3.086,
-     "delta_1w": 0.041
+     "date": "2026-11-19",
+     "value": 3.125,
+     "delta_1w": 0.05
     },
     "10Y": {
-     "date": "2026-11-18",
-     "value": 3.41,
-     "delta_1w": 0.07
+     "date": "2026-11-19",
+     "value": 3.442,
+     "delta_1w": 0.074
     }
    },
    "GBP": {
     "2Y": {
-     "date": "2026-11-18",
-     "value": 4.714,
-     "delta_1w": 0.002
+     "date": "2026-11-19",
+     "value": 4.735,
+     "delta_1w": -0.005
     },
     "10Y": {
-     "date": "2026-11-18",
-     "value": 5.289,
-     "delta_1w": 0.078
+     "date": "2026-11-19",
+     "value": 5.303,
+     "delta_1w": 0.042
     }
    },
    "CAD": {
     "2Y": {
-     "date": "2026-11-18",
+     "date": "2026-11-19",
      "value": 3.3,
-     "delta_1w": 0.05
+     "delta_1w": -0.03
     },
     "10Y": {
-     "date": "2026-11-18",
-     "value": 3.8,
-     "delta_1w": 0.08
+     "date": "2026-11-19",
+     "value": 3.81,
+     "delta_1w": 0.03
     }
    },
    "JPY": {
     "2Y": {
-     "date": "2026-11-18",
-     "value": 1.872,
-     "delta_1w": 0.011
+     "date": "2026-11-19",
+     "value": 1.853,
+     "delta_1w": -0.004
     },
     "10Y": {
-     "date": "2026-11-18",
-     "value": 2.916,
-     "delta_1w": 0.076
+     "date": "2026-11-19",
+     "value": 2.87,
+     "delta_1w": 0.029
     }
    },
    "CHF": {
     "10Y": {
-     "date": "2026-11-19",
-     "value": 0.614,
-     "delta_1w": 0.09
+     "date": "2026-11-20",
+     "value": 0.555,
+     "delta_1w": -0.038
     }
    },
    "AUD": {
     "2Y": {
-     "date": "2026-11-11",
-     "value": 4.808,
-     "delta_1w": -0.018
+     "date": "2026-11-18",
+     "value": 4.813,
+     "delta_1w": 0.006
     },
     "10Y": {
-     "date": "2026-11-11",
-     "value": 5.044,
-     "delta_1w": -0.038
+     "date": "2026-11-18",
+     "value": 5.08,
+     "delta_1w": 0.036
     }
    },
    "NZD": {
@@ -1251,78 +1251,74 @@ window.ANALYSIS_DATA = {
   "spreads": {
    "EURUSD": {
     "2Y": {
-     "value": -1.714,
-     "delta_1w": -0.199
+     "value": -1.675,
+     "delta_1w": -0.02
     },
     "10Y": {
-     "value": -1.69,
-     "delta_1w": -0.15
+     "value": -1.628,
+     "delta_1w": -0.016
     }
    },
    "GBPUSD": {
     "2Y": {
-     "value": -0.086,
-     "delta_1w": -0.238
+     "value": -0.065,
+     "delta_1w": -0.075
     },
     "10Y": {
-     "value": 0.189,
-     "delta_1w": -0.142
+     "value": 0.233,
+     "delta_1w": -0.048
     }
    },
    "USDJPY": {
     "2Y": {
-     "value": 2.928,
-     "delta_1w": 0.229
+     "value": 2.947,
+     "delta_1w": 0.074
     },
     "10Y": {
-     "value": 2.184,
-     "delta_1w": 0.144
+     "value": 2.2,
+     "delta_1w": 0.061
     }
    },
    "USDCHF": {
     "10Y": {
-     "value": 4.486,
-     "delta_1w": 0.13
+     "value": 4.515,
+     "delta_1w": 0.128
     }
    },
    "USDCAD": {
     "2Y": {
      "value": 1.5,
-     "delta_1w": 0.19
+     "delta_1w": 0.1
     },
     "10Y": {
-     "value": 1.3,
-     "delta_1w": 0.14
+     "value": 1.26,
+     "delta_1w": 0.06
     }
    },
    "AUDUSD": {
     "2Y": {
-     "value": 0.008,
-     "delta_1w": -0.258
+     "value": 0.013,
+     "delta_1w": -0.064
     },
     "10Y": {
-     "value": -0.056,
-     "delta_1w": -0.258
+     "value": 0.01,
+     "delta_1w": -0.054
     }
    },
    "NZDUSD": {
     "2Y": {
      "value": -1.15,
-     "delta_1w": -0.26
+     "delta_1w": -0.09
     },
     "10Y": {
-     "value": -0.37,
-     "delta_1w": -0.21
+     "value": -0.34,
+     "delta_1w": -0.08
     }
    }
   },
   "history": {
    "US": {
     "2Y": [
-     [
-      "2026-10-05",
-      4.84
-     ],
      [
       "2026-10-06",
       4.79
@@ -1438,13 +1434,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-17",
       4.8
+     ],
+     [
+      "2026-11-18",
+      4.8
      ]
     ],
     "10Y": [
-     [
-      "2026-10-05",
-      5.31
-     ],
      [
       "2026-10-06",
       5.27
@@ -1560,15 +1556,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-17",
       5.1
+     ],
+     [
+      "2026-11-18",
+      5.07
      ]
     ]
    },
    "EUR": {
     "2Y": [
-     [
-      "2026-10-08",
-      3.0331429854
-     ],
      [
       "2026-10-09",
       3.04693948
@@ -1684,13 +1680,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       3.085907912
+     ],
+     [
+      "2026-11-19",
+      3.1250637519
      ]
     ],
     "10Y": [
-     [
-      "2026-10-08",
-      3.51918971
-     ],
      [
       "2026-10-09",
       3.5112034635
@@ -1806,15 +1802,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       3.4103236155
+     ],
+     [
+      "2026-11-19",
+      3.4415130227
      ]
     ]
    },
    "GBP": {
     "2Y": [
-     [
-      "2026-10-08",
-      4.695456248818018
-     ],
      [
       "2026-10-09",
       4.6870257739012
@@ -1930,13 +1926,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       4.71368072699646
+     ],
+     [
+      "2026-11-19",
+      4.734728709320078
      ]
     ],
     "10Y": [
-     [
-      "2026-10-08",
-      5.478108947041671
-     ],
      [
       "2026-10-09",
       5.445238229399079
@@ -2052,15 +2048,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       5.289444829456822
+     ],
+     [
+      "2026-11-19",
+      5.303469252170214
      ]
     ]
    },
    "CAD": {
     "2Y": [
-     [
-      "2026-10-06",
-      3.23
-     ],
      [
       "2026-10-07",
       3.23
@@ -2176,13 +2172,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       3.3
+     ],
+     [
+      "2026-11-19",
+      3.3
      ]
     ],
     "10Y": [
-     [
-      "2026-10-06",
-      3.92
-     ],
      [
       "2026-10-07",
       3.94
@@ -2298,15 +2294,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       3.8
+     ],
+     [
+      "2026-11-19",
+      3.81
      ]
     ]
    },
    "JPY": {
     "2Y": [
-     [
-      "2026-10-06",
-      1.93
-     ],
      [
       "2026-10-07",
       1.951
@@ -2422,13 +2418,13 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       1.872
+     ],
+     [
+      "2026-11-19",
+      1.853
      ]
     ],
     "10Y": [
-     [
-      "2026-10-06",
-      3.103
-     ],
      [
       "2026-10-07",
       3.111
@@ -2544,16 +2540,16 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-18",
       2.916
+     ],
+     [
+      "2026-11-19",
+      2.87
      ]
     ]
    },
    "CHF": {
     "2Y": [],
     "10Y": [
-     [
-      "2026-10-09",
-      0.579
-     ],
      [
       "2026-10-12",
       0.572
@@ -2669,31 +2665,15 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-19",
       0.614
+     ],
+     [
+      "2026-11-20",
+      0.555
      ]
     ]
    },
    "AUD": {
     "2Y": [
-     [
-      "2026-09-30",
-      4.942
-     ],
-     [
-      "2026-10-01",
-      4.987
-     ],
-     [
-      "2026-10-02",
-      4.909
-     ],
-     [
-      "2026-10-06",
-      4.931
-     ],
-     [
-      "2026-10-07",
-      4.94
-     ],
      [
       "2026-10-08",
       4.911
@@ -2748,7 +2728,7 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-10-27",
-      4.883
+      4.882
      ],
      [
       "2026-10-28",
@@ -2756,11 +2736,11 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-10-29",
-      4.91
+      4.911
      ],
      [
       "2026-10-30",
-      4.87
+      4.869
      ],
      [
       "2026-11-02",
@@ -2768,19 +2748,19 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-11-03",
-      4.828
+      4.829
      ],
      [
       "2026-11-04",
-      4.826
+      4.825
      ],
      [
       "2026-11-05",
-      4.785
+      4.784
      ],
      [
       "2026-11-06",
-      4.748
+      4.749
      ],
      [
       "2026-11-09",
@@ -2792,30 +2772,30 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-11-11",
-      4.808
+      4.807
+     ],
+     [
+      "2026-11-12",
+      4.795
+     ],
+     [
+      "2026-11-13",
+      4.853
+     ],
+     [
+      "2026-11-16",
+      4.856
+     ],
+     [
+      "2026-11-17",
+      4.862
+     ],
+     [
+      "2026-11-18",
+      4.813
      ]
     ],
     "10Y": [
-     [
-      "2026-09-30",
-      5.344
-     ],
-     [
-      "2026-10-01",
-      5.397
-     ],
-     [
-      "2026-10-02",
-      5.334
-     ],
-     [
-      "2026-10-06",
-      5.394
-     ],
-     [
-      "2026-10-07",
-      5.404
-     ],
      [
       "2026-10-08",
       5.39
@@ -2858,7 +2838,7 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-10-22",
-      5.249
+      5.248
      ],
      [
       "2026-10-23",
@@ -2874,7 +2854,7 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-10-28",
-      5.208
+      5.207
      ],
      [
       "2026-10-29",
@@ -2882,7 +2862,7 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-10-30",
-      5.116
+      5.115
      ],
      [
       "2026-11-02",
@@ -2902,11 +2882,11 @@ window.ANALYSIS_DATA = {
      ],
      [
       "2026-11-06",
-      4.984
+      4.983
      ],
      [
       "2026-11-09",
-      5.004
+      5.003
      ],
      [
       "2026-11-10",
@@ -2915,6 +2895,26 @@ window.ANALYSIS_DATA = {
      [
       "2026-11-11",
       5.044
+     ],
+     [
+      "2026-11-12",
+      5.039
+     ],
+     [
+      "2026-11-13",
+      5.123
+     ],
+     [
+      "2026-11-16",
+      5.135
+     ],
+     [
+      "2026-11-17",
+      5.135
+     ],
+     [
+      "2026-11-18",
+      5.08
      ]
     ]
    },
@@ -3629,14 +3629,14 @@ window.ANALYSIS_DATA = {
   "month": 8,
   "regime_score": -2,
   "regime_src": "calculat",
-  "regime_why": "VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5",
+  "regime_why": "VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5",
   "currencies": {
    "USD": {
     "scores": {
      "bnk": -1,
      "cb": -2,
      "ind": -1,
-     "yld": 2,
+     "yld": 1,
      "cot": -1,
      "reg": 1,
      "sea": 0
@@ -3645,12 +3645,12 @@ window.ANALYSIS_DATA = {
      "bnk": "Bloc majoritar bearish/neutru (ING, MUFG, Natixis x2, TMV) pe NFP -23k și CPI aștept slab mâine, dar nu unanim: Danske (conv. 4-5) și CACIB (via funding EM) rămân structural bullish, iar 3 disidenți FOMC au cerut deja hike. Tilt bearish, nu convingere puternică — CPI de mâine decide.",
      "cb": "edge -130bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „negativ\"",
-     "yld": "Δ2Y +0.240, adică +0.218 față de media grupului",
+     "yld": "Δ2Y +0.070, adică +0.076 față de media grupului",
      "cot": "long aglomerat (percentila 83) — vulnerabil la dezamăgire",
-     "reg": "regim -2 × beta -0.5 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta -0.5 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii +0.31%, hit 59% (7 perechi)"
     },
-    "total": -2.5,
+    "total": -3.2,
     "missing": [],
     "contra": "",
     "catalyst": "CPI SUA (iulie) — miercuri 12.08",
@@ -3661,21 +3661,21 @@ window.ANALYSIS_DATA = {
      "bnk": 0,
      "cb": -1,
      "ind": 1,
-     "yld": 0,
+     "yld": 1,
      "cot": 2,
      "reg": 0,
      "sea": 0
     },
     "why": {
      "bnk": "Fără consens: TMV (CB) și MUFG văd EUR susținut de un ECB mai hawkish decât acum o lună, dar Danske (conv. 5, cea mai înaltă convingere din tot batch-ul) e explicit bearish EUR/USD pe 12 luni, iar ING/KBC stau neutru tehnic.",
-     "cb": "edge -34bp — deja prețuit peste view-ul desk-ului",
+     "cb": "edge -38bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „pozitiv\"",
-     "yld": "Δ2Y +0.041, adică -0.010 față de media grupului",
+     "yld": "Δ2Y +0.050, adică +0.053 față de media grupului",
      "cot": "short aglomerat (percentila 4) — combustibil de squeeze",
-     "reg": "regim -2 × beta +0.0 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta +0.0 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii +0.02%, hit 40% (1 perechi)"
     },
-    "total": 0.5,
+    "total": 1.2,
     "missing": [],
     "contra": "Danske (bearish, conv. 5) vs. TMV+MUFG (bullish pe ECB hawkish) — scor plafonat la 0",
     "catalyst": "",
@@ -3686,25 +3686,25 @@ window.ANALYSIS_DATA = {
      "bnk": 0,
      "cb": -1,
      "ind": 0,
-     "yld": -1,
+     "yld": 0,
      "cot": 0,
      "reg": 1,
      "sea": -1
     },
     "why": {
      "bnk": "TMV (fundamental, CB) vede BoE încă divizată spre hike (6-3, gilt cel mai ridicat din G7) — bullish; CACIB vine cu un sell tehnic/poziționare explicit contrarian față de propriul flux de clienți (care cumpărau GBP). Cele două lecturi nu se confirmă reciproc, KBC stă neutru.",
-     "cb": "edge -71bp — deja prețuit peste view-ul desk-ului",
+     "cb": "edge -74bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „mixt\"",
-     "yld": "Δ2Y +0.002, adică -0.054 față de media grupului",
+     "yld": "Δ2Y -0.005, adică -0.010 față de media grupului",
      "cot": "poziționare neutră (percentila 69)",
-     "reg": "regim -2 × beta -0.3 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta -0.3 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii -0.58%, hit 30% (1 perechi)"
     },
-    "total": -1.5,
+    "total": -0.8,
     "missing": [],
     "contra": "TMV bullish (fundamental CB) vs. CACIB bearish (poziționare, contrazice chiar fluxul propriu) — scor plafonat la 0",
     "catalyst": "",
-    "rank": 6
+    "rank": 4
    },
    "JPY": {
     "scores": {
@@ -3718,18 +3718,18 @@ window.ANALYSIS_DATA = {
     },
     "why": {
      "bnk": "Contradicția clasică a săptămânii: TMV (fundamental, disident hawkish la BoJ, hike octombrie ~96% prețuit) e bullish JPY, dar bloc-ul comercial (ING, Westpac, CACIB, Danske pe termen scurt) arată short JPY reconstruit după intervenția BoJ-Trezorerie SUA, cu MUFG însuși întorcându-se de la Bullish (07.08) la Neutru (10.08) în decurs de 3 zile.",
-     "cb": "edge -37bp — deja prețuit peste view-ul desk-ului",
+     "cb": "edge -35bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „mixt\"",
-     "yld": "Δ2Y +0.011, adică -0.044 față de media grupului",
+     "yld": "Δ2Y -0.004, adică -0.009 față de media grupului",
      "cot": "long aglomerat (percentila 90) — vulnerabil la dezamăgire",
-     "reg": "regim -2 × beta -1.0 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta -1.0 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii +0.06%, hit 50% (1 perechi)"
     },
     "total": -1.0,
     "missing": [],
     "contra": "TMV+Danske(structural) bullish vs. ING/Westpac/CACIB/Danske(termen scurt) bearish — scor plafonat la 0",
     "catalyst": "",
-    "rank": 3
+    "rank": 5
    },
    "CHF": {
     "scores": {
@@ -3743,11 +3743,11 @@ window.ANALYSIS_DATA = {
     },
     "why": {
      "bnk": "O singură sursă (TMV), și intern contradictorie: politica SNB e dovish (discuție de dobânzi negative în septembrie), dar raportul prognozează totuși apreciere CHF pe fluxuri de refugiu, nu pe rată. Nicio bancă comercială din batch nu a scris o teză proprie pe franc.",
-     "cb": "edge -86bp — deja prețuit peste view-ul desk-ului [citire pe 10Y — 2Y indisponibil]",
+     "cb": "edge -81bp — deja prețuit peste view-ul desk-ului [citire pe 10Y — 2Y indisponibil]",
      "ind": "etichetă manuală „negativ\"",
-     "yld": "Δ10Y +0.090, adică +0.046 față de media grupului [10Y — 2Y indisponibil]",
+     "yld": "Δ10Y -0.038, adică -0.048 față de media grupului [10Y — 2Y indisponibil]",
      "cot": "short aglomerat (percentila 8) — combustibil de squeeze",
-     "reg": "regim -2 × beta +0.5 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta +0.5 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii +0.18%, hit 60% (1 perechi)"
     },
     "total": -2.0,
@@ -3770,23 +3770,23 @@ window.ANALYSIS_DATA = {
      "bnk": "Singurele două surse din batch (TMV, MUFG) sunt aliniate bullish: GDP T2 a bătut cu mult proiecția proprie BoC (3,4% vs 2,5%), bias-ul de relaxare a dispărut, iar petrolul mai ridicat susține CAD. Breadth redusă (2 surse) ține scorul la +1, nu +2.",
      "cb": "edge -80bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „pozitiv\"",
-     "yld": "Δ2Y +0.050, adică +0.001 față de media grupului",
+     "yld": "Δ2Y -0.030, adică -0.038 față de media grupului",
      "cot": "poziționare neutră (percentila 44)",
-     "reg": "regim -2 × beta +1.0 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta +1.0 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii -0.31%, hit 30% (1 perechi)"
     },
     "total": -1.2,
     "missing": [],
     "contra": "",
     "catalyst": "",
-    "rank": 4
+    "rank": 6
    },
    "AUD": {
     "scores": {
      "bnk": 2,
      "cb": 0,
      "ind": 0,
-     "yld": -1,
+     "yld": 0,
      "cot": 0,
      "reg": -2,
      "sea": -1
@@ -3795,12 +3795,12 @@ window.ANALYSIS_DATA = {
      "bnk": "Cel mai aliniat bloc din tot batch-ul: TMV, MUFG (de două ori, inclusiv o idee nouă Long AUD/JPY) și ING converg independent pe AUD bullish — RBA hawkish-hold, ~44% din analiști încă văd un hike, plus suportul de la petrol/cupru.",
      "cb": "edge -21bp — aliniat cu pricing-ul (sub pragul de 25bp)",
      "ind": "etichetă manuală „mixt\"",
-     "yld": "Δ2Y -0.018, adică -0.077 față de media grupului",
+     "yld": "Δ2Y +0.006, adică +0.003 față de media grupului",
      "cot": "poziționare neutră (percentila 65)",
-     "reg": "regim -2 × beta +1.0 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta +1.0 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii -0.50%, hit 30% (1 perechi)"
     },
-    "total": 1.0,
+    "total": 1.8,
     "missing": [],
     "contra": "",
     "catalyst": "",
@@ -3811,7 +3811,7 @@ window.ANALYSIS_DATA = {
      "bnk": 1,
      "cb": -1,
      "ind": 0,
-     "yld": -1,
+     "yld": 0,
      "cot": 0,
      "reg": -2,
      "sea": 0
@@ -3820,49 +3820,49 @@ window.ANALYSIS_DATA = {
      "bnk": "Singura sursă (TMV): prima majorare RBNZ din 2023, ciclu deschis spre ~3,00% OCR. Convingere temperată de propriul raport — șomaj la maxim de 11 ani (5,6%) și inflație ex-combustibil doar în bandă (2,9%) — risc dovish real la Declarația de mâine (12.08).",
      "cb": "edge -65bp — deja prețuit peste view-ul desk-ului",
      "ind": "etichetă manuală „mixt\"",
-     "yld": "Δ2Y -0.020, adică -0.079 față de media grupului",
+     "yld": "Δ2Y -0.020, adică -0.027 față de media grupului",
      "cot": "poziționare neutră (percentila 21)",
-     "reg": "regim -2 × beta +1.0 (VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5)",
+     "reg": "regim -2 × beta +1.0 (VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5)",
      "sea": "media lunii -1.04%, hit 50% (1 perechi)"
     },
-    "total": -1.2,
+    "total": -0.5,
     "missing": [],
     "contra": "",
     "catalyst": "RBNZ Monetary Policy Statement — miercuri 12.08",
-    "rank": 5
+    "rank": 3
    }
   },
   "ranked": [
    "AUD",
    "EUR",
-   "JPY",
-   "CAD",
    "NZD",
    "GBP",
+   "JPY",
+   "CAD",
    "CHF",
    "USD"
   ],
   "pairs": [
    {
     "pair": "AUDUSD",
-    "gap": 3.5,
-    "band": "NOISE",
+    "gap": 5.0,
+    "band": "THIN",
     "dir": "LONG",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
+    "verdict": "WATCH",
+    "note": "diferență moderată — devine idee doar cu catalizator",
     "catalyst": "CPI SUA (iulie) — miercuri 12.08",
     "blind": [],
     "cross": false,
     "legs": {
      "base": "AUD",
      "quote": "USD",
-     "base_total": 1.0,
-     "quote_total": -2.5
+     "base_total": 1.8,
+     "quote_total": -3.2
     }
    },
    {
     "pair": "EURUSD",
-    "gap": 3.0,
+    "gap": 4.4,
     "band": "NOISE",
     "dir": "LONG",
     "verdict": "SUB PRAG",
@@ -3873,13 +3873,47 @@ window.ANALYSIS_DATA = {
     "legs": {
      "base": "EUR",
      "quote": "USD",
-     "base_total": 0.5,
-     "quote_total": -2.5
+     "base_total": 1.2,
+     "quote_total": -3.2
+    }
+   },
+   {
+    "pair": "NZDUSD",
+    "gap": 2.7,
+    "band": "NOISE",
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "RBNZ Monetary Policy Statement — miercuri 12.08 · CPI SUA (iulie) — miercuri 12.08",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "NZD",
+     "quote": "USD",
+     "base_total": -0.5,
+     "quote_total": -3.2
+    }
+   },
+   {
+    "pair": "GBPUSD",
+    "gap": 2.4,
+    "band": "NOISE",
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "GBP",
+     "quote": "USD",
+     "base_total": -0.8,
+     "quote_total": -3.2
     }
    },
    {
     "pair": "AUDNZD",
-    "gap": 2.2,
+    "gap": 2.3,
     "band": "NOISE",
     "dir": "LONG",
     "verdict": "SUB PRAG",
@@ -3890,7 +3924,58 @@ window.ANALYSIS_DATA = {
     "legs": {
      "base": "AUD",
      "quote": "NZD",
-     "base_total": 1.0,
+     "base_total": 1.8,
+     "quote_total": -0.5
+    }
+   },
+   {
+    "pair": "USDJPY",
+    "gap": -2.2,
+    "band": "NOISE",
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "USD",
+     "quote": "JPY",
+     "base_total": -3.2,
+     "quote_total": -1.0
+    }
+   },
+   {
+    "pair": "EURJPY",
+    "gap": 2.2,
+    "band": "NOISE",
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "EUR",
+     "quote": "JPY",
+     "base_total": 1.2,
+     "quote_total": -1.0
+    }
+   },
+   {
+    "pair": "USDCAD",
+    "gap": -2.0,
+    "band": "NOISE",
+    "dir": "SHORT",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
+    "blind": [],
+    "cross": false,
+    "legs": {
+     "base": "USD",
+     "quote": "CAD",
+     "base_total": -3.2,
      "quote_total": -1.2
     }
    },
@@ -3907,98 +3992,13 @@ window.ANALYSIS_DATA = {
     "legs": {
      "base": "EUR",
      "quote": "GBP",
-     "base_total": 0.5,
-     "quote_total": -1.5
-    }
-   },
-   {
-    "pair": "USDJPY",
-    "gap": -1.5,
-    "band": "NOISE",
-    "dir": "SHORT",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
-    "blind": [],
-    "cross": false,
-    "legs": {
-     "base": "USD",
-     "quote": "JPY",
-     "base_total": -2.5,
-     "quote_total": -1.0
-    }
-   },
-   {
-    "pair": "EURJPY",
-    "gap": 1.5,
-    "band": "NOISE",
-    "dir": "LONG",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "",
-    "blind": [],
-    "cross": true,
-    "legs": {
-     "base": "EUR",
-     "quote": "JPY",
-     "base_total": 0.5,
-     "quote_total": -1.0
-    }
-   },
-   {
-    "pair": "USDCAD",
-    "gap": -1.3,
-    "band": "NOISE",
-    "dir": "SHORT",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
-    "blind": [],
-    "cross": false,
-    "legs": {
-     "base": "USD",
-     "quote": "CAD",
-     "base_total": -2.5,
-     "quote_total": -1.2
-    }
-   },
-   {
-    "pair": "NZDUSD",
-    "gap": 1.3,
-    "band": "NOISE",
-    "dir": "LONG",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "RBNZ Monetary Policy Statement — miercuri 12.08 · CPI SUA (iulie) — miercuri 12.08",
-    "blind": [],
-    "cross": false,
-    "legs": {
-     "base": "NZD",
-     "quote": "USD",
-     "base_total": -1.2,
-     "quote_total": -2.5
-    }
-   },
-   {
-    "pair": "GBPUSD",
-    "gap": 1.0,
-    "band": "NOISE",
-    "dir": "LONG",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "CPI SUA (iulie) — miercuri 12.08",
-    "blind": [],
-    "cross": false,
-    "legs": {
-     "base": "GBP",
-     "quote": "USD",
-     "base_total": -1.5,
-     "quote_total": -2.5
+     "base_total": 1.2,
+     "quote_total": -0.8
     }
    },
    {
     "pair": "USDCHF",
-    "gap": -0.5,
+    "gap": -1.2,
     "band": "NOISE",
     "dir": "SHORT",
     "verdict": "SUB PRAG",
@@ -4009,25 +4009,8 @@ window.ANALYSIS_DATA = {
     "legs": {
      "base": "USD",
      "quote": "CHF",
-     "base_total": -2.5,
+     "base_total": -3.2,
      "quote_total": -2.0
-    }
-   },
-   {
-    "pair": "GBPJPY",
-    "gap": -0.5,
-    "band": "NOISE",
-    "dir": "SHORT",
-    "verdict": "SUB PRAG",
-    "note": "diferență în zona de zgomot — fără trade",
-    "catalyst": "",
-    "blind": [],
-    "cross": true,
-    "legs": {
-     "base": "GBP",
-     "quote": "JPY",
-     "base_total": -1.5,
-     "quote_total": -1.0
     }
    },
    {
@@ -4043,8 +4026,25 @@ window.ANALYSIS_DATA = {
     "legs": {
      "base": "GBP",
      "quote": "NZD",
-     "base_total": -1.5,
-     "quote_total": -1.2
+     "base_total": -0.8,
+     "quote_total": -0.5
+    }
+   },
+   {
+    "pair": "GBPJPY",
+    "gap": 0.2,
+    "band": "NOISE",
+    "dir": "LONG",
+    "verdict": "SUB PRAG",
+    "note": "diferență în zona de zgomot — fără trade",
+    "catalyst": "",
+    "blind": [],
+    "cross": true,
+    "legs": {
+     "base": "GBP",
+     "quote": "JPY",
+     "base_total": -0.8,
+     "quote_total": -1.0
     }
    },
    {

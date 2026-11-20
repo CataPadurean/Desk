@@ -1,43 +1,43 @@
 {
- "updated": "2026-11-19",
- "asof": "2026-11-18",
+ "updated": "2026-11-20",
+ "asof": "2026-11-19",
  "score": -2,
  "raw": -2.0,
  "label": "RISK-OFF",
- "vix": 24.56,
+ "vix": 28.44,
  "components": [
   {
    "key": "vix",
    "label": "VIX",
-   "value": 24.56,
-   "pctile": 93,
+   "value": 28.44,
+   "pctile": 99,
    "score": -2,
    "weight": 0.35,
-   "asof": "2026-11-18",
-   "why": "VIX 24.56, percentila 93 pe 1 an"
+   "asof": "2026-11-19",
+   "why": "VIX 28.44, percentila 99 pe 1 an"
   },
   {
    "key": "credit",
    "label": "HY OAS",
-   "value": 3.47,
+   "value": 3.52,
    "pctile": 100,
    "score": -2,
    "weight": 0.35,
-   "asof": "2026-11-18",
-   "why": "spread high yield 3.47%, percentila 100 pe 1 an"
+   "asof": "2026-11-19",
+   "why": "spread high yield 3.52%, percentila 100 pe 1 an"
   },
   {
    "key": "momentum",
    "label": "S&P momentum",
-   "value": -5.59,
+   "value": -6.36,
    "pctile": null,
    "score": -2,
    "weight": 0.3,
-   "asof": "2026-11-18",
-   "why": "S&P -5.59% pe 20 de ședințe, -3.88% pe 5"
+   "asof": "2026-11-19",
+   "why": "S&P -6.36% pe 20 de ședințe, -5.49% pe 5"
   }
  ],
- "why": "VIX 24.56, percentila 93 pe 1 an · spread high yield 3.47%, percentila 100 pe 1 an · S&P -5.59% pe 20 de ședințe, -3.88% pe 5",
+ "why": "VIX 28.44, percentila 99 pe 1 an · spread high yield 3.52%, percentila 100 pe 1 an · S&P -6.36% pe 20 de ședințe, -5.49% pe 5",
  "weights": {
   "vix": 0.35,
   "credit": 0.35,
